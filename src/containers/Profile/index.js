@@ -215,7 +215,7 @@ class Users extends Component {
       namestyle: {
         color: "#D8D8D8",
         "font-family": "Avenir",
-        "font-size": "30px",
+        "font-size": "5vw",
         margin: "10px"
       },
       categorystyle: {
