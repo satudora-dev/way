@@ -132,7 +132,7 @@ class Signup extends Component {
       alert('名が未入力です。');
       return;
     }
-    else if(!this.state.iconSrc){
+    else if(!this.state.iconFile){
       alert('Icon image is empty.');
       return;
     }
