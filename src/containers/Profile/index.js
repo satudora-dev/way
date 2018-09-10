@@ -93,13 +93,18 @@ class Users extends Component {
     });
   }
 
-  onNameEditEnd(stateName,val){
-    if(!val)val=this.state[stateName];
-
-    let newState=this.state;
-    newState[stateName]=val;
-    this.setState(newState);
-    this.profDbRef.child(stateName).set(val);
+  onNameEditEnd(val){
+    let names=val.split(' ');
+    if(!val||names.length!=2){
+      names=[this.state.given, this.state.family];
+    }
+    
+    this.setState({
+      given: names[0],
+      family: names[1],
+    });
+    this.profDbRef.child("given").set(names[0]);
+    this.profDbRef.child("family").set(names[1]);
   }
 
   switchModal(on,mode){
@@ -270,19 +275,11 @@ class Users extends Component {
       <div className="Profile">
         <div className="Home" style={style.divstyle}>
           <ImageUploader src={this.state.icon} id={this.props.match.params.id}/>
-          <div>
-            <EditableLabel
-              style={style.namestyle}
-              value={this.state.given}
-              onEditEnd={(val)=>this.onNameEditEnd("given",val)}
-              canEdit={this.state.canEdit}/>
-              
-            <EditableLabel
-              style={style.namestyle}
-              value={this.state.family}
-              onEditEnd={(val)=>this.onNameEditEnd("family",val)}
-              canEdit={this.state.canEdit}/>
-          </div>
+          <EditableLabel
+            style={style.namestyle}
+            value={this.state.given + " " + this.state.family}
+            onEditEnd={(val)=>this.onNameEditEnd(val)}
+            canEdit={this.state.canEdit}/>
         </div>
         <div className="Position">
           <h3 style={style.categorystyle}>positions</h3>
