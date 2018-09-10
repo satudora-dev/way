@@ -54,7 +54,7 @@ class EditableLabel extends Component {
           {(()=>{
             if(this.state.onEdit){
               return(
-                <TextField autoFocus
+                <TextField autoFocus                  
                   InputProps={{style: this.props.style}}
                   value={this.state.value}
                   onChange={this.onTextChange}

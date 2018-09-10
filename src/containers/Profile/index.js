@@ -210,7 +210,7 @@ class Users extends Component {
       namestyle: {
         color: "#D8D8D8",
         "font-family": "Avenir",
-        "font-size": "50px",
+        "font-size": "30px",
         margin: "10px"
       },
       categorystyle: {
@@ -270,17 +270,19 @@ class Users extends Component {
       <div className="Profile">
         <div className="Home" style={style.divstyle}>
           <ImageUploader src={this.state.icon} id={this.props.match.params.id}/>
-          <p style={style.namestyle}>
+          <div>
             <EditableLabel
+              style={style.namestyle}
               value={this.state.given}
               onEditEnd={(val)=>this.onNameEditEnd("given",val)}
               canEdit={this.state.canEdit}/>
               
             <EditableLabel
+              style={style.namestyle}
               value={this.state.family}
               onEditEnd={(val)=>this.onNameEditEnd("family",val)}
               canEdit={this.state.canEdit}/>
-            </p>
+          </div>
         </div>
         <div className="Position">
           <h3 style={style.categorystyle}>positions</h3>
@@ -295,6 +297,7 @@ class Users extends Component {
             return (
               <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle}>
               <EditableLabel
+                style={style.tagbtnstyle}
                 value={project}
                 onEditEnd={(val)=>this.onParamsEditEnd(project,val,this.modalMODES.project)}
                 onClick={()=>this.toProjectPage(project)}
