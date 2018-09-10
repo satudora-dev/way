@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import {withStyles} from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
+import TextField from '@material-ui/core/TextField';
 
 class EditableLabel extends Component {
   constructor(props){
@@ -52,7 +54,8 @@ class EditableLabel extends Component {
           {(()=>{
             if(this.state.onEdit){
               return(
-                <input type="text" autoFocus
+                <TextField autoFocus
+                  InputProps={{style: this.props.style}}
                   value={this.state.value}
                   onChange={this.onTextChange}
                   onKeyDown={this.handleKeyPress}
@@ -61,7 +64,7 @@ class EditableLabel extends Component {
             }
             else{
               return(
-                <span>
+                <span style={this.props.style}>
                   <span onClick={()=>this.clickEvent()}>{this.state.value}</span>
                   {(()=>{
                     if(this.props.canEdit){
