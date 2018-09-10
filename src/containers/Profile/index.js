@@ -63,18 +63,18 @@ class Users extends Component {
             tags: tags,
           });
           
-          if(!this.props.location.state){
+          //if(!this.props.location.state||!this.props.location.state.icon){
             if(val.haveIcon){
               this.downloadImage(this.id);
             }
             else{
               this.setState({icon: "/portrait.png"});
             }
-          }
+          /*}
           else{
             this.setState({icon: this.props.location.state.icon,});
             this.props.location.state=null;
-          }
+          }*/
         });
         firebaseDB.ref('accounts/'+this.props.match.params.id).once('value',snapshot=>{
           let val=snapshot.val();
