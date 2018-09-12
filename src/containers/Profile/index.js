@@ -206,7 +206,6 @@ class Users extends Component {
         "object-fit": "cover",
       },
       divstyle: {
-        height: "456px",
         "background-image": "url('/grad.jpg')",
         "backend-position": "center center",
         "background-repeat": "no-repeat",
