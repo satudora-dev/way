@@ -21,7 +21,7 @@ class Signup extends Component {
 
   onTextChange(e){
     if(!e.target.files[0])return;
-    this.resizeImage(e.target.files[0]);
+    this.optimizeImage(e.target.files[0]);
   }
 
   uploadImage(){
@@ -34,7 +34,7 @@ class Signup extends Component {
     }
   }
 
-  resizeImage(iconFile){
+  optimizeImage(iconFile){
     let image=new Image();
     let _this = this;
     image.onload=()=> {
