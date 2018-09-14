@@ -10,7 +10,7 @@ class Signup extends Component {
     super(props);
     this.state={
       iconFile: "",
-      iconSrc: "/portrait.png",
+      iconSrc: "",
     };
   }
 
@@ -99,7 +99,7 @@ class Signup extends Component {
 
     return (
       <div>
-      <img src={this.state.iconSrc} style={style.imgstyle}/>
+      <img src={this.state.iconSrc} style={style.imgstyle} alt="Loading..."/>
       <input type="file" style={{display: "none"}} onChange={e => this.onTextChange(e)} ref="fileInput"/>
       <Button mini onClick={()=>this.onClickButton()} variant="fab" style={style.btnstyle}>
         <EditIcon/>
