@@ -93,18 +93,13 @@ class Users extends Component {
     });
   }
 
-  onNameEditEnd(val){
-    let names=val.split(' ');
-    if(!val||names.length!=2){
-      names=[this.state.given, this.state.family];
-    }
-    
+  onNameEditEnd(val){    
     this.setState({
-      given: names[0],
-      family: names[1],
+      given: val[0],
+      family: val[1],
     });
-    this.profDbRef.child("given").set(names[0]);
-    this.profDbRef.child("family").set(names[1]);
+    this.profDbRef.child("given").set(val[0]);
+    this.profDbRef.child("family").set(val[1]);
   }
 
   switchModal(on,mode){
@@ -143,7 +138,7 @@ class Users extends Component {
   }
 
   onParamsEditEnd(oldVal,newVal,mode){
-    newVal=newVal.toUpperCase();
+    newVal=newVal[0].toUpperCase();
     if(oldVal===newVal)return;
 
     switch(mode){
@@ -276,7 +271,7 @@ class Users extends Component {
           <ImageUploader src={this.state.icon} id={this.props.match.params.id}/>
           <EditableLabel
             style={style.namestyle}
-            value={this.state.given + " " + this.state.family}
+            value={[this.state.given,this.state.family]}
             onEditEnd={(val)=>this.onNameEditEnd(val)}
             canEdit={this.state.canEdit}/>
         </div>
@@ -294,7 +289,7 @@ class Users extends Component {
               <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle}>
               <EditableLabel
                 style={style.tagbtnstyle}
-                value={project}
+                value={[project]}
                 onEditEnd={(val)=>this.onParamsEditEnd(project,val,this.modalMODES.project)}
                 onClick={()=>this.toProjectPage(project)}
                 canEdit={true}
@@ -317,7 +312,7 @@ class Users extends Component {
             return (
               <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle}>
               <EditableLabel
-                value={tag}
+                value={[tag]}
                 onEditEnd={(val)=>this.onParamsEditEnd(tag,val,this.modalMODES.tag)}
                 onClick={()=>this.toTagPage(tag)}
                 canEdit={true}
