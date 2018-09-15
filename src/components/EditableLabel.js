@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {withStyles} from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 
@@ -11,9 +10,8 @@ class EditableLabel extends Component {
       onEdit: false,
     };
     this.onClick=this.onClick.bind(this);
-    this.onTextChange=this.onTextChange.bind(this);
     this.handleKeyPress=this.handleKeyPress.bind(this);
-    this.onFocusOut=this.onFocusOut.bind(this);
+    this.timeoutID=undefined;
   }
 
   componentWillReceiveProps(nextProps){
@@ -23,60 +21,75 @@ class EditableLabel extends Component {
     });
   }
 
-  onTextChange(e){
-    this.setState({value: e.target.value});
+  onTextChange(e,index){
+    var val=this.state.value;
+    val[index]=e.target.value;
+    this.setState({value: val});
   }
 
   onClick(e){
     this.setState({onEdit: true});
   }
 
-  handleKeyPress(e){
-    let ENTER=13;
-    if(e.keyCode===ENTER){
-      this.setState({onEdit: false});
-      this.props.onEditEnd(this.state.value);
-    }
-  }
-
-  onFocusOut(e){
+  EndEdit(){
     this.setState({onEdit: false});
     this.props.onEditEnd(this.state.value);
   }
 
+  handleKeyPress(e){
+    let ENTER=13;
+    if(e.keyCode===ENTER) this.EndEdit();
+  }
+
   clickEvent(){
-    if(this.props.onClick)this.props.onClick();
+    if(this.props.onClick) this.props.onClick();
+  }
+
+  onBlur(){
+    this.timeoutID=setTimeout(() => {
+      this.EndEdit();
+    }, 0);
+  }
+
+  onFocus(){
+    clearTimeout(this.timeoutID);
   }
 
   render() {
-    return (
-      <span className="EditableLabel">
+    if(this.state.onEdit){
+      return(
+        <span
+          onFocus={()=>this.onFocus()}
+          onBlur={()=>this.onBlur()}>
+          {this.state.value.map((v,i)=>{
+            return(
+              <TextField
+                autoFocus={i===0}
+                InputProps={{style: this.props.style}}
+                value={v}
+                onChange={(e)=>this.onTextChange(e,i)}
+                onKeyDown={this.handleKeyPress}/>
+            );
+          })}
+        </span>
+      );
+    }
+    else{
+      return(
+        <span style={this.props.style}>
+          {this.state.value.map(v=>{
+            return(
+              <span onClick={()=>this.clickEvent()}>{v}&ensp;</span>
+            );
+          })}
           {(()=>{
-            if(this.state.onEdit){
-              return(
-                <TextField autoFocus                  
-                  InputProps={{style: this.props.style}}
-                  value={this.state.value}
-                  onChange={this.onTextChange}
-                  onKeyDown={this.handleKeyPress}
-                  onBlur={this.onFocusOut}/>
-              );
-            }
-            else{
-              return(
-                <span style={this.props.style}>
-                  <span onClick={()=>this.clickEvent()}>{this.state.value}</span>
-                  {(()=>{
-                    if(this.props.canEdit){
-                      return <EditIcon onClick={this.onClick}/>;
-                    }
-                  })()}
-                </span>
-              );
+            if(this.props.canEdit){
+              return <EditIcon onClick={this.onClick}/>;
             }
           })()}
-      </span>
-    );
+        </span>
+      )
+    }
   }
 }
 
