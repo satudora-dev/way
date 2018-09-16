@@ -17,11 +17,8 @@ function GithubButton(props){
       transition: "all .3s",
     },
     button: {
-      border: "none",
-      width: "80px",
-      height: "80px",
-      "border-radius": "50%",
       padding: 0,
+      border: "none",
       cursor: "pointer",
       "background-color": "white",
       transition: "all .3s",
@@ -29,9 +26,11 @@ function GithubButton(props){
   }
   return(
     <div>
-      <button onClick={props.onClick} className="github" style={style.button}>
-        <img className="github" style={style.github} src="./github.svg" />
-      </button>
+        <button onClick={props.onClick} className="github" style={style.button}>
+          <img className="github" style={style.github} src="./github.svg" />
+          <h3>LOGIN</h3>
+        </button>
+
     </div>
   );
 }
