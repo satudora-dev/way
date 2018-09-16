@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "whoareyou-c231f"
+    "default": "whoareyou-c231f",
+    "master": "whoareyou-c231f"
   }
 }
