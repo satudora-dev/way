@@ -93,13 +93,13 @@ class Users extends Component {
     });
   }
 
-  onNameEditEnd(stateName,val){
-    if(!val)val=this.state[stateName];
-
-    let newState=this.state;
-    newState[stateName]=val;
-    this.setState(newState);
-    this.profDbRef.child(stateName).set(val);
+  onNameEditEnd(val){    
+    this.setState({
+      given: val[0],
+      family: val[1],
+    });
+    this.profDbRef.child("given").set(val[0]);
+    this.profDbRef.child("family").set(val[1]);
   }
 
   switchModal(on,mode){
@@ -138,7 +138,7 @@ class Users extends Component {
   }
 
   onParamsEditEnd(oldVal,newVal,mode){
-    newVal=newVal.toUpperCase();
+    newVal=newVal[0].toUpperCase();
     if(oldVal===newVal)return;
 
     switch(mode){
@@ -201,7 +201,6 @@ class Users extends Component {
         "object-fit": "cover",
       },
       divstyle: {
-        height: "456px",
         "background-image": "url('/grad.jpg')",
         "backend-position": "center center",
         "background-repeat": "no-repeat",
@@ -210,7 +209,7 @@ class Users extends Component {
       namestyle: {
         color: "#D8D8D8",
         "font-family": "Avenir",
-        "font-size": "50px",
+        "font-size": "5vw",
         margin: "10px"
       },
       categorystyle: {
@@ -270,17 +269,11 @@ class Users extends Component {
       <div className="Profile">
         <div className="Home" style={style.divstyle}>
           <ImageUploader src={this.state.icon} id={this.props.match.params.id}/>
-          <p style={style.namestyle}>
-            <EditableLabel
-              value={this.state.given}
-              onEditEnd={(val)=>this.onNameEditEnd("given",val)}
-              canEdit={this.state.canEdit}/>
-              
-            <EditableLabel
-              value={this.state.family}
-              onEditEnd={(val)=>this.onNameEditEnd("family",val)}
-              canEdit={this.state.canEdit}/>
-            </p>
+          <EditableLabel
+            style={style.namestyle}
+            value={[this.state.given,this.state.family]}
+            onEditEnd={(val)=>this.onNameEditEnd(val)}
+            canEdit={this.state.canEdit}/>
         </div>
         <div className="Position">
           <h3 style={style.categorystyle}>positions</h3>
@@ -295,7 +288,8 @@ class Users extends Component {
             return (
               <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle}>
               <EditableLabel
-                value={project}
+                style={style.tagbtnstyle}
+                value={[project]}
                 onEditEnd={(val)=>this.onParamsEditEnd(project,val,this.modalMODES.project)}
                 onClick={()=>this.toProjectPage(project)}
                 canEdit={true}
@@ -318,7 +312,7 @@ class Users extends Component {
             return (
               <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle}>
               <EditableLabel
-                value={tag}
+                value={[tag]}
                 onEditEnd={(val)=>this.onParamsEditEnd(tag,val,this.modalMODES.tag)}
                 onClick={()=>this.toTagPage(tag)}
                 canEdit={true}
