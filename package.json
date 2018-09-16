@@ -6,6 +6,7 @@
     "@material-ui/core": "^3.0.2",
     "@material-ui/icons": "^3.0.1",
     "draft-js": "^0.10.5",
+    "exif-js": "^2.3.0",
     "firebase": "^5.4.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
