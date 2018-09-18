@@ -7,9 +7,11 @@ import Modal from '@material-ui/core/Modal';
 import Badge from '@material-ui/core/Badge';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
-
 import EditableLabel from '../../components/EditableLabel';
 import ImageUploader from '../../components/ImageUploader';
+import ProjectsSelect from '../../components/ProjectSelect';
+import TagLabel from '../../components/TagLabel';
+import Grid from '@material-ui/core/Grid';
 
 class Users extends Component {
   constructor(props){
@@ -163,6 +165,70 @@ class Users extends Component {
     }
   }
 
+  updateProjects(projects){
+    this.setState({projects: projects});
+  }
+
+  // モーダルの中身を動的に返す(プロジェクト・タグ）
+  renderModalElement(){
+    const style = {
+      addtagstyle: {
+        display:"inline-block",
+        "margin-top":"250px",
+        height:"150px",
+        width:"300px",
+        "background-color":"white",
+        "text-align":"center",
+        "outline":"none",
+        "border-radius":"30px",
+        "font-family":"Avenir",
+      },
+      selectProjectModalStyle: {
+        display:"inline-block",
+        "margin-top":"250px",
+        height:"200px",
+        //widthはGridでレスポンシブに
+        "min-width": "300px",
+        "background-color":"white",
+        "text-align":"center",
+        "outline":"none",
+        "border-radius":"30px",
+        "font-family":"Avenir",
+      },
+      btnstyle: {
+        "margin-right": "10px",
+        "margin-bottom": "10px",
+        "background-color": "#04B486",
+        "color": "white",
+        "text-transform": "none",
+      },
+    }
+
+    switch(this.state.modalMode){
+      case this.modalMODES.tag:
+        return(
+          <div style={style.addtagstyle}>
+            <h3>add {this.state.modalModeText}</h3>
+            <TextField label={this.state.modalModeText}
+                       value={this.state.modalInput}
+                       style={{"margin-right": "10px"}} autoFocus
+                       onChange={(e) => this.onModalInputChange(e)}/>
+            <Button style={style.btnstyle}
+                    variant="outlined" value="add" onClick={() => this.onClickModalButton()}>add</Button>
+          </div>
+        )
+      case this.modalMODES.project:
+        return(
+          <div style={style.selectProjectModalStyle}>
+            <h3>selelct projects</h3>
+            <ProjectsSelect projects={this.state.projects} updateParentProjects={this.updateProjects} userID={this.id}/>
+            <Button style={style.btnstyle}
+                    variant="outlined" value="add" onClick={() => this.onClickModalButton()}>done</Button>
+          </div>
+        )
+    }
+  }
+
   addProject(prjName){
     if(this.state.projects.filter(x=>x===prjName).length>0)return;//重複判定
     if(!prjName)return;//空文字判定
@@ -241,17 +307,6 @@ class Users extends Component {
       addstyle: {
         margin: "10px"
       },
-      addtagstyle: {
-        display:"inline-block",
-        "margin-top":"250px",
-        height:"150px",
-        width:"300px",
-        "background-color":"white",
-        "text-align":"center",
-        "outline":"none",
-        "border-radius":"30px",
-        "font-family":"Avenir",
-      },
       iconstyle: {
         height:"20px",width:"20px",
         "margin-left":"10px",
@@ -287,19 +342,16 @@ class Users extends Component {
         {this.state.projects.map((project,i)=>{
             return (
               <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle}>
-              <EditableLabel
-                style={style.tagbtnstyle}
+              <TagLabel
                 value={[project]}
-                onEditEnd={(val)=>this.onParamsEditEnd(project,val,this.modalMODES.project)}
                 onClick={()=>this.toProjectPage(project)}
-                canEdit={true}
               />
               </Button>
             );
         })}
             <Button mini onClick={() => this.switchModal(true,this.modalMODES.project)}
-              variant="fab" style={style.btnstyle}>
-              <AddIcon />
+                    variant="fab" style={style.btnstyle}>
+              <EditIcon/>
             </Button>
           </div>
         </div>
@@ -329,15 +381,7 @@ class Users extends Component {
 
         <Modal open={this.state.modalOpen}
           onClose={()=>this.switchModal(false,this.modalMODES.none)}>
-          <div style={style.addtagstyle}>
-            <h3>add {this.state.modalModeText}</h3>
-            <TextField label={this.state.modalModeText}
-              value={this.state.modalInput}
-              style={{"margin-right":"10px"}} autoFocus
-              onChange={(e)=>this.onModalInputChange(e)}/>
-            <Button style={style.btnstyle}
-              variant="outlined" value="add" onClick={()=>this.onClickModalButton()}>add</Button>
-          </div>
+          {this.renderModalElement()}
         </Modal>
       </div>
     );
