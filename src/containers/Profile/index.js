@@ -276,6 +276,7 @@ class Users extends Component {
       position: this.state.initposition,
       positionOpen: false
     })
+    this.props.history.push('/users');
   }
 
   render() {
