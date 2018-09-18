@@ -341,11 +341,10 @@ class Users extends Component {
           <div style={style.tagstyle}>
         {this.state.projects.map((project,i)=>{
             return (
-              <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle}>
-              <TagLabel
-                value={[project]}
-                onClick={()=>this.toProjectPage(project)}
-              />
+              <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle} onClick={()=>this.toProjectPage(project)}>
+                <TagLabel
+                  value={[project]}
+                />
               </Button>
             );
         })}
