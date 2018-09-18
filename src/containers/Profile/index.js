@@ -8,34 +8,41 @@ import Badge from '@material-ui/core/Badge';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import EditableLabel from '../../components/EditableLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import ImageUploader from '../../components/ImageUploader';
 import ProjectsSelect from '../../components/ProjectSelect';
 import TagLabel from '../../components/TagLabel';
 import Grid from '@material-ui/core/Grid';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+
+var modalMODES={
+  none: 0,
+  project: 1,
+  tag: 2,
+  position: 3,
+}
+
 
 class Users extends Component {
   constructor(props){
     super(props);
-
-    this.modalMODES={
-      none: 0,
-      project: 1,
-      tag: 2,
-    }
 
     this.state={
       given: "",
       family: "",
       icon: "",
       modalOpen: false,
-      modalMode: this.modalMODES.none,
+      modalMode: modalMODES.none,
       modalInput: "",
       projects: [],
       tags: [],
       modalModeText: "",
       canEdit: false,
-      positionOpen: true,
-      initposition: "社員",
+      init: this.props.location.state.tut,
+      initposition: "アルバイト",
       position: null,
     };
     this.id=this.props.match.params.id;
@@ -65,9 +72,9 @@ class Users extends Component {
           this.setState({
             given: val.given,
             family: val.family,
+            position: val.position,
             projects: projects,
             tags: tags,
-            position: val.position,
           });
 
           //if(!this.props.location.state||!this.props.location.state.icon){
@@ -88,9 +95,12 @@ class Users extends Component {
           this.setState({canEdit: val.email===user.email});
         })
       }
+      if(this.state.init){
+        this.switchModal(true,modalMODES.position)
+      }
+
     });
   }
-
 
 
   downloadImage(id){
@@ -112,13 +122,15 @@ class Users extends Component {
   switchModal(on,mode){
     let text="";
     switch(mode){
-      case this.modalMODES.tag:
+      case modalMODES.tag:
         text="tag";
         break;
-      case this.modalMODES.project:
+      case modalMODES.project:
         text="project";
         break;
-
+      case modalMODES.position:
+        text="position";
+        break;
     }
     this.setState({
       modalOpen: on,
@@ -133,15 +145,28 @@ class Users extends Component {
   onClickModalButton(){
     let newName=this.state.modalInput.toUpperCase();
     switch(this.state.modalMode){
-      case this.modalMODES.project:
-        this.addProject(newName);
+      case modalMODES.project:
+  //      this.addProject(newName);
+        if (this.state.init){
+          this.switchModal(true,modalMODES.tag)
+        }
         break;
-      case this.modalMODES.tag:
+      case modalMODES.tag:
         this.addTag(newName);
+        if (this.state.init){
+          this.switchModal(false,modalMODES.none)
+        }
+        break;
+      case modalMODES.position:
+        this.addPosition(this.state.initposition)
+        if (this.state.init){
+          this.switchModal(true,modalMODES.project)
+        }
         break;
     }
     this.setState({modalInput: ""});
-    this.switchModal(false,this.modalMODES.none);
+    if (!this.state.init)this.switchModal(false,modalMODES.none);
+
   }
 
   onParamsEditEnd(oldVal,newVal,mode){
@@ -149,7 +174,7 @@ class Users extends Component {
     if(oldVal===newVal)return;
 
     switch(mode){
-      case this.modalMODES.project:
+      case modalMODES.project:
         let newPrj=this.state.projects.filter(n=>n!==oldVal);//古い情報を削除
         this.profDbRef.child("projects/"+oldVal).remove();
         this.prjDbRef.child(oldVal+"/members/"+this.id).remove();
@@ -158,7 +183,7 @@ class Users extends Component {
           this.addProject(newVal);
         }
         break;
-      case this.modalMODES.tag:
+      case modalMODES.tag:
         let newTag=this.state.tags.filter(n=>n!==oldVal);
         this.profDbRef.child("tags/"+oldVal).remove();
         this.tagDbRef.child(oldVal+"/"+this.id).remove();
@@ -208,9 +233,10 @@ class Users extends Component {
         "text-transform": "none",
       },
     }
+    const {classes} = this.props;
 
     switch(this.state.modalMode){
-      case this.modalMODES.tag:
+      case modalMODES.tag:
         return(
           <div style={style.addtagstyle}>
             <h3>add {this.state.modalModeText}</h3>
@@ -222,7 +248,7 @@ class Users extends Component {
                     variant="outlined" value="add" onClick={() => this.onClickModalButton()}>add</Button>
           </div>
         )
-      case this.modalMODES.project:
+      case modalMODES.project:
         return(
           <div style={style.selectProjectModalStyle}>
             <h3>selelct projects</h3>
@@ -230,6 +256,27 @@ class Users extends Component {
             <Button style={style.btnstyle}
                     variant="outlined" value="add" onClick={() => this.onClickModalButton()}>done</Button>
           </div>
+        )
+      case modalMODES.position:
+
+        return(
+          <div style={style.addtagstyle}>
+          <h3>selelct position</h3>
+          <FormControl className={null}>
+          <InputLabel htmlFor="age-simple">Position</InputLabel>
+          <Select
+            value={this.state.initposition}
+            onChange={this.handlePosition}
+            input={<Input id="age-simple" />}
+          >
+  　　　　　 <MenuItem value="アルバイト">アルバイト</MenuItem>
+            <MenuItem value="社員">社員</MenuItem>
+          </Select>
+          <Button style={style.btnstyle}
+                  variant="outlined"
+                  onClick={() => this.onClickModalButton()}>submit</Button>
+        </FormControl>
+        </div>
         )
     }
   }
@@ -242,17 +289,28 @@ class Users extends Component {
     this.setState({projects: newProjects});
     this.profDbRef.child("projects/"+prjName).set(true);
     this.prjDbRef.child(prjName+"/members/"+this.id).set(true);
+
   }
 
   addTag(tagName){
     if(this.state.projects.filter(x=>x===tagName).length>0)return;
     if(!tagName)return;//空文字判定
-
     let newTags=this.state.tags.concat(tagName);
     this.setState({tags: newTags});
     this.profDbRef.child("tags/"+tagName).set(true);
     this.tagDbRef.child(tagName+"/"+this.id).set(true);
   }
+
+  addPosition(posName){
+    if (posName===null){
+      alert("fuck!!!");
+    }else{
+    this.profDbRef.child("position").set(posName);
+    this.posDbRef.child(posName+"/"+this.id).set(true);
+    this.setState({
+      position: posName,
+    })
+  }}
 
   toProjectPage(prjName){
     this.props.history.push(`../users?project=${prjName}`);
@@ -263,21 +321,16 @@ class Users extends Component {
   }
 
 
-  handlePosition(event){
+  handlePosition = event => {
+    console.log(event.target.value);
     this.setState({
       initposition: event.target.value,
     })
-  }
+  };
+  handleChange = name => event => {
+    this.setState({ [name]: Number(event.target.value) });
+  };
 
-  addPosition(){
-    this.profDbRef.child("position").set(this.state.initposition);
-    this.posDbRef.child(this.state.position+"/"+this.id).set(true);
-    this.setState({
-      position: this.state.initposition,
-      positionOpen: false
-    })
-    this.props.history.push('/users');
-  }
 
   render() {
     const style = {
@@ -343,30 +396,15 @@ class Users extends Component {
     };
 
     var html = [];
-    if(this.props.location.state.tut){
-      html.push(
-        <Modal open={this.state.positionOpen}>
-          <div style={{"text-align":"center"}}>
-            <h3 style={{color:"white"}}>position選択</h3>
-            <select name="positions" onChange={(event)=>this.handlePosition(event)}>
-              <option value="社員">社員</option>
-              <option value="アルバイト">アルバイト</option>
-            </select>
-            {console.log(this.state.position)}
-            <button onClick={()=>this.addPosition()}>submit</button>
-          </div>
-        </Modal>
-      );
-    }else{
+
       html.push(
           <Grid>
             <Modal open={this.state.modalOpen}
-              onClose={()=>this.switchModal(false,this.modalMODES.none)}>
+              onClose={() => {if (!this.state.init) this.switchModal(false,modalMODES.none)}}>
               {this.renderModalElement()}
             </Modal>
           </Grid>
       );
-    }
     return (
       <div className="Profile">
   <div className="Home" style={style.divstyle}>
@@ -397,7 +435,7 @@ class Users extends Component {
         </Button>
       );
   })}
-      <Button mini onClick={() => this.switchModal(true,this.modalMODES.project)}
+      <Button mini onClick={() => this.switchModal(true,modalMODES.project)}
               variant="fab" style={style.btnstyle}>
         <EditIcon/>
       </Button>
@@ -413,21 +451,21 @@ class Users extends Component {
         <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle}>
         <EditableLabel
           value={[tag]}
-          onEditEnd={(val)=>this.onParamsEditEnd(tag,val,this.modalMODES.tag)}
+          onEditEnd={(val)=>this.onParamsEditEnd(tag,val,modalMODES.tag)}
           onClick={()=>this.toTagPage(tag)}
           canEdit={true}
         />
         </Button>
       );
   })}
-      <Button mini onClick={() => this.switchModal(true,this.modalMODES.tag)}
+      <Button mini onClick={() => this.switchModal(true,modalMODES.tag)}
         variant="fab" style={style.btnstyle}>
         <AddIcon />
       </Button>
     </div>
   </div>
 
-        <div>{html}</div>
+//        <div>{html}</div>
       </div>
 
     );
