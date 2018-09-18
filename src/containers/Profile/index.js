@@ -379,10 +379,12 @@ class Users extends Component {
           </div>
         </div>
 
-        <Modal open={this.state.modalOpen}
-          onClose={()=>this.switchModal(false,this.modalMODES.none)}>
-          {this.renderModalElement()}
-        </Modal>
+        <Grid>
+          <Modal open={this.state.modalOpen}
+            onClose={()=>this.switchModal(false,this.modalMODES.none)}>
+            {this.renderModalElement()}
+          </Modal>
+        </Grid>
       </div>
     );
   }
