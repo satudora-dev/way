@@ -339,19 +339,24 @@ class Users extends Component {
           <h3 style={style.categorystyle}>projects</h3>
           <hr />
           <div style={style.tagstyle}>
-        {this.state.projects.map((project,i)=>{
-            return (
-              <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle} onClick={()=>this.toProjectPage(project)}>
-                <TagLabel
-                  value={[project]}
-                />
-              </Button>
-            );
-        })}
-            <Button mini onClick={() => this.switchModal(true,this.modalMODES.project)}
-                    variant="fab" style={style.btnstyle}>
-              <EditIcon/>
-            </Button>
+            {this.state.projects.map((project,i)=>{
+                return (
+                  <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle} onClick={()=>this.toProjectPage(project)}>
+                    <TagLabel
+                      value={[project]}
+                    />
+                  </Button>
+                );
+            })}
+            {(() => {
+              if(this.state.canEdit)
+                return(
+                  <Button mini onClick={() => this.switchModal(true,this.modalMODES.project)}
+                          variant="fab" style={style.btnstyle}>
+                    <EditIcon/>
+                  </Button>
+                )
+            })()}
           </div>
         </div>
 
