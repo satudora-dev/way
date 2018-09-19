@@ -13,6 +13,12 @@ import ProjectsSelect from '../../components/ProjectSelect';
 import TagLabel from '../../components/TagLabel';
 import Grid from '@material-ui/core/Grid';
 
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+
 class Users extends Component {
   constructor(props){
     super(props);
@@ -379,74 +385,77 @@ class Users extends Component {
 
     return (
       <div className="Profile">
-  <div className="Home" style={style.divstyle}>
-    <ImageUploader src={this.state.icon} id={this.props.match.params.id}/>
-    <EditableLabel
-      style={style.namestyle}
-      value={[this.state.given,this.state.family]}
-      onEditEnd={(val)=>this.onNameEditEnd(val)}
-      canEdit={this.state.canEdit}/>
-  </div>
-  <div className="Position" style={style.tagstyle}>
-    <h3 style={style.categorystyle}>positions</h3>
-    <hr />
-    <Button variant="contained" style={style.tagbtnstyle}>{this.state.position}</Button>
+        <div className="Home" style={style.divstyle}>
+          <ImageUploader src={this.state.icon} id={this.props.match.params.id}/>
+            <EditableLabel
+              style={style.namestyle}
+              value={[this.state.given,this.state.family]}
+              onEditEnd={(val)=>this.onNameEditEnd(val)}
+              canEdit={this.state.canEdit}
+            />
+        </div>
+        <div className="Position" style={style.tagstyle}>
+          <h3 style={style.categorystyle}>positions</h3>
+          <hr />
+          <Button variant="contained" style={style.tagbtnstyle}>{this.state.position}</Button>
+        </div>
+        <div className="Project">
+          <h3 style={style.categorystyle}>projects</h3>
+          <hr />
+          <div style={style.tagstyle}>
+            {this.state.projects.map((project,i)=>{
+              return (
+                <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle}>
+                  <TagLabel
+                    value={[project]}
+                    onClick={()=>this.toProjectPage(project)}
+                  />
+                </Button>
+              );
+            })}
+           <Button mini
+                   onClick={() => this.switchModal(true,this.modalMODES.project)}
+                   variant="fab" style={style.btnstyle}
+           >
+             <EditIcon/>
+           </Button>
+         </div>
+       </div>
 
-  </div>
-  <div className="Project">
-    <h3 style={style.categorystyle}>projects</h3>
-    <hr />
-    <div style={style.tagstyle}>
-  {this.state.projects.map((project,i)=>{
-      return (
-        <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle}>
-        <TagLabel
-          value={[project]}
-          onClick={()=>this.toProjectPage(project)}
-        />
-        </Button>
-      );
-  })}
-      <Button mini onClick={() => this.switchModal(true,this.modalMODES.project)}
-              variant="fab" style={style.btnstyle}>
-        <EditIcon/>
-      </Button>
-    </div>
-  </div>
+       <div className="Others">
+         <h3 style={style.categorystyle}>tags</h3>
+         <hr />
+         <div style={style.tagstyle}>
+           {this.state.tags.map((tag,i)=>{
+             return (
+               <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle}>
+               <EditableLabel value={[tag]}
+                              onEditEnd={(val)=>this.onParamsEditEnd(tag,val,this.modalMODES.tag)}
+                              onClick={()=>this.toTagPage(tag)}
+                              canEdit={true}
+               />
+               </Button>
+             );
+           })}
+           <Button mini
+                   onClick={() => this.switchModal(true,this.modalMODES.tag)}
+                   variant="fab" style={style.btnstyle}
+           >
+             <AddIcon />
+           </Button>
+         </div>
+       </div>
 
-  <div className="Others">
-    <h3 style={style.categorystyle}>tags</h3>
-    <hr />
-    <div style={style.tagstyle}>
-  {this.state.tags.map((tag,i)=>{
-      return (
-        <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle}>
-        <EditableLabel
-          value={[tag]}
-          onEditEnd={(val)=>this.onParamsEditEnd(tag,val,this.modalMODES.tag)}
-          onClick={()=>this.toTagPage(tag)}
-          canEdit={true}
-        />
-        </Button>
-      );
-  })}
-      <Button mini onClick={() => this.switchModal(true,this.modalMODES.tag)}
-        variant="fab" style={style.btnstyle}>
-        <AddIcon />
-      </Button>
-    </div>
-  </div>
-
-  <div>
-    <Grid>
-      <Modal open={this.state.modalOpen}
-             onClose={() => {if (!this.state.openTutorial) this.switchModal(false,this.modalMODES.none)}}
-      >
-      {this.renderModalElement()}
-      </Modal>
-    </Grid>
-  </div>
-      </div>
+       <div>
+         <Grid>
+           <Modal open={this.state.modalOpen}
+                  onClose={() => {if (!this.state.openTutorial) this.switchModal(false,this.modalMODES.none)}}
+           >
+           {this.renderModalElement()}
+           </Modal>
+         </Grid>
+       </div>
+     </div>
 
     );
   }
