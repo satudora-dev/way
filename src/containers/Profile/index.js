@@ -311,6 +311,10 @@ class Users extends Component {
     this.tagDbRef.child(tagName+"/"+this.id).set(true);
   }
 
+  toPositionPage(posName){
+    this.props.history.push(`../users?position=${posName}`);
+  }
+
   toProjectPage(prjName){
     this.props.history.push(`../users?project=${prjName}`);
   }
@@ -398,7 +402,7 @@ class Users extends Component {
           <h3 style={style.categorystyle}>positions</h3>
           <hr />
           <div style={style.tagstyle}>
-            <Button variant="contained" style={style.tagbtnstyle}>{this.state.position}</Button>
+            <Button variant="contained" color="primary" style={style.tagbtnstyle} onClick={()=>this.toPositionPage(this.state.position)}>{this.state.position}</Button>
           </div>
         </div>
         <div className="Project">

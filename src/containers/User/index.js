@@ -16,8 +16,9 @@ class Users extends Component {
     this.orderOptions=["RANDOM","PROJECT"];
     this.refineMODES={
       all: 0,
-      project: 1,
-      tag: 2,
+      position: 1,
+      project: 2,
+      tag: 3,
     };
     this.state={
       authenticated: false,
@@ -43,8 +44,16 @@ class Users extends Component {
         else{
           query=query[1].split("=");
           if(query.length<2
-            ||(query[0]!=="project"&&query[0]!=="tag"))predicate=(x=>{return true;});
+            ||(query[0]!=="position"&&query[0]!=="project"&&query[0]!=="tag"))predicate=(x=>{return true;});
           else{
+            if(query[0]==="position"){
+              predicate=(x=>{
+                return x.position!==undefined && x.position===query[1];});
+              this.setState({
+                refineMode: this.refineMODES.position,
+                refineKey: query[1],
+              });
+            }
             if(query[0]==="project"){
               predicate=(x=>{
                 return x.projects!==undefined && x.projects[query[1]]!==undefined;});
@@ -81,7 +90,7 @@ class Users extends Component {
             });
             this.setState({users: usrs});
           }
-        });        
+        });
       }
     });
   }
@@ -114,7 +123,7 @@ class Users extends Component {
     this.setState({orderMenuOpen: on});
   }
 
-  render() {    
+  render() {
     const style = {
       iconstyle: {
         width: "128px",
