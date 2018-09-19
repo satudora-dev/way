@@ -414,16 +414,20 @@ class Users extends Component {
                 <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle} onClick={()=>this.toProjectPage(project)}>
                   <TagLabel
                     value={[project]}
+                    onClick={()=>this.toProjectPage(project)}
                   />
                 </Button>
               );
             })}
-           <Button mini
-                   onClick={() => this.switchModal(true,this.modalMODES.project)}
-                   variant="fab" style={style.btnstyle}
-           >
-             <EditIcon/>
-           </Button>
+            {(() => {
+              if(this.state.canEdit)
+                return(
+                  <Button mini onClick={() => this.switchModal(true,this.modalMODES.project)}
+                          variant="fab" style={style.btnstyle}>
+                    <EditIcon/>
+                  </Button>
+                )
+            })()}
          </div>
        </div>
 
