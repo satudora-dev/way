@@ -394,10 +394,12 @@ class Users extends Component {
               canEdit={this.state.canEdit}
             />
         </div>
-        <div className="Position" style={style.tagstyle}>
+        <div className="Position">
           <h3 style={style.categorystyle}>positions</h3>
           <hr />
-          <Button variant="contained" style={style.tagbtnstyle}>{this.state.position}</Button>
+          <div style={style.tagstyle}>
+            <Button variant="contained" style={style.tagbtnstyle}>{this.state.position}</Button>
+          </div>
         </div>
         <div className="Project">
           <h3 style={style.categorystyle}>projects</h3>
