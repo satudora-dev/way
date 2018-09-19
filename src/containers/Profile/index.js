@@ -19,8 +19,9 @@ class Users extends Component {
 
     this.modalMODES={
       none: 0,
-      project: 1,
-      tag: 2,
+      position: 1,
+      project: 2,
+      tag: 3,
     }
 
     this.state={
@@ -30,19 +31,19 @@ class Users extends Component {
       modalOpen: false,
       modalMode: this.modalMODES.none,
       modalInput: "",
+      position: null,
       projects: [],
       tags: [],
       modalModeText: "",
       canEdit: false,
-      positionOpen: true,
-      initposition: "社員",
-      position: null,
+      openTutorial: this.props.location.state.tut,//Signupからのルーティング時のみtrue
     };
     this.id=this.props.match.params.id;
     this.profDbRef=firebaseDB.ref('users/'+this.props.match.params.id);
+    this.posDbRef=firebaseDB.ref('positions');
     this.prjDbRef=firebaseDB.ref('projects');
     this.tagDbRef=firebaseDB.ref('tags');
-    this.posDbRef=firebaseDB.ref('positions');
+
   }
 
   componentWillMount(){
@@ -88,6 +89,10 @@ class Users extends Component {
           this.setState({canEdit: val.email===user.email});
         })
       }
+      if(this.state.openTutorial){
+        this.switchModal(true,this.modalMODES.position)
+        this.setState({modalInput:"アルバイト"});
+      }
     });
   }
 
@@ -112,13 +117,15 @@ class Users extends Component {
   switchModal(on,mode){
     let text="";
     switch(mode){
+      case this.modalMODES.position:
+        text="position";
+        break;
       case this.modalMODES.tag:
         text="tag";
         break;
       case this.modalMODES.project:
         text="project";
         break;
-
     }
     this.setState({
       modalOpen: on,
@@ -133,15 +140,28 @@ class Users extends Component {
   onClickModalButton(){
     let newName=this.state.modalInput.toUpperCase();
     switch(this.state.modalMode){
+      case this.modalMODES.position:
+        this.addPosition(newName);
+        if (this.state.openTutorial){
+          this.switchModal(true,this.modalMODES.project)
+        }
+        break;
       case this.modalMODES.project:
         this.addProject(newName);
+        if (this.state.openTutorial){
+          this.switchModal(true,this.modalMODES.tag)
+        }
         break;
       case this.modalMODES.tag:
         this.addTag(newName);
+        if (this.state.openTutorial){
+          this.switchModal(false,this.modalMODES.none)
+          this.props.history.push('/users');
+        }
         break;
     }
     this.setState({modalInput: ""});
-    this.switchModal(false,this.modalMODES.none);
+    if (!this.state.openTutorial) this.switchModal(false,this.modalMODES.none);
   }
 
   onParamsEditEnd(oldVal,newVal,mode){
@@ -209,7 +229,29 @@ class Users extends Component {
       },
     }
 
+    const {classes} = this.props;
+
     switch(this.state.modalMode){
+      case this.modalMODES.position:
+        return(
+          <div style={style.addtagstyle}>
+            <h3>Hello!! Which is your position?</h3>
+            <FormControl className={null}>
+              <InputLabel htmlFor="position">Position</InputLabel>
+              <Select
+                value={this.state.modalInput}
+                onChange={(e) => this.onModalInputChange(e)}
+                input={<Input id="position" />}
+              >
+  　　　　   　 <MenuItem value={"アルバイト"}>アルバイト</MenuItem>
+               <MenuItem value={"社員"}>社員</MenuItem>
+             </Select>
+             <Button style={style.btnstyle}
+                variant="outlined"
+                onClick={() => this.onClickModalButton()}>Go</Button>
+        </FormControl>
+        </div>
+        )
       case this.modalMODES.tag:
         return(
           <div style={style.addtagstyle}>
@@ -233,6 +275,15 @@ class Users extends Component {
         )
     }
   }
+
+  addPosition(posName){
+    if (posName===null){
+      alert("fuck!!!");
+    }else{
+    this.setState({position: posName});
+    this.profDbRef.child("position").set(posName);
+    this.posDbRef.child(posName+"/"+this.id).set(true);
+  }}
 
   addProject(prjName){
     if(this.state.projects.filter(x=>x===prjName).length>0)return;//重複判定
@@ -262,22 +313,6 @@ class Users extends Component {
     this.props.history.push(`../users?tag=${tagName}`);
   }
 
-
-  handlePosition(event){
-    this.setState({
-      initposition: event.target.value,
-    })
-  }
-
-  addPosition(){
-    this.profDbRef.child("position").set(this.state.initposition);
-    this.posDbRef.child(this.state.position+"/"+this.id).set(true);
-    this.setState({
-      position: this.state.initposition,
-      positionOpen: false
-    })
-    this.props.history.push('/users');
-  }
 
   render() {
     const style = {
@@ -342,31 +377,6 @@ class Users extends Component {
       },
     };
 
-    var html = [];
-    if(this.props.location.state.tut){
-      html.push(
-        <Modal open={this.state.positionOpen}>
-          <div style={{"text-align":"center"}}>
-            <h3 style={{color:"white"}}>position選択</h3>
-            <select name="positions" onChange={(event)=>this.handlePosition(event)}>
-              <option value="社員">社員</option>
-              <option value="アルバイト">アルバイト</option>
-            </select>
-            {console.log(this.state.position)}
-            <button onClick={()=>this.addPosition()}>submit</button>
-          </div>
-        </Modal>
-      );
-    }else{
-      html.push(
-          <Grid>
-            <Modal open={this.state.modalOpen}
-              onClose={()=>this.switchModal(false,this.modalMODES.none)}>
-              {this.renderModalElement()}
-            </Modal>
-          </Grid>
-      );
-    }
     return (
       <div className="Profile">
   <div className="Home" style={style.divstyle}>
@@ -427,7 +437,15 @@ class Users extends Component {
     </div>
   </div>
 
-        <div>{html}</div>
+  <div>
+    <Grid>
+      <Modal open={this.state.modalOpen}
+             onClose={() => {if (!this.state.openTutorial) this.switchModal(false,this.modalMODES.none)}}
+      >
+      {this.renderModalElement()}
+      </Modal>
+    </Grid>
+  </div>
       </div>
 
     );
