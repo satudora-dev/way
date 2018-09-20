@@ -390,7 +390,7 @@ class Users extends Component {
     return (
       <div className="Profile">
         <div className="Home" style={style.divstyle}>
-          <ImageUploader src={this.state.icon} id={this.props.match.params.id}/>
+          <ImageUploader src={this.state.icon} id={this.props.match.params.id} canEdit={this.state.canEdit}/>
             <EditableLabel
               style={style.namestyle}
               value={[this.state.given,this.state.family]}
