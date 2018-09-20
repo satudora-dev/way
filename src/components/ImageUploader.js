@@ -176,9 +176,16 @@ render() {
       <div>
         <img src={this.state.iconSrc} style={style.imgstyle} alt="Loading..."/>
         <input type="file" style={{display: "none"}} onChange={e => this.onTextChange(e)} ref="fileInput"/>
-        <Button mini onClick={()=>this.onClickButton()} variant="fab" style={style.btnstyle}>
-          <EditIcon/>
-        </Button>
+
+        {(() => {
+          if(this.props.canEdit)
+            return(
+              <Button mini onClick={()=>this.onClickButton()} variant="fab" style={style.btnstyle}>
+                <EditIcon/>
+              </Button>
+            )
+        })()}
+
         <div className="Login">
         </div>
       </div>
