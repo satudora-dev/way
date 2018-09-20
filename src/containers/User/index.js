@@ -38,36 +38,46 @@ class Users extends Component {
       }
       else{
         let ref=firebaseDB.ref('users');
-        let query=this.props.location.search.split("?");
+        const params= new URLSearchParams(this.props.location.search)
+        console.log(this.props.location.search)
+        console.log(params)
+        console.log(params.get('position'))
         let predicate;
-        if(query.length<2)predicate=(x=>{return true;});//クエリの取得、なければ一覧
-        else{
-          query=query[1].split("=");
-          if(query.length<2
-            ||(query[0]!=="position"&&query[0]!=="project"&&query[0]!=="tag"))predicate=(x=>{return true;});
-          else{
-            if(query[0]==="position"){
-              predicate=(x=>{
-                return x.position!==undefined && x.position===query[1];});
+        if(params.length<2)predicate=(x=>{return true;});//クエリの取得、なければ一覧
+        else {
+          if (params.length < 2
+            || (!params.get("position") && !params.get("project") && !params.get("tag"))) predicate = (x => {
+            return true;
+          });
+          else {
+            if (params.get("position")) {
+              const positionName = params.get("position")
+              predicate = (x => {
+                return x.position !== undefined && x.position === positionName;
+              });
               this.setState({
                 refineMode: this.refineMODES.position,
-                refineKey: query[1],
+                refineKey: positionName,
               });
             }
-            if(query[0]==="project"){
-              predicate=(x=>{
-                return x.projects!==undefined && x.projects[query[1]]!==undefined;});
+            if (params.get("project")) {
+              const prjName = params.get("project")
+              predicate = (x => {
+                return x.projects !== undefined && x.projects[prjName] !== undefined;
+              });
               this.setState({
                 refineMode: this.refineMODES.project,
-                refineKey: query[1],
+                refineKey: prjName,
               });
             }
-            if(query[0]==="tag"){
-              predicate=(x=>{
-                return x.tags!==undefined && x.tags[query[1]]!==undefined;});
+            if (params.get("tag")) {
+              const tagName = params.get("tag")
+              predicate = (x => {
+                return x.tags !== undefined && x.tags[tagName] !== undefined;
+              });
               this.setState({
                 refineMode: this.refineMODES.tag,
-                refineKey: query[1],
+                refineKey: tagName,
               });
             }
           }
