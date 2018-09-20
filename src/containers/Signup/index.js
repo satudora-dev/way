@@ -43,7 +43,7 @@ class Signup extends Component {
               registered=childSnapshot.child('registered').val();
               this.setState({id: childSnapshot.key});
             });
-  
+
             if(registered){
               this.props.history.push('/users');
             }
@@ -220,17 +220,27 @@ class Signup extends Component {
       "haveIcon": this.state.iconFile!==""
     });
     firebaseDB.ref('accounts/'+this.state.id).update({'registered': true});
-    
+
+    let MyId = this.state.id;
+    let MyIcon = this.state.iconSrc;
+
+
     if(this.state.iconFile){
       let storageRef=firebaseStorage.ref().child(
         'icons/'+this.state.id);
         storageRef.put(this.state.iconFile).then((snapshot)=>{
-          this.props.history.push('/users');
+          this.props.history.push({
+            pathname: `/users/${MyId}`,
+            state: {tut: true, icon: MyIcon},
+          });
       });
     }
     else{
-      this.props.history.push('/users');
-    }
+      this.props.history.push({
+        pathname: `/users/${MyId}`,
+        state: {tut: true, icon: MyIcon},
+      });
+    };
   }
 
   render() {
@@ -265,7 +275,7 @@ class Signup extends Component {
             <img src="way.png" style={style.imagestyle} alt="failed loading the way image." />
           </Link>
         </div>
-        <h3 style={style.welcomestyle}>Welcome. Who Are You?</h3>        
+        <h3 style={style.welcomestyle}>Welcome. Who Are You?</h3>
         <form noValidate autoComplete="off">
           <TextField
             name="givenName"

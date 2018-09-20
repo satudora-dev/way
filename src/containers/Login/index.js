@@ -43,7 +43,6 @@ class Login extends Component {
   redirect(path,refKey){
     this.props.history.push({
       pathname: path,
-      state: {ref: refKey},
     });
   }
 

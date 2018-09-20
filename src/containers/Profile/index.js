@@ -13,14 +13,21 @@ import ProjectsSelect from '../../components/ProjectSelect';
 import TagLabel from '../../components/TagLabel';
 import Grid from '@material-ui/core/Grid';
 
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+
 class Users extends Component {
   constructor(props){
     super(props);
-    
+
     this.modalMODES={
       none: 0,
-      project: 1,
-      tag: 2,
+      position: 1,
+      project: 2,
+      tag: 3,
     }
 
     this.state={
@@ -30,15 +37,19 @@ class Users extends Component {
       modalOpen: false,
       modalMode: this.modalMODES.none,
       modalInput: "",
+      position: null,
       projects: [],
       tags: [],
       modalModeText: "",
       canEdit: false,
+      openTutorial: this.props.location.state.tut,//Signupからのルーティング時のみtrue
     };
     this.id=this.props.match.params.id;
     this.profDbRef=firebaseDB.ref('users/'+this.props.match.params.id);
+    this.posDbRef=firebaseDB.ref('positions');
     this.prjDbRef=firebaseDB.ref('projects');
     this.tagDbRef=firebaseDB.ref('tags');
+
   }
 
   componentWillMount(){
@@ -63,8 +74,9 @@ class Users extends Component {
             family: val.family,
             projects: projects,
             tags: tags,
+            position: val.position,
           });
-          
+
           //if(!this.props.location.state||!this.props.location.state.icon){
             if(val.haveIcon){
               this.downloadImage(this.id);
@@ -83,6 +95,10 @@ class Users extends Component {
           this.setState({canEdit: val.email===user.email});
         })
       }
+      if(this.state.openTutorial){
+        this.switchModal(true,this.modalMODES.position)
+        this.setState({modalInput:"アルバイト"});
+      }
     });
   }
 
@@ -95,7 +111,7 @@ class Users extends Component {
     });
   }
 
-  onNameEditEnd(val){    
+  onNameEditEnd(val){
     this.setState({
       given: val[0],
       family: val[1],
@@ -107,20 +123,22 @@ class Users extends Component {
   switchModal(on,mode){
     let text="";
     switch(mode){
+      case this.modalMODES.position:
+        text="position";
+        break;
       case this.modalMODES.tag:
         text="tag";
         break;
       case this.modalMODES.project:
         text="project";
         break;
-
     }
     this.setState({
       modalOpen: on,
       modalMode: mode,
       modalModeText: text});
   }
-  
+
   onModalInputChange(e){
     this.setState({modalInput: e.target.value});
   }
@@ -128,15 +146,28 @@ class Users extends Component {
   onClickModalButton(){
     let newName=this.state.modalInput.toUpperCase();
     switch(this.state.modalMode){
+      case this.modalMODES.position:
+        this.addPosition(newName);
+        if (this.state.openTutorial){
+          this.switchModal(true,this.modalMODES.project)
+        }
+        break;
       case this.modalMODES.project:
         this.addProject(newName);
+        if (this.state.openTutorial){
+          this.switchModal(true,this.modalMODES.tag)
+        }
         break;
       case this.modalMODES.tag:
         this.addTag(newName);
+        if (this.state.openTutorial){
+          this.switchModal(false,this.modalMODES.none)
+          this.props.history.push('/users');
+        }
         break;
     }
     this.setState({modalInput: ""});
-    this.switchModal(false,this.modalMODES.none);
+    if (!this.state.openTutorial) this.switchModal(false,this.modalMODES.none);
   }
 
   onParamsEditEnd(oldVal,newVal,mode){
@@ -204,7 +235,29 @@ class Users extends Component {
       },
     }
 
+    const {classes} = this.props;
+
     switch(this.state.modalMode){
+      case this.modalMODES.position:
+        return(
+          <div style={style.addtagstyle}>
+            <h3>Hello!! Which is your position?</h3>
+            <FormControl className={null}>
+              <InputLabel htmlFor="position">Position</InputLabel>
+              <Select
+                value={this.state.modalInput}
+                onChange={(e) => this.onModalInputChange(e)}
+                input={<Input id="position" />}
+              >
+  　　　　   　 <MenuItem value={"アルバイト"}>アルバイト</MenuItem>
+               <MenuItem value={"社員"}>社員</MenuItem>
+             </Select>
+             <Button style={style.btnstyle}
+                variant="outlined"
+                onClick={() => this.onClickModalButton()}>Go</Button>
+        </FormControl>
+        </div>
+        )
       case this.modalMODES.tag:
         return(
           <div style={style.addtagstyle}>
@@ -229,6 +282,15 @@ class Users extends Component {
     }
   }
 
+  addPosition(posName){
+    if (posName===null){
+      alert("fuck!!!");
+    }else{
+    this.setState({position: posName});
+    this.profDbRef.child("position").set(posName);
+    this.posDbRef.child(posName+"/"+this.id).set(true);
+  }}
+
   addProject(prjName){
     if(this.state.projects.filter(x=>x===prjName).length>0)return;//重複判定
     if(!prjName)return;//空文字判定
@@ -249,6 +311,10 @@ class Users extends Component {
     this.tagDbRef.child(tagName+"/"+this.id).set(true);
   }
 
+  toPositionPage(posName){
+    this.props.history.push(`../users?position=${posName}`);
+  }
+
   toProjectPage(prjName){
     this.props.history.push(`../users?project=${prjName}`);
   }
@@ -256,6 +322,7 @@ class Users extends Component {
   toTagPage(tagName){
     this.props.history.push(`../users?tag=${tagName}`);
   }
+
 
   render() {
     const style = {
@@ -324,29 +391,33 @@ class Users extends Component {
       <div className="Profile">
         <div className="Home" style={style.divstyle}>
           <ImageUploader src={this.state.icon} id={this.props.match.params.id}/>
-          <EditableLabel
-            style={style.namestyle}
-            value={[this.state.given,this.state.family]}
-            onEditEnd={(val)=>this.onNameEditEnd(val)}
-            canEdit={this.state.canEdit}/>
+            <EditableLabel
+              style={style.namestyle}
+              value={[this.state.given,this.state.family]}
+              onEditEnd={(val)=>this.onNameEditEnd(val)}
+              canEdit={this.state.canEdit}
+            />
         </div>
         <div className="Position">
           <h3 style={style.categorystyle}>positions</h3>
           <hr />
-
+          <div style={style.tagstyle}>
+            <Button variant="contained" color="primary" style={style.tagbtnstyle} onClick={()=>this.toPositionPage(this.state.position)}>{this.state.position}</Button>
+          </div>
         </div>
         <div className="Project">
           <h3 style={style.categorystyle}>projects</h3>
           <hr />
           <div style={style.tagstyle}>
             {this.state.projects.map((project,i)=>{
-                return (
-                  <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle} onClick={()=>this.toProjectPage(project)}>
-                    <TagLabel
-                      value={[project]}
-                    />
-                  </Button>
-                );
+              return (
+                <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle} onClick={()=>this.toProjectPage(project)}>
+                  <TagLabel
+                    value={[project]}
+                    onClick={()=>this.toProjectPage(project)}
+                  />
+                </Button>
+              );
             })}
             {(() => {
               if(this.state.canEdit)
@@ -357,39 +428,44 @@ class Users extends Component {
                   </Button>
                 )
             })()}
-          </div>
-        </div>
+         </div>
+       </div>
 
-        <div className="Others">
-          <h3 style={style.categorystyle}>tags</h3>
-          <hr />
-          <div style={style.tagstyle}>
-        {this.state.tags.map((tag,i)=>{
-            return (
-              <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle}>
-              <EditableLabel
-                value={[tag]}
-                onEditEnd={(val)=>this.onParamsEditEnd(tag,val,this.modalMODES.tag)}
-                onClick={()=>this.toTagPage(tag)}
-                canEdit={true}
-              />
-              </Button>
-            );
-        })}
-            <Button mini onClick={() => this.switchModal(true,this.modalMODES.tag)}
-              variant="fab" style={style.btnstyle}>
-              <AddIcon />
-            </Button>
-          </div>
-        </div>
+       <div className="Others">
+         <h3 style={style.categorystyle}>tags</h3>
+         <hr />
+         <div style={style.tagstyle}>
+           {this.state.tags.map((tag,i)=>{
+             return (
+               <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle}>
+               <EditableLabel value={[tag]}
+                              onEditEnd={(val)=>this.onParamsEditEnd(tag,val,this.modalMODES.tag)}
+                              onClick={()=>this.toTagPage(tag)}
+                              canEdit={true}
+               />
+               </Button>
+             );
+           })}
+           <Button mini
+                   onClick={() => this.switchModal(true,this.modalMODES.tag)}
+                   variant="fab" style={style.btnstyle}
+           >
+             <AddIcon />
+           </Button>
+         </div>
+       </div>
 
-        <Grid>
-          <Modal open={this.state.modalOpen}
-            onClose={()=>this.switchModal(false,this.modalMODES.none)}>
-            {this.renderModalElement()}
-          </Modal>
-        </Grid>
-      </div>
+       <div>
+         <Grid>
+           <Modal open={this.state.modalOpen}
+                  onClose={() => {if (!this.state.openTutorial) this.switchModal(false,this.modalMODES.none)}}
+           >
+           {this.renderModalElement()}
+           </Modal>
+         </Grid>
+       </div>
+     </div>
+
     );
   }
 }
