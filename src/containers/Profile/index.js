@@ -241,7 +241,18 @@ class Users extends Component {
       case this.modalMODES.position:
         return(
           <div style={style.addtagstyle}>
-            <h3>Hello!! Which is your position?</h3>
+          {(() => {
+            if(this.state.openTutorial){
+              return(
+                <h3>Hello!! Which is your position?</h3>
+              )
+            }
+            else{
+              return(
+                <h3>select position</h3>
+              )
+            }
+          })()}
             <FormControl className={null}>
               <InputLabel htmlFor="position">Position</InputLabel>
               <Select
@@ -258,25 +269,47 @@ class Users extends Component {
         </FormControl>
         </div>
         )
+      case this.modalMODES.project:
+        return(
+          <div style={style.selectProjectModalStyle}>
+          {(() => {
+            if(this.state.openTutorial){
+              return(
+                <h3>Choose your current projects!!</h3>
+              )
+            }
+            else{
+              return(
+                <h3>select project</h3>
+              )
+            }
+          })()}
+        )
+            <ProjectsSelect projects={this.state.projects} updateParentProjects={this.updateProjects} userID={this.id}/>
+            <Button style={style.btnstyle}
+                    variant="outlined" value="add" onClick={() => this.onClickModalButton()}>done</Button>
+          </div>
+        )
       case this.modalMODES.tag:
         return(
           <div style={style.addtagstyle}>
-            <h3>add {this.state.modalModeText}</h3>
+          {(() => {
+            if(this.state.openTutorial){
+              return(
+                <h3>Who are you in a word??</h3>
+              )}
+            else{
+              return(
+                <h3>add {this.state.modalModeText}</h3>
+              )
+            }
+          })()}
             <TextField label={this.state.modalModeText}
                        value={this.state.modalInput}
                        style={{"margin-right": "10px"}} autoFocus
                        onChange={(e) => this.onModalInputChange(e)}/>
             <Button style={style.btnstyle}
                     variant="outlined" value="add" onClick={() => this.onClickModalButton()}>add</Button>
-          </div>
-        )
-      case this.modalMODES.project:
-        return(
-          <div style={style.selectProjectModalStyle}>
-            <h3>selelct projects</h3>
-            <ProjectsSelect projects={this.state.projects} updateParentProjects={this.updateProjects} userID={this.id}/>
-            <Button style={style.btnstyle}
-                    variant="outlined" value="add" onClick={() => this.onClickModalButton()}>done</Button>
           </div>
         )
     }
