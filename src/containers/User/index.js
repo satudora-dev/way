@@ -5,6 +5,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import MenuAppBar from '../../components/MenuAppBar';
+import SiteInfo from '../../components/SiteInfo';
 
 class Users extends Component {
   constructor(props){
@@ -160,6 +161,9 @@ class Users extends Component {
     return (
       <div className="Users">
         <MenuAppBar/>
+
+        <SiteInfo/>
+
         {(()=>{
           if(this.state.refineKey!==""){
             return(
