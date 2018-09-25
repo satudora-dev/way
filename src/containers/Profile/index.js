@@ -326,13 +326,6 @@ class Users extends Component {
 
   render() {
     const style = {
-      imgstyle: {
-        height: "256px",
-        width: "256px",
-        "border-radius": "50%",
-        "margin-top": "100px",
-        "object-fit": "cover",
-      },
       divstyle: {
         "background-image": "url('/grad.jpg')",
         "backend-position": "center center",

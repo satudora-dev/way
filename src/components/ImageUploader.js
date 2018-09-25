@@ -160,20 +160,22 @@ render() {
         height: "256px",
         width: "256px",
         "border-radius": "50%",
-        "margin-top": "100px",
+        "margin-top": "30px",
         "object-fit": "cover",
       },
       btnstyle: {
-        "margin-right": "10px",
-        "margin-bottom": "10px",
+        position:"absolute",
         "background-color": "#04B486",
         "color": "white",
-        "text-transform": "none",
+        top:"240px",
+        right:"32px",
+        margin:0,
       },
     }
 
     return (
       <div>
+      <div style={{position:"relative",width:"256px",margin:"auto"}}>
         <img src={this.state.iconSrc} style={style.imgstyle} alt="Loading..."/>
         <input type="file" style={{display: "none"}} onChange={e => this.onTextChange(e)} ref="fileInput"/>
 
@@ -185,7 +187,7 @@ render() {
               </Button>
             )
         })()}
-
+        </div>
         <div className="Login">
         </div>
       </div>

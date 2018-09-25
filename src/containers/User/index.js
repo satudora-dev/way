@@ -153,6 +153,7 @@ class Users extends Component {
       iconbtnstyle: {
         "border-radius": "50%",
         padding: 0,
+        margin: "5px"
       },
     };
 
@@ -185,16 +186,16 @@ class Users extends Component {
           RANDOM
         </Button>
         <hr />
+        <div style={{"text-align":"center"}}>
         {this.state.users.map((user,i)=>{
           return (
-            <span style={{margin: "5px"}}>
             <Button className="User" key={i} style={style.iconbtnstyle}
               onClick={()=>this.toProfile(user.id,user.icon)}>
               <img src={user.icon} style={style.iconstyle} alt="failed loading..."/>
             </Button>
-            </span>
           );
         })}
+        </div>
         </div>
       </div>
     );
