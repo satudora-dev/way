@@ -9,6 +9,7 @@ import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import EditableLabel from '../../components/EditableLabel';
 import ImageUploader from '../../components/ImageUploader';
+import PositionSelect from '../../components/PositionSelect';
 import ProjectsSelect from '../../components/ProjectSelect';
 import TagLabel from '../../components/TagLabel';
 import Grid from '@material-ui/core/Grid';
@@ -37,7 +38,7 @@ class Users extends Component {
       modalOpen: false,
       modalMode: this.modalMODES.none,
       modalInput: "",
-      position: null,
+      position: "",
       projects: [],
       tags: [],
       modalModeText: "",
@@ -97,7 +98,7 @@ class Users extends Component {
       }
       if(this.state.openTutorial){
         this.switchModal(true,this.modalMODES.position)
-        this.setState({modalInput:"アルバイト"});
+        this.setState({position: "アルバイト"})
       }
     });
   }
@@ -147,7 +148,7 @@ class Users extends Component {
     let newName=this.state.modalInput.toUpperCase();
     switch(this.state.modalMode){
       case this.modalMODES.position:
-        this.addPosition(newName);
+        //this.addPosition(newName);
         if (this.state.openTutorial){
           this.switchModal(true,this.modalMODES.project)
         }
@@ -200,6 +201,10 @@ class Users extends Component {
     this.setState({projects: projects});
   }
 
+  updatePosition(position){
+    this.setState({position: position});
+  }
+
   // モーダルの中身を動的に返す(プロジェクト・タグ）
   renderModalElement(){
     const style = {
@@ -240,65 +245,63 @@ class Users extends Component {
     switch(this.state.modalMode){
       case this.modalMODES.position:
         return(
-          <div style={style.addtagstyle}>
-          {(() => {
-            if(this.state.openTutorial){
-              return(
-                <h3>Hello!! Which is your position?</h3>
-              )
-            }
-            else{
-              return(
-                <h3>select position</h3>
-              )
-            }
-          })()}
-            <FormControl className={null}>
-              <InputLabel htmlFor="position">Position</InputLabel>
-              <Select
-                value={this.state.modalInput}
-                onChange={(e) => this.onModalInputChange(e)}
-                input={<Input id="position" />}
-              >
-  　　　　   　 <MenuItem value={"アルバイト"}>アルバイト</MenuItem>
-               <MenuItem value={"社員"}>社員</MenuItem>
-             </Select>
-             <Button style={style.btnstyle}
-                variant="outlined"
-                onClick={() => this.onClickModalButton()}>Go</Button>
-        </FormControl>
-        </div>
+          <div style={style.selectProjectModalStyle}>
+            {(() => {
+              if(this.state.openTutorial){
+                return(
+                  <h3>Hello!! Which is your position?</h3>
+                )
+              }
+              else{
+                return(
+                  <h3>select position</h3>
+                )
+              }
+            })()}
+            <PositionSelect position={this.state.position} updateParentPosition={this.updatePosition} userID={this.id}/>
+            <Button style={style.btnstyle}
+                    variant="outlined"
+                    value="add"
+                    onClick={() => this.onClickModalButton()}
+            >
+            done
+            </Button>
+          </div>
         )
       case this.modalMODES.project:
+        return(
+          <div style={style.selectProjectModalStyle}>
+            {(() => {
+              if(this.state.openTutorial){
+                return(
+                  <h3>Choose your current projects!!</h3>
+                )
+              }
+              else{
+                return(
+                  <h3>select project</h3>
+                )
+              }
+            })()}
+            <ProjectsSelect projects={this.state.projects} updateParentProjects={this.updateProjects} userID={this.id}/>
+            <Button style={style.btnstyle}
+                    variant="outlined"
+                    value="add"
+                    onClick={() => this.onClickModalButton()}
+            >
+            done
+            </Button>
+          </div>
+        )
+      case this.modalMODES.tag:
         return(
           <div style={style.selectProjectModalStyle}>
           {(() => {
             if(this.state.openTutorial){
               return(
-                <h3>Choose your current projects!!</h3>
-              )
-            }
-            else{
-              return(
-                <h3>select project</h3>
-              )
-            }
-          })()}
-        )
-            <ProjectsSelect projects={this.state.projects} updateParentProjects={this.updateProjects} userID={this.id}/>
-            <Button style={style.btnstyle}
-                    variant="outlined" value="add" onClick={() => this.onClickModalButton()}>done</Button>
-          </div>
-        )
-      case this.modalMODES.tag:
-        return(
-          <div style={style.addtagstyle}>
-          {(() => {
-            if(this.state.openTutorial){
-              return(
                 <div>
                   <h3>Who are you in a word??</h3>
-                  <p>ex. PYTHON,DJ,JASS,大食漢</p>
+                  <p>ex. 「PYTHON」「JASS」「大食漢」</p>
                 </div>
               )}
             else{
