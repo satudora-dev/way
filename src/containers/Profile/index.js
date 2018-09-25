@@ -196,6 +196,14 @@ class Users extends Component {
     }
   }
 
+  onTagDelete(tagName)
+  {
+    let newTags=this.state.tags.filter(n=>n!==tagName);
+    this.profDbRef.child("tags/"+tagName).remove();
+    this.tagDbRef.child(tagName+"/"+this.id).remove();
+    this.setState({tags: newTags});
+  }
+
   updateProjects(projects){
     this.setState({projects: projects});
   }
