@@ -434,7 +434,7 @@ class Users extends Component {
           <h3 style={style.categorystyle}>positions</h3>
           <hr />
           <div style={style.tagstyle}>
-            <Button variant="contained" color="primary" style={style.tagbtnstyle} onClick={()=>this.toPositionPage(this.state.position)}>{this.state.position}</Button>
+            <Button variant="contained" color="primary" disabled={(!this.state.position)} style={style.tagbtnstyle} onClick={()=>this.toPositionPage(this.state.position)}>{this.state.position}</Button>
           </div>
         </div>
         <div className="Project">

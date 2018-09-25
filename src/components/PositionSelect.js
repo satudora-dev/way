@@ -46,8 +46,8 @@ class PositionSelect extends React.Component {
   constructor(props){
     super(props);
     this.state= {
-      prevPosition: this.props.position || [],
-      position: this.props.position || [],
+      prevPosition: this.props.position || "アルバイト",
+      position: this.props.position || "アルバイト",
       userID: this.props.userID
     }
     this.updateParentPosition = this.props.updateParentPosition
@@ -86,7 +86,7 @@ class PositionSelect extends React.Component {
           alignItems="center"
         >
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="position">Position</InputLabel>
+            <InputLabel htmlFor="select-multiple-checkbox">Position</InputLabel>
             <Select
               value={this.state.position}
               onChange={this.handleChangePosition}
