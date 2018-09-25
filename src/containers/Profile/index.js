@@ -296,7 +296,10 @@ class Users extends Component {
           {(() => {
             if(this.state.openTutorial){
               return(
-                <h3>Who are you in a word??</h3>
+                <div>
+                  <h3>Who are you in a word??</h3>
+                  <p>ex. PYTHON,DJ,JASS,大食漢</p>
+                </div>
               )}
             else{
               return(
