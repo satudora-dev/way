@@ -96,7 +96,6 @@ class Signup extends Component {
           iconFile: iconFile,
           iconSrc: URL.createObjectURL(iconFile),
         });
-        this.uploadImage();
       }
       else {
         let canvas = document.createElement('canvas');
