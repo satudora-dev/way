@@ -401,7 +401,6 @@ class Users extends Component {
         "margin-right": "10px",
         "margin-bottom": "10px",
         "background-color": "#04B486",
-        "color": "white",
         "text-transform": "none",
       },
       addstyle: {
@@ -470,13 +469,11 @@ class Users extends Component {
          <div style={style.tagstyle}>
            {this.state.tags.map((tag,i)=>{
              return (
-               <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle}>
-               <EditableLabel value={[tag]}
-                              onEditEnd={(val)=>this.onParamsEditEnd(tag,val,this.modalMODES.tag)}
-                              onClick={()=>this.toTagPage(tag)}
-                              canEdit={true}
-               />
-               </Button>
+              <Button key={i} variant="contained" style={style.tagbtnstyle}>
+                <span style={{color: "white"}}>{[tag]}</span>
+                &nbsp;&nbsp;
+                <span style={{color: "block"}}>X</span>
+              </Button>
              );
            })}
            <Button mini
