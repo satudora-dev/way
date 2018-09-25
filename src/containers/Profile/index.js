@@ -300,7 +300,7 @@ class Users extends Component {
             if(this.state.openTutorial){
               return(
                 <div>
-                  <h3>Who are you in a word??</h3>
+                  <h3>Tag something!!!</h3>
                   <p>ex. 「PYTHON」「JASS」「大食漢」</p>
                 </div>
               )}
@@ -365,6 +365,13 @@ class Users extends Component {
 
   render() {
     const style = {
+      imgstyle: {
+        height: "256px",
+        width: "256px",
+        "border-radius": "50%",
+        "margin-top": "100px",
+        "object-fit": "cover",
+      },
       divstyle: {
         "background-image": "url('/grad.jpg')",
         "backend-position": "center center",
@@ -374,7 +381,7 @@ class Users extends Component {
       namestyle: {
         color: "#D8D8D8",
         "font-family": "Avenir",
-        "font-size": "8vw",
+        "font-size": "5vw",
         margin: "10px"
       },
       categorystyle: {
