@@ -445,9 +445,12 @@ class Users extends Component {
            {this.state.tags.map((tag,i)=>{
              return (
               <Button key={i} variant="contained" style={style.tagbtnstyle}>
-                <span style={{color: "white"}}>{[tag]}</span>
+                <span style={{color: "white"}}
+                  onClick={()=>this.toTagPage(tag)}>{[tag]}</span>
                 &nbsp;&nbsp;
-                <span style={{color: "block"}}>X</span>
+                <span
+                  style={{color: "block"}}
+                  onClick={()=>this.onTagDelete(tag)}>X</span>
               </Button>
              );
            })}
