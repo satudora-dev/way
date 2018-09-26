@@ -301,7 +301,7 @@ class Users extends Component {
               return(
                 <div>
                   <h3>Tag something!!!</h3>
-                  <p>ex. 「PYTHON」「JASS」「大食漢」</p>
+                  <p>ex. 「PYTHON」「JAZZ」「大食漢」</p>
                 </div>
               )}
             else{
