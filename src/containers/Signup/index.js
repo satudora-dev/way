@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CheckInstax from '../../components/CheckInstax';
 import EXIF from 'exif-js';
+import SiteInfo from "../../components/SiteInfo";
 
 class Signup extends Component {
   constructor(props){
@@ -252,6 +253,9 @@ class Signup extends Component {
         height: 32,
         "padding-top": "20px",
       },
+      siteInfoStyle: {
+       "margin-top": "30px",
+      },
       welcomestyle: {
         color: "grey",
         "font-weight": "lighter",
@@ -269,10 +273,8 @@ class Signup extends Component {
 
     return (
       <div className="Login">
-        <div>
-          <Link to="/">
-            <img src="way.png" style={style.imagestyle} alt="failed loading the way image." />
-          </Link>
+        <div style={style.siteInfoStyle}>
+          <SiteInfo/>
         </div>
         <h3 style={style.welcomestyle}>Welcome. Who Are You?</h3>
         <form noValidate autoComplete="off">

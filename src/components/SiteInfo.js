@@ -5,15 +5,20 @@ class SiteInfo extends Component {
     const style = {
       siteInfo: {
         "padding-top": "30px",
-        "padding-bottom": "30px",
         "text-align": "center",
+      },
+      wayLogo: {
+        "vertical-align": "middle",
+        width: 256,
+        height: 128,
       },
     }
 
     return (
       <div style={style.siteInfo}>
-        <h2>way</h2>
-        <h4>SAPPORO DRUG STORE CO.,LTD.</h4>
+        <img src="./way.png" style={style.wayLogo}
+             alt="loading the way image..." />
+        <h2>AI TOKYO LAB & Co.</h2>
       </div>
     );
   }
