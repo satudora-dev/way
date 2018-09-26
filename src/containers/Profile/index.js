@@ -7,6 +7,7 @@ import Modal from '@material-ui/core/Modal';
 import Badge from '@material-ui/core/Badge';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
+import CloseIcon from '@material-ui/icons/Close';
 import EditableLabel from '../../components/EditableLabel';
 import ImageUploader from '../../components/ImageUploader';
 import PositionSelect from '../../components/PositionSelect';
@@ -481,9 +482,7 @@ class Users extends Component {
                 <span style={{color: "white"}}
                   onClick={()=>this.toTagPage(tag)}>{[tag]}</span>
                 &nbsp;&nbsp;
-                <span
-                  style={{color: "block"}}
-                  onClick={()=>this.onTagDelete(tag)}>X</span>
+                <CloseIcon onClick={()=>this.onTagDelete(tag)}/>
               </Button>
              );
            })}
