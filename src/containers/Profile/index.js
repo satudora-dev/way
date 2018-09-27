@@ -293,10 +293,11 @@ class Users extends Component {
               }
             })()}
             <ProjectsSelect projects={this.state.projects} updateParentProjects={this.updateProjects} userID={this.id}/>
-            <Button style={style.btnstyle}
-                    variant="outlined"
-                    value="add"
-                    onClick={() => this.onClickModalButton()}
+            <Button style={this.state.projects.length == 0 || this.state.projects === undefined ? style.disabledstyle : style.btnstyle}
+                variant="outlined"
+                value="add"
+                disabled={this.state.projects.length == 0 || this.state.projects === undefined}
+                onClick={() => this.onClickModalButton()}
             >
             done
             </Button>
