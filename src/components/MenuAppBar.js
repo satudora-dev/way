@@ -19,31 +19,32 @@ class MenuAppBar extends React.Component{
       "projects",
       "offices",
     ];
+
+    const style = {
+      table: {
+        "display": "table",
+        width: "100%",
+      },
+      imgWrap: {
+        display: "table-cell",
+        "text-align": "center",
+        "vertical-align": "middle",
+      },
+      logoImg: {
+        height: "30px",
+      },
+    }
+
     return(
       <div>
-        <AppBar position="static" color="default">
-          <Toolbar style={{
-            display: "inline-block",
-            "text-align": "right",
-          }}>
-              <Select
-                mltiple
-                value={this.state.select}
-                onChange={this.handleChange}
-                style={{
-                  "padding-top": "18px",
-                }}>
-                {
-                  selects.map(select => (
-                    <MenuItem
-                      key={select}
-                      value={select}
-                      >
-                      {select}
-                    </MenuItem>
-                  ))
-                }
-              </Select>
+        <AppBar position="static" color="default" style={{height: "56px"}}>
+          <Toolbar>
+            <div style={style.table}>
+              <div style={style.imgWrap}>
+                <img src="/way.png" style={style.logoImg}
+                     alt="loading the way image..." />
+              </div>
+            </div>
           </Toolbar>
         </AppBar>
       </div>

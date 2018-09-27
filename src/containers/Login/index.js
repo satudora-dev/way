@@ -4,6 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import {withRouter} from 'react-router-dom';
 import "./login.css";
+import SiteInfo from '../../components/SiteInfo';
 
 const ref = firebaseDB.ref('accounts');
 
@@ -73,23 +74,19 @@ class Login extends Component {
 
   render() {
     const style = {
-      imgstyle: {
-        "vertical-align": "middle",
-        width: 256,
-        height: 128,
-      },
       container: {
+        "padding-top": "200px",
+        "padding-bottom": "100px",
         width: "100%",
-        "line-height": "300px",
+        //"line-height": "300px",
         "text-align": "center",
         position: "relative",
       }
     }
     return (
       <div className="Login">
-        <div style={style.container}>
-          <img src="./way.png" style={style.imgstyle}
-            alt="loading the way image..." />
+        <div style={style.container }>
+          <SiteInfo/>
         </div>
         <GithubButton onClick={()=>this.handleLogin()}/>
       </div>
