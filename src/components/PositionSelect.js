@@ -46,8 +46,8 @@ class PositionSelect extends React.Component {
   constructor(props){
     super(props);
     this.state= {
-      prevPosition: this.props.position || "アルバイト",
-      position: this.props.position || "アルバイト",
+      prevPosition: this.props.position || "",
+      position: this.props.position || "",
       userID: this.props.userID
     }
     this.updateParentPosition = this.props.updateParentPosition
@@ -67,11 +67,13 @@ class PositionSelect extends React.Component {
         this.profDbRef.child("position").remove();
         this.prjDbRef.child(pastPos+"/"+this.id).remove();
       }
-    this.setState({ position: posName});
-    this.profDbRef.child("position").set(posName);
-    this.posDbRef.child(posName+"/"+this.id).set(true);
-    this.setState({ prevPosition: posName});
-    this.updateParentPosition(posName);
+    if (posName !== ""){
+      this.setState({ position: posName});
+      this.profDbRef.child("position").set(posName);
+      this.posDbRef.child(posName+"/"+this.id).set(true);
+      this.setState({ prevPosition: posName});
+      this.updateParentPosition(posName);
+    }
   };
   render() {
     const { classes, theme } = this.props;
@@ -88,7 +90,7 @@ class PositionSelect extends React.Component {
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="select-multiple-checkbox">Position</InputLabel>
             <Select
-              value={this.state.position}
+              value={this.props.position}
               onChange={this.handleChangePosition}
               input={<Input id="position" />}
               MenuProps={MenuProps}
