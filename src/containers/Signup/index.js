@@ -269,6 +269,10 @@ class Signup extends Component {
         "border-radius": "50%",
         "object-fit": "cover",
       },
+      WAYstyle: {
+        color: "black",
+        "font-weight": "bold",
+      }
     }
 
     return (
@@ -276,7 +280,14 @@ class Signup extends Component {
         <div style={style.siteInfoStyle}>
           <SiteInfo/>
         </div>
-        <h3 style={style.welcomestyle}>Welcome. Who Are You?</h3>
+        <h3 style={style.welcomestyle}>Welcome.
+        <span style={style.WAYstyle}> W</span>
+        ho
+        <span style={style.WAYstyle}> A</span>
+        re
+        <span style={style.WAYstyle}> Y</span>
+        ou?<
+        /h3>
         <form noValidate autoComplete="off">
           <TextField
             name="givenName"
