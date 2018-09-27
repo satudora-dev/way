@@ -89,6 +89,7 @@ class PositionSelect extends React.Component {
         >
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="select-multiple-checkbox">Position</InputLabel>
+            {console.log(this.props.position)}
             <Select
               value={this.props.position}
               onChange={this.handleChangePosition}

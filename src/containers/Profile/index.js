@@ -267,10 +267,10 @@ class Users extends Component {
               }
             })()}
             <PositionSelect position={this.state.position} updateParentPosition={this.updatePosition} userID={this.id}/>
-            <Button style={this.state.position === "" ? style.disabledstyle : style.btnstyle}
+            <Button style={this.state.position === "" || this.state.position === undefined ? style.disabledstyle : style.btnstyle}
                     variant="outlined"
                     value="add"
-                    disabled={this.state.position === ""}
+                    disabled={this.state.position === "" || this.state.position === undefined}
                     onClick={() => this.onClickModalButton()}
             >
             done
