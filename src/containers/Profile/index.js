@@ -365,13 +365,7 @@ class Users extends Component {
 
   render() {
     const style = {
-      imgstyle: {
-        height: "256px",
-        width: "256px",
-        "border-radius": "50%",
-        "margin-top": "100px",
-        "object-fit": "cover",
-      },
+
       divstyle: {
         "background-image": "url('/grad.jpg')",
         "backend-position": "center center",
@@ -381,7 +375,7 @@ class Users extends Component {
       namestyle: {
         color: "#D8D8D8",
         "font-family": "Avenir",
-        "font-size": "5vw",
+        "font-size": "40px",
         margin: "10px"
       },
       categorystyle: {
