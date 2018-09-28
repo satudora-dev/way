@@ -88,7 +88,7 @@ class Users extends Component {
           /*}
           else{
             this.setState({icon: this.props.location.state.icon,});
-            this.props.location.state=null;
+            this.props.location.state="";
           }*/
         });
         firebaseDB.ref('accounts/'+this.props.match.params.id).once('value',snapshot=>{
@@ -98,7 +98,7 @@ class Users extends Component {
       }
       if(this.state.openTutorial){
         this.switchModal(true,this.modalMODES.position)
-        this.setState({position: "アルバイト"})
+        this.setState({position: ""})
       }
     });
   }
@@ -238,7 +238,15 @@ class Users extends Component {
         "color": "white",
         "text-transform": "none",
       },
+      disabledstyle: {
+        "margin-right": "10px",
+        "margin-bottom": "10px",
+        "background-color": "gray",
+        "color": "white",
+        "text-transform": "none",
+      },
     }
+
 
     const {classes} = this.props;
 
@@ -259,9 +267,10 @@ class Users extends Component {
               }
             })()}
             <PositionSelect position={this.state.position} updateParentPosition={this.updatePosition} userID={this.id}/>
-            <Button style={style.btnstyle}
+            <Button style={this.state.position === "" || this.state.position === undefined ? style.disabledstyle : style.btnstyle}
                     variant="outlined"
                     value="add"
+                    disabled={this.state.position === "" || this.state.position === undefined}
                     onClick={() => this.onClickModalButton()}
             >
             done
@@ -284,10 +293,11 @@ class Users extends Component {
               }
             })()}
             <ProjectsSelect projects={this.state.projects} updateParentProjects={this.updateProjects} userID={this.id}/>
-            <Button style={style.btnstyle}
-                    variant="outlined"
-                    value="add"
-                    onClick={() => this.onClickModalButton()}
+            <Button style={this.state.projects.length == 0 || this.state.projects === undefined ? style.disabledstyle : style.btnstyle}
+                variant="outlined"
+                value="add"
+                disabled={this.state.projects.length == 0 || this.state.projects === undefined}
+                onClick={() => this.onClickModalButton()}
             >
             done
             </Button>
@@ -314,15 +324,21 @@ class Users extends Component {
                        value={this.state.modalInput}
                        style={{"margin-right": "10px"}} autoFocus
                        onChange={(e) => this.onModalInputChange(e)}/>
-            <Button style={style.btnstyle}
-                    variant="outlined" value="add" onClick={() => this.onClickModalButton()}>add</Button>
+            <Button style={this.state.modalInput === "" ? style.disabledstyle : style.btnstyle}
+                    variant="outlined"
+                    disabled={this.state.modalInput === ""}
+                    value="add"
+                    onClick={() => this.onClickModalButton()}
+            >
+            add
+            </Button>
           </div>
         )
     }
   }
 
   addPosition(posName){
-    if (posName===null){
+    if (posName===""){
       alert("fuck!!!");
     }else{
     this.setState({position: posName});
