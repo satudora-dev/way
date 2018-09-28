@@ -411,6 +411,7 @@ class Users extends Component {
         "margin-bottom": "10px",
         "background-color": "#04B486",
         "text-transform": "none",
+        "color": "white",
       },
       addstyle: {
         margin: "10px"
@@ -479,10 +480,8 @@ class Users extends Component {
            {this.state.tags.map((tag,i)=>{
              return (
               <Button key={i} variant="contained" style={style.tagbtnstyle}>
-                <span style={{color: "white"}}
-                  onClick={()=>this.toTagPage(tag)}>{[tag]}</span>
-                &nbsp;&nbsp;
-                <CloseIcon onClick={()=>this.onTagDelete(tag)}/>
+                <span onClick={()=>this.toTagPage(tag)}>{[tag]}&nbsp;&nbsp;</span>
+                <CloseIcon style={{"font-size" : "90%", }} onClick={()=>this.onTagDelete(tag)}/>
               </Button>
              );
            })}
