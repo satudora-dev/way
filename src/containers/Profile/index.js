@@ -7,6 +7,7 @@ import Modal from '@material-ui/core/Modal';
 import Badge from '@material-ui/core/Badge';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
+import CloseIcon from '@material-ui/icons/Close';
 import EditableLabel from '../../components/EditableLabel';
 import ImageUploader from '../../components/ImageUploader';
 import PositionSelect from '../../components/PositionSelect';
@@ -195,6 +196,14 @@ class Users extends Component {
         }
         break;
     }
+  }
+
+  onTagDelete(tagName)
+  {
+    let newTags=this.state.tags.filter(n=>n!==tagName);
+    this.profDbRef.child("tags/"+tagName).remove();
+    this.tagDbRef.child(tagName+"/"+this.id).remove();
+    this.setState({tags: newTags});
   }
 
   updateProjects(projects){
@@ -417,8 +426,8 @@ class Users extends Component {
         "margin-right": "10px",
         "margin-bottom": "10px",
         "background-color": "#04B486",
-        "color": "white",
         "text-transform": "none",
+        "color": "white",
       },
       addstyle: {
         margin: "10px"
@@ -486,13 +495,10 @@ class Users extends Component {
          <div style={style.tagstyle}>
            {this.state.tags.map((tag,i)=>{
              return (
-               <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle}>
-               <EditableLabel value={[tag]}
-                              onEditEnd={(val)=>this.onParamsEditEnd(tag,val,this.modalMODES.tag)}
-                              onClick={()=>this.toTagPage(tag)}
-                              canEdit={true}
-               />
-               </Button>
+              <Button key={i} variant="contained" style={style.tagbtnstyle}>
+                <span onClick={()=>this.toTagPage(tag)}>{[tag]}&nbsp;&nbsp;</span>
+                <CloseIcon style={{"font-size" : "90%", }} onClick={()=>this.onTagDelete(tag)}/>
+              </Button>
              );
            })}
            <Button mini
