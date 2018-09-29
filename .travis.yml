@@ -23,6 +23,14 @@ branches:
   only:
     - master
 
+notifications:
+  slack:
+    rooms:
+      - satudora-digital:xu642Khfs0IkBnmaa6pGPqgv#ci
+    on_pull_requests: false
+    on_success: change
+    on_failure: always
+
 deploy:
   provider: firebase
   skip_cleanup: true
