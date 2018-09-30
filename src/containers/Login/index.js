@@ -75,10 +75,9 @@ class Login extends Component {
   render() {
     const style = {
       container: {
-        "padding-top": "200px",
+        "padding-top": "80px",
         "padding-bottom": "100px",
         width: "100%",
-        //"line-height": "300px",
         "text-align": "center",
         position: "relative",
       }
