@@ -13,21 +13,21 @@ import {firebaseDB} from '../firebase';
 import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 120,
-    maxWidth: 300,
+  chip: {
+    margin: theme.spacing.unit / 4,
   },
   chips: {
     display: 'flex',
     flexWrap: 'wrap',
   },
-  chip: {
-    margin: theme.spacing.unit / 4,
+  formControl: {
+    margin: theme.spacing.unit,
+    maxWidth: 300,
+    minWidth: 120,
+  },
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
   },
 });
 
@@ -65,13 +65,19 @@ class ProjectsSelect extends React.Component {
 
   updateProfProjects(projects){
     for(let prjName of this.state.prevProjects){
-      if(!prjName)continue;//空文字判定
+      //空文字判定
+      if(!prjName){
+        continue;
+      }
       this.profDbRef.child("projects/"+prjName).remove();
       this.prjDbRef.child(prjName+"/members/"+this.state.userID).remove();
     }
     this.setState({ prevProjects: projects})
     for(let prjName of projects){
-      if(!prjName)continue;//空文字判定
+      //空文字判定
+      if(!prjName){
+        continue;
+      }
       this.profDbRef.child("projects/"+prjName).set(true);
       this.prjDbRef.child(prjName+"/members/"+this.state.userID).set(true);
     }

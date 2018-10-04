@@ -10,8 +10,8 @@ class Users extends Component {
   constructor(props){
     super(props);
     this.orderMODES={
-      RANDOM: 0,
       PROJECT: 1,
+      RANDOM: 0,
     };
     this.orderOptions=["RANDOM","PROJECT"];
     this.refineMODES={
@@ -23,11 +23,11 @@ class Users extends Component {
     this.state={
       authenticated: false,
       currentUser: null,
-      users: [],
-      orderMode: this.orderMODES.RANDOM,
-      refineMode: this.refineMODES.all,
-      refineKey: "",
       orderMenuOpen: false,
+      orderMode: this.orderMODES.RANDOM,
+      refineKey: "",
+      refineMode: this.refineMODES.all,
+      users: [],
     };
   }
 
@@ -40,12 +40,17 @@ class Users extends Component {
         let ref=firebaseDB.ref('users');
         const params= new URLSearchParams(this.props.location.search)
         let predicate;
-        if(params.length<2)predicate=(x=>{return true;});//クエリの取得、なければ一覧
+        //クエリの取得、なければ一覧
+        if(params.length<2){
+          predicate=(x=>{return true;});
+        }
         else {
           if (params.length < 2
-            || (!params.get("position") && !params.get("project") && !params.get("tag"))) predicate = (x => {
+            || (!params.get("position") && !params.get("project") && !params.get("tag"))){
+            predicate = (x => {
             return true;
           });
+          }
           else {
             if (params.get("position")) {
               const positionName = params.get("position")
@@ -53,8 +58,8 @@ class Users extends Component {
                 return x.position !== undefined && x.position === positionName;
               });
               this.setState({
-                refineMode: this.refineMODES.position,
                 refineKey: positionName,
+                refineMode: this.refineMODES.position,
               });
             }
             if (params.get("project")) {
@@ -63,8 +68,8 @@ class Users extends Component {
                 return x.projects !== undefined && x.projects[prjName] !== undefined;
               });
               this.setState({
-                refineMode: this.refineMODES.project,
                 refineKey: prjName,
+                refineMode: this.refineMODES.project,
               });
             }
             if (params.get("tag")) {
@@ -73,8 +78,8 @@ class Users extends Component {
                 return x.tags !== undefined && x.tags[tagName] !== undefined;
               });
               this.setState({
-                refineMode: this.refineMODES.tag,
                 refineKey: tagName,
+                refineMode: this.refineMODES.tag,
               });
             }
           }
@@ -82,7 +87,9 @@ class Users extends Component {
 
         ref.on('child_added',(snapshot)=>{
           let val=snapshot.val();
-          if(!predicate(val))return;
+          if(!predicate(val)){
+            return;
+          }
           let id=snapshot.key;
           if(val.haveIcon){
             this.downloadImage(id,val.given,val.family);
@@ -90,10 +97,10 @@ class Users extends Component {
           else{
             let usrs=this.state.users;
             usrs.push({
-              'id': id,
-              'givenName': val.given,
               'familyName': val.family,
+              'givenName': val.given,
               'icon': "/portrait.png",
+              'id': id,
             });
             this.setState({users: usrs});
           }
@@ -107,10 +114,10 @@ class Users extends Component {
     storageRef.getDownloadURL().then((url)=>{
       let usrs=this.state.users;
       usrs.push({
-        'id': id,
-        'givenName': given,
         'familyName': family,
-        'icon': url
+        'givenName': given,
+        'icon': url,
+        'id': id,
       });
       this.setState({users: usrs});
     });
@@ -120,8 +127,8 @@ class Users extends Component {
     this.props.history.push({
       pathname: `/users/${id}`,
       state: {
-        id: id,
         icon: iconSrc,
+        id: id,
       },
     });
   }
@@ -132,28 +139,28 @@ class Users extends Component {
 
   render() {
     const style = {
-      iconstyle: {
-        width: "128px",
-        height: "128px",
-        "object-fit": "cover",
-        "border-radius": "50%",
-        padding: "0px", //paddingだとその要素自体に余白つける
-        //margin: "8px", //marginだとその要素の外側に余白つける
-        "box-shadow": "0 4px 10px gray",
-        cursor: "finger",
+      btnstyle: {
+        "background-color": "#04B486",
+        color: "white",
       },
       divstyle: {
-        "text-align": "left",
         "padding": "10px 10px 10px",
-      },
-      btnstyle: {
-        color: "white",
-        "background-color": "#04B486",
+        "text-align": "left",
       },
       iconbtnstyle: {
         "border-radius": "50%",
+        margin: "5px",
         padding: 0,
-        margin: "5px"
+      },
+      iconstyle: {
+        "border-radius": "50%",
+        "box-shadow": "0 4px 10px gray",
+        cursor: "finger",
+        height: "128px",
+        "object-fit": "cover",
+        padding: "0px", //paddingだとその要素自体に余白つける
+        width: "128px",
+        //margin: "8px", //marginだとその要素の外側に余白つける
       },
     };
 

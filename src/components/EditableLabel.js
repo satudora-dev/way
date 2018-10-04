@@ -6,8 +6,8 @@ class EditableLabel extends Component {
   constructor(props){
     super(props);
     this.state={
-      value: props.value,
       onEdit: false,
+      value: props.value,
     };
     this.onClick=this.onClick.bind(this);
     this.handleKeyPress=this.handleKeyPress.bind(this);
@@ -16,8 +16,8 @@ class EditableLabel extends Component {
 
   componentWillReceiveProps(nextProps){
     this.setState({
-      value: nextProps.value,
       canEdit: nextProps.canEdit,
+      value: nextProps.value,
     });
   }
 
@@ -38,11 +38,15 @@ class EditableLabel extends Component {
 
   handleKeyPress(e){
     let ENTER=13;
-    if(e.keyCode===ENTER) this.EndEdit();
+    if(e.keyCode===ENTER){
+      this.EndEdit();
+    }
   }
 
   clickEvent(){
-    if(this.props.onClick) this.props.onClick();
+    if(this.props.onClick){
+      this.props.onClick();
+    }
   }
 
   onBlur(){

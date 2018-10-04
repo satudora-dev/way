@@ -8,9 +8,9 @@ class SiteInfo extends Component {
         "text-align": "center",
       },
       wayLogo: {
+        height: 128,
         "vertical-align": "middle",
         width: 256,
-        height: 128,
       },
     }
 

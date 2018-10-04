@@ -33,18 +33,18 @@ class Users extends Component {
     }
 
     this.state={
-      given: "",
+      canEdit: false,
       family: "",
+      given: "",
       icon: "",
-      modalOpen: false,
-      modalMode: this.modalMODES.none,
       modalInput: "",
+      modalMode: this.modalMODES.none,
+      modalModeText: "",
+      modalOpen: false,
+      openTutorial: this.props.location.state.tut,//Signupからのルーティング時のみtrue
       position: "",
       projects: [],
       tags: [],
-      modalModeText: "",
-      canEdit: false,
-      openTutorial: this.props.location.state.tut,//Signupからのルーティング時のみtrue
     };
     this.id=this.props.match.params.id;
     this.profDbRef=firebaseDB.ref('users/'+this.props.match.params.id);
@@ -63,20 +63,20 @@ class Users extends Component {
         this.profDbRef.on('value',snapshot=>{
           let val=snapshot.val();
           let projects=[];
-          for(let item in val.projects){
+          for(const item of Object.keys(val.projects )){
             projects.push(item);
           }
           let tags=[];
-          for(let item in val.tags){
+          for(const item of Object.keys(val.tags)){
             tags.push(item);
           }
 
           this.setState({
-            given: val.given,
             family: val.family,
+            given: val.given,
+            position: val.position,
             projects: projects,
             tags: tags,
-            position: val.position,
           });
 
           //if(!this.props.location.state||!this.props.location.state.icon){
@@ -115,30 +115,31 @@ class Users extends Component {
 
   onNameEditEnd(val){
     this.setState({
-      given: val[0],
       family: val[1],
+      given: val[0],
     });
     this.profDbRef.child("given").set(val[0]);
     this.profDbRef.child("family").set(val[1]);
   }
 
-  switchModal(on,mode){
-    let text="";
-    switch(mode){
+  switchModal(on,mode) {
+    let text = "";
+    switch (mode) {
       case this.modalMODES.position:
-        text="position";
+        text = "position";
         break;
       case this.modalMODES.tag:
-        text="tag";
+        text = "tag";
         break;
       case this.modalMODES.project:
-        text="project";
+        text = "project";
         break;
     }
     this.setState({
-      modalOpen: on,
       modalMode: mode,
-      modalModeText: text});
+      modalModeText: text,
+      modalOpen: on,
+    });
   }
 
   onModalInputChange(e){
@@ -169,12 +170,16 @@ class Users extends Component {
         break;
     }
     this.setState({modalInput: ""});
-    if (!this.state.openTutorial) this.switchModal(false,this.modalMODES.none);
+    if (!this.state.openTutorial){
+      this.switchModal(false,this.modalMODES.none);
+    }
   }
 
   onParamsEditEnd(oldVal,newVal,mode){
     newVal=newVal[0].toUpperCase();
-    if(oldVal===newVal)return;
+    if(oldVal===newVal){
+      return;
+    }
 
     switch(mode){
       case this.modalMODES.project:
@@ -218,41 +223,41 @@ class Users extends Component {
   renderModalElement(){
     const style = {
       addtagstyle: {
+        "background-color":"white",
+        "border-radius":"30px",
         display:"inline-block",
-        "margin-top":"250px",
+        "font-family":"Avenir",
         height:"150px",
-        width:"300px",
-        "background-color":"white",
-        "text-align":"center",
-        "outline":"none",
-        "border-radius":"30px",
-        "font-family":"Avenir",
-      },
-      selectProjectModalStyle: {
-        display:"inline-block",
         "margin-top":"250px",
-        height:"200px",
-        //widthはGridでレスポンシブに
-        "min-width": "300px",
-        "background-color":"white",
-        "text-align":"center",
         "outline":"none",
-        "border-radius":"30px",
-        "font-family":"Avenir",
+        "text-align":"center",
+        width:"300px",
       },
       btnstyle: {
-        "margin-right": "10px",
-        "margin-bottom": "10px",
         "background-color": "#04B486",
         "color": "white",
+        "margin-bottom": "10px",
+        "margin-right": "10px",
         "text-transform": "none",
       },
       disabledstyle: {
-        "margin-right": "10px",
-        "margin-bottom": "10px",
         "background-color": "gray",
         "color": "white",
+        "margin-bottom": "10px",
+        "margin-right": "10px",
         "text-transform": "none",
+      },
+      selectProjectModalStyle: {
+        "background-color":"white",
+        "border-radius":"30px",
+        display:"inline-block",
+        "font-family":"Avenir",
+        height:"200px",
+        "margin-top":"250px",
+        "min-width": "300px",
+        //widthはGridでレスポンシブに
+        "outline":"none",
+        "text-align":"center",
       },
     }
 
@@ -302,10 +307,10 @@ class Users extends Component {
               }
             })()}
             <ProjectsSelect projects={this.state.projects} updateParentProjects={this.updateProjects} userID={this.id}/>
-            <Button style={this.state.projects.length == 0 || this.state.projects === undefined ? style.disabledstyle : style.btnstyle}
+            <Button style={this.state.projects.length === 0 || this.state.projects === undefined ? style.disabledstyle : style.btnstyle}
                 variant="outlined"
                 value="add"
-                disabled={this.state.projects.length == 0 || this.state.projects === undefined}
+                disabled={this.state.projects.length === 0 || this.state.projects === undefined}
                 onClick={() => this.onClickModalButton()}
             >
             done
@@ -356,8 +361,14 @@ class Users extends Component {
   }}
 
   addProject(prjName){
-    if(this.state.projects.filter(x=>x===prjName).length>0)return;//重複判定
-    if(!prjName)return;//空文字判定
+    //重複判定
+    if(this.state.projects.filter(x=>x===prjName).length>0){
+      return;
+    }
+    //空文字判定
+    if(!prjName){
+      return;
+    }
 
     let newProjects=this.state.projects.concat(prjName);
     this.setState({projects: newProjects});
@@ -366,8 +377,13 @@ class Users extends Component {
   }
 
   addTag(tagName){
-    if(this.state.projects.filter(x=>x===tagName).length>0)return;
-    if(!tagName)return;//空文字判定
+    if(this.state.projects.filter(x=>x===tagName).length>0){
+      return;
+    }
+    //空文字判定
+    if(!tagName){
+      return;
+    }
 
     let newTags=this.state.tags.concat(tagName);
     this.setState({tags: newTags});
@@ -391,11 +407,38 @@ class Users extends Component {
   render() {
     const style = {
 
+      addstyle: {
+        margin: "10px"
+      },
+      btnstyle: {
+        "background-color": "#04B486",
+        "color": "white",
+        "margin-bottom": "10px",
+        "margin-right": "10px",
+        "text-transform": "none",
+      },
+      categorystyle: {
+        "font-family": "Avenir",
+        margin: "10px 30px",
+        "text-align": "left",
+      },
+      deletestyle: {
+        "background-color":"rgba(0,0,0,0)",
+        border:"0",
+        color:"white",
+        cursor:"pointer",
+        outline:"none",
+      },
       divstyle: {
-        "background-image": "url('/grad.jpg')",
         "backend-position": "center center",
+        "background-image": "url('/grad.jpg')",
         "background-repeat": "no-repeat",
         "background-size": "cover",
+      },
+      iconstyle: {
+        height:"20px",
+        "margin-left":"10px",
+        width:"20px",
       },
       namestyle: {
         color: "#D8D8D8",
@@ -403,45 +446,19 @@ class Users extends Component {
         "font-size": "40px",
         margin: "10px"
       },
-      categorystyle: {
-        "text-align": "left",
-        margin: "10px 30px",
-        "font-family": "Avenir",
+      tagbtnstyle: {
+        "background-color": "#04B486",
+        "color": "white",
+        "margin-bottom": "10px",
+        "margin-right": "10px",
+        "padding-right":"8px",
+        "text-transform": "none",
       },
       tagstyle: {
-        "text-align": "left",
         "font-family": "Avenir",
         margin: "10px 30px",
         "margin-bottom": "40px",
-      },
-      btnstyle: {
-        "margin-right": "10px",
-        "margin-bottom": "10px",
-        "background-color": "#04B486",
-        "color": "white",
-        "text-transform": "none",
-      },
-      tagbtnstyle: {
-        "padding-right":"8px",
-        "margin-right": "10px",
-        "margin-bottom": "10px",
-        "background-color": "#04B486",
-        "text-transform": "none",
-        "color": "white",
-      },
-      addstyle: {
-        margin: "10px"
-      },
-      iconstyle: {
-        height:"20px",width:"20px",
-        "margin-left":"10px",
-      },
-      deletestyle: {
-        cursor:"pointer",
-        color:"white",
-        outline:"none",
-        border:"0",
-        "background-color":"rgba(0,0,0,0)",
+        "text-align": "left",
       },
     };
 
@@ -478,13 +495,14 @@ class Users extends Component {
               );
             })}
             {(() => {
-              if(this.state.canEdit)
-                return(
-                  <Button mini onClick={() => this.switchModal(true,this.modalMODES.project)}
+              if(this.state.canEdit) {
+                return (
+                  <Button mini onClick={() => this.switchModal(true, this.modalMODES.project)}
                           variant="fab" style={style.btnstyle}>
                     <EditIcon/>
                   </Button>
                 )
+              }
             })()}
          </div>
        </div>
@@ -513,7 +531,7 @@ class Users extends Component {
        <div>
          <Grid>
            <Modal open={this.state.modalOpen}
-                  onClose={() => {if (!this.state.openTutorial) this.switchModal(false,this.modalMODES.none)}}
+                  onClose={() => {if (!this.state.openTutorial) { this.switchModal(false,this.modalMODES.none) }}}
            >
            {this.renderModalElement()}
            </Modal>

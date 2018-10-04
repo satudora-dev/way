@@ -10,20 +10,20 @@ const ref = firebaseDB.ref('accounts');
 
 function GithubButton(props){
   const style = {
-    github:{
-      width: "80px",
-      height: "80px",
-      "border-radius": "50%",
+    button: {
+      "background-color": "white",
+      border: "none",
+      cursor: "pointer",
       padding: 0,
       transition: "all .3s",
     },
-    button: {
+    github:{
+      "border-radius": "50%",
+      height: "80px",
       padding: 0,
-      border: "none",
-      cursor: "pointer",
-      "background-color": "white",
       transition: "all .3s",
-    }
+      width: "80px",
+    },
   }
   return(
     <div>
@@ -58,9 +58,9 @@ class Login extends Component {
               idRef=ref.push();
               idRef.set({
                 email: result.user.email,
-                token: result.credential.accessToken,
                 registered: false,
-              }).then((result)=>{
+                token: result.credential.accessToken,
+              }).then(()=>{
                 this.redirect('/signup',idRef);
               });
             }
@@ -75,11 +75,11 @@ class Login extends Component {
   render() {
     const style = {
       container: {
-        "padding-top": "80px",
         "padding-bottom": "100px",
-        width: "100%",
-        "text-align": "center",
+        "padding-top": "80px",
         position: "relative",
+        "text-align": "center",
+        width: "100%",
       }
     }
     return (

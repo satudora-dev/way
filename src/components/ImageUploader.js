@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import {firebaseAuth,firebaseDB,firebaseStorage} from '../firebase';
-import {withRouter,Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import EditIcon from '@material-ui/icons/Edit';
 import EXIF from 'exif-js';
+import React, { Component } from 'react';
+import {Link,withRouter} from 'react-router-dom';
+import {firebaseAuth,firebaseDB,firebaseStorage} from '../firebase';
 
 class Signup extends Component {
   constructor(props){
@@ -20,120 +20,123 @@ class Signup extends Component {
   }
 
   onTextChange(e){
-    if(!e.target.files[0])return;
+    if(!e.target.files[0]){
+      return;
+    }
     this.optimizeImage(e.target.files[0]);
   }
 
   uploadImage(){
-    firebaseDB.ref('users/'+this.props.id+"/haveIcon").set(this.state.iconFile!=="");
+    firebaseDB.ref(`users/${this.props.id}/haveIcon`).set(this.state.iconFile!=="");
 
     if(this.state.iconFile){
-      let storageRef=firebaseStorage.ref().child(
+      const storageRef=firebaseStorage.ref().child(
         'icons/'+this.props.id);
       storageRef.put(this.state.iconFile);
     }
   }
 
   optimizeImage(iconFile){
-    let image=new Image();
-    let _this = this;
+    const image=new Image();
+    const parent = this;
     image.onload=()=> {
-      let width = image.width;
-      let height = image.height;
-      let maxWidth = 512;
+      const width = image.width;
+      const height = image.height;
+      const maxWidth = 512;
       if (width < maxWidth) {
         this.setState({
-          iconFile: iconFile,
+          iconFile,
           iconSrc: URL.createObjectURL(iconFile),
         });
         this.uploadImage();
       }
       else {
-        let canvas = document.createElement('canvas');
+        const canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
-        let ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d');
 
-        var orientation;
+        let orientation;
 
         EXIF.getData(iconFile, function () {
           orientation = iconFile.exifdata.Orientation;
 
-          var image_aspect, canvas_width, canvas_height, draw_width, draw_height;
-          //アスペクト取得
-          image_aspect = (orientation == 5 || orientation == 6 || orientation == 7 || orientation == 8) ? image.width / image.height : image.height / image.width;
+          let ImageAspect;
+          let canvasWidth;
+          let canvasHeight;
+          // アスペクト取得
+          ImageAspect = (orientation === 5 || orientation === 6 || orientation === 7 || orientation === 8) ? image.width / image.height : image.height / image.width;
 
-          canvas_width = image.width;
-          canvas_height = Math.floor(canvas_width * image_aspect);
+          canvasWidth = image.width;
+          canvasHeight = Math.floor(canvasWidth * ImageAspect);
 
           // リサイズ
-          const scale=maxWidth/canvas_width;
-          const dst_width = maxWidth;
-          const dst_height = canvas_height*scale;
-          canvas.width=dst_width;
-          canvas.height=dst_height;
+          const scale=maxWidth/canvasWidth;
+          const dstWidth = maxWidth;
+          const dstHeight = canvasHeight*scale;
+          canvas.width=dstWidth;
+          canvas.height=dstHeight;
           ctx.scale(scale, scale)
 
           // iPhoneで撮った写真はブラウザ上で回転してしまう。
           // exifに応じて画像の変換(上下左右反転と回転）
 
-          var draw_width = canvas_width;
-          var draw_height = canvas_height;
+          let drawWidth = canvasWidth;
+          let drawHeight = canvasHeight;
 
           switch (orientation) {
             case 2:
-              ctx.transform(-1, 0, 0, 1, canvas_width, 0);
+              ctx.transform(-1, 0, 0, 1, canvasWidth, 0);
               break;
 
             case 3:
-              ctx.transform(-1, 0, 0, -1, canvas_width, canvas_height);
+              ctx.transform(-1, 0, 0, -1, canvasWidth, canvasHeight);
               break;
 
             case 4:
-              ctx.transform(1, 0, 0, -1, 0, canvas_height);
+              ctx.transform(1, 0, 0, -1, 0, canvasHeight);
               break;
 
             case 5:
               ctx.transform(-1, 0, 0, 1, 0, 0);
               ctx.rotate((90 * Math.PI) / 180);
-              draw_width = canvas_height;
-              draw_height = canvas_width;
+              drawWidth = canvasHeight;
+              drawHeight = canvasWidth;
               break;
 
             case 6:
-              ctx.transform(1, 0, 0, 1, canvas_width, 0);
+              ctx.transform(1, 0, 0, 1, canvasWidth, 0);
               ctx.rotate((90 * Math.PI) / 180);
-              draw_width = canvas_height;
-              draw_height = canvas_width;
-              console.log("6!")
+              drawWidth = canvasHeight;
+              drawHeight = canvasWidth;
               break;
 
             case 7:
-              ctx.transform(-1, 0, 0, 1, canvas_width, canvas_height);
+              ctx.transform(-1, 0, 0, 1, canvasWidth, canvasHeight);
               ctx.rotate((-90 * Math.PI) / 180);
-              draw_width = canvas_height;
-              draw_height = canvas_width;
+              drawWidth = canvasHeight;
+              drawHeight = canvasWidth;
               break;
 
             case 8:
-              ctx.transform(1, 0, 0, 1, 0, canvas_height);
+              ctx.transform(1, 0, 0, 1, 0, canvasHeight);
               ctx.rotate((-90 * Math.PI) / 180);
-              draw_width = canvas_height;
-              draw_height = canvas_width;
+              drawWidth = canvasHeight;
+              drawHeight = canvasWidth;
               break;
 
             default:
               break;
           }
 
-          ctx.drawImage(image, 0, 0, draw_width, draw_height)
+          ctx.drawImage(image, 0, 0, drawWidth, drawHeight)
 
           // 変換後の画像をアップロード&ステートに設定
-          let transformedImage = canvas.toDataURL('image/png');
-          _this.setState({iconSrc: transformedImage});
+          const transformedImage = canvas.toDataURL('image/png');
+          parent.setState({iconSrc: transformedImage});
           canvas.toBlob((blob) => {
-            _this.setState({iconFile: blob});
-            _this.uploadImage();
+            parent.setState({iconFile: blob});
+            parent.uploadImage();
           });
         });
       }
@@ -153,23 +156,23 @@ onClickButton(){
 
 render() {
 
-    if(this.state.onCheck) return(<div></div>);
+    if(this.state.onCheck) { return(<div></div>); }
 
     const style = {
-      imgstyle: {
-        height: "256px",
-        width: "256px",
-        "border-radius": "50%",
-        "margin-top": "30px",
-        "object-fit": "cover",
-      },
       btnstyle: {
-        position:"absolute",
         "background-color": "#04B486",
         "color": "white",
-        top:"240px",
-        right:"32px",
         margin:0,
+        position:"absolute",
+        right:"32px",
+        top:"240px",
+      },
+      imgstyle: {
+        "border-radius": "50%",
+        height: "256px",
+        "margin-top": "30px",
+        "object-fit": "cover",
+        width: "256px",
       },
     }
 
@@ -180,12 +183,13 @@ render() {
         <input type="file" style={{display: "none"}} onChange={e => this.onTextChange(e)} ref="fileInput"/>
 
         {(() => {
-          if(this.props.canEdit)
+          if(this.props.canEdit) {
             return(
-              <Button mini onClick={()=>this.onClickButton()} variant="fab" style={style.btnstyle}>
+              <Button mini={true} onClick={()=>this.onClickButton()} variant="fab" style={style.btnstyle}>
                 <EditIcon/>
               </Button>
             )
+          }
         })()}
         </div>
         <div className="Login">
