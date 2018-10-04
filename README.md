@@ -1,4 +1,6 @@
-# [WAY](https://way.satudora.co)
+# WAY
+https://way.satudora.co
+
 [![Build Status](https://travis-ci.com/satudora-digital/way.svg?token=rsXJmjsg4Ce41ycX1Bij&branch=master)](https://travis-ci.com/satudora-digital/way)
 
 # 技術Stack
@@ -10,7 +12,7 @@
 → JavaScriptから[TypeScript](https://www.typescriptlang.org/)に移行予定
 
 ## Database
-- [Firebase Realtime] Database(https://console.firebase.google.com/u/0/project/whoareyou-c231f/database)
+- [Firebase RealtimeDatabase](https://console.firebase.google.com/u/0/project/whoareyou-c231f/database)
 
 ## Storage
 - Firebase Cloud Storage
@@ -20,3 +22,8 @@
 
 ## Hosting
 - Firebase Hosting
+
+
+# おおまかな処理の流れ
+
+[Way flow](./way_flow.png "WAY flow")
