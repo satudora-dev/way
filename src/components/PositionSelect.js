@@ -12,21 +12,21 @@ import {firebaseDB} from '../firebase';
 import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 120,
-    maxWidth: 300,
+  chip: {
+    margin: theme.spacing.unit / 4,
   },
   chips: {
     display: 'flex',
     flexWrap: 'wrap',
   },
-  chip: {
-    margin: theme.spacing.unit / 4,
+  formControl: {
+    margin: theme.spacing.unit,
+    maxWidth: 300,
+    minWidth: 120,
+  },
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
   },
 });
 
@@ -47,8 +47,8 @@ class PositionSelect extends React.Component {
   constructor(props){
     super(props);
     this.state= {
-      prevPosition: this.props.position || "",
       position: this.props.position || "",
+      prevPosition: this.props.position || "",
       userID: this.props.userID
     }
     this.updateParentPosition = this.props.updateParentPosition

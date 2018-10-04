@@ -4,8 +4,8 @@ class EditableLabel extends Component {
   constructor(props){
     super(props);
     this.state={
-      value: props.value,
       onEdit: false,
+      value: props.value,
     };
     this.onClick=this.onClick.bind(this);
     this.onTextChange=this.onTextChange.bind(this);

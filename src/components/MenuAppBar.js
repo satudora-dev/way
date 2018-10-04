@@ -21,10 +21,6 @@ class MenuAppBar extends React.Component{
     ];
 
     const style = {
-      table: {
-        "display": "table",
-        width: "100%",
-      },
       imgWrap: {
         display: "table-cell",
         "text-align": "center",
@@ -32,6 +28,10 @@ class MenuAppBar extends React.Component{
       },
       logoImg: {
         height: "30px",
+      },
+      table: {
+        "display": "table",
+        width: "100%",
       },
     }
 

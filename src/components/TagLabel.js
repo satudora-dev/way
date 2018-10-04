@@ -20,17 +20,19 @@ class TagLabel extends Component {
   }
 
   clickEvent(){
-    if(this.props.onClick) this.props.onClick();
+    if(this.props.onClick){
+      this.props.onClick();
+    }
   }
 
   render() {
     const style = {
       tagbtnstyle: {
-        "padding-top": "5px",
-        "padding-bottom": "5px",
-        "margin-right": "10px",
         "background-color": "#04B486",
         "color": "white",
+        "margin-right": "10px",
+        "padding-bottom": "5px",
+        "padding-top": "5px",
         "text-transform": "none",
       },
     }
