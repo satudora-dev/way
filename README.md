@@ -26,4 +26,4 @@ https://way.satudora.co
 
 # おおまかな処理の流れ
 
-[Way flow](./way_flow.png "WAY flow")
+![Way flow](./way_flow.png "WAY flow")
