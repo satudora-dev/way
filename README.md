@@ -3,6 +3,28 @@ https://way.satudora.co
 
 [![Build Status](https://travis-ci.com/satudora-digital/way.svg?token=rsXJmjsg4Ce41ycX1Bij&branch=master)](https://travis-ci.com/satudora-digital/way)
 
+# クローンして、ローカルで動かすまで
+[node.js](https://nodejs.org/en/download/)(npm)のバージョンはこちら(ライブラリのバージョン衝突に念のため備える)
+```bash
+$ node -v
+v8.12.0
+$ npm -v
+6.4.1
+```
+
+0. repository clone
+```bash
+$ git clone https://github.com/satudora-digital/way.git
+```
+1. package install
+```bash
+$ npm i
+```
+2. npm start
+```bash
+$ npm start
+```
+
 # 技術Stack
 
 ![Way structure](./way_structure.png "WAY structure")
