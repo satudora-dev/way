@@ -112,6 +112,15 @@ class Users extends Component {
         'familyName': family,
         'icon': url
       });
+
+      usrs.sort((a,b)=>{//idを昇順にソートし、新規登録者を上に
+        let aStr = a.id.toString();
+        let bStr = b.id.toString();
+        if(aStr > bStr) return -1;
+        if(aStr < bStr) return 1;
+        return 0;
+      });
+
       this.setState({users: usrs});
     });
   }
