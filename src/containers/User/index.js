@@ -141,6 +141,19 @@ class Users extends Component {
     this.setState({orderMenuOpen: on});
   }
 
+  shuffleUserOrder(){
+    this.setState({orderMODES: this.orderMODES.RANDOM});
+    let usrs=this.state.users;
+    //Fisher–Yatesアルゴリズム
+    for(let i=usrs.length-1;i>0;i--){
+      let r=Math.floor(Math.random()*(i+1));
+      let temp=usrs[i];
+      usrs[i]=usrs[r];
+      usrs[r]=temp;
+    }
+    this.setState({users: usrs});
+  }
+
   render() {
     const style = {
       iconstyle: {
@@ -193,7 +206,8 @@ class Users extends Component {
             );
           })}
         </Menu>
-        <Button  variant="contained" style={style.btnstyle}>
+        <Button  variant="contained" style={style.btnstyle}
+          onClick={()=>this.shuffleUserOrder()}>
           <img src="./refresh_white_18x18.png" alt="" />
           RANDOM
         </Button>
