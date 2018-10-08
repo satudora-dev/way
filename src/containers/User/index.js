@@ -10,8 +10,8 @@ class Users extends Component {
   constructor(props){
     super(props);
     this.orderMODES={
-      RANDOM: 0,
-      PROJECT: 1,
+      SORTED: 0,
+      RANDOM: 1,
     };
     this.orderOptions=["RANDOM","PROJECT"];
     this.refineMODES={
@@ -24,7 +24,7 @@ class Users extends Component {
       authenticated: false,
       currentUser: null,
       users: [],
-      orderMode: this.orderMODES.RANDOM,
+      orderMode: this.orderMODES.SORTED,
       refineMode: this.refineMODES.all,
       refineKey: "",
       orderMenuOpen: false,
@@ -113,13 +113,15 @@ class Users extends Component {
         'icon': url
       });
 
-      usrs.sort((a,b)=>{//idを昇順にソートし、新規登録者を上に
-        let aStr = a.id.toString();
-        let bStr = b.id.toString();
-        if(aStr > bStr) return -1;
-        if(aStr < bStr) return 1;
-        return 0;
-      });
+      if(this.state.orderMode===this.orderMODES.SORTED){
+        usrs.sort((a,b)=>{//idを昇順にソートし、新規登録者を上に
+          let aStr = a.id.toString();
+          let bStr = b.id.toString();
+          if(aStr > bStr) return -1;
+          if(aStr < bStr) return 1;
+          return 0;
+        });
+      }
 
       this.setState({users: usrs});
     });
