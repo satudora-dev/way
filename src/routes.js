@@ -8,9 +8,10 @@ import User from './containers/User';
 import Profile from './containers/Profile';
 import Logout from './containers/Logout';
 
-import {loadAccounts,loadPositions, loadProjects, loadTags, loadUsers} from './actions'
-
-const Routes ( { store, loadAccounts, loadPositions, loadProjects, loadTags, loadUsers}) => {
+import * as actions from './actions'
+import { Provider, connect } from 'react-redux';
+const Routes = ( {store, loadAccounts, loadPositions, loadProjects, loadTags, loadUsers} ) => {
+  console.log(store)
   loadAccounts();
   loadPositions();
   loadProjects();
@@ -27,16 +28,11 @@ const Routes ( { store, loadAccounts, loadPositions, loadProjects, loadTags, loa
           <Route path="/users/:id" component={Profile}/>
           <Route path="/login" component={ Login } />
           <Route path="/logout" component={ Logout } />
-          <button onClick={() => console.log(this.props)}>tetetete</button>
+          <button onClick={() => console.log(store.getState())}>tetetete</button>
         </div>
       </BrowserRouter>
     </Provider>
   );
 }
 
-export default connect(null,{ loadAccounts: loadAccounts,
-                              loadPositions: loadPositions,
-                              loadProjects: loadProjects,
-                              loadTags: loadTags,
-                              loadUsers: loadUsers}
-)(Routes);
+export default connect(null,actions)(Routes);
