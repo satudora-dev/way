@@ -8,28 +8,35 @@ import User from './containers/User';
 import Profile from './containers/Profile';
 import Logout from './containers/Logout';
 
-class Routes extends Component{
-  constructor(props){
-    super(props);
-    this.state={
-      uid: "",
-    }
-  }
+import {loadAccounts,loadPositions, loadProjects, loadTags, loadUsers} from './actions'
 
-  render(){
-    return(
-    <BrowserRouter {...this.props}>
-      <div>
-        <Route exact path="/" component={ App } />
-        <Route path="/signup" component={ Signup } />
-        <Route exact path="/users" component={ User } />
-        <Route path="/users/:id" component={Profile}/>
-        <Route path="/login" component={ Login } />
-        <Route path="/logout" component={ Logout } />
-      </div>
-    </BrowserRouter>
-    );
-  };
+const Routes ( { store, loadAccounts, loadPositions, loadProjects, loadTags, loadUsers}) => {
+  loadAccounts();
+  loadPositions();
+  loadProjects();
+  loadTags();
+  loadUsers();
+
+  return(
+    <Provider store={store}>
+      <BrowserRouter >
+        <div>
+          <Route exact path="/" component={ App } />
+          <Route path="/signup" component={ Signup } />
+          <Route exact path="/users" component={ User } />
+          <Route path="/users/:id" component={Profile}/>
+          <Route path="/login" component={ Login } />
+          <Route path="/logout" component={ Logout } />
+          <button onClick={() => console.log(this.props)}>tetetete</button>
+        </div>
+      </BrowserRouter>
+    </Provider>
+  );
 }
 
-export default Routes;
+export default connect(null,{ loadAccounts: loadAccounts,
+                              loadPositions: loadPositions,
+                              loadProjects: loadProjects,
+                              loadTags: loadTags,
+                              loadUsers: loadUsers}
+)(Routes);
