@@ -19,7 +19,7 @@ const loadAccountsError = error => {
   }
 }
 
-export const loadPositions = () => dispatch => {
+export const loadAccounts = () => dispatch => {
   Accountref.off()
   Accountref.on('value',
     (snapshot) => {dispatch(loadAccountsSuccess(snapshot))},
