@@ -1,20 +1,19 @@
 const projects = (state = [], action) => {
   switch (action.type) {
     case 'PROJECTS_RECEIVE_DATA':
-      let projects = []
+      let projects ={}
       if(action.data){
         Object.keys(action.data).forEach(key =>{
-          let userids = []
+          let members = []
           Object.keys(action.data[key].members).forEach(userid =>{
-            userids.push({userid})
+            members.push({userid})
           });
-          projects.push({
-            project: key,
-            userids: userids,
-          })
+          projects[key]={
+            members: members,
+          }
         });
       }
-      return [...projects]
+      return projects
     case 'PROJECTS_RECEIVE_ERROR':
       alert(action.message)
       return state

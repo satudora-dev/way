@@ -1,7 +1,7 @@
 const users = (state = [], action) => {
   switch (action.type) {
     case 'USERS_RECEIVE_DATA':
-      let users = []
+      let users = {}
       if(action.data){
         Object.keys(action.data).forEach(key =>{
           let userinfo = action.data[key]
@@ -17,17 +17,16 @@ const users = (state = [], action) => {
               tags.push(tag);
             })
           }
-          users.push({
-            userid: key,
+          users[key] = {
             family: userinfo.family,
             given: userinfo.given,
             position: userinfo.position,
             projects: projects,
             tags: tags
-          })
+          }
         });
       }
-      return [...users]
+      return users
     case 'USERS_RECEIVE_ERROR':
       alert(action.message)
       return state
