@@ -4,11 +4,13 @@ import positions from './positions'
 import projects from './projects'
 import tags from './tags'
 import users from './users'
+import auth from './auth'
 
 export default combineReducers({
   accounts,
   positions,
   projects,
-  tags, 
+  tags,
   users,
+  auth,
 })

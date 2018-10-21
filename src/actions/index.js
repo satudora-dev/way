@@ -114,3 +114,15 @@ export const loadUsers = () => dispatch => {
     (error) => {dispatch(loadUsersError(error))}
   )
 }
+
+
+const setCurrentUser = email  => {
+  return {
+    type: 'SET_CURRENT_USER',
+    email: email
+  }
+}
+
+export const loginAsUser = email => dispatch => {
+  dispatch(setCurrentUser(email))
+}

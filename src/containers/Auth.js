@@ -14,8 +14,10 @@ class Auth extends Component {
         this.props.loadProjects();
         this.props.loadTags();
         this.props.loadUsers();
+        this.props.loginAsUser(user.email)
         this.props.history.push('/users');
       }else{
+        this.props.loginAsUser(null)
         this.props.history.push('/login');
       }
     })
