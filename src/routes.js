@@ -8,20 +8,17 @@ import User from './containers/User';
 import Profile from './containers/Profile';
 import Logout from './containers/Logout';
 
-import * as actions from './actions'
+import Auth from './containers/Auth';
 import { Provider, connect } from 'react-redux';
-const Routes = ( {store, loadAccounts, loadPositions, loadProjects, loadTags, loadUsers} ) => {
-  console.log(store)
-  loadAccounts();
-  loadPositions();
-  loadProjects();
-  loadTags();
-  loadUsers();
 
+import {firebaseAuth} from './firebase'
+
+const Routes = ({store}) => {
   return(
     <Provider store={store}>
       <BrowserRouter >
         <div>
+          <Route path="/" component={ Auth }  />
           <Route exact path="/" component={ App } />
           <Route path="/signup" component={ Signup } />
           <Route exact path="/users" component={ User } />
@@ -35,4 +32,4 @@ const Routes = ( {store, loadAccounts, loadPositions, loadProjects, loadTags, lo
   );
 }
 
-export default connect(null,actions)(Routes);
+export default Routes;

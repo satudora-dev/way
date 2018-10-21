@@ -7,19 +7,10 @@ class Logout extends Component {
     super(props);
   }
 
-  componentWillMount(){    
-    firebaseAuth().onAuthStateChanged(user=>{
-      if(user){
-        firebaseAuth().signOut().then(()=>{
-          this.props.history.push('/login');
-        });
-      }
-      else{
-        this.props.history.push('/login');
-      }
-    });
+  componentWillMount(){
+    firebaseAuth().signOut()
+    this.props.history.push("/login")
   }
-
   render(){
     return null;
   }
