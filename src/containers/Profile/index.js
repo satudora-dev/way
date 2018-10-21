@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {firebaseDB, firebaseAuth, firebaseStorage} from '../../firebase';
-import {withRouter} from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Modal from '@material-ui/core/Modal';
@@ -21,10 +20,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 
-class Users extends Component {
+import { connect } from 'react-redux';
+import * as actions from '../../actions'
+
+class Profile extends Component {
   constructor(props){
     super(props);
-
+    console.log(props)
     this.modalMODES={
       none: 0,
       position: 1,
@@ -33,75 +35,28 @@ class Users extends Component {
     }
 
     this.state={
-      given: "",
-      family: "",
-      icon: "",
+      given: this.props.given,
+      family: this.props.family,
+      icon: this.props.icon,
       modalOpen: false,
       modalMode: this.modalMODES.none,
       modalInput: "",
-      position: "",
-      projects: [],
-      tags: [],
+      position: this.props.position || [],
+      projects: this.props.projects || [],
+      tags: this.props.tags || [],
       modalModeText: "",
-      canEdit: false,
+      canEdit: this.props.canEdit,
       openTutorial: this.props.location.state.tut,//Signupからのルーティング時のみtrue
     };
     this.id=this.props.match.params.id;
-    this.profDbRef=firebaseDB.ref('users/'+this.props.match.params.id);
-    this.posDbRef=firebaseDB.ref('positions');
-    this.prjDbRef=firebaseDB.ref('projects');
-    this.tagDbRef=firebaseDB.ref('tags');
-
   }
 
   componentWillMount(){
-    firebaseAuth().onAuthStateChanged(user=>{
-      if(!user){
-        this.props.history.push('/login');
-      }
-      else{
-        this.profDbRef.on('value',snapshot=>{
-          let val=snapshot.val();
-          let projects=[];
-          for(let item in val.projects){
-            projects.push(item);
-          }
-          let tags=[];
-          for(let item in val.tags){
-            tags.push(item);
-          }
-
-          this.setState({
-            given: val.given,
-            family: val.family,
-            projects: projects,
-            tags: tags,
-            position: val.position,
-          });
-
-          //if(!this.props.location.state||!this.props.location.state.icon){
-            if(val.haveIcon){
-              this.downloadImage(this.id);
-            }
-            else{
-              this.setState({icon: "/portrait.png"});
-            }
-          /*}
-          else{
-            this.setState({icon: this.props.location.state.icon,});
-            this.props.location.state="";
-          }*/
-        });
-        firebaseDB.ref('accounts/'+this.props.match.params.id).once('value',snapshot=>{
-          let val=snapshot.val();
-          this.setState({canEdit: val.email===user.email});
-        })
-      }
-      if(this.state.openTutorial){
-        this.switchModal(true,this.modalMODES.position)
-        this.setState({position: ""})
-      }
-    });
+    this.downloadImage(this.id);
+    if(this.state.openTutorial){
+      this.switchModal(true,this.modalMODES.position)
+      this.setState({position: ""})
+    }
   }
 
 
@@ -524,5 +479,22 @@ class Users extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  let users = state.users;
+  let accounts = state.accounts;
+  let thisUser = window.location.pathname.split('/')[2];
+  if(users[thisUser]){
+    return {
+      given: users[thisUser].given,
+      family: users[thisUser].family,
+      icon: users[thisUser].icon,
+      position: users[thisUser].position,
+      projects: users[thisUser].projects,
+      tags: users[thisUser].tags,
+      canEdit: state.auth.CurrentUserEmail === accounts[thisUser].email
+    }
+  }
+}
 
-export default withRouter(Users);
+
+export default connect(mapStateToProps,actions)(Profile);
