@@ -109,7 +109,7 @@ const loadUsersError = error => {
 
 export const loadUsers = () => dispatch => {
   Userref.off()
-  Useref.on('value',
+  Userref.on('value',
     (snapshot) => {dispatch(loadUsersSuccess(snapshot))},
     (error) => {dispatch(loadUsersError(error))}
   )
