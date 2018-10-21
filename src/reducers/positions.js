@@ -17,6 +17,7 @@ const positions = (state = [], action) => {
       return [...positions]
     case 'POSITIONS_RECEIVE_ERROR':
       alert(action.message)
+      return state
       break;
     default:
       return state

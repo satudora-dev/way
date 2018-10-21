@@ -17,6 +17,7 @@ const tags = (state = [], action) => {
       return [...tags]
     case 'TAGS_RECEIVE_ERROR':
       alert(action.message)
+      return state
       break;
     default:
       return state
