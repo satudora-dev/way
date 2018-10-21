@@ -4,5 +4,13 @@ import './index.css';
 import Routes from './routes';
 import registerServiceWorker from './utils/registerServiceWorker';
 
-ReactDOM.render(<Routes />, document.getElementById('root'));
+import { Provider } from 'react-redux';
+import rootReducer from '../reducers';
+import reduxThunk from "redux-thunk";
+
+
+const store = createStore(rootReducer, {}, applyMiddleware(reduxThunk));
+
+
+ReactDOM.render(<Routes store={store}/>, document.getElementById('root'));
 registerServiceWorker();
