@@ -15,6 +15,8 @@ const tags = (state = [], action) => {
       }
       return tags
     case 'TAGS_RECEIVE_ERROR':
+    case 'TAG_DELETE_ERROR':
+    case 'TAG_ADD_ERROR':
       alert(action.message)
       return state
       break;
