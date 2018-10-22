@@ -126,3 +126,36 @@ const setCurrentUser = email  => {
 export const loginAsUser = email => dispatch => {
   dispatch(setCurrentUser(email))
 }
+
+export const editName = (names, userid) => dispatch => {
+  Userref.child(userid).update({given:names[0],family:names[1]})
+    .catch(error => dispatch({
+      type: 'EDIT_NAME_ERROR',
+      message: error.message,
+    }));
+}
+
+export const addTag = (tagname, userid) => dispatch => {
+  Userref.child(userid + `/tags/${tagname}`).set(true)
+    .catch(error => dispatch({
+      type: 'TAG_ADD_ERROR',
+      message: error.message,
+    }));
+  Tagref.child(tagname + `/${userid}`).set(true)
+    .catch(error => dispatch({
+      type: 'TAG_ADD_ERROR',
+      message: error.message,
+    }));
+}
+export const deleteTag = (tagname, userid) => dispatch => {
+  Userref.child(userid + `/tags/${tagname}`).remove()
+    .catch(error => dispatch({
+      type: 'TAG_DELETE_ERROR',
+      message: error.message,
+    }));
+  Tagref.child(tagname + `/${userid}`).remove()
+    .catch(error => dispatch({
+      type: 'TAG_DELETE_ERROR',
+      message: error.message,
+    }));
+}
