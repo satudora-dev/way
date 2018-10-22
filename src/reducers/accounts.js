@@ -7,7 +7,7 @@ const accounts = (state = [], action) => {
           let account = action.data[key];
           accounts[key] = {
             email: account.email,
-            registered: account.registerd,
+            registered: account.registered,
             token: account.token,
           }
         });
