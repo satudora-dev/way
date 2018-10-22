@@ -26,7 +26,6 @@ import * as actions from '../../actions'
 class Profile extends Component {
   constructor(props){
     super(props);
-    console.log(props)
     this.modalMODES={
       none: 0,
       position: 1,
@@ -35,9 +34,9 @@ class Profile extends Component {
     }
 
     this.state={
-      given: this.props.given,
-      family: this.props.family,
-      icon: this.props.icon,
+      given: this.props.given || "",
+      family: this.props.family || "",
+      icon: this.props.icon || "/portrait.png",
       modalOpen: false,
       modalMode: this.modalMODES.none,
       modalInput: "",
@@ -45,14 +44,14 @@ class Profile extends Component {
       projects: this.props.projects || [],
       tags: this.props.tags || [],
       modalModeText: "",
+      id: this.props.match.params.id,
       canEdit: this.props.canEdit,
       openTutorial: this.props.location.state.tut,//Signupからのルーティング時のみtrue
     };
-    this.id=this.props.match.params.id;
   }
 
   componentWillMount(){
-    this.downloadImage(this.id);
+    this.downloadImage(this.state.id);
     if(this.state.openTutorial){
       this.switchModal(true,this.modalMODES.position)
       this.setState({position: ""})
@@ -68,14 +67,14 @@ class Profile extends Component {
     });
   }
 
-  onNameEditEnd(val){
-    this.setState({
-      given: val[0],
-      family: val[1],
-    });
-    this.profDbRef.child("given").set(val[0]);
-    this.profDbRef.child("family").set(val[1]);
-  }
+  // onNameEditEnd(val){
+  //   this.setState({
+  //     given: val[0],
+  //     family: val[1],
+  //   });
+  //   this.profDbRef.child("given").set(val[0]);
+  //   this.profDbRef.child("family").set(val[1]);
+  // }
 
   switchModal(on,mode){
     let text="";
@@ -116,7 +115,7 @@ class Profile extends Component {
         }
         break;
       case this.modalMODES.tag:
-        this.addTag(newName);
+        this.props.addTag(newName, this.state.id);
         if (this.state.openTutorial){
           this.switchModal(false,this.modalMODES.none)
           this.props.history.push('/users');
@@ -135,7 +134,7 @@ class Profile extends Component {
       case this.modalMODES.project:
         let newPrj=this.state.projects.filter(n=>n!==oldVal);//古い情報を削除
         this.profDbRef.child("projects/"+oldVal).remove();
-        this.prjDbRef.child(oldVal+"/members/"+this.id).remove();
+        this.prjDbRef.child(oldVal+"/members/"+this.state.id).remove();
         this.setState({projects: newPrj});
         if(newVal){
           this.addProject(newVal);
@@ -144,7 +143,7 @@ class Profile extends Component {
       case this.modalMODES.tag:
         let newTag=this.state.tags.filter(n=>n!==oldVal);
         this.profDbRef.child("tags/"+oldVal).remove();
-        this.tagDbRef.child(oldVal+"/"+this.id).remove();
+        this.tagDbRef.child(oldVal+"/"+this.state.id).remove();
         this.setState({tags: newTag});
         if(newVal){
           this.addTag(newVal);
@@ -157,7 +156,7 @@ class Profile extends Component {
   {
     let newTags=this.state.tags.filter(n=>n!==tagName);
     this.profDbRef.child("tags/"+tagName).remove();
-    this.tagDbRef.child(tagName+"/"+this.id).remove();
+    this.tagDbRef.child(tagName+"/"+this.state.id).remove();
     this.setState({tags: newTags});
   }
 
@@ -230,7 +229,7 @@ class Profile extends Component {
                 )
               }
             })()}
-            <PositionSelect position={this.state.position} updateParentPosition={this.updatePosition} userID={this.id}/>
+            <PositionSelect position={this.state.position} updateParentPosition={this.updatePosition} userID={this.state.id}/>
             <Button style={this.state.position === "" || this.state.position === undefined ? style.disabledstyle : style.btnstyle}
                     variant="outlined"
                     value="add"
@@ -256,7 +255,7 @@ class Profile extends Component {
                 )
               }
             })()}
-            <ProjectsSelect projects={this.state.projects} updateParentProjects={this.updateProjects} userID={this.id}/>
+            <ProjectsSelect projects={this.state.projects} updateParentProjects={this.updateProjects} userID={this.state.id}/>
             <Button style={this.state.projects.length == 0 || this.state.projects === undefined ? style.disabledstyle : style.btnstyle}
                 variant="outlined"
                 value="add"
@@ -307,7 +306,7 @@ class Profile extends Component {
     }else{
     this.setState({position: posName});
     this.profDbRef.child("position").set(posName);
-    this.posDbRef.child(posName+"/"+this.id).set(true);
+    this.posDbRef.child(posName+"/"+this.state.id).set(true);
   }}
 
   addProject(prjName){
@@ -317,7 +316,7 @@ class Profile extends Component {
     let newProjects=this.state.projects.concat(prjName);
     this.setState({projects: newProjects});
     this.profDbRef.child("projects/"+prjName).set(true);
-    this.prjDbRef.child(prjName+"/members/"+this.id).set(true);
+    this.prjDbRef.child(prjName+"/members/"+this.state.id).set(true);
   }
 
   addTag(tagName){
@@ -327,7 +326,7 @@ class Profile extends Component {
     let newTags=this.state.tags.concat(tagName);
     this.setState({tags: newTags});
     this.profDbRef.child("tags/"+tagName).set(true);
-    this.tagDbRef.child(tagName+"/"+this.id).set(true);
+    this.tagDbRef.child(tagName+"/"+this.state.id).set(true);
   }
 
   toPositionPage(posName){
@@ -400,14 +399,17 @@ class Profile extends Component {
       },
     };
 
+    const projects = this.props.projects || [];
+    const tags = this.props.tags || [];
+
     return (
       <div className="Profile">
         <div className="Home" style={style.divstyle}>
           <ImageUploader src={this.state.icon} id={this.props.match.params.id} canEdit={this.state.canEdit}/>
             <EditableLabel
               style={style.namestyle}
-              value={[this.state.given,this.state.family]}
-              onEditEnd={(val)=>this.onNameEditEnd(val)}
+              value={[this.props.given,this.props.family]}
+              onEditEnd={(names)=>this.props.editName(names,this.state.id)}
               canEdit={this.state.canEdit}
             />
         </div>
@@ -422,7 +424,7 @@ class Profile extends Component {
           <h3 style={style.categorystyle}>projects</h3>
           <hr />
           <div style={style.tagstyle}>
-            {this.state.projects.map((project,i)=>{
+            {projects.map((project,i)=>{
               return (
                 <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle} onClick={()=>this.toProjectPage(project)}>
                   <TagLabel
@@ -448,11 +450,11 @@ class Profile extends Component {
          <h3 style={style.categorystyle}>tags</h3>
          <hr />
          <div style={style.tagstyle}>
-           {this.state.tags.map((tag,i)=>{
+           {tags.map((tag,i)=>{
              return (
               <Button key={i} variant="contained" style={style.tagbtnstyle}>
                 <span onClick={()=>this.toTagPage(tag)}>{[tag]}&nbsp;&nbsp;</span>
-                <CloseIcon style={{"font-size" : "90%", }} onClick={()=>this.onTagDelete(tag)}/>
+                <CloseIcon style={{"font-size" : "90%", }} onClick={()=>this.props.deleteTag(tag, this.state.id)}/>
               </Button>
              );
            })}
