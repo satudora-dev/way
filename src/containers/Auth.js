@@ -6,7 +6,6 @@ import * as actions from '../actions';
 
 class Auth extends Component {
   componentWillMount(){
-    console.log(this.props)
     firebaseAuth().onAuthStateChanged(user=>{
       if(user){
         this.props.loadAccounts();
