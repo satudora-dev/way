@@ -18,7 +18,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import TagModal from './TagModal';
+import PositionModal from './PositionModal'
+import TagModal from './TagModal'
 import ProjectModal from './ProjectModal'
 
 import { connect } from 'react-redux';
@@ -126,6 +127,10 @@ class Profile extends Component {
       this.setState({projects: projects});
     }
 
+    const updatePosition = (projects) => {
+      this.setState({projects: projects});
+    }
+
     return (
       <div className="Profile">
         <div className="Home" style={style.divstyle}>
@@ -139,10 +144,29 @@ class Profile extends Component {
         </div>
 
         <div className="Position">
-          <h3 style={style.categorystyle}>positions</h3>
+          <h3 style={style.categorystyle}>position</h3>
           <hr />
           <div style={style.tagstyle}>
-            <Button variant="contained" color="primary" disabled={(!position)} style={style.tagbtnstyle} onClick={()=>this.toPositionPage(this.state.position)}>{this.state.position}</Button>
+            <Button variant="contained" color="primary" disabled={(!position)} style={style.tagbtnstyle} onClick={()=>this.toPositionPage(this.state.position)}>{position}</Button>
+            {(() => {
+              if(canEdit)
+                return(
+                  <div>
+                    <Button mini onClick={() => this.setState({PositionmodalOpen: true})}
+                            variant="fab" style={style.btnstyle}>
+                      <EditIcon/>
+                    </Button>
+                    <PositionModal
+                      Positionmodalopen={this.state.PositionmodalOpen}
+                      currentPosition={position}
+                      addPosition={this.props.addPosition}
+                      PositionModalclose={() => this.setState({PositionmodalOpen: false})}
+                      profileid={profileid}
+                      updatePosition={updatePosition}
+                    />
+                  </div>
+                )
+            })()}
           </div>
         </div>
         <div className="Project">
