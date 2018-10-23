@@ -95,14 +95,14 @@ const style = {
   },
 }
 
-const ProjectModal = ({Projectmodalopen, currentProjects, setProjects, ProjectModalclose, updateProjects, profileid}) => {
+const ProjectModal = ({projectModalOpen, currentProjects, setProjects, onProjectModalclose, updateProjects, profileid}) => {
   return(
     <div>
       <Grid>
-        <Modal open={Projectmodalopen}
+        <Modal open={projectModalOpen}
                onClose={() => {
                  setProjects(currentProjects, profileid)
-                 ProjectModalclose()}}
+                 onProjectModalclose()}}
         >
           <div style={style.selectProjectModalStyle}>
             <h3>select project</h3>
@@ -113,7 +113,7 @@ const ProjectModal = ({Projectmodalopen, currentProjects, setProjects, ProjectMo
                 disabled={currentProjects.length == 0 || currentProjects === undefined}
                 onClick={() => {
                   setProjects(currentProjects, profileid);
-                  ProjectModalclose();
+                  onProjectModalclose();
                 }}
             >
             done

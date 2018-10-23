@@ -14,9 +14,6 @@ import Grid from '@material-ui/core/Grid';
 
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import MenuItem from '@material-ui/core/MenuItem';
 
 import PositionModal from './PositionModal'
 import TagModal from './TagModal'
@@ -30,11 +27,9 @@ class Profile extends Component {
   constructor(props){
     super(props);
     this.state={
-      PositionmodalOpen: false,
-      ProjectmodalOpen: false,
-      TagmodalOpen: false,
-      modalInput: "",
-      modalModeText: "",
+      positionModalOpen: false,
+      projectModalOpen: false,
+      tagModalOpen: false,
       id: this.props.match.params.id,
     };
   }
@@ -152,15 +147,15 @@ class Profile extends Component {
               if(canEdit)
                 return(
                   <div>
-                    <Button mini onClick={() => this.setState({PositionmodalOpen: true})}
+                    <Button mini onClick={() => this.setState({positionModalOpen: true})}
                             variant="fab" style={style.btnstyle}>
                       <EditIcon/>
                     </Button>
                     <PositionModal
-                      Positionmodalopen={this.state.PositionmodalOpen}
+                      positionModalOpen={this.state.positionModalOpen}
                       currentPosition={position}
                       addPosition={this.props.addPosition}
-                      PositionModalclose={() => this.setState({PositionmodalOpen: false})}
+                      onPositionModalOpen={() => this.setState({positionModalOpen: false})}
                       profileid={profileid}
                       updatePosition={updatePosition}
                     />
@@ -187,15 +182,15 @@ class Profile extends Component {
               if(canEdit)
                 return(
                   <div>
-                    <Button mini onClick={() => this.setState({ProjectmodalOpen: true})}
+                    <Button mini onClick={() => this.setState({projectModalOpen: true})}
                             variant="fab" style={style.btnstyle}>
                       <EditIcon/>
                     </Button>
                     <ProjectModal
-                      Projectmodalopen={this.state.ProjectmodalOpen}
+                      projectModalOpen={this.state.projectModalOpen}
                       currentProjects={projects}
                       setProjects={this.props.setProjects}
-                      ProjectModalclose={() => this.setState({ProjectmodalOpen: false})}
+                      onProjectModalclose={() => this.setState({projectModalOpen: false})}
                       updateProjects={updateProjects}
                       profileid={profileid}
                     />
@@ -213,18 +208,18 @@ class Profile extends Component {
              return (
               <Button key={i} variant="contained" style={style.tagbtnstyle}>
                 <span onClick={()=>this.toTagPage(tag)}>{[tag]}&nbsp;&nbsp;</span>
-                <CloseIcon style={{"font-size" : "90%", }} onClick={()=>this.props.deleteTag(tag, this.state.id)}/>
+                <CloseIcon style={{"font-size" : "90%", }} onClick={()=>this.props.deleteTag(tag, profileid)}/>
               </Button>
              );
            })}
-            <Button mini onClick={() => this.setState({TagmodalOpen: true})}
+            <Button mini onClick={() => this.setState({tagModalOpen: true})}
                     variant="fab" style={style.btnstyle}>
             <AddIcon />
             </Button>
           <TagModal
-            Tagmodalopen={this.state.TagmodalOpen}
+            tagModalOpen={this.state.tagModalOpen}
             addTag={this.props.addTag}
-            TagModalclose={() => this.setState({TagmodalOpen: false})}
+            onTagModalclose={() => this.setState({tagModalOpen: false})}
             profileid={profileid} />
             </div>
         </div>
