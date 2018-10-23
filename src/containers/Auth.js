@@ -5,6 +5,12 @@ import {firebaseAuth} from '../firebase';
 import * as actions from '../actions';
 
 class Auth extends Component {
+
+  constructor(props) {
+    super(props);
+    if(this.props.registered === false) this.props.history.push('/signup')
+  }
+
   componentWillMount(){
     firebaseAuth().onAuthStateChanged(user=>{
       if(user){
@@ -14,16 +20,31 @@ class Auth extends Component {
         this.props.fetchTags();
         this.props.fetchUsers();
         this.props.loginAsUser(user.email);
-        this.props.history.push('/users');
       }else{
         this.props.loginAsUser(null);
         this.props.history.push('/login')
       }
     })
+
   }
   render() {
     return null;
   }
 }
+const mapStateToProps = ( state ) => {
+  const userkey = state.auth.CurrentUserKey;
+  if(userkey){
+    return{
+      registered: state.accounts[userkey].registered
+    }
+  }
+}
 
-export default connect(null,actions)(Auth);
+export default connect(mapStateToProps,{
+  fetchAccounts: actions.fetchAccounts,
+  fetchPositions: actions.fetchPositions,
+  fetchProjects: actions.fetchProjects,
+  fetchTags: actions.fetchTags,
+  fetchUsers: actions.fetchUsers,
+  loginAsUser: actions.loginAsUser
+})(Auth);

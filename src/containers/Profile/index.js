@@ -220,14 +220,15 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispachToProps = ( dispatch ) => ({
+const mapDispatchToProps = {
   editName: actions.editName,
   addPosition: actions.addPosition,
   setProjects: actions.setProjects,
   addTag: actions.addTag,
   deleteTag: actions.deleteTag,
-})
+}
+
 export default connect(
   mapStateToProps,
-  mapDispachToProps
+  mapDispatchToProps
 )(Profile);
