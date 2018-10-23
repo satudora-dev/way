@@ -140,6 +140,7 @@ export const loginAsUser = email => dispatch => {
 }
 
 export const editName = (names, userid) => dispatch => {
+  if(names[0] === "" || names[1] === "" || names[0] === undefined || names[1] === undefined || !userid ) return;
   Userref.child(userid).update({given:names[0],family:names[1]})
     .catch(error => dispatch({
       type: 'EDIT_NAME_ERROR',
@@ -148,6 +149,7 @@ export const editName = (names, userid) => dispatch => {
 }
 
 export const addTag = (tagname, userid) => dispatch => {
+  if(tagname === "" || tagname === undefined || !userid) return;
   Userref.child(userid + `/tags/${tagname}`).set(true)
     .catch(error => dispatch({
       type: 'TAG_ADD_ERROR',
@@ -160,6 +162,7 @@ export const addTag = (tagname, userid) => dispatch => {
     }));
 }
 export const deleteTag = (tagname, userid) => dispatch => {
+  if(tagname === "" || tagname === undefined || !userid) return;
   Userref.child(userid + `/tags/${tagname}`).remove()
     .catch(error => dispatch({
       type: 'TAG_DELETE_ERROR',
@@ -173,6 +176,7 @@ export const deleteTag = (tagname, userid) => dispatch => {
 }
 
 export const addPosition = (position, userid) => dispatch => {
+  if(position === "" || position === undefined || !userid) return;
   Userref.child(userid + "/position").set(position)
     .catch(error => dispatch({
       type: 'ADD_POSITION_ERROR',
@@ -187,6 +191,7 @@ export const addPosition = (position, userid) => dispatch => {
 
 
 export const setProjects = (projects, userid) => dispatch => {
+  if(projects === "" || projects === undefined || !userid) return;
   for(let project of projects){
     Userref.child(userid + `/projects/${project}`).set(true)
       .catch(error => dispatch({
