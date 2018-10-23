@@ -173,12 +173,12 @@ export const deleteTag = (tagname, userid) => dispatch => {
 }
 
 export const addPosition = (position, userid) => dispatch => {
-  this.Userref.child("position").set(position)
+  Userref.child("position").set(position)
     .catch(error => dispatch({
       type: 'ADD_POSITION_ERROR',
       message: error.message,
     }));
-  this.Positionref.child(position+"/"+userid).set(true)
+  Positionref.child(position+`/${userid}`).set(true)
     .catch(error => dispatch({
       type: 'ADD_POSITION_ERROR',
       message: error.message,
@@ -188,12 +188,12 @@ export const addPosition = (position, userid) => dispatch => {
 
 export const setProjects = (projects, userid) => dispatch => {
   for(let project of projects){
-    this.Userref.child(userid + "projects/"+project).set(true)
+    Userref.child(userid + `/projects/+${project}`).set(true)
       .catch(error => dispatch({
         type: 'SET_PROJECTS_ERROR',
         message: error.message,
       }));
-    this.Projectref.child(project + "/members/" + userid).set(true)
+    Projectref.child(project + `/members/ + ${userid}`).set(true)
       .catch(error => dispatch({
         type: 'SET_PROJECTS_ERROR',
         message: error.message,
