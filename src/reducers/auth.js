@@ -1,7 +1,7 @@
 const auth = (state = [], action) => {
   switch (action.type) {
     case 'SET_CURRENT_USER':
-      return {CurrentUserEmail: action.email}
+      return {CurrentUserKey: action.userkey}
       break;
     default:
       return state

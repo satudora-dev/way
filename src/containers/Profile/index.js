@@ -92,7 +92,7 @@ class Profile extends Component {
     const position = this.props.position || "";
     const projects = this.props.projects || [];
     const tags = this.props.tags || [];
-    const canEdit = this.props.canEdit || false;
+    const canEdit = profileID === this.props.userkey;
     // const openTutorial = this.props.location.state.tut || false;
 
 
@@ -208,7 +208,7 @@ const mapStateToProps = state => {
       position: users[thisUser].position,
       projects: users[thisUser].projects,
       tags: users[thisUser].tags,
-      canEdit: state.auth.CurrentUserEmail === accounts[thisUser].email
+      userkey: state.auth.CurrentUserKey
     }
   }
 }

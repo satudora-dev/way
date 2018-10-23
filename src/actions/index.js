@@ -127,16 +127,19 @@ export const loadUsers = () => dispatch => {
 
 
 
-
-const setCurrentUser = email  => {
+const setCurrentUser = userkey  => {
   return {
     type: 'SET_CURRENT_USER',
-    email: email
+    userkey: userkey
   }
 }
 
 export const loginAsUser = email => dispatch => {
-  dispatch(setCurrentUser(email))
+  Accountref.orderByChild('email').equalTo(email).once('value', (snapshot) =>{
+    let userkey = Object.keys(snapshot.val())[0];
+    dispatch(setCurrentUser(userkey))
+  })
+
 }
 
 export const editName = (names, userid) => dispatch => {
@@ -161,6 +164,7 @@ export const addTag = (tagname, userid) => dispatch => {
       message: error.message,
     }));
 }
+
 export const deleteTag = (tagname, userid) => dispatch => {
   if(tagname === "" || tagname === undefined || !userid) return;
   Userref.child(userid + `/tags/${tagname}`).remove()
