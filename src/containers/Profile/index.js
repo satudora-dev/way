@@ -84,22 +84,8 @@ class Profile extends Component {
         "text-transform": "none",
         "color": "white",
       },
-      addstyle: {
-        margin: "10px"
-      },
-      iconstyle: {
-        height:"20px",width:"20px",
-        "margin-left":"10px",
-      },
-      deletestyle: {
-        cursor:"pointer",
-        color:"white",
-        outline:"none",
-        border:"0",
-        "background-color":"rgba(0,0,0,0)",
-      },
     }
-    const profileid = this.props.match.params.id;
+    const profileID = this.props.match.params.id;
     const given = this.props.given || "";
     const family = this.props.family || "";
     const icon = this.props.icon || "/portrait.png";
@@ -113,11 +99,11 @@ class Profile extends Component {
     return (
       <div className="Profile">
         <div className="Home" style={style.divstyle}>
-          <ImageUploader src={icon} id={profileid} canEdit={canEdit}/>
+          <ImageUploader src={icon} id={profileID} canEdit={canEdit}/>
             <EditableLabel
               style={style.namestyle}
               value={[given,family]}
-              onEditEnd={(names)=>this.props.editName(names,profileid)}
+              onEditEnd={(names)=>this.props.editName(names,profileID)}
               canEdit={canEdit}
             />
         </div>
@@ -140,7 +126,7 @@ class Profile extends Component {
                       currentPosition={position}
                       addPosition={this.props.addPosition}
                       onPositionModalOpen={() => this.setState({positionModalOpen: false})}
-                      profileid={profileid}
+                      profileID={profileID}
                     />
                   </div>
                 )
@@ -174,7 +160,7 @@ class Profile extends Component {
                       currentProjects={projects}
                       setProjects={this.props.setProjects}
                       onProjectModalclose={() => this.setState({projectModalOpen: false})}
-                      profileid={profileid}
+                      profileID={profileID}
                     />
                   </div>
                 )
@@ -190,7 +176,7 @@ class Profile extends Component {
              return (
               <Button key={i} variant="contained" style={style.tagbtnstyle}>
                 <span onClick={()=>this.toTagPage(tag)}>{[tag]}&nbsp;&nbsp;</span>
-                <CloseIcon style={{"font-size" : "90%", }} onClick={()=>this.props.deleteTag(tag, profileid)}/>
+                <CloseIcon style={{"font-size" : "90%", }} onClick={()=>this.props.deleteTag(tag, profileID)}/>
               </Button>
              );
            })}
@@ -202,7 +188,7 @@ class Profile extends Component {
             tagModalOpen={this.state.tagModalOpen}
             addTag={this.props.addTag}
             onTagModalclose={() => this.setState({tagModalOpen: false})}
-            profileid={profileid} />
+            profileID={profileID} />
             </div>
         </div>
       </div>
