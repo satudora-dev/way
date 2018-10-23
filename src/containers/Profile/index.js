@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {firebaseDB, firebaseAuth, firebaseStorage} from '../../firebase';
 import Button from '@material-ui/core/Button';
-
 
 import Badge from '@material-ui/core/Badge';
 import AddIcon from '@material-ui/icons/Add';
@@ -26,7 +24,6 @@ import ProjectModal from './ProjectModal'
 import { connect } from 'react-redux';
 import * as actions from '../../actions'
 
-const Userref = firebaseDB.ref('users');
 
 class Profile extends Component {
   constructor(props){
