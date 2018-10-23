@@ -176,7 +176,7 @@ render() {
     return (
       <div>
       <div style={{position:"relative",width:"256px",margin:"auto"}}>
-        <img src={this.state.iconSrc} style={style.imgstyle} alt="Loading..."/>
+        <img src={this.props.src} style={style.imgstyle} alt="Loading..."/>
         <input type="file" style={{display: "none"}} onChange={e => this.onTextChange(e)} ref="fileInput"/>
 
         {(() => {
