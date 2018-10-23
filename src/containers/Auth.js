@@ -40,11 +40,16 @@ const mapStateToProps = ( state ) => {
   }
 }
 
-export default connect(mapStateToProps,{
+const mapDispatchToProps = {
   fetchAccounts: actions.fetchAccounts,
   fetchPositions: actions.fetchPositions,
   fetchProjects: actions.fetchProjects,
   fetchTags: actions.fetchTags,
   fetchUsers: actions.fetchUsers,
   loginAsUser: actions.loginAsUser
-})(Auth);
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Auth);
