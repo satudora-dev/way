@@ -52,7 +52,6 @@ class ProjectsSelect extends React.Component {
       projects: this.props.projects || [],
       userID: this.props.userID
     }
-    this.updateParentProjects = this.props.updateParentProjects
     this.profDbRef=firebaseDB.ref('users/'+ this.state.userID);
     this.prjDbRef=firebaseDB.ref('projects');
   }
@@ -75,7 +74,6 @@ class ProjectsSelect extends React.Component {
       this.profDbRef.child("projects/"+prjName).set(true);
       this.prjDbRef.child(prjName+"/members/"+this.state.userID).set(true);
     }
-    this.updateParentProjects(projects)
   }
 
   render() {

@@ -95,7 +95,7 @@ const style = {
     "text-transform": "none",
   },
 }
-const PositionModal = ({positionModalOpen, currentPosition, addPosition, onPositionModalOpen, profileid, updatePosition}) => {
+const PositionModal = ({positionModalOpen, currentPosition, addPosition, onPositionModalOpen, profileid}) => {
   return(
     <div>
       <Grid>
@@ -106,7 +106,7 @@ const PositionModal = ({positionModalOpen, currentPosition, addPosition, onPosit
         >
           <div style={style.selectProjectModalStyle}>
             <h3>select project</h3>
-            <PositionSelect position={currentPosition} updateParentPosition={updatePosition} userID={profileid}/>
+            <PositionSelect position={currentPosition} userID={profileid}/>
             <Button style={currentPosition == "" || currentPosition === undefined ? style.disabledstyle : style.btnstyle}
                 variant="outlined"
                 value="add"

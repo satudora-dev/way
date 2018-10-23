@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 
-import Badge from '@material-ui/core/Badge';
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import CloseIcon from '@material-ui/icons/Close';
-import EditableLabel from '../../components/EditableLabel';
-import ImageUploader from '../../components/ImageUploader';
-import PositionSelect from '../../components/PositionSelect';
+import Badge from '@material-ui/core/Badge'
+import AddIcon from '@material-ui/icons/Add'
+import EditIcon from '@material-ui/icons/Edit'
+import CloseIcon from '@material-ui/icons/Close'
 
-import TagLabel from '../../components/TagLabel';
-import Grid from '@material-ui/core/Grid';
-
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 
 import PositionModal from './PositionModal'
 import TagModal from './TagModal'
 import ProjectModal from './ProjectModal'
+import EditableLabel from '../../components/EditableLabel'
+import ImageUploader from '../../components/ImageUploader'
+import TagLabel from '../../components/TagLabel'
 
 import { connect } from 'react-redux';
 import * as actions from '../../actions'
@@ -30,7 +25,6 @@ class Profile extends Component {
       positionModalOpen: false,
       projectModalOpen: false,
       tagModalOpen: false,
-      id: this.props.match.params.id,
     };
   }
 
@@ -106,25 +100,15 @@ class Profile extends Component {
       },
     }
     const profileid = this.props.match.params.id;
-
     const given = this.props.given || "";
     const family = this.props.family || "";
-
     const icon = this.props.icon || "/portrait.png";
-
     const position = this.props.position || "";
     const projects = this.props.projects || [];
     const tags = this.props.tags || [];
     const canEdit = this.props.canEdit || false;
-    const openTutorial = this.props.location.state.tut || false;
+    // const openTutorial = this.props.location.state.tut || false;
 
-    const updateProjects = (projects) => {
-      this.setState({projects: projects});
-    }
-
-    const updatePosition = (projects) => {
-      this.setState({projects: projects});
-    }
 
     return (
       <div className="Profile">
@@ -157,7 +141,6 @@ class Profile extends Component {
                       addPosition={this.props.addPosition}
                       onPositionModalOpen={() => this.setState({positionModalOpen: false})}
                       profileid={profileid}
-                      updatePosition={updatePosition}
                     />
                   </div>
                 )
@@ -191,7 +174,6 @@ class Profile extends Component {
                       currentProjects={projects}
                       setProjects={this.props.setProjects}
                       onProjectModalclose={() => this.setState({projectModalOpen: false})}
-                      updateProjects={updateProjects}
                       profileid={profileid}
                     />
                   </div>

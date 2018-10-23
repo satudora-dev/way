@@ -51,7 +51,6 @@ class PositionSelect extends React.Component {
       position: this.props.position || "",
       userID: this.props.userID
     }
-    this.updateParentPosition = this.props.updateParentPosition
     this.profDbRef=firebaseDB.ref('users/'+ this.state.userID);
     this.posDbRef=firebaseDB.ref('positions');
   }
@@ -73,7 +72,6 @@ class PositionSelect extends React.Component {
       this.profDbRef.child("position").set(posName);
       this.posDbRef.child(posName+"/"+this.id).set(true);
       this.setState({ prevPosition: posName});
-      this.updateParentPosition(posName);
     }
   };
   render() {

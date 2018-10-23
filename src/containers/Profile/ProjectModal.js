@@ -95,7 +95,7 @@ const style = {
   },
 }
 
-const ProjectModal = ({projectModalOpen, currentProjects, setProjects, onProjectModalclose, updateProjects, profileid}) => {
+const ProjectModal = ({projectModalOpen, currentProjects, setProjects, onProjectModalclose, profileid}) => {
   return(
     <div>
       <Grid>
@@ -106,7 +106,7 @@ const ProjectModal = ({projectModalOpen, currentProjects, setProjects, onProject
         >
           <div style={style.selectProjectModalStyle}>
             <h3>select project</h3>
-            <ProjectsSelect projects={currentProjects} updateParentProjects={updateProjects} userID={profileid}/>
+            <ProjectsSelect projects={currentProjects} userID={profileid}/>
             <Button style={currentProjects.length == 0 || currentProjects === undefined ? style.disabledstyle : style.btnstyle}
                 variant="outlined"
                 value="add"
