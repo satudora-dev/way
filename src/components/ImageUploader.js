@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import EditIcon from '@material-ui/icons/Edit';
 import EXIF from 'exif-js';
 
-class Signup extends Component {
+class ImageUploader extends Component {
   constructor(props){
     super(props);
     this.state={
@@ -195,4 +195,4 @@ render() {
   }
 }
 
-export default withRouter(Signup);
+export default withRouter(ImageUploader);
