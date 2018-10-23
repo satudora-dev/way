@@ -84,6 +84,13 @@ class Profile extends Component {
         "text-transform": "none",
         "color": "white",
       },
+      positionstyle: {
+        "margin-right": "10px",
+        "margin-bottom": "10px",
+        "background-color": "#04B486",
+        "text-transform": "none",
+        "color": "white",
+      }
     }
     const profileID = this.props.match.params.id;
     const given = this.props.given || "";
@@ -112,7 +119,7 @@ class Profile extends Component {
           <h3 style={style.categorystyle}>position</h3>
           <hr />
           <div style={style.tagstyle}>
-            <Button variant="contained" color="primary" disabled={(!position)} style={style.tagbtnstyle} onClick={()=>this.toPositionPage(this.state.position)}>{position}</Button>
+            <Button variant="contained" color="primary" disabled={(!position)} style={style.positionstyle} onClick={()=>this.toPositionPage(position)}>{position}</Button>
             {(() => {
               if(canEdit)
                 return(
