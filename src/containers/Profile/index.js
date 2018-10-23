@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {firebaseDB, firebaseAuth, firebaseStorage} from '../../firebase';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Modal from '@material-ui/core/Modal';
+
+
 import Badge from '@material-ui/core/Badge';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
@@ -10,7 +10,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import EditableLabel from '../../components/EditableLabel';
 import ImageUploader from '../../components/ImageUploader';
 import PositionSelect from '../../components/PositionSelect';
-import ProjectsSelect from '../../components/ProjectSelect';
+
 import TagLabel from '../../components/TagLabel';
 import Grid from '@material-ui/core/Grid';
 
@@ -20,32 +20,22 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 
+import TagModal from './TagModal';
+import ProjectModal from './ProjectModal'
+
 import { connect } from 'react-redux';
 import * as actions from '../../actions'
 
 class Profile extends Component {
   constructor(props){
     super(props);
-    this.modalMODES={
-      none: 0,
-      position: 1,
-      project: 2,
-      tag: 3,
-    }
-
     this.state={
-      given: this.props.given || "",
-      family: this.props.family || "",
-      icon: this.props.icon || "/portrait.png",
-      modalOpen: false,
-      modalMode: this.modalMODES.none,
+      PositionmodalOpen: false,
+      ProjectmodalOpen: false,
+      TagmodalOpen: false,
       modalInput: "",
-      position: this.props.position || [],
-      projects: this.props.projects || [],
-      tags: this.props.tags || [],
       modalModeText: "",
       id: this.props.match.params.id,
-      canEdit: this.props.canEdit,
       openTutorial: this.props.location.state.tut,//Signupからのルーティング時のみtrue
     };
   }
@@ -54,7 +44,6 @@ class Profile extends Component {
     this.downloadImage(this.state.id);
     if(this.state.openTutorial){
       this.switchModal(true,this.modalMODES.position)
-      this.setState({position: ""})
     }
   }
 
@@ -67,267 +56,7 @@ class Profile extends Component {
     });
   }
 
-  // onNameEditEnd(val){
-  //   this.setState({
-  //     given: val[0],
-  //     family: val[1],
-  //   });
-  //   this.profDbRef.child("given").set(val[0]);
-  //   this.profDbRef.child("family").set(val[1]);
-  // }
 
-  switchModal(on,mode){
-    let text="";
-    switch(mode){
-      case this.modalMODES.position:
-        text="position";
-        break;
-      case this.modalMODES.tag:
-        text="tag";
-        break;
-      case this.modalMODES.project:
-        text="project";
-        break;
-    }
-    this.setState({
-      modalOpen: on,
-      modalMode: mode,
-      modalModeText: text});
-  }
-
-  onModalInputChange(e){
-    this.setState({modalInput: e.target.value});
-  }
-
-  onClickModalButton(){
-    let newName=this.state.modalInput.toUpperCase();
-    switch(this.state.modalMode){
-      case this.modalMODES.position:
-        //this.addPosition(newName);
-        if (this.state.openTutorial){
-          this.switchModal(true,this.modalMODES.project)
-        }
-        break;
-      case this.modalMODES.project:
-        this.addProject(newName);
-        if (this.state.openTutorial){
-          this.switchModal(true,this.modalMODES.tag)
-        }
-        break;
-      case this.modalMODES.tag:
-        this.props.addTag(newName, this.state.id);
-        if (this.state.openTutorial){
-          this.switchModal(false,this.modalMODES.none)
-          this.props.history.push('/users');
-        }
-        break;
-    }
-    this.setState({modalInput: ""});
-    if (!this.state.openTutorial) this.switchModal(false,this.modalMODES.none);
-  }
-
-  onParamsEditEnd(oldVal,newVal,mode){
-    newVal=newVal[0].toUpperCase();
-    if(oldVal===newVal)return;
-
-    switch(mode){
-      case this.modalMODES.project:
-        let newPrj=this.state.projects.filter(n=>n!==oldVal);//古い情報を削除
-        this.profDbRef.child("projects/"+oldVal).remove();
-        this.prjDbRef.child(oldVal+"/members/"+this.state.id).remove();
-        this.setState({projects: newPrj});
-        if(newVal){
-          this.addProject(newVal);
-        }
-        break;
-      case this.modalMODES.tag:
-        let newTag=this.state.tags.filter(n=>n!==oldVal);
-        this.profDbRef.child("tags/"+oldVal).remove();
-        this.tagDbRef.child(oldVal+"/"+this.state.id).remove();
-        this.setState({tags: newTag});
-        if(newVal){
-          this.addTag(newVal);
-        }
-        break;
-    }
-  }
-
-  onTagDelete(tagName)
-  {
-    let newTags=this.state.tags.filter(n=>n!==tagName);
-    this.profDbRef.child("tags/"+tagName).remove();
-    this.tagDbRef.child(tagName+"/"+this.state.id).remove();
-    this.setState({tags: newTags});
-  }
-
-  updateProjects(projects){
-    this.setState({projects: projects});
-  }
-
-  updatePosition(position){
-    this.setState({position: position});
-  }
-
-  // モーダルの中身を動的に返す(プロジェクト・タグ）
-  renderModalElement(){
-    const style = {
-      addtagstyle: {
-        display:"inline-block",
-        "margin-top":"250px",
-        height:"150px",
-        width:"300px",
-        "background-color":"white",
-        "text-align":"center",
-        "outline":"none",
-        "border-radius":"30px",
-        "font-family":"Avenir",
-      },
-      selectProjectModalStyle: {
-        display:"inline-block",
-        "margin-top":"250px",
-        height:"200px",
-        //widthはGridでレスポンシブに
-        "min-width": "300px",
-        "background-color":"white",
-        "text-align":"center",
-        "outline":"none",
-        "border-radius":"30px",
-        "font-family":"Avenir",
-      },
-      btnstyle: {
-        "margin-right": "10px",
-        "margin-bottom": "10px",
-        "background-color": "#04B486",
-        "color": "white",
-        "text-transform": "none",
-      },
-      disabledstyle: {
-        "margin-right": "10px",
-        "margin-bottom": "10px",
-        "background-color": "gray",
-        "color": "white",
-        "text-transform": "none",
-      },
-    }
-
-
-    const {classes} = this.props;
-
-    switch(this.state.modalMode){
-      case this.modalMODES.position:
-        return(
-          <div style={style.selectProjectModalStyle}>
-            {(() => {
-              if(this.state.openTutorial){
-                return(
-                  <h3>Hello!! Which is your position?</h3>
-                )
-              }
-              else{
-                return(
-                  <h3>select position</h3>
-                )
-              }
-            })()}
-            <PositionSelect position={this.state.position} updateParentPosition={this.updatePosition} userID={this.state.id}/>
-            <Button style={this.state.position === "" || this.state.position === undefined ? style.disabledstyle : style.btnstyle}
-                    variant="outlined"
-                    value="add"
-                    disabled={this.state.position === "" || this.state.position === undefined}
-                    onClick={() => this.onClickModalButton()}
-            >
-            done
-            </Button>
-          </div>
-        )
-      case this.modalMODES.project:
-        return(
-          <div style={style.selectProjectModalStyle}>
-            {(() => {
-              if(this.state.openTutorial){
-                return(
-                  <h3>Choose your current projects!!</h3>
-                )
-              }
-              else{
-                return(
-                  <h3>select project</h3>
-                )
-              }
-            })()}
-            <ProjectsSelect projects={this.state.projects} updateParentProjects={this.updateProjects} userID={this.state.id}/>
-            <Button style={this.state.projects.length == 0 || this.state.projects === undefined ? style.disabledstyle : style.btnstyle}
-                variant="outlined"
-                value="add"
-                disabled={this.state.projects.length == 0 || this.state.projects === undefined}
-                onClick={() => this.onClickModalButton()}
-            >
-            done
-            </Button>
-          </div>
-        )
-      case this.modalMODES.tag:
-        return(
-          <div style={style.selectProjectModalStyle}>
-          {(() => {
-            if(this.state.openTutorial){
-              return(
-                <div>
-                  <h3>Tag something!!!</h3>
-                  <p>ex. 「PYTHON」「JAZZ」「大食漢」</p>
-                </div>
-              )}
-            else{
-              return(
-                <h3>add {this.state.modalModeText}</h3>
-              )
-            }
-          })()}
-            <TextField label={this.state.modalModeText}
-                       value={this.state.modalInput}
-                       style={{"margin-right": "10px"}} autoFocus
-                       onChange={(e) => this.onModalInputChange(e)}/>
-            <Button style={this.state.modalInput === "" ? style.disabledstyle : style.btnstyle}
-                    variant="outlined"
-                    disabled={this.state.modalInput === ""}
-                    value="add"
-                    onClick={() => this.onClickModalButton()}
-            >
-            add
-            </Button>
-          </div>
-        )
-    }
-  }
-
-  addPosition(posName){
-    if (posName===""){
-      alert("fuck!!!");
-    }else{
-    this.setState({position: posName});
-    this.profDbRef.child("position").set(posName);
-    this.posDbRef.child(posName+"/"+this.state.id).set(true);
-  }}
-
-  addProject(prjName){
-    if(this.state.projects.filter(x=>x===prjName).length>0)return;//重複判定
-    if(!prjName)return;//空文字判定
-
-    let newProjects=this.state.projects.concat(prjName);
-    this.setState({projects: newProjects});
-    this.profDbRef.child("projects/"+prjName).set(true);
-    this.prjDbRef.child(prjName+"/members/"+this.state.id).set(true);
-  }
-
-  addTag(tagName){
-    if(this.state.projects.filter(x=>x===tagName).length>0)return;
-    if(!tagName)return;//空文字判定
-
-    let newTags=this.state.tags.concat(tagName);
-    this.setState({tags: newTags});
-    this.profDbRef.child("tags/"+tagName).set(true);
-    this.tagDbRef.child(tagName+"/"+this.state.id).set(true);
-  }
 
   toPositionPage(posName){
     this.props.history.push(`../users?position=${posName}`);
@@ -397,27 +126,41 @@ class Profile extends Component {
         border:"0",
         "background-color":"rgba(0,0,0,0)",
       },
-    };
+    }
+    const profileid = this.props.match.params.id;
 
+    const given = this.props.given || "";
+    const family = this.props.family || "";
+
+    const icon = this.props.icon || "/portrait.png";
+
+    const position = this.props.position || "";
     const projects = this.props.projects || [];
     const tags = this.props.tags || [];
+    const canEdit = this.props.canEdit || false;
+    const openTutorial = this.props.location.state.tut || false;
+
+    const updateProjects = (projects) => {
+      this.setState({projects: projects});
+    }
 
     return (
       <div className="Profile">
         <div className="Home" style={style.divstyle}>
-          <ImageUploader src={this.state.icon} id={this.props.match.params.id} canEdit={this.state.canEdit}/>
+          <ImageUploader src={icon} id={profileid} canEdit={canEdit}/>
             <EditableLabel
               style={style.namestyle}
-              value={[this.props.given,this.props.family]}
-              onEditEnd={(names)=>this.props.editName(names,this.state.id)}
-              canEdit={this.state.canEdit}
+              value={[given,family]}
+              onEditEnd={(names)=>this.props.editName(names,profileid)}
+              canEdit={canEdit}
             />
         </div>
+
         <div className="Position">
           <h3 style={style.categorystyle}>positions</h3>
           <hr />
           <div style={style.tagstyle}>
-            <Button variant="contained" color="primary" disabled={(!this.state.position)} style={style.tagbtnstyle} onClick={()=>this.toPositionPage(this.state.position)}>{this.state.position}</Button>
+            <Button variant="contained" color="primary" disabled={(!position)} style={style.tagbtnstyle} onClick={()=>this.toPositionPage(this.state.position)}>{this.state.position}</Button>
           </div>
         </div>
         <div className="Project">
@@ -435,22 +178,32 @@ class Profile extends Component {
               );
             })}
             {(() => {
-              if(this.state.canEdit)
+              if(canEdit)
                 return(
-                  <Button mini onClick={() => this.switchModal(true,this.modalMODES.project)}
-                          variant="fab" style={style.btnstyle}>
-                    <EditIcon/>
-                  </Button>
+                  <div>
+                    <Button mini onClick={() => this.setState({ProjectmodalOpen: true})}
+                            variant="fab" style={style.btnstyle}>
+                      <EditIcon/>
+                    </Button>
+                    <ProjectModal
+                      Projectmodalopen={this.state.ProjectmodalOpen}
+                      currentProjects={projects}
+                      setProjects={this.props.setProjects}
+                      ProjectModalclose={() => this.setState({ProjectmodalOpen: false})}
+                      updateProjects={updateProjects}
+                      profileid={profileid}
+                    />
+                  </div>
                 )
             })()}
-         </div>
-       </div>
+          </div>
+        </div>
 
-       <div className="Others">
-         <h3 style={style.categorystyle}>tags</h3>
-         <hr />
-         <div style={style.tagstyle}>
-           {tags.map((tag,i)=>{
+        <div className="Others">
+          <h3 style={style.categorystyle}>tags</h3>
+          <hr />
+          <div style={style.tagstyle}>
+            {tags.map((tag,i)=>{
              return (
               <Button key={i} variant="contained" style={style.tagbtnstyle}>
                 <span onClick={()=>this.toTagPage(tag)}>{[tag]}&nbsp;&nbsp;</span>
@@ -458,30 +211,23 @@ class Profile extends Component {
               </Button>
              );
            })}
-           <Button mini
-                   onClick={() => this.switchModal(true,this.modalMODES.tag)}
-                   variant="fab" style={style.btnstyle}
-           >
-             <AddIcon />
-           </Button>
-         </div>
-       </div>
-
-       <div>
-         <Grid>
-           <Modal open={this.state.modalOpen}
-                  onClose={() => {if (!this.state.openTutorial) this.switchModal(false,this.modalMODES.none)}}
-           >
-           {this.renderModalElement()}
-           </Modal>
-         </Grid>
-       </div>
-     </div>
-
+            <Button mini onClick={() => this.setState({TagmodalOpen: true})}
+                    variant="fab" style={style.btnstyle}>
+            <AddIcon />
+            </Button>
+          <TagModal
+            Tagmodalopen={this.state.TagmodalOpen}
+            addTag={this.props.addTag}
+            TagModalclose={() => this.setState({TagmodalOpen: false})}
+            profileid={profileid} />
+            </div>
+        </div>
+      </div>
     );
   }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
+
   let users = state.users;
   let accounts = state.accounts;
   let thisUser = window.location.pathname.split('/')[2];
