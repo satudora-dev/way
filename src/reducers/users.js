@@ -22,7 +22,8 @@ const users = (state = [], action) => {
             given: userinfo.given,
             position: userinfo.position,
             projects: projects,
-            tags: tags
+            tags: tags,
+            icon: userinfo.icon,
           }
         });
       }
