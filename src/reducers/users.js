@@ -29,6 +29,7 @@ const users = (state = [], action) => {
       }
       return users
     case 'USERS_RECEIVE_ERROR':
+    case 'SIGNUP_ERROR':
     case 'NAME_EDIT_ERROR':
     case 'TAG_DELETE_ERROR':
     case 'TAG_ADD_ERROR':

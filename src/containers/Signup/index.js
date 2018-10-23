@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
+import EXIF from 'exif-js';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
+
+
 import {firebaseAuth,firebaseDB,firebaseStorage} from '../../firebase';
+
+
+
+import SiteInfo from "../../components/SiteInfo";
+import CheckInstax from '../../components/CheckInstax';
+
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import CheckInstax from '../../components/CheckInstax';
-import EXIF from 'exif-js';
-import SiteInfo from "../../components/SiteInfo";
+
+
 
 class Signup extends Component {
   constructor(props){
@@ -340,4 +350,8 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+const mapDispatchToProps = {
+  signupAsUser: actions.signupAsUser
+}
+
+export default connect(null,mapDispatchToProps)(Signup);

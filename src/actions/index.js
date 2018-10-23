@@ -139,8 +139,24 @@ export const loginAsUser = email => dispatch => {
     let userkey = Object.keys(snapshot.val())[0];
     dispatch(setCurrentUser(userkey))
   })
-
 }
+
+
+
+export const signupAsUser = (userid, given, family, mei, sei, icon) => dispatch => {
+  Userref.child(userid).set({
+    given: given,
+    family: family,
+    mei: mei,
+    sei: sei,
+    icon: icon,
+  })
+    .catch(error => dispatch({
+      type: 'SIGNUP_ERROR',
+      message: error.message,
+    }));
+}
+
 
 export const editName = (names, userid) => dispatch => {
   if(names[0] === "" || names[1] === "" || names[0] === undefined || names[1] === undefined || !userid ) return;
