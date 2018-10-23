@@ -44,10 +44,10 @@ const ProjectModal = ({projectModalOpen, currentProjects, setProjects, onProject
           <div style={style.selectProjectModalStyle}>
             <h3>select project</h3>
             <ProjectsSelect projects={currentProjects} userID={profileID}/>
-            <Button style={currentProjects.length == 0 || currentProjects === undefined ? style.disabledstyle : style.btnstyle}
+            <Button style={currentProjects.length === 0 || currentProjects === undefined ? style.disabledstyle : style.btnstyle}
                 variant="outlined"
                 value="add"
-                disabled={currentProjects.length == 0 || currentProjects === undefined}
+                disabled={currentProjects.length === 0 || currentProjects === undefined}
                 onClick={() => {
                   setProjects(currentProjects, profileID);
                   onProjectModalclose();

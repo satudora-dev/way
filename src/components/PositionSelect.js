@@ -5,13 +5,11 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
-import Checkbox from '@material-ui/core/Checkbox';
 import {firebaseDB} from '../firebase';
 import Grid from '@material-ui/core/Grid';
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -75,7 +73,7 @@ class PositionSelect extends React.Component {
     }
   };
   render() {
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
 
     // !TODO: タグ形式でPositionの表示
     return (
@@ -106,7 +104,6 @@ class PositionSelect extends React.Component {
 
 PositionSelect.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(PositionSelect);

@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
-import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import PositionSelect from '../../components/PositionSelect'
 const style = {
@@ -44,10 +43,10 @@ const PositionModal = ({positionModalOpen, currentPosition, addPosition, onPosit
           <div style={style.selectProjectModalStyle}>
             <h3>select project</h3>
             <PositionSelect position={currentPosition} userID={profileID}/>
-            <Button style={currentPosition == "" || currentPosition === undefined ? style.disabledstyle : style.btnstyle}
+            <Button style={currentPosition === "" || currentPosition === undefined ? style.disabledstyle : style.btnstyle}
                 variant="outlined"
                 value="add"
-                disabled={currentPosition == "" || currentPosition === undefined}
+                disabled={currentPosition === "" || currentPosition === undefined}
                 onClick={() => {
                   addPosition(currentPosition, profileID);
                   onPositionModalOpen();

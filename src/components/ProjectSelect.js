@@ -77,7 +77,7 @@ class ProjectsSelect extends React.Component {
   }
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
 
     // !TODO: タグ形式でprojectsの表示
     return (
@@ -114,7 +114,6 @@ class ProjectsSelect extends React.Component {
 
 ProjectsSelect.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(ProjectsSelect);
