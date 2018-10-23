@@ -104,7 +104,7 @@ const TagModal = ({Tagmodalopen, addTag, TagModalclose, profileid}) => {
                onClose={() => TagModalclose()}>
           <div style={style.selectProjectModalStyle}>
             <h3>add tag!!</h3>
-            <TextField label={"add tag!!"}
+            <TextField label={"tag"}
                        value={input}
                        style={{"margin-right": "10px"}} autoFocus
                        onChange={(e) => handleChange(e)}/>
