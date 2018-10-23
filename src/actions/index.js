@@ -5,113 +5,113 @@ const Projectref = firebaseDB.ref('projects');
 const Tagref = firebaseDB.ref('tags');
 const Userref = firebaseDB.ref('users');
 
-const loadAccountsSuccess = snapshot => {
+const fetchAccountsSuccess = snapshot => {
   return {
     type: 'ACCOUNTS_RECEIVE_DATA',
     data: snapshot.val()
   }
 }
 
-const loadAccountsError = error => {
+const fetchAccountsError = error => {
   return {
     type: 'ACCOUNTS_RECEIVE_ERROR',
     message: error.message
   }
 }
 
-export const loadAccounts = () => dispatch => {
+export const fetchAccounts = () => dispatch => {
   Accountref.off()
   Accountref.on('value',
-    (snapshot) => {dispatch(loadAccountsSuccess(snapshot))},
-    (error) => {dispatch(loadAccountsError(error))}
+    (snapshot) => {dispatch(fetchAccountsSuccess(snapshot))},
+    (error) => {dispatch(fetchAccountsError(error))}
   )
 }
 
-const loadPositionsSuccess = snapshot => {
+const fetchPositionsSuccess = snapshot => {
   return {
     type: 'POSITIONS_RECEIVE_DATA',
     data: snapshot.val()
   }
 }
 
-const loadPositionsError = error => {
+const fetchPositionsError = error => {
   return {
     type: 'POSITIONS_RECEIVE_ERROR',
     message: error.message
   }
 }
 
-export const loadPositions = () => dispatch => {
+export const fetchPositions = () => dispatch => {
   Positionref.off()
   Positionref.on('value',
-    (snapshot) => {dispatch(loadPositionsSuccess(snapshot))},
-    (error) => {dispatch(loadPositionsError(error))}
+    (snapshot) => {dispatch(fetchPositionsSuccess(snapshot))},
+    (error) => {dispatch(fetchPositionsError(error))}
   )
 }
 
-const loadProjectsSuccess = snapshot => {
+const fetchProjectsSuccess = snapshot => {
   return {
     type: 'PROJECTS_RECEIVE_DATA',
     data: snapshot.val()
   }
 }
 
-const loadProjectsError = error => {
+const fetchProjectsError = error => {
   return {
     type: 'PROJECTS_RECEIVE_ERROR',
     message: error.message
   }
 }
 
-export const loadProjects = () => dispatch => {
+export const fetchProjects = () => dispatch => {
   Projectref.off()
   Projectref.on('value',
-    (snapshot) => {dispatch(loadProjectsSuccess(snapshot))},
-    (error) => {dispatch(loadProjectsError(error))}
+    (snapshot) => {dispatch(fetchProjectsSuccess(snapshot))},
+    (error) => {dispatch(fetchProjectsError(error))}
   )
 }
 
-const loadTagsSuccess = snapshot => {
+const fetchTagsSuccess = snapshot => {
   return {
     type: 'TAGS_RECEIVE_DATA',
     data: snapshot.val()
   }
 }
 
-const loadTagsError = error => {
+const fetchTagsError = error => {
   return {
     type: 'TAGS_RECEIVE_ERROR',
     message: error.message
   }
 }
 
-export const loadTags = () => dispatch => {
+export const fetchTags = () => dispatch => {
   Tagref.off()
   Tagref.on('value',
-    (snapshot) => {dispatch(loadTagsSuccess(snapshot))},
-    (error) => {dispatch(loadTagsError(error))}
+    (snapshot) => {dispatch(fetchTagsSuccess(snapshot))},
+    (error) => {dispatch(fetchTagsError(error))}
   )
 }
 
-const loadUsersSuccess = snapshot => {
+const fetchUsersSuccess = snapshot => {
   return {
     type: 'USERS_RECEIVE_DATA',
     data: snapshot.val()
   }
 }
 
-const loadUsersError = error => {
+const fetchUsersError = error => {
   return {
     type: 'USERS_RECEIVE_ERROR',
     message: error.message
   }
 }
 
-export const loadUsers = () => dispatch => {
+export const fetchUsers = () => dispatch => {
   Userref.off()
   Userref.on('value',
-    (snapshot) => {dispatch(loadUsersSuccess(snapshot))},
-    (error) => {dispatch(loadUsersError(error))}
+    (snapshot) => {dispatch(fetchUsersSuccess(snapshot))},
+    (error) => {dispatch(fetchUsersError(error))}
   )
 }
 

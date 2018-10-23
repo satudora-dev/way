@@ -8,16 +8,16 @@ class Auth extends Component {
   componentWillMount(){
     firebaseAuth().onAuthStateChanged(user=>{
       if(user){
-        this.props.loadAccounts();
-        this.props.loadPositions();
-        this.props.loadProjects();
-        this.props.loadTags();
-        this.props.loadUsers();
-        this.props.loginAsUser(user.email)
+        this.props.fetchAccounts();
+        this.props.fetchPositions();
+        this.props.fetchProjects();
+        this.props.fetchTags();
+        this.props.fetchUsers();
+        this.props.loginAsUser(user.email);
         this.props.history.push('/users');
       }else{
-        this.props.loginAsUser(null)
-        this.props.history.push('/login');
+        this.props.loginAsUser(null);
+        this.props.history.push('/login')
       }
     })
   }
