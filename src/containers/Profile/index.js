@@ -201,11 +201,12 @@ class Profile extends Component {
     );
   }
 }
+
 const mapStateToProps = state => {
 
-  let users = state.users;
-  let accounts = state.accounts;
-  let thisUser = window.location.pathname.split('/')[2];
+  const users = state.users;
+  const accounts = state.accounts;
+  const thisUser = window.location.pathname.split('/')[2];
   if(users[thisUser]){
     return {
       given: users[thisUser].given,
@@ -219,5 +220,14 @@ const mapStateToProps = state => {
   }
 }
 
-
-export default connect(mapStateToProps,actions)(Profile);
+const mapDispachToProps = ( dispatch ) => ({
+  editName: actions.editName,
+  addPosition: actions.addPosition,
+  setProjects: actions.setProjects,
+  addTag: actions.addTag,
+  deleteTag: actions.deleteTag,
+})
+export default connect(
+  mapStateToProps,
+  mapDispachToProps
+)(Profile);
