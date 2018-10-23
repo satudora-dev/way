@@ -9,7 +9,6 @@ import {firebaseAuth,firebaseDB,firebaseStorage} from '../../firebase';
 
 
 import SiteInfo from "../../components/SiteInfo";
-import CheckInstax from '../../components/CheckInstax';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -254,7 +253,6 @@ class Signup extends Component {
 
   render() {
 
-    if(this.state.onCheck) return(<div></div>);
 
     const style = {
       imagestyle: {
@@ -297,7 +295,10 @@ class Signup extends Component {
         <span style={style.WAYstyle}> Y</span>
         ou?<
         /h3>
-        <form noValidate autoComplete="off">
+        <form noValidate autoComplete="off"
+              onSubmit={e => {
+
+              }}>
           <TextField
             name="givenName"
             label="given name"
@@ -314,8 +315,6 @@ class Signup extends Component {
             onChange={this.onTextChange}
             margin="normal"
             style={style.welcomestyle} />
-        </form>
-        <form noValidate autoComplete="off">
           <TextField
             name="mei"
             label="名"
@@ -332,19 +331,16 @@ class Signup extends Component {
             onChange={this.onTextChange}
             margin="normal"
             style={style.welcomestyle} />
+          <div>
+            <img src={this.state.iconSrc} style={style.iconstyle}/>
+          </div>
+          <div>
+            <input type="file" accept="image" name="icon" onChange={this.onTextChange}/>
+          </div>
+          <Button variant="contained"  onClick={this.onSendProfile}>
+            GO
+          </Button>
         </form>
-        <div>
-          <img src={this.state.iconSrc} style={style.iconstyle}/>
-        </div>
-        <div>
-          <input type="file" accept="image" name="icon" onChange={this.onTextChange}/>
-        </div>
-        <div>
-          <CheckInstax/>
-        </div>
-        <Button variant="contained"  onClick={this.onSendProfile}>
-          GO
-        </Button>
       </div>
     );
   }
