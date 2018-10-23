@@ -26,6 +26,8 @@ import ProjectModal from './ProjectModal'
 import { connect } from 'react-redux';
 import * as actions from '../../actions'
 
+const Userref = firebaseDB.ref('users');
+
 class Profile extends Component {
   constructor(props){
     super(props);
@@ -36,24 +38,7 @@ class Profile extends Component {
       modalInput: "",
       modalModeText: "",
       id: this.props.match.params.id,
-      openTutorial: this.props.location.state.tut,//Signupからのルーティング時のみtrue
     };
-  }
-
-  componentWillMount(){
-    this.downloadImage(this.state.id);
-    if(this.state.openTutorial){
-      this.switchModal(true,this.modalMODES.position)
-    }
-  }
-
-
-
-  downloadImage(id){
-    let storageRef=firebaseStorage.ref('icons/'+id);
-    storageRef.getDownloadURL().then((url)=>{
-      this.setState({icon: url});
-    });
   }
 
 
