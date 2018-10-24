@@ -163,7 +163,7 @@ class Signup extends Component {
     }
     const userid = this.props.userkey;
 
-    if (this.props.userprofile) {this.props.history.push('/users')}
+    if (this.props.hasOwnProfile) {this.props.history.push('/users')}
     return (
       <div className="Login">
         <div style={style.siteInfoStyle}>
@@ -238,7 +238,7 @@ const mapStateToProps = ( state ) => {
   const userkey = state.auth.CurrentUserKey;
   return {
     userkey: userkey,
-    userprofile: state.users[userkey]
+    hasOwnProfile: state.users[userkey] !== undefined
   }
 }
 
