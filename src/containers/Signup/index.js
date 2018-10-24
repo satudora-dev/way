@@ -232,9 +232,6 @@ class Signup extends Component {
           <Button variant="contained"  type="submit">
             GO
           </Button>
-          <Button onClick={() => console.log(userid)}>
-            TEST
-          </Button>
         </form>
       </div>
     );
