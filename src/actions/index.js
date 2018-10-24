@@ -1,9 +1,12 @@
-import { firebaseDB } from '../firebase';
+import { firebaseDB, firebaseStorage  } from '../firebase';
+
 const Accountref = firebaseDB.ref('accounts');
 const Positionref = firebaseDB.ref('positions');
 const Projectref = firebaseDB.ref('projects');
 const Tagref = firebaseDB.ref('tags');
 const Userref = firebaseDB.ref('users');
+
+const Storageref=firebaseStorage.ref();
 
 const fetchAccountsSuccess = snapshot => {
   return {
@@ -144,19 +147,50 @@ export const loginAsUser = email => dispatch => {
 
 
 export const signupAsUser = (userid, given, family, mei, sei, icon) => dispatch => {
-  Userref.child(userid).set({
-    given: given,
-    family: family,
-    mei: mei,
-    sei: sei,
-    icon: icon,
-  })
+  if(!given){
+    alert('Given name is empty.');
+    return;
+  }
+  else if(!family){
+    alert('Famili name is empty.');
+    return;
+  }
+  else if(!sei){
+    alert('姓が未入力です。');
+    return;
+  }
+  else if(!mei){
+    alert('名が未入力です。');
+    return;
+  }
+  else if(!icon){
+    alert('Icon image is empty.');
+    return;
+  }
+  Storageref.child('icons/'+userid).put(icon);
+
+  Accountref.child(userid).update({'registered': true})
     .catch(error => dispatch({
       type: 'SIGNUP_ERROR',
       message: error.message,
     }));
-}
 
+  Storageref.child('icons/'+userid).getDownloadURL().then((url)=>{
+    if(url){
+      Userref.child(userid).update({
+        given: given,
+        family: family,
+        mei: mei,
+        sei: sei,
+        icon: url,
+      })
+        .catch(error => dispatch({
+          type: 'SIGNUP_ERROR',
+          message: error.message,
+        }));
+    }
+  })
+}
 
 export const editName = (names, userid) => dispatch => {
   if(names[0] === "" || names[1] === "" || names[0] === undefined || names[1] === undefined || !userid ) return;

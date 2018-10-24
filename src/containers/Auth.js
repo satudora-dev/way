@@ -6,10 +6,6 @@ import * as actions from '../actions';
 
 class Auth extends Component {
 
-  constructor(props) {
-    super(props);
-    if(this.props.registered === false) this.props.history.push('/signup')
-  }
 
   componentWillMount(){
     firebaseAuth().onAuthStateChanged(user=>{
@@ -22,10 +18,9 @@ class Auth extends Component {
         this.props.loginAsUser(user.email);
       }else{
         this.props.loginAsUser(null);
-        this.props.history.push('/login')
+        this.props.history.push('/login');
       }
     })
-
   }
   render() {
     return null;

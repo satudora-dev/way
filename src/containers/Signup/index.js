@@ -19,79 +19,16 @@ class Signup extends Component {
   constructor(props){
     super(props);
     this.state={
-      givenName: "",
-      familyName: "",
-      sei: "",
-      mei: "",
       iconFile: "",
       iconSrc: "/portrait.png",
-      id: "",
-      onCheck: true,
     };
+    let given_en;
+    let family_en;
+    let given_ja;
+    let family_ja;
 
-    this.onTextChange=this.onTextChange.bind(this);
-    this.onSendProfile=this.onSendProfile.bind(this);
   }
 
-  componentWillMount(){
-    firebaseAuth().onAuthStateChanged(user=>{
-      if(!user){
-        this.props.history.push('/login');
-        return;
-      }
-
-      let dbRef=firebaseDB.ref('accounts');
-      dbRef.orderByChild('email').equalTo(user.email)//メールアドレスが既に登録されているか
-        .once('value',(snapshot)=>{
-          if(snapshot.val()==null){
-            this.props.history.push('/login');
-          }
-          else{
-            let registered;
-            snapshot.forEach((childSnapshot)=>{
-              registered=childSnapshot.child('registered').val();
-              this.setState({id: childSnapshot.key});
-            });
-
-            if(registered){
-              this.props.history.push('/users');
-            }
-            else{
-              this.setState({onCheck: false});
-            }
-          }
-      });
-    });
-  }
-
-  onTextChange(e){
-    switch(e.target.name){
-      case 'givenName':
-        this.setState({
-          givenName: e.target.value,
-        });
-        break;
-      case 'familyName':
-        this.setState({
-          familyName: e.target.value,
-        });
-        break;
-      case 'sei':
-        this.setState({
-          sei: e.target.value,
-        });
-        break;
-      case 'mei':
-        this.setState({
-          mei: e.target.value,
-        });
-        break;
-      case 'icon':
-        if(!e.target.files[0])return;
-        this.optimizeImage(e.target.files[0]);
-        break;
-    }
-  }
 
   optimizeImage(iconFile){
     let image=new Image();
@@ -198,62 +135,9 @@ class Signup extends Component {
     image.src=URL.createObjectURL(iconFile);
   }
 
-  onSendProfile(e){
-    if(!this.state.givenName){
-      alert('Given name is empty.');
-      return;
-    }
-    else if(!this.state.familyName){
-      alert('Famili name is empty.');
-      return;
-    }
-    else if(!this.state.sei){
-      alert('姓が未入力です。');
-      return;
-    }
-    else if(!this.state.mei){
-      alert('名が未入力です。');
-      return;
-    }
-    else if(!this.state.iconFile){
-      alert('Icon image is empty.');
-      return;
-    }
-    //alert(this.state.iconFile);
-    firebaseDB.ref('users/'+this.state.id).set({
-      "given": this.state.givenName,
-      "family": this.state.familyName,
-      "sei": this.state.sei,
-      "mei": this.state.mei,
-      "haveIcon": this.state.iconFile!==""
-    });
-    firebaseDB.ref('accounts/'+this.state.id).update({'registered': true});
 
-    let MyId = this.state.id;
-    let MyIcon = this.state.iconSrc;
-
-
-    if(this.state.iconFile){
-      let storageRef=firebaseStorage.ref().child(
-        'icons/'+this.state.id);
-        storageRef.put(this.state.iconFile).then((snapshot)=>{
-          this.props.history.push({
-            pathname: `/users/${MyId}`,
-            state: {tut: true, icon: MyIcon},
-          });
-      });
-    }
-    else{
-      this.props.history.push({
-        pathname: `/users/${MyId}`,
-        state: {tut: true, icon: MyIcon},
-      });
-    };
-  }
 
   render() {
-
-
     const style = {
       imagestyle: {
         width: 64,
@@ -281,6 +165,8 @@ class Signup extends Component {
         "font-weight": "bold",
       }
     }
+    const userid = this.props.userkey;
+
 
     return (
       <div className="Login">
@@ -297,48 +183,57 @@ class Signup extends Component {
         /h3>
         <form noValidate autoComplete="off"
               onSubmit={e => {
-
+                e.preventDefault()
+                this.props.signupAsUser(userid, this.given_en, this.family_en, this.given_ja, this.family_ja, this.state.iconFile)
+                this.props.history.push('/users')
               }}>
-          <TextField
-            name="givenName"
-            label="given name"
-            required={true}
-            value={this.state.given_name}
-            onChange={this.onTextChange}
-            margin="normal"
-            style={style.welcomestyle} />
-          <TextField
-            name="familyName"
-            label="family name"
-            required={true}
-            value={this.state.family_name}
-            onChange={this.onTextChange}
-            margin="normal"
-            style={style.welcomestyle} />
-          <TextField
-            name="mei"
-            label="名"
-            required={true}
-            value={this.state.mei}
-            onChange={this.onTextChange}
-            margin="normal"
-            style={style.welcomestyle} />
-          <TextField
-            name="sei"
-            label="姓"
-            required={true}
-            value={this.state.sei}
-            onChange={this.onTextChange}
-            margin="normal"
-            style={style.welcomestyle} />
+          <div>
+            <TextField
+              name="givenName"
+              label="given name"
+              required={true}
+              value={this.given_en}
+              onChange={(e) => this.given_en = e.target.value}
+              margin="normal"
+              style={style.welcomestyle} />
+            <TextField
+              name="familyName"
+              label="family name"
+              required={true}
+              value={this.family_en}
+              onChange={(e) => this.family_en = e.target.value}
+              margin="normal"
+              style={style.welcomestyle} />
+          </div>
+          <div>
+            <TextField
+              name="mei"
+              label="名"
+              required={true}
+              value={this.given_ja}
+              onChange={(e) => this.given_ja = e.target.value}
+              margin="normal"
+              style={style.welcomestyle} />
+            <TextField
+              name="sei"
+              label="姓"
+              required={true}
+              value={this.family_ja}
+              onChange={(e) => this.family_ja = e.target.value}
+              margin="normal"
+              style={style.welcomestyle} />
+          </div>
           <div>
             <img src={this.state.iconSrc} style={style.iconstyle}/>
           </div>
           <div>
-            <input type="file" accept="image" name="icon" onChange={this.onTextChange}/>
+            <input type="file" accept="image" name="icon" onChange={(e) => {if(e.target.files[0])this.optimizeImage(e.target.files[0])}}/>
           </div>
-          <Button variant="contained"  onClick={this.onSendProfile}>
+          <Button variant="contained"  type="submit">
             GO
+          </Button>
+          <Button onClick={() => console.log(userid)}>
+            TEST
           </Button>
         </form>
       </div>
@@ -346,8 +241,15 @@ class Signup extends Component {
   }
 }
 
+const mapStateToProps = ( state ) => {
+  const userkey = state.auth.CurrentUserKey
+  return {
+    userkey: userkey,
+  }
+}
+
 const mapDispatchToProps = {
   signupAsUser: actions.signupAsUser
 }
 
-export default connect(null,mapDispatchToProps)(Signup);
+export default connect(mapStateToProps,mapDispatchToProps)(Signup);
