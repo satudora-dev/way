@@ -5,8 +5,8 @@ const projects = (state = [], action) => {
       if(action.data){
         Object.keys(action.data).forEach(key =>{
           let members = []
-          Object.keys(action.data[key].members).forEach(userid =>{
-            members.push({userid})
+          Object.keys(action.data[key].members).forEach(userkey =>{
+            members.push({userkey})
           });
           projects[key]={
             members: members,

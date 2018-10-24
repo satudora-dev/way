@@ -4,12 +4,12 @@ const positions = (state = [], action) => {
       let positions = {}
       if(action.data){
         Object.keys(action.data).forEach(key =>{
-          let userids = []
-          Object.keys(action.data[key]).forEach(userid =>{
-            userids.push({userid})
+          let userkeys = []
+          Object.keys(action.data[key]).forEach(userkey =>{
+            userkeys.push({userkey})
           });
           positions[key]={
-            userids: userids,
+            userkeys: userkeys,
           }
         });
       }

@@ -161,7 +161,7 @@ class Signup extends Component {
         "font-weight": "bold",
       }
     }
-    const userid = this.props.userkey;
+    const userkey = this.props.userkey;
 
     if (this.props.hasOwnProfile) {this.props.history.push('/users')}
     return (
@@ -180,7 +180,7 @@ class Signup extends Component {
         <form noValidate autoComplete="off"
               onSubmit={e => {
                 e.preventDefault()
-                this.props.signupAsUser(userid, this.given_en, this.family_en, this.given_ja, this.family_ja, this.state.iconFile)
+                this.props.signupAsUser(userkey, this.given_en, this.family_en, this.given_ja, this.family_ja, this.state.iconFile)
                 this.props.history.push('/users')
               }}>
           <div>

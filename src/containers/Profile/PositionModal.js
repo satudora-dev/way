@@ -42,7 +42,7 @@ const PositionModal = ({positionModalOpen, currentPosition, addPosition, onPosit
         >
           <div style={style.selectProjectModalStyle}>
             <h3>select project</h3>
-            <PositionSelect position={currentPosition} userID={profileID}/>
+            <PositionSelect position={currentPosition} userkey={profileID}/>
             <Button style={currentPosition === "" || currentPosition === undefined ? style.disabledstyle : style.btnstyle}
                 variant="outlined"
                 value="add"

@@ -14,6 +14,7 @@ const accounts = (state = {registered: false}, action) => {
       }
       return accounts
     case 'ACCOUNTS_RECEIVE_ERROR':
+    case 'LOGIN_ERROR':
       alert(action.message)
       return state
       break;
