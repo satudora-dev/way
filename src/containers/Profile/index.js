@@ -44,7 +44,6 @@ class Profile extends Component {
 
   render() {
     const style = {
-
       divstyle: {
         "background-image": "url('/grad.jpg')",
         "backend-position": "center center",
@@ -91,6 +90,8 @@ class Profile extends Component {
         "color": "white",
       }
     }
+
+    if (!this.props.own) {this.props.history.push('/signup')}
     const profileID = this.props.match.params.id;
     const given = this.props.given || "";
     const family = this.props.family || "";
@@ -209,6 +210,7 @@ const mapStateToProps = state => {
   const thisUser = window.location.pathname.split('/')[2];
   if(users[thisUser]){
     return {
+      own: users[state.auth.CurrentUserKey],
       given: users[thisUser].given,
       family: users[thisUser].family,
       icon: users[thisUser].icon,

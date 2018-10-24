@@ -26,6 +26,7 @@ class Auth extends Component {
     return null;
   }
 }
+
 const mapStateToProps = ( state ) => {
   const userkey = state.auth.CurrentUserKey;
   if(userkey){

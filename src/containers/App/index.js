@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {firebaseAuth} from '../../firebase';
-import {withRouter} from 'react-router-dom';
 
 class App extends Component {
   componentWillMount(){
@@ -23,4 +22,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+export default App;

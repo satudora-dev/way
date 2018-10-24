@@ -26,8 +26,8 @@ class Signup extends Component {
     let family_en;
     let given_ja;
     let family_ja;
-
   }
+
 
 
   optimizeImage(iconFile){
@@ -167,7 +167,7 @@ class Signup extends Component {
     }
     const userid = this.props.userkey;
 
-
+    if (this.props.userprofile) {this.props.history.push('/users')}
     return (
       <div className="Login">
         <div style={style.siteInfoStyle}>
@@ -239,9 +239,10 @@ class Signup extends Component {
 }
 
 const mapStateToProps = ( state ) => {
-  const userkey = state.auth.CurrentUserKey
+  const userkey = state.auth.CurrentUserKey;
   return {
     userkey: userkey,
+    userprofile: state.users[userkey]
   }
 }
 
