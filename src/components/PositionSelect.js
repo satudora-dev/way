@@ -47,9 +47,9 @@ class PositionSelect extends React.Component {
     this.state= {
       prevPosition: this.props.position || "",
       position: this.props.position || "",
-      userID: this.props.userID
+      userkey: this.props.userkey
     }
-    this.profDbRef=firebaseDB.ref('users/'+ this.state.userID);
+    this.profDbRef=firebaseDB.ref('users/'+ this.state.userkey);
     this.posDbRef=firebaseDB.ref('positions');
   }
 

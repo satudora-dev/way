@@ -50,9 +50,9 @@ class ProjectsSelect extends React.Component {
     this.state= {
       prevProjects: this.props.projects || [],
       projects: this.props.projects || [],
-      userID: this.props.userID
+      userkey: this.props.userkey
     }
-    this.profDbRef=firebaseDB.ref('users/'+ this.state.userID);
+    this.profDbRef=firebaseDB.ref('users/'+ this.state.userkey);
     this.prjDbRef=firebaseDB.ref('projects');
   }
 
@@ -66,13 +66,13 @@ class ProjectsSelect extends React.Component {
     for(let prjName of this.state.prevProjects){
       if(!prjName)continue;//空文字判定
       this.profDbRef.child("projects/"+prjName).remove();
-      this.prjDbRef.child(prjName+"/members/"+this.state.userID).remove();
+      this.prjDbRef.child(prjName+"/members/"+this.state.userkey).remove();
     }
     this.setState({ prevProjects: projects})
     for(let prjName of projects){
       if(!prjName)continue;//空文字判定
       this.profDbRef.child("projects/"+prjName).set(true);
-      this.prjDbRef.child(prjName+"/members/"+this.state.userID).set(true);
+      this.prjDbRef.child(prjName+"/members/"+this.state.userkey).set(true);
     }
   }
 
