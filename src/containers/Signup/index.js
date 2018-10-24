@@ -4,10 +4,6 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
 
-import {firebaseAuth,firebaseDB,firebaseStorage} from '../../firebase';
-
-
-
 import SiteInfo from "../../components/SiteInfo";
 
 import Button from '@material-ui/core/Button';
