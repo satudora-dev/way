@@ -167,7 +167,22 @@ export const signupAsUser = (userid, given, family, mei, sei, icon) => dispatch 
     alert('Icon image is empty.');
     return;
   }
-  Storageref.child('icons/'+userid).put(icon);
+  Storageref.child('icons/'+userid).put(icon)
+    .on('state_changed', () => {
+      Storageref.child('icons/'+userid).getDownloadURL().then((url)=>{
+          Userref.child(userid).update({
+            given: given,
+            family: family,
+            mei: mei,
+            sei: sei,
+            icon: url,
+          })
+            .catch(error => dispatch({
+              type: 'SIGNUP_ERROR',
+              message: error.message,
+            }));
+      });
+  });
 
   Accountref.child(userid).update({'registered': true})
     .catch(error => dispatch({
@@ -175,21 +190,6 @@ export const signupAsUser = (userid, given, family, mei, sei, icon) => dispatch 
       message: error.message,
     }));
 
-  Storageref.child('icons/'+userid).getDownloadURL().then((url)=>{
-    if(url){
-      Userref.child(userid).update({
-        given: given,
-        family: family,
-        mei: mei,
-        sei: sei,
-        icon: url,
-      })
-        .catch(error => dispatch({
-          type: 'SIGNUP_ERROR',
-          message: error.message,
-        }));
-    }
-  })
 }
 
 export const editName = (names, userid) => dispatch => {
