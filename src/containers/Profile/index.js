@@ -91,7 +91,7 @@ class Profile extends Component {
       }
     }
 
-    if (this.props.given && !this.props.own) {this.props.history.push('/signup')}
+    if (this.props.given && !this.props.hasOwnProfile) {this.props.history.push('/signup')}
     const profileID = this.props.match.params.id;
     const given = this.props.given || "";
     const family = this.props.family || "";
@@ -99,7 +99,7 @@ class Profile extends Component {
     const position = this.props.position || "";
     const projects = this.props.projects || [];
     const tags = this.props.tags || [];
-    const canEdit = profileID === this.props.userkey;
+    const canEdit = profileID === this.props.ownkey;
     // const openTutorial = this.props.location.state.tut || false;
 
 
@@ -203,21 +203,23 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = state => {
 
+
+const mapStateToProps = state => {
+  const ownkey = state.auth.ownkey;
   const users = state.users;
   const accounts = state.accounts;
   const thisUser = window.location.pathname.split('/')[2];
   if(users[thisUser]){
     return {
-      own: users[state.auth.CurrentUserKey],
+      ownkey: ownkey,
+      hasOwnProfile: state.users[ownkey] !== undefined,
       given: users[thisUser].given,
       family: users[thisUser].family,
       icon: users[thisUser].icon,
       position: users[thisUser].position,
       projects: users[thisUser].projects,
       tags: users[thisUser].tags,
-      userkey: state.auth.CurrentUserKey
     }
   }
 }

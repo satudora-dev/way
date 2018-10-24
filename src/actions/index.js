@@ -151,17 +151,17 @@ export const loginWithGithub = () => dispatch => {
 }
 
 
-const setCurrentUser = userkey  => {
+const setCurrentUser = ownkey  => {
   return {
     type: 'SET_CURRENT_USER',
-    userkey: userkey
+    ownkey: ownkey
   }
 }
 
 export const loginAsUser = email => dispatch => {
   Accountref.orderByChild('email').equalTo(email).once('value', (snapshot) =>{
-    let userkey = Object.keys(snapshot.val())[0];
-    dispatch(setCurrentUser(userkey))
+    let ownkey = Object.keys(snapshot.val())[0];
+    dispatch(setCurrentUser(ownkey))
   })
 }
 

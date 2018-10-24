@@ -3,14 +3,7 @@ import {firebaseAuth} from '../../firebase';
 
 class App extends Component {
   componentWillMount(){
-    firebaseAuth().onAuthStateChanged(user=>{
-      if(user){
-        this.props.history.push('/signup');
-      }
-      else{
-        this.props.history.push('/login');
-      }
-    });
+    this.props.history.push('/login');
   }
 
   render() {
