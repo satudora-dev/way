@@ -1,4 +1,4 @@
-const accounts = (state = {registered: false}, action) => {
+const accounts = (state = {init: true}, action) => {
   switch (action.type) {
     case 'ACCOUNTS_RECEIVE_DATA':
       let accounts = {}

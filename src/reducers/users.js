@@ -1,4 +1,4 @@
-const users = (state = {given: 'init'}, action) => {
+const users = (state = {init: true}, action) => {
   switch (action.type) {
     case 'USERS_RECEIVE_DATA':
       let users = {}

@@ -1,4 +1,4 @@
-const tags = (state = [], action) => {
+const tags = (state = {init: true}, action) => {
   switch (action.type) {
     case 'TAGS_RECEIVE_DATA':
       let tags = {}

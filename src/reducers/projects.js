@@ -1,4 +1,4 @@
-const projects = (state = [], action) => {
+const projects = (state = {init: true}, action) => {
   switch (action.type) {
     case 'PROJECTS_RECEIVE_DATA':
       let projects ={}

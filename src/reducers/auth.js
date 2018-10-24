@@ -1,4 +1,4 @@
-const auth = (state = [], action) => {
+const auth = (state = {init: true}, action) => {
   switch (action.type) {
     case 'SET_CURRENT_USER':
       return {CurrentUserKey: action.userkey}
