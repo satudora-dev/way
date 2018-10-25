@@ -6,21 +6,8 @@ import * as actions from '../actions';
 
 class Auth extends Component {
 
-
   componentWillMount(){
-    firebaseAuth().onAuthStateChanged(user=>{
-      if(user){
-        this.props.fetchAccounts();
-        this.props.fetchPositions();
-        this.props.fetchProjects();
-        this.props.fetchTags();
-        this.props.fetchUsers();
-        this.props.loginAsUser(user.email);
-      }else{
-        this.props.loginAsUser(null);
-        this.props.history.push('/login');
-      }
-    })
+    this.props.initFetchIfLoggedIn()
   }
   render() {
     return null;
@@ -28,21 +15,16 @@ class Auth extends Component {
 }
 
 const mapStateToProps = ( state ) => {
-  const userkey = state.auth.CurrentUserKey;
-  if(userkey){
-    return{
-      registered: state.accounts[userkey].registered
-    }
+  const ownkey = state.auth.ownkey;
+  return {
+    ownkey: ownkey,
+    hasOwnProfile: state.users[ownkey] !== undefined,
   }
 }
 
+
 const mapDispatchToProps = {
-  fetchAccounts: actions.fetchAccounts,
-  fetchPositions: actions.fetchPositions,
-  fetchProjects: actions.fetchProjects,
-  fetchTags: actions.fetchTags,
-  fetchUsers: actions.fetchUsers,
-  loginAsUser: actions.loginAsUser
+  initFetchIfLoggedIn: actions.initFetchIfLoggedIn,
 }
 
 export default connect(

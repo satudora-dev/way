@@ -90,8 +90,8 @@ class Profile extends Component {
         "color": "white",
       }
     }
-
-    if (this.props.given && !this.props.hasOwnProfile) {this.props.history.push('/signup')}
+    if (this.props.ownkey === null ) {this.props.history.push('/login')}
+    else if (this.props.ownkey && !this.props.hasOwnProfile) {this.props.history.push('/signup')}
     const profileID = this.props.match.params.id;
     const given = this.props.given || "";
     const family = this.props.family || "";

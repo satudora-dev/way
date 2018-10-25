@@ -163,7 +163,8 @@ class Signup extends Component {
     }
     const ownkey = this.props.ownkey;
 
-    if (this.props.hasOwnProfile) {this.props.history.push('/users')}
+    if(this.props.ownkey ===null) this.props.history.push('./login')
+    else if (this.props.ownkey && this.props.hasOwnProfile) this.props.history.push('/users')
     return (
       <div className="Login">
         <div style={style.siteInfoStyle}>
