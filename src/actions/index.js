@@ -211,7 +211,6 @@ export const signupAsUser = (userkey, given, family, mei, sei, icon) => dispatch
 
 
 export const updateIcon = (icon, userkey) => dispatch => {
-  console.log(icon)
   if(!icon) return;
   Storageref.child('icons/'+userkey).put(icon)
     .on('state_changed', () => {

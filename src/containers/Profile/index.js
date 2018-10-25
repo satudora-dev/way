@@ -105,13 +105,16 @@ class Profile extends Component {
     return (
       <div className="Profile">
         <div className="Home" style={style.divstyle}>
-          <ImageUploader src={icon} profileUserKey={profileUserKey} canEdit={canEdit}/>
+          <ImageUploader
+            src={icon}
+            profileUserKey={profileUserKey}
+            canEdit={canEdit}
+            updateIcon={this.props.updateIcon}/>
             <EditableLabel
               style={style.namestyle}
               value={[given,family]}
               onEditEnd={(names)=>this.props.editName(names,profileUserKey)}
               canEdit={canEdit}
-              updateIcon={this.props.updateIcon}
             />
         </div>
 
