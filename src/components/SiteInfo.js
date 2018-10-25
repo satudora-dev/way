@@ -4,11 +4,11 @@ class SiteInfo extends Component {
   render() {
     const style = {
       siteInfo: {
-        "padding-top": "30px",
-        "text-align": "center",
+        paddingTop: "30px",
+        textAlign: "center",
       },
       wayLogo: {
-        "vertical-align": "middle",
+        verticalAlign: "middle",
         width: 256,
         height: 128,
       },
@@ -17,7 +17,7 @@ class SiteInfo extends Component {
     return (
       <div style={style.siteInfo}>
         <img src="./way.png" style={style.wayLogo}
-             alt="loading the way image..." />
+             alt="loading..." />
         <h2>AI TOKYO LAB & Co.</h2>
       </div>
     );

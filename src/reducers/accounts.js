@@ -15,9 +15,9 @@ const accounts = (state = {init: true}, action) => {
       return accounts
     case 'ACCOUNTS_RECEIVE_ERROR':
     case 'LOGIN_ERROR':
+    case 'SIGNOUT_ERROR':
       alert(action.message)
       return state
-      break;
     default:
       return state
   }

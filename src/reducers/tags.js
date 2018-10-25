@@ -19,7 +19,6 @@ const tags = (state = {init: true}, action) => {
     case 'TAG_ADD_ERROR':
       alert(action.message)
       return state
-      break;
     default:
       return state
   }

@@ -5,30 +5,30 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 const style = {
   btnstyle: {
-    "margin-right": "10px",
-    "margin-bottom": "10px",
-    "background-color": "#04B486",
+    marginRight: "10px",
+    marginBottom: "10px",
+    backgroundColor: "#04B486",
     "color": "white",
-    "text-transform": "none",
+    textTransform: "none",
   },
   selectProjectModalStyle: {
     display:"inline-block",
-    "margin-top":"250px",
+    marginTop:"250px",
     height:"200px",
     //widthはGridでレスポンシブに
-    "min-width": "300px",
-    "background-color":"white",
-    "text-align":"center",
+    minWidth: "300px",
+    backgroundColor:"white",
+    textAlign:"center",
     "outline":"none",
-    "border-radius":"30px",
-    "font-family":"Avenir",
+    borderRadius:"30px",
+    fontFamily:"Avenir",
   },
   disabledstyle: {
-    "margin-right": "10px",
-    "margin-bottom": "10px",
-    "background-color": "gray",
+    marginRight: "10px",
+    marginBottom: "10px",
+    backgroundColor: "gray",
     "color": "white",
-    "text-transform": "none",
+    textTransform: "none",
   },
 }
 const TagModal = ({tagModalOpen, addTag, onTagModalClose, profileUserKey}) => {
@@ -43,7 +43,7 @@ const TagModal = ({tagModalOpen, addTag, onTagModalClose, profileUserKey}) => {
             <h3>add tag!!</h3>
             <TextField label={"tag"}
                        value={input}
-                       style={{"margin-right": "10px"}} autoFocus
+                       style={{marginRight: "10px"}} autoFocus
                        onChange={(e) => handleChange(e)}/>
             <Button style={input === "" ? style.disabledstyle : style.btnstyle}
                     variant="outlined"

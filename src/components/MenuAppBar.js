@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 
 class MenuAppBar extends React.Component{
   state = {
@@ -15,10 +13,10 @@ class MenuAppBar extends React.Component{
 
 
   render(){
-    const selects = [
-      "projects",
-      "offices",
-    ];
+    // const selects = [
+    //   "projects",
+    //   "offices",
+    // ];
 
     const style = {
       table: {
@@ -27,8 +25,8 @@ class MenuAppBar extends React.Component{
       },
       imgWrap: {
         display: "table-cell",
-        "text-align": "center",
-        "vertical-align": "middle",
+        textAlign: "center",
+        verticalAlign: "middle",
       },
       logoImg: {
         height: "30px",
@@ -42,7 +40,7 @@ class MenuAppBar extends React.Component{
             <div style={style.table}>
               <div style={style.imgWrap}>
                 <img src="/way.png" style={style.logoImg}
-                     alt="loading the way image..." />
+                     alt="loading..." />
               </div>
             </div>
           </Toolbar>

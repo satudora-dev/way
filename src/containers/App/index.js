@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import {firebaseAuth} from '../../firebase';
+import React from 'react';
 
-class App extends Component {
+class App extends React.Component {
   componentWillMount(){
     this.props.history.push('/login');
   }

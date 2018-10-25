@@ -7,7 +7,7 @@ const GithubButton = ( {onClick} ) =>{
     github:{
       width: "80px",
       height: "80px",
-      "border-radius": "50%",
+      borderRadius: "50%",
       padding: 0,
       transition: "all .3s",
     },
@@ -15,7 +15,7 @@ const GithubButton = ( {onClick} ) =>{
       padding: 0,
       border: "none",
       cursor: "pointer",
-      "background-color": "white",
+      backgroundColor: "white",
       transition: "all .3s",
     }
   }
@@ -24,7 +24,7 @@ const GithubButton = ( {onClick} ) =>{
         <button onClick={() => {
           onClick();
         }} className="github" style={style.button}>
-          <img className="github" style={style.github} src="./github.svg" />
+          <img className="github" style={style.github} src="./github.svg" alt={"img"}/>
           <h3>LOGIN</h3>
         </button>
 

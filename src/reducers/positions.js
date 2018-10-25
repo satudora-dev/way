@@ -18,7 +18,6 @@ const positions = (state = {init: true}, action) => {
     case 'UPDATE_POSITION_ERROR':
       alert(action.message)
       return state
-      break;
     default:
       return state
   }

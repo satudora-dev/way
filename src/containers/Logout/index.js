@@ -3,9 +3,6 @@ import * as actions from '../../actions'
 import { connect } from 'react-redux';
 
 class Logout extends React.Component {
-  constructor(props){
-    super(props);
-  }
 
   componentWillMount(){
     this.props.signOut()

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import EditIcon from '@material-ui/icons/Edit';
-import EXIF from 'exif-js';
+// import EXIF from 'exif-js';
 
 class ImageUploader extends Component {
   // constructor(props){
@@ -133,13 +132,13 @@ render() {
       imgstyle: {
         height: "256px",
         width: "256px",
-        "border-radius": "50%",
-        "margin-top": "30px",
-        "object-fit": "cover",
+        borderRadius: "50%",
+        marginTop: "30px",
+        objectFit: "cover",
       },
       btnstyle: {
         position:"absolute",
-        "background-color": "#04B486",
+        backgroundColor: "#04B486",
         "color": "white",
         top:"240px",
         right:"32px",

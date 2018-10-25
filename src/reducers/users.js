@@ -38,7 +38,6 @@ const users = (state = {init: true}, action) => {
     case 'UPDATE_TAG_ERROR':
       alert(action.message)
       return state
-      break;
     default:
       return state
   }

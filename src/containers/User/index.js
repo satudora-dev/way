@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import MenuAppBar from '../../components/MenuAppBar';
 
 import {connect} from 'react-redux'
-import * as actions from '../../actions'
 
 class User extends Component {
   constructor(props){
@@ -98,23 +97,23 @@ class User extends Component {
       iconstyle: {
         width: "128px",
         height: "128px",
-        "object-fit": "cover",
-        "border-radius": "50%",
+        objectFit: "cover",
+        borderRadius: "50%",
         padding: "0px", //paddingだとその要素自体に余白つける
         //margin: "8px", //marginだとその要素の外側に余白つける
-        "box-shadow": "0 4px 10px gray",
+        boxShadow: "0 4px 10px gray",
         cursor: "finger",
       },
       divstyle: {
-        "text-align": "left",
+        textAlign: "left",
         "padding": "10px 10px 10px",
       },
       btnstyle: {
         color: "white",
-        "background-color": "#04B486",
+        backgroundColor: "#04B486",
       },
       iconbtnstyle: {
-        "border-radius": "50%",
+        borderRadius: "50%",
         padding: 0,
         margin: "5px"
       },
@@ -155,7 +154,7 @@ class User extends Component {
           RANDOM
         </Button>
         <hr />
-        <div style={{"text-align":"center"}}>
+        <div style={{textAlign:"center"}}>
           {this.state.visibleUserKeys.map( (key,i) =>{
             return (
               <Button className="User" key={i} style={style.iconbtnstyle}

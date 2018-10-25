@@ -44,48 +44,48 @@ class Profile extends Component {
   render() {
     const style = {
       divstyle: {
-        "background-image": "url('/grad.jpg')",
-        "backend-position": "center center",
-        "background-repeat": "no-repeat",
-        "background-size": "cover",
+        backgroundImage: "url('/grad.jpg')",
+        backendPosition: "center center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
       },
       namestyle: {
         color: "#D8D8D8",
-        "font-family": "Avenir",
-        "font-size": "40px",
+        fontFamily: "Avenir",
+        fontSize: "40px",
         margin: "10px"
       },
       categorystyle: {
-        "text-align": "left",
+        textAlign: "left",
         margin: "10px 30px",
-        "font-family": "Avenir",
+        fontFamily: "Avenir",
       },
       tagstyle: {
-        "text-align": "left",
-        "font-family": "Avenir",
+        textAlign: "left",
+        fontFamily: "Avenir",
         margin: "10px 30px",
-        "margin-bottom": "40px",
+        marginBottom: "40px",
       },
       btnstyle: {
-        "margin-right": "10px",
-        "margin-bottom": "10px",
-        "background-color": "#04B486",
+        marginRight: "10px",
+        marginBottom: "10px",
+        backgroundColor: "#04B486",
         "color": "white",
-        "text-transform": "none",
+        textTransform: "none",
       },
       tagbtnstyle: {
-        "padding-right":"8px",
-        "margin-right": "10px",
-        "margin-bottom": "10px",
-        "background-color": "#04B486",
-        "text-transform": "none",
+        paddingRight:"8px",
+        marginRight: "10px",
+        marginBottom: "10px",
+        backgroundColor: "#04B486",
+        textTransform: "none",
         "color": "white",
       },
       positionstyle: {
-        "margin-right": "10px",
-        "margin-bottom": "10px",
-        "background-color": "#04B486",
-        "text-transform": "none",
+        marginRight: "10px",
+        marginBottom: "10px",
+        backgroundColor: "#04B486",
+        textTransform: "none",
         "color": "white",
       }
     }
@@ -99,7 +99,6 @@ class Profile extends Component {
     const projects = this.props.projects || [];
     const tags = this.props.tags || [];
     const canEdit = profileUserKey === this.props.ownkey;
-    // const openTutorial = this.props.location.state.tut || false;
 
 
     return (
@@ -193,7 +192,7 @@ class Profile extends Component {
              return (
               <Button key={i} variant="contained" style={style.tagbtnstyle}>
                 <span onClick={()=>this.toTagPage(tag)}>{[tag]}&nbsp;&nbsp;</span>
-                <CloseIcon style={{"font-size" : "90%", }} onClick={()=>this.props.deleteTag(tag, profileUserKey)}/>
+                <CloseIcon style={{fontSize : "90%", }} onClick={()=>this.props.deleteTag(tag, profileUserKey)}/>
               </Button>
              );
            })}
@@ -218,7 +217,6 @@ class Profile extends Component {
 const mapStateToProps = state => {
   const ownkey = state.auth.ownkey;
   const users = state.users;
-  const accounts = state.accounts;
   const thisUser = window.location.pathname.split('/').slice(-1);
   if(users[thisUser]){
     return {

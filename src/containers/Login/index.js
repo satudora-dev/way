@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import IconButton from '@material-ui/core/IconButton';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import GithubButton from './GithubButton'
 import SiteInfo from '../../components/SiteInfo';
 
@@ -17,10 +15,10 @@ class Login extends Component {
   render() {
     const style = {
       container: {
-        "padding-top": "80px",
-        "padding-bottom": "100px",
+        paddingTop: "80px",
+        paddingBottom: "100px",
         width: "100%",
-        "text-align": "center",
+        textAlign: "center",
         position: "relative",
       }
     }

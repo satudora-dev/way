@@ -1,6 +1,8 @@
-import React , { Component }from 'react';
+import React from 'react';
 import {BrowserRouter,Route} from 'react-router-dom';
 
+
+import Auth from './containers/Auth';
 import App from './containers/App';
 import Login from './containers/Login';
 import Signup from './containers/Signup';
@@ -8,10 +10,8 @@ import User from './containers/User';
 import Profile from './containers/Profile';
 import Logout from './containers/Logout';
 
-import Auth from './containers/Auth';
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 
-import {firebaseAuth} from './firebase'
 
 const Routes = ({store}) => {
   return(

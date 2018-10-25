@@ -64,6 +64,7 @@ class EditableLabel extends Component {
           {this.state.value.map((v,i)=>{
             return(
               <TextField
+                key = {i}
                 autoFocus={i===0}
                 InputProps={{style: this.props.style}}
                 value={v}
@@ -77,9 +78,13 @@ class EditableLabel extends Component {
     else{
       return(
         <span style={this.props.style}>
-          {this.state.value.map(v=>{
+          {this.state.value.map( (v,i)=>{
             return(
-              <span onClick={()=>this.clickEvent()}>{v}&ensp;</span>
+              <span
+                onClick={()=>this.clickEvent()}
+                key = {i}>
+                {v}&ensp;
+              </span>
             );
           })}
           {(()=>{

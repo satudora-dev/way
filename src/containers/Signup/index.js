@@ -18,10 +18,6 @@ class Signup extends Component {
       iconFile: "",
       iconSrc: "/portrait.png",
     };
-    let given_en;
-    let family_en;
-    let given_ja;
-    let family_ja;
   }
 
 
@@ -52,7 +48,7 @@ class Signup extends Component {
 
           var image_aspect, canvas_width, canvas_height, draw_width, draw_height;
           //アスペクト取得
-          image_aspect = (orientation == 5 || orientation == 6 || orientation == 7 || orientation == 8) ? image.width / image.height : image.height / image.width;
+          image_aspect = (orientation === 5 || orientation === 6 || orientation === 7 || orientation === 8) ? image.width / image.height : image.height / image.width;
 
           canvas_width = image.width;
           canvas_height = Math.floor(canvas_width * image_aspect);
@@ -68,8 +64,8 @@ class Signup extends Component {
           // iPhoneで撮った写真はブラウザ上で回転してしまう。
           // exifに応じて画像の変換(上下左右反転と回転）
 
-          var draw_width = canvas_width;
-          var draw_height = canvas_height;
+          draw_width = canvas_width;
+          draw_height = canvas_height;
 
           switch (orientation) {
             case 2:
@@ -138,27 +134,27 @@ class Signup extends Component {
       imagestyle: {
         width: 64,
         height: 32,
-        "padding-top": "20px",
+        paddingTop: "20px",
       },
       siteInfoStyle: {
-       "margin-top": "30px",
+       marginTop: "30px",
       },
       welcomestyle: {
         color: "grey",
-        "font-weight": "lighter",
+        fontWeight: "lighter",
       },
       pstyle: {
-        "margin-bottom": "0px",
+        marginBottom: "0px",
       },
       iconstyle: {
         width: 200,
         height:200,
-        "border-radius": "50%",
-        "object-fit": "cover",
+        borderRadius: "50%",
+        objectFit: "cover",
       },
       WAYstyle: {
         color: "black",
-        "font-weight": "bold",
+        fontWeight: "bold",
       }
     }
     const ownkey = this.props.ownkey;
@@ -221,7 +217,7 @@ class Signup extends Component {
               style={style.welcomestyle} />
           </div>
           <div>
-            <img src={this.state.iconSrc} style={style.iconstyle}/>
+            <img src={this.state.iconSrc} style={style.iconstyle} alt={"img"}/>
           </div>
           <div>
             <input type="file" accept="image" name="icon" onChange={(e) => {if(e.target.files[0])this.optimizeImage(e.target.files[0])}}/>
