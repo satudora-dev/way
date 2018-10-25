@@ -222,6 +222,12 @@ const mapStateToProps = state => {
       tags: users[thisUser].tags,
     }
   }
+  else{
+    return{
+      ownkey: ownkey,
+      hasOwnProfile: state.users[ownkey] !== undefined,
+    }
+  }
 }
 
 const mapDispatchToProps = {
