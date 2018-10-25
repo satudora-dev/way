@@ -125,9 +125,6 @@ class ImageUploader extends Component {
   // }
 
 
-onClickButton(){
-  this.refs.fileInput.click();
-}
 
 render() {
 
@@ -161,7 +158,7 @@ render() {
         {(() => {
           if(this.props.canEdit)
             return(
-              <Button mini onClick={()=>this.onClickButton()} variant="fab" style={style.btnstyle}>
+              <Button mini onClick={()=>this.refs.fileInput.click()} variant="fab" style={style.btnstyle}>
                 <EditIcon/>
               </Button>
             )
