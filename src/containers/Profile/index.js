@@ -11,7 +11,6 @@ import TagModal from './TagModal'
 import ProjectModal from './ProjectModal'
 import EditableLabel from '../../components/EditableLabel'
 import ImageUploader from '../../components/ImageUploader'
-import TagLabel from '../../components/TagLabel'
 
 import { connect } from 'react-redux';
 import * as actions from '../../actions'
@@ -119,7 +118,15 @@ class Profile extends Component {
           <h3 style={style.categorystyle}>position</h3>
           <hr />
           <div style={style.tagstyle}>
-            <Button variant="contained" color="primary" disabled={(!position)} style={style.positionstyle} onClick={()=>this.toPositionPage(position)}>{position}</Button>
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={(!position)}
+              style={style.positionstyle}
+              onClick={()=>this.toPositionPage(position)}
+            >
+              {position}
+            </Button>
             {(() => {
               if(canEdit)
                 return(
@@ -146,11 +153,14 @@ class Profile extends Component {
           <div style={style.tagstyle}>
             {projects.map((project,i)=>{
               return (
-                <Button key={i} variant="contained" color="primary" style={style.tagbtnstyle} onClick={()=>this.toProjectPage(project)}>
-                  <TagLabel
-                    value={[project]}
-                    onClick={()=>this.toProjectPage(project)}
-                  />
+                <Button
+                  key={i}
+                  variant="contained"
+                  color="primary"
+                  style={style.positionstyle}
+                  onClick={()=>this.toProjectPage(project)}
+                  >
+                {project}
                 </Button>
               );
             })}
