@@ -209,6 +209,13 @@ export const signupAsUser = (userkey, given, family, mei, sei, icon) => dispatch
 
 }
 
+export const signOut = () => dispatch => {
+  firebaseAuth().signOut()
+    .catch(error => dispatch({
+      type: 'SIGNOUT_ERROR',
+      message: error.message,
+    }));
+}
 
 export const updateIcon = (icon, userkey) => dispatch => {
   if(!icon) return;

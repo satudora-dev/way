@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import {firebaseAuth} from '../../firebase';
-import {withRouter} from 'react-router-dom';
+import React from 'react';
+import * as actions from '../../actions'
+import { connect } from 'react-redux';
 
-class Logout extends Component {
+class Logout extends React.Component {
   constructor(props){
     super(props);
   }
 
   componentWillMount(){
-    firebaseAuth().signOut()
+    this.props.signOut()
     this.props.history.push("/login")
   }
   render(){
@@ -16,4 +16,11 @@ class Logout extends Component {
   }
 }
 
-export default withRouter(Logout);
+const mapDispatchToProps = {
+  signOut: actions.signOut,
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Logout);
