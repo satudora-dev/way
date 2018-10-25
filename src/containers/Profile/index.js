@@ -132,7 +132,7 @@ class Profile extends Component {
                       positionModalOpen={this.state.positionModalOpen}
                       currentPosition={position}
                       addPosition={this.props.addPosition}
-                      onPositionModalOpen={() => this.setState({positionModalOpen: false})}
+                      onPositionModalClose={() => this.setState({positionModalOpen: false})}
                       profileID={profileID}
                     />
                   </div>
@@ -166,7 +166,7 @@ class Profile extends Component {
                       projectModalOpen={this.state.projectModalOpen}
                       currentProjects={projects}
                       setProjects={this.props.setProjects}
-                      onProjectModalclose={() => this.setState({projectModalOpen: false})}
+                      onProjectModalClose={() => this.setState({projectModalOpen: false})}
                       profileID={profileID}
                     />
                   </div>
@@ -194,7 +194,7 @@ class Profile extends Component {
           <TagModal
             tagModalOpen={this.state.tagModalOpen}
             addTag={this.props.addTag}
-            onTagModalclose={() => this.setState({tagModalOpen: false})}
+            onTagModalClose={() => this.setState({tagModalOpen: false})}
             profileID={profileID} />
             </div>
         </div>

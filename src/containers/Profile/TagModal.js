@@ -31,14 +31,14 @@ const style = {
     "text-transform": "none",
   },
 }
-const TagModal = ({tagModalOpen, addTag, onTagModalclose, profileID}) => {
+const TagModal = ({tagModalOpen, addTag, onTagModalClose, profileID}) => {
   let input
   const handleChange = (e) => {input = e.target.value}
   return(
     <div>
       <Grid>
         <Modal open={tagModalOpen}
-               onClose={() => onTagModalclose()}>
+               onClose={() => onTagModalClose()}>
           <div style={style.selectProjectModalStyle}>
             <h3>add tag!!</h3>
             <TextField label={"tag"}
@@ -52,7 +52,7 @@ const TagModal = ({tagModalOpen, addTag, onTagModalclose, profileID}) => {
                     onClick={() => {
                       if (input === "" || input === undefined) return;
                       addTag(input,profileID);
-                      onTagModalclose();
+                      onTagModalClose();
                     }}>
             add
             </Button>

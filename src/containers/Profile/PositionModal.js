@@ -31,14 +31,14 @@ const style = {
     "text-transform": "none",
   },
 }
-const PositionModal = ({positionModalOpen, currentPosition, addPosition, onPositionModalOpen, profileID}) => {
+const PositionModal = ({positionModalOpen, currentPosition, addPosition, onPositionModalClose, profileID}) => {
   return(
     <div>
       <Grid>
         <Modal open={positionModalOpen}
                onClose={() => {
                  addPosition(currentPosition, profileID)
-                 onPositionModalOpen()}}
+                 onPositionModalClose()}}
         >
           <div style={style.selectProjectModalStyle}>
             <h3>select project</h3>
@@ -49,7 +49,7 @@ const PositionModal = ({positionModalOpen, currentPosition, addPosition, onPosit
                 disabled={currentPosition === "" || currentPosition === undefined}
                 onClick={() => {
                   addPosition(currentPosition, profileID);
-                  onPositionModalOpen();
+                  onPositionModalClose();
                 }}
             >
             done
