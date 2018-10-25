@@ -31,7 +31,7 @@ const style = {
     "text-transform": "none",
   },
 }
-const TagModal = ({tagModalOpen, addTag, onTagModalClose, profileID}) => {
+const TagModal = ({tagModalOpen, addTag, onTagModalClose, profileUserKey}) => {
   let input
   const handleChange = (e) => {input = e.target.value}
   return(
@@ -51,7 +51,7 @@ const TagModal = ({tagModalOpen, addTag, onTagModalClose, profileID}) => {
                     value="add"
                     onClick={() => {
                       if (input === "" || input === undefined) return;
-                      addTag(input,profileID);
+                      addTag(input,profileUserKey);
                       onTagModalClose();
                     }}>
             add

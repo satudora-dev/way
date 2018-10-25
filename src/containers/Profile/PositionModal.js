@@ -56,7 +56,7 @@ const MenuProps = {
     },
   },
 };
-const PositionModal = ({positionModalOpen, currentPosition, updatePosition, onPositionModalClose, profileID}) => {
+const PositionModal = ({positionModalOpen, currentPosition, updatePosition, onPositionModalClose, profileUserKey}) => {
 
   return(
     <div>
@@ -76,7 +76,7 @@ const PositionModal = ({positionModalOpen, currentPosition, updatePosition, onPo
                   <InputLabel htmlFor="select-multiple-checkbox">Position</InputLabel>
                   <Select
                     value={currentPosition}
-                    onChange={(e) => updatePosition(currentPosition,e.target.value, profileID)}
+                    onChange={(e) => updatePosition(currentPosition,e.target.value, profileUserKey)}
                     input={<Input id="position" />}
                     MenuProps={MenuProps}
                   >

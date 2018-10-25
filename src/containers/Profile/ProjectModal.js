@@ -59,7 +59,7 @@ const style = {
   },
 }
 
-const ProjectModal = ({projectModalOpen, currentProjects, updateProjects, onProjectModalClose, profileID}) => {
+const ProjectModal = ({projectModalOpen, currentProjects, updateProjects, onProjectModalClose, profileUserKey}) => {
   return(
     <div>
       <Grid>
@@ -80,7 +80,7 @@ const ProjectModal = ({projectModalOpen, currentProjects, updateProjects, onProj
                   <Select
                     multiple
                     value={currentProjects}
-                    onChange={(e) => updateProjects(currentProjects,e.target.value, profileID)}
+                    onChange={(e) => updateProjects(currentProjects,e.target.value, profileUserKey)}
                     input={<Input id="select-multiple-checkbox" />}
                     renderValue={selected => selected.join(', ')}
                     MenuProps={MenuProps}

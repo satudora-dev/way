@@ -17,24 +17,12 @@ class ImageUploader extends Component {
 
   componentWillReceiveProps(nextprops){
     this.setState({iconSrc: nextprops.src});
+    console.log(this.props)
   }
 
-  onTextChange(e){
-    if(!e.target.files[0])return;
-    this.optimizeImage(e.target.files[0]);
-  }
+  uploadOptimizedImage(iconFile){
+    if(!iconFile)return;
 
-  uploadImage(){
-    firebaseDB.ref('users/'+this.props.id+"/haveIcon").set(this.state.iconFile!=="");
-
-    if(this.state.iconFile){
-      let storageRef=firebaseStorage.ref().child(
-        'icons/'+this.props.id);
-      storageRef.put(this.state.iconFile);
-    }
-  }
-
-  optimizeImage(iconFile){
     let image=new Image();
     let _this = this;
     image.onload=()=> {
@@ -44,9 +32,8 @@ class ImageUploader extends Component {
       if (width < maxWidth) {
         this.setState({
           iconFile: iconFile,
-          iconSrc: URL.createObjectURL(iconFile),
         });
-        this.uploadImage();
+        this.props.updateIcon(this.state.iconFile,this.props.profileUserKey);
       }
       else {
         let canvas = document.createElement('canvas');
@@ -130,22 +117,15 @@ class ImageUploader extends Component {
 
           // 変換後の画像をアップロード&ステートに設定
           let transformedImage = canvas.toDataURL('image/png');
-          _this.setState({iconSrc: transformedImage});
           canvas.toBlob((blob) => {
             _this.setState({iconFile: blob});
-            _this.uploadImage();
+            _this.props.updateIcon(this.state.iconFile,this.props.profileUserKey);
           });
         });
       }
     };
-    image.src=URL.createObjectURL(iconFile);
   }
 
-changeMessage(e) {
-  this.setState({
-    textMessage: e.target.value
-  });
-}
 
 onClickButton(){
   this.refs.fileInput.click();
@@ -153,7 +133,6 @@ onClickButton(){
 
 render() {
 
-    if(this.state.onCheck) return(<div></div>);
 
     const style = {
       imgstyle: {
@@ -177,7 +156,10 @@ render() {
       <div>
       <div style={{position:"relative",width:"256px",margin:"auto"}}>
         <img src={this.props.src} style={style.imgstyle} alt="Loading..."/>
-        <input type="file" style={{display: "none"}} onChange={e => this.onTextChange(e)} ref="fileInput"/>
+        <input type="file" style={{display: "none"}} onChange={e => {
+          console.log(e.target.files[0])
+          this.uploadOptimizedImage(e.target.files[0])
+        }} ref="fileInput"/>
 
         {(() => {
           if(this.props.canEdit)

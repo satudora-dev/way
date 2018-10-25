@@ -92,98 +92,39 @@ const setCurrentUser = ownkey  => {
   }
 }
 
-
-
-//
-// export const fetchAccounts = () => dispatch => {
-//   Accountref.off()
-//   Accountref.on('value',
-//     (snapshot) => {dispatch(fetchAccountsSuccess(snapshot))},
-//     (error) => {dispatch(fetchAccountsError(error))}
-//   )
-// }
-//
-// export const fetchPositions = () => dispatch => {
-//   Positionref.off()
-//   Positionref.on('value',
-//     (snapshot) => {dispatch(fetchPositionsSuccess(snapshot))},
-//     (error) => {dispatch(fetchPositionsError(error))}
-//   )
-// }
-//
-// export const fetchProjects = () => dispatch => {
-//   Projectref.off()
-//   Projectref.on('value',
-//     (snapshot) => {dispatch(fetchProjectsSuccess(snapshot))},
-//     (error) => {dispatch(fetchProjectsError(error))}
-//   )
-// }
-// export const fetchTags = () => dispatch => {
-//   Tagref.off()
-//   Tagref.on('value',
-//     (snapshot) => {dispatch(fetchTagsSuccess(snapshot))},
-//     (error) => {dispatch(fetchTagsError(error))}
-//   )
-// }
-// export const fetchUsers = () => dispatch => {
-//   Userref.off()
-//   Userref.on('value',
-//     (snapshot) => {dispatch(fetchUsersSuccess(snapshot))},
-//     (error) => {dispatch(fetchUsersError(error))}
-//   )
-// }
-//
-//
-//
-// export const loginAsUser = email => dispatch => {
-//   Accountref.orderByChild('email').equalTo(email).once('value', (snapshot) =>{
-//     let ownkey = Object.keys(snapshot.val())[0];
-//     dispatch(setCurrentUser(ownkey))
-//   })
-// }
-
-
-
 export const initFetchIfLoggedIn = () => dispatch => {
   firebaseAuth().onAuthStateChanged(user=>{
     if(user){
-      // fetchAccounts();
       Accountref.off()
       Accountref.on('value',
         (snapshot) => {dispatch(fetchAccountsSuccess(snapshot))},
         (error) => {dispatch(fetchAccountsError(error))}
       )
-      // fetchPositions();
       Positionref.off()
       Positionref.on('value',
         (snapshot) => {dispatch(fetchPositionsSuccess(snapshot))},
         (error) => {dispatch(fetchPositionsError(error))}
       )
-      // fetchProjects();
       Projectref.off()
       Projectref.on('value',
         (snapshot) => {dispatch(fetchProjectsSuccess(snapshot))},
         (error) => {dispatch(fetchProjectsError(error))}
       )
-      // fetchTags();
       Tagref.off()
       Tagref.on('value',
         (snapshot) => {dispatch(fetchTagsSuccess(snapshot))},
         (error) => {dispatch(fetchTagsError(error))}
       )
-      // fetchUsers();
       Userref.off()
       Userref.on('value',
         (snapshot) => {dispatch(fetchUsersSuccess(snapshot))},
         (error) => {dispatch(fetchUsersError(error))}
       )
-      // loginAsUser(user.email);
       Accountref.orderByChild('email').equalTo(user.email).once('value', (snapshot) =>{
         let ownkey = Object.keys(snapshot.val())[0];
         dispatch(setCurrentUser(ownkey))
       })
     }else{
-      // loginAsUser(null);
       dispatch(setCurrentUser(null))
     }
   })
@@ -266,6 +207,24 @@ export const signupAsUser = (userkey, given, family, mei, sei, icon) => dispatch
       message: error.message,
     }));
 
+}
+
+
+export const updateIcon = (icon, userkey) => dispatch => {
+  console.log(icon)
+  if(!icon) return;
+  Storageref.child('icons/'+userkey).put(icon)
+    .on('state_changed', () => {
+      Storageref.child('icons/'+userkey).getDownloadURL().then((url)=>{
+          Userref.child(userkey).update({
+            icon: url,
+          })
+            .catch(error => dispatch({
+              type: 'UPDATE_IMAGE_ERROR',
+              message: error.message,
+            }));
+      });
+  });
 }
 
 export const editName = (names, userkey) => dispatch => {
