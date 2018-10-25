@@ -306,7 +306,7 @@ export const deleteTag = (tagname, userkey) => dispatch => {
 }
 
 export const updatePosition = (currentPosition,newPosition, userkey) => dispatch => {
-  if(!currentPosition || !newPosition || !userkey) return;
+  if(!newPosition || !userkey) return;
 
   if(currentPosition){
     Positionref.child(currentPosition+`/${userkey}`).remove()
