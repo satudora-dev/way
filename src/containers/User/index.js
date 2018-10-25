@@ -36,90 +36,44 @@ class User extends Component {
   componentWillMount(){
     let Userref=firebaseDB.ref('users');
     const params= new URLSearchParams(this.props.location.search)
-    console.log(params.length)
-    let predicate;
-    if(params.length<2)predicate=(x=>{return true;});//クエリの取得、なければ一覧
-      else {
-        if (params.length < 2
-          || (!params.get("position") && !params.get("project") && !params.get("tag"))
-            ) predicate = (x => {return true;});
-        else {
-          if (params.get("position")) {
-            const positionName = params.get("position")
-            predicate = (x => {
-              return x.position !== undefined && x.position === positionName;
-            });
-            this.setState({
-              refineMode: this.refineMODES.position,
-              refineKey: positionName,
-            });
-          }
-          if (params.get("project")) {
-            const prjName = params.get("project")
-            predicate = (x => {
-              return x.projects !== undefined && x.projects[prjName] !== undefined;
-            });
-            this.setState({
-              refineMode: this.refineMODES.project,
-              refineKey: prjName,
-            });
-          }
-          if (params.get("tag")) {
-            const tagName = params.get("tag")
-            predicate = (x => {
-              return x.tags !== undefined && x.tags[tagName] !== undefined;
-            });
-            this.setState({
-              refineMode: this.refineMODES.tag,
-              refineKey: tagName,
-            });
-          }
-        }
-      }
 
-    Userref.on('child_added',(snapshot)=>{
-      let val=snapshot.val();
-      if(!predicate(val))return;
-      let id=snapshot.key;
-      if(val.haveIcon){
-        this.downloadImage(id,val.given,val.family);
-      }
-      else{
-        let usrs=this.state.users;
-        usrs.push({
-          'id': id,
-          'givenName': val.given,
-          'familyName': val.family,
-          'icon': "/portrait.png",
-        });
-        this.setState({users: usrs});
-      }
-    });
-  }
-
-  downloadImage(id,given,family){
-    let storageRef=firebaseStorage.ref('icons/'+id);
-    storageRef.getDownloadURL().then((url)=>{
-      let usrs=this.state.users;
-      usrs.push({
-        'id': id,
-        'givenName': given,
-        'familyName': family,
-        'icon': url
+    //クエリの取得、なければ一覧
+    if(params.length<2 || (
+        !params.get("position") &&
+        !params.get("project") &&
+        !params.get("tag"))) {
+      this.predicate = user => true;
+    }
+    else if (params.get("position")) {
+      const positionName = params.get("position")
+      this.predicate = user => {
+        return user.position !== undefined && user.position === positionName;
+      };
+      this.setState({
+        refineMode: this.refineMODES.position,
+        refineKey: positionName,
       });
-
-      if(this.state.orderMode===this.orderMODES.SORTED){
-        usrs.sort((a,b)=>{//idを昇順にソートし、新規登録者を上に
-          let aStr = a.id.toString();
-          let bStr = b.id.toString();
-          if(aStr > bStr) return -1;
-          if(aStr < bStr) return 1;
-          return 0;
-        });
-      }
-
-      this.setState({users: usrs});
-    });
+    }
+    else if (params.get("project")) {
+      const projectName = params.get("project")
+      this.predicate = user => {
+        return user.projects !== undefined && user.projects[projectName] !== undefined;
+      };
+      this.setState({
+        refineMode: this.refineMODES.project,
+        refineKey: projectName,
+      });
+    }
+    else if (params.get("tag")) {
+      const tagName = params.get("tag")
+      this.predicate = user => {
+        return user.tags !== undefined && user.tags[tagName] !== undefined;
+      };
+      this.setState({
+        refineMode: this.refineMODES.tag,
+        refineKey: tagName,
+      });
+    }
   }
 
   toProfile(id,iconSrc){
@@ -179,6 +133,7 @@ class User extends Component {
     if(this.props.ownkey ===null) this.props.history.push('./login')
     else if (this.props.ownkey && this.props.hasOwnProfile ===false ) this.props.history.push('./signup')
 
+    const visibleUsers = this.props.users || {};
     return (
       <div className="Users">
         <MenuAppBar/>
@@ -211,19 +166,17 @@ class User extends Component {
         </Button>
         <hr />
         <div style={{"text-align":"center"}}>
-        {this.state.users.map((user,i)=>{
-          return (
-            <Button className="User" key={i} style={style.iconbtnstyle}
-              onClick={()=>this.toProfile(user.id,user.icon)}>
-              <img src={user.icon} style={style.iconstyle} alt="failed loading..."/>
-            </Button>
-          );
-        })}
+          {Object.keys(visibleUsers).map( (key,i) =>{
+            if(this.predicate(visibleUsers[key]))
+            return (
+              <Button className="User" key={i} style={style.iconbtnstyle}
+                onClick={()=>this.toProfile(key,visibleUsers[key].icon)}>
+                <img src={visibleUsers[key].icon} style={style.iconstyle} alt="failed loading..."/>
+              </Button>
+            );
+          })}
         </div>
         </div>
-        <button
-          onClick={()=>console.log(this.props)}>AAAAAAA
-        </button>
       </div>
     );
   }
