@@ -165,7 +165,7 @@ class Profile extends Component {
                     <ProjectModal
                       projectModalOpen={this.state.projectModalOpen}
                       currentProjects={projects}
-                      setProjects={this.props.setProjects}
+                      updateProjects={this.props.updateProjects}
                       onProjectModalClose={() => this.setState({projectModalOpen: false})}
                       profileID={profileID}
                     />
@@ -227,7 +227,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   editName: actions.editName,
   addPosition: actions.addPosition,
-  setProjects: actions.setProjects,
+  updateProjects: actions.updateProjects,
   addTag: actions.addTag,
   deleteTag: actions.deleteTag,
 }

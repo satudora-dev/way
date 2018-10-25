@@ -15,7 +15,7 @@ const projects = (state = {init: true}, action) => {
       }
       return projects
     case 'PROJECTS_RECEIVE_ERROR':
-    case 'SET_PROJECTS_ERROR':
+    case 'UPDATE_PROJECTS_ERROR':
       alert(action.message)
       return state
       break;

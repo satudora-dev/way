@@ -320,17 +320,30 @@ export const addPosition = (position, userkey) => dispatch => {
 }
 
 
-export const setProjects = (projects, userkey) => dispatch => {
-  if(!projects || !userkey) return;
-  for(let project of projects){
+export const updateProjects = (currentProjects, newProjects, userkey) => dispatch => {
+  if(!userkey) return;
+  for(let project of currentProjects){
+    Userref.child(userkey + `/projects/${project}`).remove()
+      .catch(error => dispatch({
+        type: 'UPDATE_PROJECTS_ERROR',
+        message: error.message,
+      }));
+    Projectref.child(project + `/members/${userkey}`).remove()
+      .catch(error => dispatch({
+        type: 'UPDATE_PROJECTS_ERROR',
+        message: error.message,
+      }));
+  }
+
+  for(let project of newProjects){
     Userref.child(userkey + `/projects/${project}`).set(true)
       .catch(error => dispatch({
-        type: 'SET_PROJECTS_ERROR',
+        type: 'UPDATE_PROJECTS_ERROR',
         message: error.message,
       }));
     Projectref.child(project + `/members/${userkey}`).set(true)
       .catch(error => dispatch({
-        type: 'SET_PROJECTS_ERROR',
+        type: 'UPDATE_PROJECTS_ERROR',
         message: error.message,
       }));
   }
