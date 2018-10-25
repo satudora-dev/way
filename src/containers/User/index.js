@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {firebaseDB, firebaseAuth, firebaseStorage} from '../../firebase';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -23,9 +22,7 @@ class User extends Component {
       tag: 3,
     };
     this.state={
-      authenticated: false,
-      currentUser: null,
-      users: [],
+      visibleUserKeys: [],
       orderMode: this.orderMODES.SORTED,
       refineMode: this.refineMODES.all,
       refineKey: "",
@@ -34,20 +31,12 @@ class User extends Component {
   }
 
   componentWillMount(){
-    let Userref=firebaseDB.ref('users');
     const params= new URLSearchParams(this.props.location.search)
-
     //クエリの取得、なければ一覧
-    if(params.length<2 || (
-        !params.get("position") &&
-        !params.get("project") &&
-        !params.get("tag"))) {
-      this.predicate = user => true;
-    }
-    else if (params.get("position")) {
+    if (params.get("position")) {
       const positionName = params.get("position")
-      this.predicate = user => {
-        return user.position !== undefined && user.position === positionName;
+      this.visibilityfilter = user => {
+        return user.position === positionName;
       };
       this.setState({
         refineMode: this.refineMODES.position,
@@ -56,8 +45,8 @@ class User extends Component {
     }
     else if (params.get("project")) {
       const projectName = params.get("project")
-      this.predicate = user => {
-        return user.projects !== undefined && user.projects[projectName] !== undefined;
+      this.visibilityfilter = user => {
+        return user.projects && user.projects.includes(projectName);
       };
       this.setState({
         refineMode: this.refineMODES.project,
@@ -66,24 +55,25 @@ class User extends Component {
     }
     else if (params.get("tag")) {
       const tagName = params.get("tag")
-      this.predicate = user => {
-        return user.tags !== undefined && user.tags[tagName] !== undefined;
+      this.visibilityfilter = user => {
+        return user.tags && user.tags.includes(tagName);
       };
       this.setState({
         refineMode: this.refineMODES.tag,
         refineKey: tagName,
       });
     }
+    else {
+      this.visibilityfilter = user => {
+        return true
+      }
+    }
+    this.setState({visibleUserKeys: Object.keys(this.props.users)
+      .filter(key => this.visibilityfilter(this.props.users[key]))})
   }
 
-  toProfile(id,iconSrc){
-    this.props.history.push({
-      pathname: `/users/${id}`,
-      state: {
-        id: id,
-        icon: iconSrc,
-      },
-    });
+  toProfile(id){
+    this.props.history.push(`/users/${id}`);
   }
 
   switchOrderMenu(on){
@@ -91,16 +81,16 @@ class User extends Component {
   }
 
   shuffleUserOrder(){
+    let visibleUserKeys = this.state.visibleUserKeys
     this.setState({orderMODES: this.orderMODES.RANDOM});
-    let usrs=this.state.users;
     //Fisher–Yatesアルゴリズム
-    for(let i=usrs.length-1;i>0;i--){
+    for(let i=visibleUserKeys.length-1;i>0;i--){
       let r=Math.floor(Math.random()*(i+1));
-      let temp=usrs[i];
-      usrs[i]=usrs[r];
-      usrs[r]=temp;
+      let temp=visibleUserKeys[i];
+      visibleUserKeys[i]=visibleUserKeys[r];
+      visibleUserKeys[r]=temp;
     }
-    this.setState({users: usrs});
+    this.setState({visibleUserKeys: visibleUserKeys})
   }
 
   render() {
@@ -133,7 +123,7 @@ class User extends Component {
     if(this.props.ownkey ===null) this.props.history.push('./login')
     else if (this.props.ownkey && this.props.hasOwnProfile ===false ) this.props.history.push('./signup')
 
-    const visibleUsers = this.props.users || {};
+    const users = this.props.users || {};
     return (
       <div className="Users">
         <MenuAppBar/>
@@ -160,18 +150,17 @@ class User extends Component {
           })}
         </Menu>
         <Button  variant="contained" style={style.btnstyle}
-          onClick={()=>this.shuffleUserOrder()}>
+          onClick={()=> this.shuffleUserOrder()}>
           <img src="./refresh_white_18x18.png" alt="" />
           RANDOM
         </Button>
         <hr />
         <div style={{"text-align":"center"}}>
-          {Object.keys(visibleUsers).map( (key,i) =>{
-            if(this.predicate(visibleUsers[key]))
+          {this.state.visibleUserKeys.map( (key,i) =>{
             return (
               <Button className="User" key={i} style={style.iconbtnstyle}
-                onClick={()=>this.toProfile(key,visibleUsers[key].icon)}>
-                <img src={visibleUsers[key].icon} style={style.iconstyle} alt="failed loading..."/>
+                onClick={()=>this.toProfile(key)}>
+                <img src={users[key].icon} style={style.iconstyle} alt="failed loading..."/>
               </Button>
             );
           })}
@@ -184,11 +173,10 @@ class User extends Component {
 
 const mapStateToProps = state => {
   const ownkey = state.auth.ownkey;
-  const users = state.users;
   return {
     ownkey: ownkey,
     hasOwnProfile: state.users[ownkey] !== undefined,
-    users: users
+    users: state.users
   }
 }
 
