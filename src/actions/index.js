@@ -269,7 +269,7 @@ export const signupAsUser = (userkey, given, family, mei, sei, icon) => dispatch
 }
 
 export const editName = (names, userkey) => dispatch => {
-  if(names[0] === "" || names[1] === "" || names[0] === undefined || names[1] === undefined || !userkey ) return;
+  if(!names[0] || !names[1] || !userkey ) return;
   Userref.child(userkey).update({given:names[0],family:names[1]})
     .catch(error => dispatch({
       type: 'EDIT_NAME_ERROR',
@@ -278,7 +278,7 @@ export const editName = (names, userkey) => dispatch => {
 }
 
 export const addTag = (tagname, userkey) => dispatch => {
-  if(tagname === "" || tagname === undefined || !userkey) return;
+  if(!tagname || !userkey) return;
   Userref.child(userkey + `/tags/${tagname}`).set(true)
     .catch(error => dispatch({
       type: 'TAG_ADD_ERROR',
@@ -292,7 +292,7 @@ export const addTag = (tagname, userkey) => dispatch => {
 }
 
 export const deleteTag = (tagname, userkey) => dispatch => {
-  if(tagname === "" || tagname === undefined || !userkey) return;
+  if(!tagname || !userkey) return;
   Userref.child(userkey + `/tags/${tagname}`).remove()
     .catch(error => dispatch({
       type: 'TAG_DELETE_ERROR',
@@ -306,7 +306,7 @@ export const deleteTag = (tagname, userkey) => dispatch => {
 }
 
 export const addPosition = (position, userkey) => dispatch => {
-  if(position === "" || position === undefined || !userkey) return;
+  if(!position || !userkey) return;
   Userref.child(userkey + "/position").set(position)
     .catch(error => dispatch({
       type: 'ADD_POSITION_ERROR',
@@ -321,7 +321,7 @@ export const addPosition = (position, userkey) => dispatch => {
 
 
 export const setProjects = (projects, userkey) => dispatch => {
-  if(projects === "" || projects === undefined || !userkey) return;
+  if(!projects || !userkey) return;
   for(let project of projects){
     Userref.child(userkey + `/projects/${project}`).set(true)
       .catch(error => dispatch({
