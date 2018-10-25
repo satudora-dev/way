@@ -22,13 +22,7 @@ const fetchAccountsError = error => {
   }
 }
 
-export const fetchAccounts = () => dispatch => {
-  Accountref.off()
-  Accountref.on('value',
-    (snapshot) => {dispatch(fetchAccountsSuccess(snapshot))},
-    (error) => {dispatch(fetchAccountsError(error))}
-  )
-}
+
 
 const fetchPositionsSuccess = snapshot => {
   return {
@@ -44,13 +38,6 @@ const fetchPositionsError = error => {
   }
 }
 
-export const fetchPositions = () => dispatch => {
-  Positionref.off()
-  Positionref.on('value',
-    (snapshot) => {dispatch(fetchPositionsSuccess(snapshot))},
-    (error) => {dispatch(fetchPositionsError(error))}
-  )
-}
 
 const fetchProjectsSuccess = snapshot => {
   return {
@@ -66,13 +53,7 @@ const fetchProjectsError = error => {
   }
 }
 
-export const fetchProjects = () => dispatch => {
-  Projectref.off()
-  Projectref.on('value',
-    (snapshot) => {dispatch(fetchProjectsSuccess(snapshot))},
-    (error) => {dispatch(fetchProjectsError(error))}
-  )
-}
+
 
 const fetchTagsSuccess = snapshot => {
   return {
@@ -88,13 +69,7 @@ const fetchTagsError = error => {
   }
 }
 
-export const fetchTags = () => dispatch => {
-  Tagref.off()
-  Tagref.on('value',
-    (snapshot) => {dispatch(fetchTagsSuccess(snapshot))},
-    (error) => {dispatch(fetchTagsError(error))}
-  )
-}
+
 
 const fetchUsersSuccess = snapshot => {
   return {
@@ -110,16 +85,109 @@ const fetchUsersError = error => {
   }
 }
 
-export const fetchUsers = () => dispatch => {
-  Userref.off()
-  Userref.on('value',
-    (snapshot) => {dispatch(fetchUsersSuccess(snapshot))},
-    (error) => {dispatch(fetchUsersError(error))}
-  )
+const setCurrentUser = ownkey  => {
+  return {
+    type: 'SET_CURRENT_USER',
+    ownkey: ownkey
+  }
 }
 
 
 
+//
+// export const fetchAccounts = () => dispatch => {
+//   Accountref.off()
+//   Accountref.on('value',
+//     (snapshot) => {dispatch(fetchAccountsSuccess(snapshot))},
+//     (error) => {dispatch(fetchAccountsError(error))}
+//   )
+// }
+//
+// export const fetchPositions = () => dispatch => {
+//   Positionref.off()
+//   Positionref.on('value',
+//     (snapshot) => {dispatch(fetchPositionsSuccess(snapshot))},
+//     (error) => {dispatch(fetchPositionsError(error))}
+//   )
+// }
+//
+// export const fetchProjects = () => dispatch => {
+//   Projectref.off()
+//   Projectref.on('value',
+//     (snapshot) => {dispatch(fetchProjectsSuccess(snapshot))},
+//     (error) => {dispatch(fetchProjectsError(error))}
+//   )
+// }
+// export const fetchTags = () => dispatch => {
+//   Tagref.off()
+//   Tagref.on('value',
+//     (snapshot) => {dispatch(fetchTagsSuccess(snapshot))},
+//     (error) => {dispatch(fetchTagsError(error))}
+//   )
+// }
+// export const fetchUsers = () => dispatch => {
+//   Userref.off()
+//   Userref.on('value',
+//     (snapshot) => {dispatch(fetchUsersSuccess(snapshot))},
+//     (error) => {dispatch(fetchUsersError(error))}
+//   )
+// }
+//
+//
+//
+// export const loginAsUser = email => dispatch => {
+//   Accountref.orderByChild('email').equalTo(email).once('value', (snapshot) =>{
+//     let ownkey = Object.keys(snapshot.val())[0];
+//     dispatch(setCurrentUser(ownkey))
+//   })
+// }
+
+
+
+export const initFetchIfLoggedIn = () => dispatch => {
+  firebaseAuth().onAuthStateChanged(user=>{
+    if(user){
+      // fetchAccounts();
+      Accountref.off()
+      Accountref.on('value',
+        (snapshot) => {dispatch(fetchAccountsSuccess(snapshot))},
+        (error) => {dispatch(fetchAccountsError(error))}
+      )
+      // fetchPositions();
+      Positionref.off()
+      Positionref.on('value',
+        (snapshot) => {dispatch(fetchPositionsSuccess(snapshot))},
+        (error) => {dispatch(fetchPositionsError(error))}
+      )
+      // fetchProjects();
+      Projectref.off()
+      Projectref.on('value',
+        (snapshot) => {dispatch(fetchProjectsSuccess(snapshot))},
+        (error) => {dispatch(fetchProjectsError(error))}
+      )
+      // fetchTags();
+      Tagref.off()
+      Tagref.on('value',
+        (snapshot) => {dispatch(fetchTagsSuccess(snapshot))},
+        (error) => {dispatch(fetchTagsError(error))}
+      )
+      // fetchUsers();
+      Userref.off()
+      Userref.on('value',
+        (snapshot) => {dispatch(fetchUsersSuccess(snapshot))},
+        (error) => {dispatch(fetchUsersError(error))}
+      )
+      // loginAsUser(user.email);
+      Accountref.orderByChild('email').equalTo(user.email).once('value', (snapshot) =>{
+        let ownkey = Object.keys(snapshot.val())[0];
+        dispatch(setCurrentUser(ownkey))
+      })
+    }else{
+      // loginAsUser(null);
+      dispatch(setCurrentUser(null))
+    }
+  })
+}
 
 
 
@@ -151,23 +219,10 @@ export const loginWithGithub = () => dispatch => {
 }
 
 
-const setCurrentUser = ownkey  => {
-  return {
-    type: 'SET_CURRENT_USER',
-    ownkey: ownkey
-  }
-}
-
-export const loginAsUser = email => dispatch => {
-  Accountref.orderByChild('email').equalTo(email).once('value', (snapshot) =>{
-    let ownkey = Object.keys(snapshot.val())[0];
-    dispatch(setCurrentUser(ownkey))
-  })
-}
 
 
 
-export const signupAsUser = (userid, given, family, mei, sei, icon) => dispatch => {
+export const signupAsUser = (userkey, given, family, mei, sei, icon) => dispatch => {
   if(!given){
     alert('Given name is empty.');
     return;
@@ -188,10 +243,10 @@ export const signupAsUser = (userid, given, family, mei, sei, icon) => dispatch 
     alert('Icon image is empty.');
     return;
   }
-  Storageref.child('icons/'+userid).put(icon)
+  Storageref.child('icons/'+userkey).put(icon)
     .on('state_changed', () => {
-      Storageref.child('icons/'+userid).getDownloadURL().then((url)=>{
-          Userref.child(userid).update({
+      Storageref.child('icons/'+userkey).getDownloadURL().then((url)=>{
+          Userref.child(userkey).update({
             given: given,
             family: family,
             mei: mei,
@@ -205,7 +260,7 @@ export const signupAsUser = (userid, given, family, mei, sei, icon) => dispatch 
       });
   });
 
-  Accountref.child(userid).update({'registered': true})
+  Accountref.child(userkey).update({'registered': true})
     .catch(error => dispatch({
       type: 'SIGNUP_ERROR',
       message: error.message,
@@ -213,51 +268,51 @@ export const signupAsUser = (userid, given, family, mei, sei, icon) => dispatch 
 
 }
 
-export const editName = (names, userid) => dispatch => {
-  if(names[0] === "" || names[1] === "" || names[0] === undefined || names[1] === undefined || !userid ) return;
-  Userref.child(userid).update({given:names[0],family:names[1]})
+export const editName = (names, userkey) => dispatch => {
+  if(names[0] === "" || names[1] === "" || names[0] === undefined || names[1] === undefined || !userkey ) return;
+  Userref.child(userkey).update({given:names[0],family:names[1]})
     .catch(error => dispatch({
       type: 'EDIT_NAME_ERROR',
       message: error.message,
     }));
 }
 
-export const addTag = (tagname, userid) => dispatch => {
-  if(tagname === "" || tagname === undefined || !userid) return;
-  Userref.child(userid + `/tags/${tagname}`).set(true)
+export const addTag = (tagname, userkey) => dispatch => {
+  if(tagname === "" || tagname === undefined || !userkey) return;
+  Userref.child(userkey + `/tags/${tagname}`).set(true)
     .catch(error => dispatch({
       type: 'TAG_ADD_ERROR',
       message: error.message,
     }));
-  Tagref.child(tagname + `/${userid}`).set(true)
+  Tagref.child(tagname + `/${userkey}`).set(true)
     .catch(error => dispatch({
       type: 'TAG_ADD_ERROR',
       message: error.message,
     }));
 }
 
-export const deleteTag = (tagname, userid) => dispatch => {
-  if(tagname === "" || tagname === undefined || !userid) return;
-  Userref.child(userid + `/tags/${tagname}`).remove()
+export const deleteTag = (tagname, userkey) => dispatch => {
+  if(tagname === "" || tagname === undefined || !userkey) return;
+  Userref.child(userkey + `/tags/${tagname}`).remove()
     .catch(error => dispatch({
       type: 'TAG_DELETE_ERROR',
       message: error.message,
     }));
-  Tagref.child(tagname + `/${userid}`).remove()
+  Tagref.child(tagname + `/${userkey}`).remove()
     .catch(error => dispatch({
       type: 'TAG_DELETE_ERROR',
       message: error.message,
     }));
 }
 
-export const addPosition = (position, userid) => dispatch => {
-  if(position === "" || position === undefined || !userid) return;
-  Userref.child(userid + "/position").set(position)
+export const addPosition = (position, userkey) => dispatch => {
+  if(position === "" || position === undefined || !userkey) return;
+  Userref.child(userkey + "/position").set(position)
     .catch(error => dispatch({
       type: 'ADD_POSITION_ERROR',
       message: error.message,
     }));
-  Positionref.child(position+`/${userid}`).set(true)
+  Positionref.child(position+`/${userkey}`).set(true)
     .catch(error => dispatch({
       type: 'ADD_POSITION_ERROR',
       message: error.message,
@@ -265,15 +320,15 @@ export const addPosition = (position, userid) => dispatch => {
 }
 
 
-export const setProjects = (projects, userid) => dispatch => {
-  if(projects === "" || projects === undefined || !userid) return;
+export const setProjects = (projects, userkey) => dispatch => {
+  if(projects === "" || projects === undefined || !userkey) return;
   for(let project of projects){
-    Userref.child(userid + `/projects/${project}`).set(true)
+    Userref.child(userkey + `/projects/${project}`).set(true)
       .catch(error => dispatch({
         type: 'SET_PROJECTS_ERROR',
         message: error.message,
       }));
-    Projectref.child(project + `/members/${userid}`).set(true)
+    Projectref.child(project + `/members/${userkey}`).set(true)
       .catch(error => dispatch({
         type: 'SET_PROJECTS_ERROR',
         message: error.message,
