@@ -34,6 +34,7 @@ const users = (state = {init: true}, action) => {
     case 'TAG_DELETE_ERROR':
     case 'TAG_ADD_ERROR':
     case 'UPDATE_PROJECTS_ERROR':
+    case 'UPDATE_TAG_ERROR':
       alert(action.message)
       return state
       break;

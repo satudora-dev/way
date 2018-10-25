@@ -15,7 +15,7 @@ const positions = (state = {init: true}, action) => {
       }
       return positions
     case 'POSITIONS_RECEIVE_ERROR':
-    case 'ADD_POSITION_ERROR':
+    case 'UPDATE_POSITION_ERROR':
       alert(action.message)
       return state
       break;

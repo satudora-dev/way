@@ -305,16 +305,24 @@ export const deleteTag = (tagname, userkey) => dispatch => {
     }));
 }
 
-export const addPosition = (position, userkey) => dispatch => {
-  if(!position || !userkey) return;
-  Userref.child(userkey + "/position").set(position)
+export const updatePosition = (currentPosition,newPosition, userkey) => dispatch => {
+  if(!currentPosition || !newPosition || !userkey) return;
+
+  if(currentPosition){
+    Positionref.child(currentPosition+`/${userkey}`).remove()
+      .catch(error => dispatch({
+        type: 'UPDATE_POSITION_ERROR',
+        message: error.message,
+      }));
+  }
+  Positionref.child(newPosition+`/${userkey}`).set(true)
     .catch(error => dispatch({
-      type: 'ADD_POSITION_ERROR',
+      type: 'UPDATE_POSITION_ERROR',
       message: error.message,
     }));
-  Positionref.child(position+`/${userkey}`).set(true)
+  Userref.child(userkey).update({position: newPosition})
     .catch(error => dispatch({
-      type: 'ADD_POSITION_ERROR',
+      type: 'UPDATE_POSITION_ERROR',
       message: error.message,
     }));
 }
@@ -322,17 +330,19 @@ export const addPosition = (position, userkey) => dispatch => {
 
 export const updateProjects = (currentProjects, newProjects, userkey) => dispatch => {
   if(!userkey) return;
-  for(let project of currentProjects){
-    Userref.child(userkey + `/projects/${project}`).remove()
-      .catch(error => dispatch({
-        type: 'UPDATE_PROJECTS_ERROR',
-        message: error.message,
-      }));
-    Projectref.child(project + `/members/${userkey}`).remove()
-      .catch(error => dispatch({
-        type: 'UPDATE_PROJECTS_ERROR',
-        message: error.message,
-      }));
+  if(currentProjects.length > 0){
+    for(let project of currentProjects){
+      Userref.child(userkey + `/projects/${project}`).remove()
+        .catch(error => dispatch({
+          type: 'UPDATE_PROJECTS_ERROR',
+          message: error.message,
+        }));
+      Projectref.child(project + `/members/${userkey}`).remove()
+        .catch(error => dispatch({
+          type: 'UPDATE_PROJECTS_ERROR',
+          message: error.message,
+        }));
+    }
   }
 
   for(let project of newProjects){

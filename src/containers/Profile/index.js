@@ -131,7 +131,7 @@ class Profile extends Component {
                     <PositionModal
                       positionModalOpen={this.state.positionModalOpen}
                       currentPosition={position}
-                      addPosition={this.props.addPosition}
+                      updatePosition={this.props.updatePosition}
                       onPositionModalClose={() => this.setState({positionModalOpen: false})}
                       profileID={profileID}
                     />
@@ -226,7 +226,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   editName: actions.editName,
-  addPosition: actions.addPosition,
+  updatePosition: actions.updatePosition,
   updateProjects: actions.updateProjects,
   addTag: actions.addTag,
   deleteTag: actions.deleteTag,
