@@ -36,6 +36,7 @@ class User extends Component {
   componentWillMount(){
     let Userref=firebaseDB.ref('users');
     const params= new URLSearchParams(this.props.location.search)
+    console.log(params.length)
     let predicate;
     if(params.length<2)predicate=(x=>{return true;});//クエリの取得、なければ一覧
       else {

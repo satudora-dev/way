@@ -209,7 +209,7 @@ const mapStateToProps = state => {
   const ownkey = state.auth.ownkey;
   const users = state.users;
   const accounts = state.accounts;
-  const thisUser = window.location.pathname.split('/')[2];
+  const thisUser = window.location.pathname.split('/').slice(-1);
   if(users[thisUser]){
     return {
       ownkey: ownkey,
