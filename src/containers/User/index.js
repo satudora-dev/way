@@ -128,14 +128,8 @@ class Users extends Component {
     });
   }
 
-  toProfile(id,iconSrc){
-    this.props.history.push({
-      pathname: `/users/${id}`,
-      state: {
-        id: id,
-        icon: iconSrc,
-      },
-    });
+  toProfile(id){
+    this.props.history.push(`/users/${id}`);
   }
 
   switchOrderMenu(on){
