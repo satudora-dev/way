@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {firebaseAuth,firebaseDB,firebaseStorage} from '../../firebase';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CheckInstax from '../../components/CheckInstax';
@@ -20,43 +19,11 @@ class Signup extends Component {
       iconFile: "",
       iconSrc: "/portrait.png",
       id: "",
-      onCheck: true,
     };
 
     this.onTextChange=this.onTextChange.bind(this);
-    this.onSendProfile=this.onSendProfile.bind(this);
   }
 
-  componentWillMount(){
-    firebaseAuth().onAuthStateChanged(user=>{
-      if(!user){
-        this.props.history.push('/login');
-        return;
-      }
-
-      let dbRef=firebaseDB.ref('accounts');
-      dbRef.orderByChild('email').equalTo(user.email)//メールアドレスが既に登録されているか
-        .once('value',(snapshot)=>{
-          if(snapshot.val()==null){
-            this.props.history.push('/login');
-          }
-          else{
-            let registered;
-            snapshot.forEach((childSnapshot)=>{
-              registered=childSnapshot.child('registered').val();
-              this.setState({id: childSnapshot.key});
-            });
-
-            if(registered){
-              this.props.history.push('/users');
-            }
-            else{
-              this.setState({onCheck: false});
-            }
-          }
-      });
-    });
-  }
 
   onTextChange(e){
     switch(e.target.name){
@@ -192,62 +159,10 @@ class Signup extends Component {
     image.src=URL.createObjectURL(iconFile);
   }
 
-  onSendProfile(e){
-    if(!this.state.givenName){
-      alert('Given name is empty.');
-      return;
-    }
-    else if(!this.state.familyName){
-      alert('Famili name is empty.');
-      return;
-    }
-    else if(!this.state.sei){
-      alert('姓が未入力です。');
-      return;
-    }
-    else if(!this.state.mei){
-      alert('名が未入力です。');
-      return;
-    }
-    else if(!this.state.iconFile){
-      alert('Icon image is empty.');
-      return;
-    }
-    //alert(this.state.iconFile);
-    firebaseDB.ref('users/'+this.state.id).set({
-      "given": this.state.givenName,
-      "family": this.state.familyName,
-      "sei": this.state.sei,
-      "mei": this.state.mei,
-      "haveIcon": this.state.iconFile!==""
-    });
-    firebaseDB.ref('accounts/'+this.state.id).update({'registered': true});
 
-    let MyId = this.state.id;
-    let MyIcon = this.state.iconSrc;
-
-
-    if(this.state.iconFile){
-      let storageRef=firebaseStorage.ref().child(
-        'icons/'+this.state.id);
-        storageRef.put(this.state.iconFile).then((snapshot)=>{
-          this.props.history.push({
-            pathname: `/users/${MyId}`,
-            state: {tut: true, icon: MyIcon},
-          });
-      });
-    }
-    else{
-      this.props.history.push({
-        pathname: `/users/${MyId}`,
-        state: {tut: true, icon: MyIcon},
-      });
-    };
-  }
 
   render() {
 
-    if(this.state.onCheck) return(<div></div>);
 
     const style = {
       imagestyle: {
@@ -335,7 +250,15 @@ class Signup extends Component {
         <div>
           <CheckInstax/>
         </div>
-        <Button variant="contained"  onClick={this.onSendProfile}>
+        <Button variant="contained"  onClick={() => {
+          this.props.signUpAsUser(this.props.ownKey,
+                                  this.state.givenName,
+                                  this.state.familyName,
+                                  this.state.mei,
+                                  this.state.sei,
+                                  this.state.iconFile);
+          this.props.history.push('/users');
+        }}>
           GO
         </Button>
       </div>
