@@ -20,7 +20,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 
-class Users extends Component {
+class Profile extends Component {
   constructor(props){
     super(props);
 
@@ -524,4 +524,4 @@ class Users extends Component {
   }
 }
 
-export default Users;
+export default Profile;
