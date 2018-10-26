@@ -14,10 +14,10 @@ class Auth extends React.Component {
 }
 
 const mapStateToProps = ( state ) => {
-  const ownkey = state.auth.ownkey;
+  const ownKey = state.auth.ownKey;
   return {
-    ownkey: ownkey,
-    hasOwnProfile: state.users[ownkey] !== undefined,
+    ownKey: ownKey,
+    hasOwnProfile: state.users[ownKey] !== undefined,
   }
 }
 

@@ -527,13 +527,13 @@ class Profile extends Component {
 }
 
 const mapStateToProps = state => {
-  const ownkey = state.auth.ownkey;
+  const ownKey = state.auth.ownKey;
   const users = state.users;
   const thisUser = window.location.pathname.split('/').slice(-1);
   if(users[thisUser]){
     return {
-      ownkey: ownkey,
-      hasOwnProfile: state.users[ownkey] !== undefined,
+      ownKey: ownKey,
+      hasOwnProfile: state.users[ownKey] !== undefined,
       given: users[thisUser].given,
       family: users[thisUser].family,
       icon: users[thisUser].icon,
@@ -544,8 +544,8 @@ const mapStateToProps = state => {
   }
   else{
     return{
-      ownkey: ownkey,
-      hasOwnProfile: state.users[ownkey] !== undefined,
+      ownKey: ownKey,
+      hasOwnProfile: state.users[ownKey] !== undefined,
     }
   }
 }
