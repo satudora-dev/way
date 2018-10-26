@@ -22,9 +22,7 @@ class Users extends Component {
       tag: 3,
     };
     this.state={
-      authenticated: false,
-      currentUser: null,
-      users: [],
+      visibleUserKeys: [],
       orderMode: this.orderMODES.SORTED,
       refineMode: this.refineMODES.all,
       refineKey: "",
@@ -33,100 +31,47 @@ class Users extends Component {
   }
 
   componentWillMount(){
-    firebaseAuth().onAuthStateChanged(user=>{
-      if(!user){
-        this.props.history.push('/login');
-      }
-      else{
-        let ref=firebaseDB.ref('users');
-        const params= new URLSearchParams(this.props.location.search)
-        let predicate;
-        if(params.length<2)predicate=(x=>{return true;});//クエリの取得、なければ一覧
-        else {
-          if (params.length < 2
-            || (!params.get("position") && !params.get("project") && !params.get("tag"))) predicate = (x => {
-            return true;
-          });
-          else {
-            if (params.get("position")) {
-              const positionName = params.get("position")
-              predicate = (x => {
-                return x.position !== undefined && x.position === positionName;
-              });
-              this.setState({
-                refineMode: this.refineMODES.position,
-                refineKey: positionName,
-              });
-            }
-            if (params.get("project")) {
-              const prjName = params.get("project")
-              predicate = (x => {
-                return x.projects !== undefined && x.projects[prjName] !== undefined;
-              });
-              this.setState({
-                refineMode: this.refineMODES.project,
-                refineKey: prjName,
-              });
-            }
-            if (params.get("tag")) {
-              const tagName = params.get("tag")
-              predicate = (x => {
-                return x.tags !== undefined && x.tags[tagName] !== undefined;
-              });
-              this.setState({
-                refineMode: this.refineMODES.tag,
-                refineKey: tagName,
-              });
-            }
-          }
-        }
-
-        ref.on('child_added',(snapshot)=>{
-          let val=snapshot.val();
-          if(!predicate(val))return;
-          let id=snapshot.key;
-          if(val.haveIcon){
-            this.downloadImage(id,val.given,val.family);
-          }
-          else{
-            let usrs=this.state.users;
-            usrs.push({
-              'id': id,
-              'givenName': val.given,
-              'familyName': val.family,
-              'icon': "/portrait.png",
-            });
-            this.setState({users: usrs});
-          }
-        });
-      }
-    });
-  }
-
-  downloadImage(id,given,family){
-    let storageRef=firebaseStorage.ref('icons/'+id);
-    storageRef.getDownloadURL().then((url)=>{
-      let usrs=this.state.users;
-      usrs.push({
-        'id': id,
-        'givenName': given,
-        'familyName': family,
-        'icon': url
+    const params= new URLSearchParams(this.props.location.search)
+    //クエリの取得、なければ一覧
+    if (params.get("position")) {
+      const positionName = params.get("position")
+      this.visibilityfilter = user => {
+        return user.position === positionName;
+      };
+      this.setState({
+        refineMode: this.refineMODES.position,
+        refineKey: positionName,
       });
-
-      if(this.state.orderMode===this.orderMODES.SORTED){
-        usrs.sort((a,b)=>{//idを昇順にソートし、新規登録者を上に
-          let aStr = a.id.toString();
-          let bStr = b.id.toString();
-          if(aStr > bStr) return -1;
-          if(aStr < bStr) return 1;
-          return 0;
-        });
+    }
+    else if (params.get("project")) {
+      const projectName = params.get("project")
+      this.visibilityfilter = user => {
+        return user.projects && user.projects.includes(projectName);
+      };
+      this.setState({
+        refineMode: this.refineMODES.project,
+        refineKey: projectName,
+      });
+    }
+    else if (params.get("tag")) {
+      const tagName = params.get("tag")
+      this.visibilityfilter = user => {
+        return user.tags && user.tags.includes(tagName);
+      };
+      this.setState({
+        refineMode: this.refineMODES.tag,
+        refineKey: tagName,
+      });
+    }
+    else {
+      this.visibilityfilter = user => {
+        return true
       }
-
-      this.setState({users: usrs});
-    });
+    }
+    this.setState({visibleUserKeys: Object.keys(this.props.users)
+      .filter(key => this.visibilityfilter(this.props.users[key]))})
   }
+
 
   toProfile(id){
     this.props.history.push(`/users/${id}`);
@@ -137,16 +82,17 @@ class Users extends Component {
   }
 
   shuffleUserOrder(){
+    let visibleUserKeys = this.state.visibleUserKeys
     this.setState({orderMODES: this.orderMODES.RANDOM});
-    let usrs=this.state.users;
     //Fisher–Yatesアルゴリズム
-    for(let i=usrs.length-1;i>0;i--){
+    for(let i=visibleUserKeys.length-1;i>0;i--){
       let r=Math.floor(Math.random()*(i+1));
-      let temp=usrs[i];
-      usrs[i]=usrs[r];
-      usrs[r]=temp;
+      let temp=visibleUserKeys[i];
+      visibleUserKeys[i]=visibleUserKeys[r];
+      visibleUserKeys[r]=temp;
     }
-    this.setState({users: usrs});
+    this.setState({visibleUserKeys: visibleUserKeys})
+    console.log(visibleUserKeys)
   }
 
   render() {
@@ -175,7 +121,7 @@ class Users extends Component {
         margin: "5px"
       },
     };
-
+    const users = this.props.users || {};
     return (
       <div className="Users">
         <MenuAppBar/>
@@ -208,11 +154,12 @@ class Users extends Component {
         </Button>
         <hr />
         <div style={{"text-align":"center"}}>
-        {this.state.users.map((user,i)=>{
+        {this.state.visibleUserKeys.map( (key,i) =>{
+          if(users[key])
           return (
             <Button className="User" key={i} style={style.iconbtnstyle}
-              onClick={()=>this.toProfile(user.id,user.icon)}>
-              <img src={user.icon} style={style.iconstyle} alt="failed loading..."/>
+              onClick={()=>this.toProfile(key)}>
+              <img src={users[key].icon} style={style.iconstyle} alt="failed loading..."/>
             </Button>
           );
         })}
