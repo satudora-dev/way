@@ -6,6 +6,7 @@ import CheckInstax from '../../components/CheckInstax';
 import EXIF from 'exif-js';
 import SiteInfo from "../../components/SiteInfo";
 
+import * as actions from '../../actions';
 import {connect} from 'react-redux';
 
 class Signup extends Component {
@@ -350,4 +351,8 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps,null)(Signup);
+const mapDispatchToProps = {
+  signUpAsUser: actions.signUpAsUser
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Signup);
