@@ -6,6 +6,8 @@ import CheckInstax from '../../components/CheckInstax';
 import EXIF from 'exif-js';
 import SiteInfo from "../../components/SiteInfo";
 
+import {connect} from 'react-redux';
+
 class Signup extends Component {
   constructor(props){
     super(props);
@@ -340,4 +342,12 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+const mapStateToProps = state => {
+  const ownkey = state.auth.ownkey;
+  return {
+    ownkey: ownkey,
+    hasOwnProfile: state.users[ownkey] !== undefined,
+  }
+}
+
+export default connect(mapStateToProps,null)(Signup);
