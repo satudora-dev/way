@@ -103,7 +103,7 @@ class Profile extends Component {
       <div className="Profile">
         <div className="Home" style={style.divstyle}>
           <ImageUploader
-            src={icon}
+            iconSrc={icon}
             profileUserKey={profileUserKey}
             canEdit={canEdit}
             updateIcon={this.props.updateIcon}/>
