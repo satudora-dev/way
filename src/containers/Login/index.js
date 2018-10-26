@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-import {firebaseDB,firebaseAuth} from '../../firebase';
-import IconButton from '@material-ui/core/IconButton';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import "./login.css";
 import SiteInfo from '../../components/SiteInfo';
 
 import * as actions from '../../actions'
 import {connect} from 'react-redux';
 
-const ref = firebaseDB.ref('accounts');
 
 function GithubButton(props){
   const style = {
@@ -39,40 +35,6 @@ function GithubButton(props){
 }
 
 class Login extends Component {
-  constructor(props){
-    super(props);
-  }
-
-  redirect(path,refKey){
-    this.props.history.push({
-      pathname: path,
-    });
-  }
-
-  handleLogin(){//ポップアップログイン後にsignupに遷移
-    const provider=new firebaseAuth.GithubAuthProvider();
-    firebaseAuth().signInWithPopup(provider).then(result=>{
-      if(result.credential!=null){
-        var idRef;
-        ref.orderByChild('email').equalTo(result.user.email)//メールアドレスが既に登録されているか
-          .once('value',(snapshot)=>{
-            if(snapshot.val()==null){//初回ログイン時
-              idRef=ref.push();
-              idRef.set({
-                email: result.user.email,
-                token: result.credential.accessToken,
-                registered: false,
-              }).then((result)=>{
-                this.redirect('/signup',idRef);
-              });
-            }
-            else{
-              this.redirect('/signup',idRef);
-            }
-        });
-      }
-    });
-  }
 
   render() {
     const style = {
@@ -89,7 +51,11 @@ class Login extends Component {
         <div style={style.container }>
           <SiteInfo/>
         </div>
-        <GithubButton onClick={()=>this.handleLogin()}/>
+        <GithubButton
+          onClick={() => {
+            this.props.loginWithGithub();
+            this.props.history.push('/signup');
+          }}/>
       </div>
     );
   }
