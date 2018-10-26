@@ -207,3 +207,110 @@ export const signOut = () => dispatch => {
       message: error.message,
     }));
 }
+
+export const updateIcon = (icon, userKey) => dispatch => {
+  if(!icon) return;
+  storageRef.child('icons/'+userKey).put(icon)
+    .on('state_changed', () => {
+      storageRef.child('icons/'+userKey).getDownloadURL().then((url)=>{
+          userRef.child(userKey).update({
+            icon: url,
+          })
+            .catch(error => dispatch({
+              type: 'UPDATE_IMAGE_ERROR',
+              message: error.message,
+            }));
+      });
+  });
+}
+
+export const editName = (names, userKey) => dispatch => {
+  if(!names[0] || !names[1] || !userKey ) return;
+  userRef.child(userKey).update({given:names[0],family:names[1]})
+    .catch(error => dispatch({
+      type: 'EDIT_NAME_ERROR',
+      message: error.message,
+    }));
+}
+
+export const addTag = (tagname, userKey) => dispatch => {
+  if(!tagname || !userKey) return;
+  userRef.child(userKey + `/tags/${tagname}`).set(true)
+    .catch(error => dispatch({
+      type: 'TAG_ADD_ERROR',
+      message: error.message,
+    }));
+  tagRef.child(tagname + `/${userKey}`).set(true)
+    .catch(error => dispatch({
+      type: 'TAG_ADD_ERROR',
+      message: error.message,
+    }));
+}
+
+export const deleteTag = (tagname, userKey) => dispatch => {
+  if(!tagname || !userKey) return;
+  userRef.child(userKey + `/tags/${tagname}`).remove()
+    .catch(error => dispatch({
+      type: 'TAG_DELETE_ERROR',
+      message: error.message,
+    }));
+  tagRef.child(tagname + `/${userKey}`).remove()
+    .catch(error => dispatch({
+      type: 'TAG_DELETE_ERROR',
+      message: error.message,
+    }));
+}
+
+export const updatePosition = (currentPosition,newPosition, userKey) => dispatch => {
+  if(!newPosition || !userKey) return;
+
+  if(currentPosition){
+    positionRef.child(currentPosition+`/${userKey}`).remove()
+      .catch(error => dispatch({
+        type: 'UPDATE_POSITION_ERROR',
+        message: error.message,
+      }));
+  }
+  positionRef.child(newPosition+`/${userKey}`).set(true)
+    .catch(error => dispatch({
+      type: 'UPDATE_POSITION_ERROR',
+      message: error.message,
+    }));
+  userRef.child(userKey).update({position: newPosition})
+    .catch(error => dispatch({
+      type: 'UPDATE_POSITION_ERROR',
+      message: error.message,
+    }));
+}
+
+
+export const updateProjects = (currentProjects, newProjects, userKey) => dispatch => {
+  if(!userKey) return;
+  if(currentProjects.length > 0){
+    for(let project of currentProjects){
+      userRef.child(userKey + `/projects/${project}`).remove()
+        .catch(error => dispatch({
+          type: 'UPDATE_PROJECTS_ERROR',
+          message: error.message,
+        }));
+      projectRef.child(project + `/members/${userKey}`).remove()
+        .catch(error => dispatch({
+          type: 'UPDATE_PROJECTS_ERROR',
+          message: error.message,
+        }));
+    }
+  }
+
+  for(let project of newProjects){
+    userRef.child(userKey + `/projects/${project}`).set(true)
+      .catch(error => dispatch({
+        type: 'UPDATE_PROJECTS_ERROR',
+        message: error.message,
+      }));
+    projectRef.child(project + `/members/${userKey}`).set(true)
+      .catch(error => dispatch({
+        type: 'UPDATE_PROJECTS_ERROR',
+        message: error.message,
+      }));
+  }
+}
