@@ -1,10 +1,17 @@
 import { firebaseDB, firebaseStorage, firebaseAuth  } from '../firebase';
 
-const accountRef = firebaseDB.Ref('accounts');
-const positionRef = firebaseDB.Ref('positions');
-const projectRef = firebaseDB.Ref('projects');
-const tagRef = firebaseDB.Ref('tags');
-const userRef = firebaseDB.Ref('users');
+const accountRef = firebaseDB.ref('accounts');
+const positionRef = firebaseDB.ref('positions');
+const projectRef = firebaseDB.ref('projects');
+const tagRef = firebaseDB.ref('tags');
+const userRef = firebaseDB.ref('users');
+
+const fetchAccountsSuccess = snapshot => {
+  return {
+    type: 'ACCOUNTS_RECEIVE_DATA',
+    data: snapshot.val()
+  }
+}
 
 const fetchAccountsError = error => {
   return {
