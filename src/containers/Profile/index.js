@@ -20,6 +20,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 
+import {connect} from 'react-redux';
+
 class Profile extends Component {
   constructor(props){
     super(props);
@@ -524,4 +526,28 @@ class Profile extends Component {
   }
 }
 
-export default Profile;
+const mapStateToProps = state => {
+  const ownkey = state.auth.ownkey;
+  const users = state.users;
+  const thisUser = window.location.pathname.split('/').slice(-1);
+  if(users[thisUser]){
+    return {
+      ownkey: ownkey,
+      hasOwnProfile: state.users[ownkey] !== undefined,
+      given: users[thisUser].given,
+      family: users[thisUser].family,
+      icon: users[thisUser].icon,
+      position: users[thisUser].position,
+      projects: users[thisUser].projects,
+      tags: users[thisUser].tags,
+    }
+  }
+  else{
+    return{
+      ownkey: ownkey,
+      hasOwnProfile: state.users[ownkey] !== undefined,
+    }
+  }
+}
+
+export default connect(mapStateToProps,null)(Profile);
