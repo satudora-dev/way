@@ -127,3 +127,27 @@ export const initFetchIfLoggedIn = () => dispatch => {
     }
   })
 }
+
+
+export const loginWithGithub = () => dispatch => {
+  const provider=new firebaseAuth.GithubAuthProvider();
+  firebaseAuth().signInWithPopup(provider).then(result=>{
+    if(result.credential!=null){
+      let idRef;
+      Accountref.orderByChild('email').equalTo(result.user.email)//メールアドレスが既に登録されているか
+        .once('value',(snapshot)=>{
+          if(snapshot.val()==null){//初回ログイン時
+            idRef=Accountref.push();
+            idRef.set({
+              email: result.user.email,
+              token: result.credential.accessToken,
+              registered: false,
+            }).catch(error => dispatch({
+              type: 'LOGIN_ERROR',
+              message: error.message,
+            }));
+          }
+        })
+    }
+  })
+}
