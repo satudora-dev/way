@@ -5,6 +5,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import MenuAppBar from '../../components/MenuAppBar';
 
+import {connect} from 'react-redux';
+
 class Users extends Component {
   constructor(props){
     super(props);
@@ -227,4 +229,15 @@ class Users extends Component {
   }
 }
 
-export default Users;
+const mapStateToProps = state => {
+  const ownkey = state.auth.ownkey;
+  return {
+    ownkey: ownkey,
+    hasOwnProfile: state.users[ownkey] !== undefined,
+    users: state.users
+  }
+}
+
+
+
+export default connect(mapStateToProps,null)(Users);
