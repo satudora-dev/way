@@ -134,10 +134,10 @@ export const loginWithGithub = () => dispatch => {
   firebaseAuth().signInWithPopup(provider).then(result=>{
     if(result.credential!=null){
       let idRef;
-      Accountref.orderByChild('email').equalTo(result.user.email)//メールアドレスが既に登録されているか
+      accountRef.orderByChild('email').equalTo(result.user.email)//メールアドレスが既に登録されているか
         .once('value',(snapshot)=>{
           if(snapshot.val()==null){//初回ログイン時
-            idRef=Accountref.push();
+            idRef=accountRef.push();
             idRef.set({
               email: result.user.email,
               token: result.credential.accessToken,

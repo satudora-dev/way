@@ -5,6 +5,9 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import "./login.css";
 import SiteInfo from '../../components/SiteInfo';
 
+import * as actions from '../../actions'
+import {connect} from 'react-redux';
+
 const ref = firebaseDB.ref('accounts');
 
 function GithubButton(props){
@@ -92,4 +95,8 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = {
+  loginWithGithub: actions.loginWithGithub,
+}
+
+export default connect(null,mapDispatchToProps)(Login);
