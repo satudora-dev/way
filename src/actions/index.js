@@ -6,6 +6,8 @@ const projectRef = firebaseDB.ref('projects');
 const tagRef = firebaseDB.ref('tags');
 const userRef = firebaseDB.ref('users');
 
+const storageRef = firebaseStorage.ref();
+
 const fetchAccountsSuccess = snapshot => {
   return {
     type: 'ACCOUNTS_RECEIVE_DATA',
@@ -150,4 +152,50 @@ export const loginWithGithub = () => dispatch => {
         })
     }
   })
+}
+
+export const signUpAsUser = (userKey, given, family, mei, sei, icon) => dispatch => {
+  if(!given){
+    alert('Given name is empty.');
+    return;
+  }
+  else if(!family){
+    alert('Famili name is empty.');
+    return;
+  }
+  else if(!sei){
+    alert('姓が未入力です。');
+    return;
+  }
+  else if(!mei){
+    alert('名が未入力です。');
+    return;
+  }
+  else if(!icon){
+    alert('Icon image is empty.');
+    return;
+  }
+  storageRef.child('icons/'+userKey).put(icon)
+    .on('state_changed', () => {
+      storageRef.child('icons/'+userKey).getDownloadURL().then((url)=>{
+          userRef.child(userKey).update({
+            given: given,
+            family: family,
+            mei: mei,
+            sei: sei,
+            icon: url,
+          })
+            .catch(error => dispatch({
+              type: 'SIGNUP_ERROR',
+              message: error.message,
+            }));
+      });
+  });
+
+  accountRef.child(userKey).update({'registered': true})
+    .catch(error => dispatch({
+      type: 'SIGNUP_ERROR',
+      message: error.message,
+    }));
+
 }
