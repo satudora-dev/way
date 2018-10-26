@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import {firebaseAuth} from '../../firebase';
-import {withRouter} from 'react-router-dom';
 
 class Logout extends Component {
   constructor(props){
     super(props);
   }
 
-  componentWillMount(){    
+  componentWillMount(){
     firebaseAuth().onAuthStateChanged(user=>{
       if(user){
         firebaseAuth().signOut().then(()=>{
@@ -25,4 +24,4 @@ class Logout extends Component {
   }
 }
 
-export default withRouter(Logout);
+export default Logout;

@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {firebaseAuth} from '../../firebase';
-import {withRouter} from 'react-router-dom';
 
-class App extends Component {
+class App extends React.Component {
   componentWillMount(){
     firebaseAuth().onAuthStateChanged(user=>{
       if(user){
@@ -23,4 +22,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+export default App;

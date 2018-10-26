@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {firebaseDB, firebaseAuth, firebaseStorage} from '../../firebase';
-import {withRouter,Link} from "react-router-dom";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -228,4 +227,4 @@ class Users extends Component {
   }
 }
 
-export default withRouter(Users);
+export default Users;

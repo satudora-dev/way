@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {firebaseDB, firebaseAuth, firebaseStorage} from '../../firebase';
-import {withRouter} from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Modal from '@material-ui/core/Modal';
@@ -525,4 +524,4 @@ class Users extends Component {
   }
 }
 
-export default withRouter(Users);
+export default Users;

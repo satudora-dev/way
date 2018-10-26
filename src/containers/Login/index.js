@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {firebaseDB,firebaseAuth} from '../../firebase';
 import IconButton from '@material-ui/core/IconButton';
 import SvgIcon from '@material-ui/core/SvgIcon';
-import {withRouter} from 'react-router-dom';
 import "./login.css";
 import SiteInfo from '../../components/SiteInfo';
 
@@ -93,4 +92,4 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login);
+export default Login;
