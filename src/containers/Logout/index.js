@@ -1,27 +1,23 @@
-import React, { Component } from 'react';
-import {firebaseAuth} from '../../firebase';
+import React from 'react';
+import * as actions from '../../actions'
+import { connect } from 'react-redux';
 
-class Logout extends Component {
-  constructor(props){
-    super(props);
-  }
+class Logout extends React.Component {
 
   componentWillMount(){
-    firebaseAuth().onAuthStateChanged(user=>{
-      if(user){
-        firebaseAuth().signOut().then(()=>{
-          this.props.history.push('/login');
-        });
-      }
-      else{
-        this.props.history.push('/login');
-      }
-    });
+    this.props.signOut()
+    this.props.history.push("/login")
   }
-
   render(){
     return null;
   }
 }
 
-export default Logout;
+const mapDispatchToProps = {
+  signOut: actions.signOut,
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Logout);
