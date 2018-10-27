@@ -115,6 +115,7 @@ class Users extends Component {
               <span>
                 <br/>
                 <Button variant="contained" style={style.btnstyle}>{this.state.refineKey}</Button>
+                <hr />
               </span>
             );
           }
@@ -130,7 +131,7 @@ class Users extends Component {
             );
           })}
         </Menu>
-        <hr />
+
         <div style={{"text-align":"center"}}>
         {visibleUserKeys.map( (key,i) =>{
           if(users[key]){
