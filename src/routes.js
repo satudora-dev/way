@@ -5,7 +5,7 @@ import Auth from './containers/Auth'
 import App from './containers/App';
 import Login from './containers/Login';
 import Signup from './containers/Signup';
-import User from './containers/User';
+import Users from './containers/Users';
 import Profile from './containers/Profile';
 import Logout from './containers/Logout';
 
@@ -19,7 +19,7 @@ const Routes = ({ store }) => {
           <Route path="/" component={ Auth } />
           <Route exact path="/" component={ App } />
           <Route path="/signup" component={ Signup } />
-          <Route exact path="/users" component={ User } />
+          <Route exact path="/users" component={ Users } />
           <Route path="/users/:id" component={ Profile }/>
           <Route path="/login" component={ Login } />
           <Route path="/logout" component={ Logout } />

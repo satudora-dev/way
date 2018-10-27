@@ -1,4 +1,4 @@
-import User from '../components/User';
+import Users from '../components/Users';
 import { connect } from 'react-redux';
 
 
@@ -21,4 +21,4 @@ const mapStateToProps = ({auth, users}) => {
   }
 }
 
-export default connect(mapStateToProps,null)(User)
+export default connect(mapStateToProps,null)(Users)
