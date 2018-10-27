@@ -35,7 +35,7 @@ class Users extends Component {
     //クエリの取得、なければ一覧
     if (params.get("position")) {
       const positionName = params.get("position")
-      this.visibilityfilter = user => {
+      this.visibilityFilter = user => {
         return user.position === positionName;
       };
       this.setState({
@@ -45,7 +45,7 @@ class Users extends Component {
     }
     else if (params.get("project")) {
       const projectName = params.get("project")
-      this.visibilityfilter = user => {
+      this.visibilityFilter = user => {
         return user.projects && user.projects.includes(projectName);
       };
       this.setState({
@@ -55,7 +55,7 @@ class Users extends Component {
     }
     else if (params.get("tag")) {
       const tagName = params.get("tag")
-      this.visibilityfilter = user => {
+      this.visibilityFilter = user => {
         return user.tags && user.tags.includes(tagName);
       };
       this.setState({
@@ -64,12 +64,12 @@ class Users extends Component {
       });
     }
     else {
-      this.visibilityfilter = user => {
+      this.visibilityFilter = user => {
         return true
       }
     }
     this.setState({visibleUserKeys: Object.keys(this.props.users)
-      .filter(key => this.visibilityfilter(this.props.users[key]))})
+      .filter(key => this.visibilityFilter(this.props.users[key]))})
   }
 
 
@@ -170,12 +170,21 @@ class Users extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const ownKey = state.auth.ownKey;
-  return {
-    ownKey: ownKey,
-    hasOwnProfile: state.users[ownKey] !== undefined,
-    users: state.users
+const mapStateToProps = ({auth, users}) => {
+  const ownKey = auth.ownKey;
+  if(ownKey){
+    return {
+      ownKey: ownKey,
+      hasOwnProfile: users[ownKey] !== undefined,
+      users: users
+    }
+  }
+  else{
+    return{
+      ownKey: null,
+      hasOwnProfile: users[ownKey] !== undefined,
+      users: {}
+    }
   }
 }
 
