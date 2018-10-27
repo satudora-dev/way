@@ -103,8 +103,19 @@ class Users extends Component {
       },
     };
     const users = this.props.users || {};
+
+
     const visibleUserKeys = Object.keys(users)
       .filter(key => this.visibilityFilter(users[key]))
+    if(this.state.orderMode===this.orderMODES.SORTED){
+      visibleUserKeys.sort((a,b)=>{//idを昇順にソートし、新規登録者を上に
+        let aStr = a.toString();
+        let bStr = b.toString();
+        if(aStr > bStr) return -1;
+        if(aStr < bStr) return 1;
+        return 0;
+      });
+    }
     return (
       <div className="Users">
         <MenuAppBar/>
