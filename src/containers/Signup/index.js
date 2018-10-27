@@ -247,9 +247,6 @@ class Signup extends Component {
         <div>
           <input type="file" accept="image" name="icon" onChange={this.onTextChange}/>
         </div>
-        <div>
-          <CheckInstax/>
-        </div>
         <Button variant="contained"  onClick={() => {
           this.props.signUpAsUser(this.props.ownKey,
                                   this.state.givenName,
