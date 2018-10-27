@@ -22,7 +22,6 @@ class Users extends Component {
       tag: 3,
     };
     this.state={
-      visibleUserKeys: [],
       orderMode: this.orderMODES.SORTED,
       refineMode: this.refineMODES.all,
       refineKey: "",
@@ -68,8 +67,6 @@ class Users extends Component {
         return true
       }
     }
-    this.setState({visibleUserKeys: Object.keys(this.props.users)
-      .filter(key => this.visibilityFilter(this.props.users[key]))})
   }
 
 
@@ -79,20 +76,6 @@ class Users extends Component {
 
   switchOrderMenu(on){
     this.setState({orderMenuOpen: on});
-  }
-
-  shuffleUserOrder(){
-    let visibleUserKeys = this.state.visibleUserKeys
-    this.setState({orderMODES: this.orderMODES.RANDOM});
-    //Fisher–Yatesアルゴリズム
-    for(let i=visibleUserKeys.length-1;i>0;i--){
-      let r=Math.floor(Math.random()*(i+1));
-      let temp=visibleUserKeys[i];
-      visibleUserKeys[i]=visibleUserKeys[r];
-      visibleUserKeys[r]=temp;
-    }
-    this.setState({visibleUserKeys: visibleUserKeys})
-    console.log(visibleUserKeys)
   }
 
   render() {
@@ -122,6 +105,8 @@ class Users extends Component {
       },
     };
     const users = this.props.users || {};
+    const visibleUserKeys = Object.keys(users)
+      .filter(key => this.visibilityFilter(users[key]))
     return (
       <div className="Users">
         <MenuAppBar/>
@@ -147,14 +132,9 @@ class Users extends Component {
             );
           })}
         </Menu>
-        <Button  variant="contained" style={style.btnstyle}
-          onClick={()=>this.shuffleUserOrder()}>
-          <img src="./refresh_white_18x18.png" alt="" />
-          RANDOM
-        </Button>
         <hr />
         <div style={{"text-align":"center"}}>
-        {this.state.visibleUserKeys.map( (key,i) =>{
+        {visibleUserKeys.map( (key,i) =>{
           if(users[key])
           return (
             <Button className="User" key={i} style={style.iconbtnstyle}
