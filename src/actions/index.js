@@ -10,14 +10,14 @@ const storageRef = firebaseStorage.ref();
 
 const fetchAccountsSuccess = snapshot => {
   return {
-    type: 'ACCOUNTS_RECEIVE_DATA',
+    type: 'RECEIVE_ACCOUNTS_DATA',
     data: snapshot.val()
   }
 }
 
 const fetchAccountsError = error => {
   return {
-    type: 'ACCOUNTS_RECEIVE_ERROR',
+    type: 'RECEIVE_ACCOUNTS_ERROR',
     message: error.message
   }
 }
@@ -26,14 +26,14 @@ const fetchAccountsError = error => {
 
 const fetchPositionsSuccess = snapshot => {
   return {
-    type: 'POSITIONS_RECEIVE_DATA',
+    type: 'RECEIVE_POSITIONS_DATA',
     data: snapshot.val()
   }
 }
 
 const fetchPositionsError = error => {
   return {
-    type: 'POSITIONS_RECEIVE_ERROR',
+    type: 'RECEIVE_POSITIONS_ERROR',
     message: error.message
   }
 }
@@ -41,14 +41,14 @@ const fetchPositionsError = error => {
 
 const fetchProjectsSuccess = snapshot => {
   return {
-    type: 'PROJECTS_RECEIVE_DATA',
+    type: 'RECEIVE_PROJECTS_DATA',
     data: snapshot.val()
   }
 }
 
 const fetchProjectsError = error => {
   return {
-    type: 'PROJECTS_RECEIVE_ERROR',
+    type: 'RECEIVE_PROJECTS_ERROR',
     message: error.message
   }
 }
@@ -57,14 +57,14 @@ const fetchProjectsError = error => {
 
 const fetchTagsSuccess = snapshot => {
   return {
-    type: 'TAGS_RECEIVE_DATA',
+    type: 'RECEIVE_TAGS_DATA',
     data: snapshot.val()
   }
 }
 
 const fetchTagsError = error => {
   return {
-    type: 'TAGS_RECEIVE_ERROR',
+    type: 'RECEIVE_TAGS_ERROR',
     message: error.message
   }
 }
@@ -73,14 +73,14 @@ const fetchTagsError = error => {
 
 const fetchUsersSuccess = snapshot => {
   return {
-    type: 'USERS_RECEIVE_DATA',
+    type: 'RECEIVE_USERS_DATA',
     data: snapshot.val()
   }
 }
 
 const fetchUsersError = error => {
   return {
-    type: 'USERS_RECEIVE_ERROR',
+    type: 'RECEIVE_USERS_ERROR',
     message: error.message
   }
 }
@@ -237,12 +237,12 @@ export const addTag = (tagname, userKey) => dispatch => {
   if(!tagname || !userKey) return;
   userRef.child(userKey + `/tags/${tagname}`).set(true)
     .catch(error => dispatch({
-      type: 'TAG_ADD_ERROR',
+      type: 'ADD_TAG_ERROR',
       message: error.message,
     }));
   tagRef.child(tagname + `/${userKey}`).set(true)
     .catch(error => dispatch({
-      type: 'TAG_ADD_ERROR',
+      type: 'ADD_TAG_ERROR',
       message: error.message,
     }));
 }
@@ -251,12 +251,12 @@ export const deleteTag = (tagname, userKey) => dispatch => {
   if(!tagname || !userKey) return;
   userRef.child(userKey + `/tags/${tagname}`).remove()
     .catch(error => dispatch({
-      type: 'TAG_DELETE_ERROR',
+      type: 'DELETE_TAG_ERROR',
       message: error.message,
     }));
   tagRef.child(tagname + `/${userKey}`).remove()
     .catch(error => dispatch({
-      type: 'TAG_DELETE_ERROR',
+      type: 'DELETE_TAG_ERROR',
       message: error.message,
     }));
 }

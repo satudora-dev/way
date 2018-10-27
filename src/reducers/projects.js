@@ -1,6 +1,6 @@
 const projects = (state = {init: true}, action) => {
   switch (action.type) {
-    case 'PROJECTS_RECEIVE_DATA':
+    case 'RECEIVE_PROJECTS_DATA':
       let projects ={}
       if(action.data){
         Object.keys(action.data).forEach(key =>{
@@ -14,7 +14,8 @@ const projects = (state = {init: true}, action) => {
         });
       }
       return projects
-    case 'PROJECTS_RECEIVE_ERROR':
+    case 'RECEIVE_PROJECTS_ERROR':
+    case 'UPDATE_PROJECTS_ERROR':
       alert(action.message)
       return state
     default:

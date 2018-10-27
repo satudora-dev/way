@@ -1,6 +1,6 @@
 const positions = (state = {init: true}, action) => {
   switch (action.type) {
-    case 'POSITIONS_RECEIVE_DATA':
+    case 'RECEIVE_POSITIONS_DATA':
       let positions = {}
       if(action.data){
         Object.keys(action.data).forEach(key =>{
@@ -14,7 +14,8 @@ const positions = (state = {init: true}, action) => {
         });
       }
       return positions
-    case 'POSITIONS_RECEIVE_ERROR':
+    case 'RECEIVE_POSITIONS_ERROR':
+    case 'UPDATE_POSITION_ERROR':
       alert(action.message)
       return state
     default:

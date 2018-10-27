@@ -1,6 +1,6 @@
 const tags = (state = {init: true}, action) => {
   switch (action.type) {
-    case 'TAGS_RECEIVE_DATA':
+    case 'RECEIVE_TAGS_DATA':
       let tags = {}
       if(action.data){
         Object.keys(action.data).forEach(key =>{
@@ -14,7 +14,9 @@ const tags = (state = {init: true}, action) => {
         });
       }
       return tags
-    case 'TAGS_RECEIVE_ERROR':
+    case 'RECEIVE_TAGS_ERROR':
+    case 'ADD_TAG_ERROR':
+    case 'DELETE_TAG_ERROR':
       alert(action.message)
       return state
     default:
