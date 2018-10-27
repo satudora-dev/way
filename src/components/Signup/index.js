@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import CheckInstax from '../../components/CheckInstax';
 import EXIF from 'exif-js';
 import SiteInfo from "../../components/SiteInfo";
 
-import * as actions from '../../actions';
-import {connect} from 'react-redux';
 
 class Signup extends Component {
   constructor(props){
@@ -263,16 +260,4 @@ class Signup extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const ownKey = state.auth.ownKey;
-  return {
-    ownKey: ownKey,
-    hasOwnProfile: state.users[ownKey] !== undefined,
-  }
-}
-
-const mapDispatchToProps = {
-  signUpAsUser: actions.signUpAsUser
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Signup);
+export default Signup;

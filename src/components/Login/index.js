@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import "./login.css";
 import SiteInfo from '../../components/SiteInfo';
 
-import * as actions from '../../actions'
-import {connect} from 'react-redux';
 
 
 function GithubButton(props){
@@ -61,8 +59,4 @@ class Login extends Component {
   }
 }
 
-const mapDispatchToProps = {
-  loginWithGithub: actions.loginWithGithub,
-}
-
-export default connect(null,mapDispatchToProps)(Login);
+export default Login;

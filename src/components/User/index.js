@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import {firebaseDB, firebaseAuth, firebaseStorage} from '../../firebase';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import MenuAppBar from '../../components/MenuAppBar';
 
-import {connect} from 'react-redux';
 
 class Users extends Component {
   constructor(props){
@@ -135,13 +133,17 @@ class Users extends Component {
         <hr />
         <div style={{"text-align":"center"}}>
         {visibleUserKeys.map( (key,i) =>{
-          if(users[key])
-          return (
-            <Button className="User" key={i} style={style.iconbtnstyle}
-              onClick={()=>this.toProfile(key)}>
-              <img src={users[key].icon} style={style.iconstyle} alt="failed loading..."/>
-            </Button>
-          );
+          if(users[key]){
+            return (
+              <Button className="User" key={i} style={style.iconbtnstyle}
+                onClick={()=>this.toProfile(key)}>
+                <img src={users[key].icon} style={style.iconstyle} alt="failed loading..."/>
+              </Button>
+            );
+          }
+          else{
+            return null;
+          }
         })}
         </div>
         </div>
@@ -150,24 +152,7 @@ class Users extends Component {
   }
 }
 
-const mapStateToProps = ({auth, users}) => {
-  const ownKey = auth.ownKey;
-  if(ownKey){
-    return {
-      ownKey: ownKey,
-      hasOwnProfile: users[ownKey] !== undefined,
-      users: users
-    }
-  }
-  else{
-    return{
-      ownKey: null,
-      hasOwnProfile: users[ownKey] !== undefined,
-      users: {}
-    }
-  }
-}
 
 
 
-export default connect(mapStateToProps,null)(Users);
+export default Users;
