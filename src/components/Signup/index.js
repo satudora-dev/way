@@ -188,6 +188,7 @@ class Signup extends Component {
         "font-weight": "bold",
       }
     }
+    if (this.props.hasOwnProfile) this.props.history.push('./users')
 
     return (
       <div className="Login">
@@ -251,7 +252,6 @@ class Signup extends Component {
                                   this.state.mei,
                                   this.state.sei,
                                   this.state.iconFile);
-          this.props.history.push('/users');
         }}>
           GO
         </Button>
