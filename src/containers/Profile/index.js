@@ -89,7 +89,7 @@ class Profile extends Component {
         "color": "white",
       }
     }
-    const profileUserKey = this.props.match.params.id;
+    const profileUserKey = this.props.profileUserKey;
     const given = this.props.given || "";
     const family = this.props.family || "";
     const icon = this.props.icon || "/portrait.png";
@@ -212,14 +212,14 @@ class Profile extends Component {
 
 
 
-const mapStateToProps = state => {
-  const ownKey = state.auth.ownKey;
-  const users = state.users;
-  const thisUser = window.location.pathname.split('/').slice(-1);
+const mapStateToProps = ({auth,users}, ownProps) => {
+  const ownKey = auth.ownKey;
+  const thisUser = ownProps.match.params.id;
   if(users[thisUser]){
     return {
       ownKey: ownKey,
-      hasOwnProfile: state.users[ownKey] !== undefined,
+      profileUserKey: thisUser,
+      hasOwnProfile: users[ownKey] !== undefined,
       given: users[thisUser].given,
       family: users[thisUser].family,
       icon: users[thisUser].icon,
@@ -231,7 +231,7 @@ const mapStateToProps = state => {
   else{
     return{
       ownKey: ownKey,
-      hasOwnProfile: state.users[ownKey] !== undefined,
+      hasOwnProfile: users[ownKey] !== undefined,
     }
   }
 }
