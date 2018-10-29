@@ -4,20 +4,24 @@ import EXIF from 'exif-js';
 const userRef = firebaseDB.ref('users');
 const storageRef = firebaseStorage.ref();
 
-export const updateIcon = (icon, userKey,dispatch) => {
+export function updateIcon(icon, userKey, dispatch) {
     if (!icon) return;
-    storageRef.child('icons/' + userKey).put(icon)
-        .on('state_changed', () => {
-            storageRef.child('icons/' + userKey).getDownloadURL().then(url => {
-                userRef.child(userKey).update({
-                    icon: url,
-                })
-                    .catch(error => dispatch({
+
+    let key = 'icons/' + userKey;
+    storageRef.child(key).put(icon).on('state_changed', () => {
+        storageRef.child(key).getDownloadURL().then(url => {
+            userRef.child(userKey).update({
+                icon: url,
+            }).catch(error => {
+                if (error) {
+                    dispatch({
                         type: 'UPDATE_IMAGE_ERROR',
                         message: error.message,
-                    }));
+                    });
+                }
             });
         });
+    });
 }
 
 optimizeImage(iconFile){
