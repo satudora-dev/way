@@ -4,25 +4,17 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 class AuthRouter extends React.Component {
-  redirect(){
-    if(this.props.ownKey){
-      if(this.props.hasOwnProfile === true && (this.props.currentPath === 'login' || this.props.currentPath === 'signup')){
-          this.props.history.push("/users");
-      }else if(this.props.hasOwnProfile === false && this.props.currentPath !== 'signup') {
-          this.props.history.push("/signup");
-      }
-      else{
-        return;
-      }
-    }else if (this.props.ownKey === null && this.props.currentPath !== 'login'){
-      this.props.history.push("/login");
-    }
-    else{
-      return;
+  redirect(ownKey,hasOwnProfile, currentPath){
+    if(ownKey === null ){
+      if(currentPath !== 'login')this.props.history.push("/login");
+    }else if(ownKey && hasOwnProfile === false){
+      if(currentPath !== 'signup')this.props.history.push("/signup");
+    }else if(ownKey && hasOwnProfile){
+      if(currentPath !== 'users')this.props.history.push("/users");
     }
   }
   render() {
-    this.redirect()
+    this.redirect(this.props.ownKey, this.props.hasOwnProfile, this.props.currentPath)
     return null;
   }
 }
