@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import * as actions from '../actions';
 
-class Routing extends React.Component {
+class AuthRouter extends React.Component {
   redirect(){
     if(this.props.ownKey){
       if(this.props.hasOwnProfile === true && (this.props.currentPath === 'login' || this.props.currentPath === 'signup')){
@@ -49,4 +49,4 @@ const mapStateToProps = ( {auth, users}, ownProps ) => {
 export default connect(
   mapStateToProps,
   null
-)(Routing);
+)(AuthRouter);
