@@ -52,7 +52,6 @@ class Login extends Component {
         <GithubButton
           onClick={() => {
             this.props.loginWithGithub();
-            this.props.history.push('/signup');
           }}/>
       </div>
     );
