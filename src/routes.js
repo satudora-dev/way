@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter,Route} from 'react-router-dom';
 
 import Auth from './containers/Auth';
+import Routing from './containers/Routing';
 import App from './containers/App';
 import Login from './containers/Login';
 import Signup from './containers/Signup';
@@ -17,6 +18,7 @@ const Routes = ({ store }) => {
       <Auth>
         <BrowserRouter >
           <div>
+            <Route path="/:currentPath?" component={ Routing } />
             <Route exact path="/" component={ App } />
             <Route path="/signup" component={ Signup } />
             <Route exact path="/users" component={ Users } />
