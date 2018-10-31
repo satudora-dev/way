@@ -4,20 +4,22 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 class Auth extends React.Component {
-
   componentWillMount(){
     this.props.initFetchIfLoggedIn()
   }
+
   render() {
-    return null;
+    if(!this.props.auth.init){
+      return this.props.children;
+    }else{
+      return <h1>Now Loading....</h1>;
+    }
   }
 }
 
-const mapStateToProps = ( {auth, users} ) => {
-  const ownKey = auth.ownKey;
-  return {
-    ownKey: ownKey,
-    hasOwnProfile: users[ownKey] !== undefined,
+const mapStateToProps = ( {auth, users}, ownProps ) => {
+    return {
+      auth: auth,
   }
 }
 

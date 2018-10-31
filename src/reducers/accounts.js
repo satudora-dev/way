@@ -7,7 +7,7 @@ const accounts = (state = {init: true}, action) => {
     case 'LOGIN_ERROR':
     case 'SIGNUP_ERROR':
     case 'SIGNOUT_ERROR':
-      alert(action.message)
+      // alert(action.message)
       return state
     default:
       return state

@@ -188,7 +188,6 @@ class Signup extends Component {
         "font-weight": "bold",
       }
     }
-    if (this.props.hasOwnProfile) this.props.history.push('./users')
 
     return (
       <div className="Login">
