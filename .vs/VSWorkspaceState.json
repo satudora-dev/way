@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\actions",
+    "\\src\\components",
+    "\\src\\components\\Profile",
+    "\\src\\components\\Signup",
+    "\\src\\containers",
+    "\\src\\reducers"
+  ],
+  "SelectedNode": "\\src\\reducers\\users.js",
+  "PreviewInSolutionExplorer": false
+}
