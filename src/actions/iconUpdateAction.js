@@ -8,27 +8,30 @@ export function updateIcon(icon, userKey) {
     dispatch => {
         if (!icon) return;
 
-        optimizeImage(icon, dispatch, iconImage => {
-            let key = 'icons/' + userKey;
-            storageRef.child(key).put(iconImage).on('state_changed', () => {
-                storageRef.child(key).getDownloadURL().then(url => {
-                    userRef.child(userKey).update({
-                        icon: url,
-                    }).catch(error => {
-                        if (error) {
-                            dispatch({
-                                type: 'UPDATE_IMAGE_ERROR',
-                                message: error.message,
-                            });
-                        }
-                    });
-                });
-            });
-        });
+        optimizeImage(icon, dispatch,
+            iconFile => uploadIcon(iconFile, userKey, dispatch));
     }
 }
 
-function optimizeImage(iconFile, dispatch,callback){
+function uploadIcon(iconFile, userKey, dispatch) {
+    let key = 'icons/' + userKey;
+    storageRef.child(key).put(iconFile).on('state_changed', () => {
+        storageRef.child(key).getDownloadURL().then(url => {
+            userRef.child(userKey).update({
+                icon: url,
+            }).catch(error => {
+                if (error) {
+                    dispatch({
+                        type: 'UPDATE_IMAGE_ERROR',
+                        message: error.message,
+                    });
+                }
+            });
+        });
+    });
+}
+
+function optimizeImage(iconFile, dispatch,uploadIcon){
     let image = new Image();
     image.onload = () => {
         let width = image.width;
@@ -39,7 +42,7 @@ function optimizeImage(iconFile, dispatch,callback){
                 iconFile: iconFile,
                 iconSrc: URL.createObjectURL(iconFile),
             });
-            callback(iconFile);
+            uploadIcon(iconFile);
         }
         else {
             let canvas = document.createElement('canvas');
@@ -128,7 +131,7 @@ function optimizeImage(iconFile, dispatch,callback){
                         iconFile: blob,
                         iconSrc: transformedImage
                     });
-                    callback(blob);
+                    uploadIcon(blob);
                 });
             });
         }
