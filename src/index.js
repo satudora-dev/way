@@ -11,5 +11,9 @@ import reduxThunk from "redux-thunk";
 const store = createStore(rootReducer, {}, applyMiddleware(reduxThunk));
 
 
-ReactDOM.render(<Routes store={store}/>, document.getElementById('root'));
+ReactDOM.render(
+  <div>
+    <Routes store={store}/>
+  </div>,
+  document.getElementById('root'));
 registerServiceWorker();
