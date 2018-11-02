@@ -15,9 +15,10 @@ export const updateIcon = (icon, userKey) =>
 
 function uploadIcon(iconFile, userKey, dispatch) {
     let key = 'icons/' + userKey;
-    storageRef.child(key).put(iconFile).on('state_changed', () => {
-        storageRef.child(key).getDownloadURL().then(url => {
-            userRef.child(userKey).update({//‚±‚êŒÄ‚Î‚ê‚Ä‚È‚¢
+    let targetRef = storageRef.child(key);
+    targetRef.put(iconFile).then(snapshot => {
+        targetRef.getDownloadURL().then(url => {
+            userRef.child(userKey).update({//on‚ÅŒÄ‚Î‚È‚¢
                 icon: url,
             }).catch(error => {
                 dispatch({
