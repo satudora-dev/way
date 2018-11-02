@@ -2,7 +2,7 @@ import Profile from '../components/Profile';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions';
-import updateIcon from '../actions/iconUpdateAction';
+import { updateIcon } from '../actions/iconUpdateAction';
 
 const mapStateToProps = ({auth,users}, ownProps) => {
   const ownKey = auth.ownKey;
@@ -28,14 +28,15 @@ const mapStateToProps = ({auth,users}, ownProps) => {
   }
 }
 
-const mapDispatchToProps = {
-    editName: actions.editName,
-    updatePosition: actions.updatePosition,
-    updateProjects: actions.updateProjects,
-    addTag: actions.addTag,
-    deleteTag: actions.deleteTag,
-    updateIcon: actions.updateIcon,
-}
+const mapDispatchToProps =
+    {
+        editName: actions.editName,
+        updatePosition: actions.updatePosition,
+        updateProjects: actions.updateProjects,
+        addTag: actions.addTag,
+        deleteTag: actions.deleteTag,
+        updateIcon: updateIcon,
+    }
 
 export default connect(
   mapStateToProps,

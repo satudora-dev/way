@@ -209,24 +209,6 @@ export const signOut = () => dispatch => {
     }));
 }
 
-export const updateIcon = (icon, userKey) => dispatch => {
-    if (!icon) return;
-    storageRef.child('icons/' + userKey).put(icon)
-        .on('state_changed', () => {
-            storageRef.child('icons/' + userKey).getDownloadURL().then((url) => {
-                userRef.child(userKey).update({
-                    icon: url,
-                })
-                    .catch(error => dispatch({
-                        type: 'UPDATE_IMAGE_ERROR',
-                        message: error.message,
-                    }));
-            });
-        });
-}
-
-
-
 export const editName = (names, userKey) => dispatch => {
   if(!names[0] || !names[1] || !userKey ) return;
   userRef.child(userKey).update({given:names[0],family:names[1]})

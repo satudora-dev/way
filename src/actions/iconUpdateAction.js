@@ -1,47 +1,43 @@
 import { firebaseDB,firebaseStorage } from '../firebase';
 import EXIF from 'exif-js';
+import { storage } from 'firebase';
 
 const userRef = firebaseDB.ref('users');
 const storageRef = firebaseStorage.ref();
 
-export function updateIcon(icon, userKey) {
+export const updateIcon = (icon, userKey) =>
     dispatch => {
         if (!icon) return;
 
-        optimizeImage(icon, dispatch,
+        optimizeImage(icon, 
             iconFile => uploadIcon(iconFile, userKey, dispatch));
     }
-}
 
 function uploadIcon(iconFile, userKey, dispatch) {
     let key = 'icons/' + userKey;
     storageRef.child(key).put(iconFile).on('state_changed', () => {
         storageRef.child(key).getDownloadURL().then(url => {
-            userRef.child(userKey).update({
+            userRef.child(userKey).update({//これ呼ばれてない
                 icon: url,
             }).catch(error => {
-                if (error) {
-                    dispatch({
-                        type: 'UPDATE_IMAGE_ERROR',
-                        message: error.message,
-                    });
-                }
+                dispatch({
+                    type: 'UPDATE_IMAGE_ERROR',
+                    message: error.message,
+                });
             });
         });
     });
 }
 
-function optimizeImage(iconFile, dispatch,uploadIcon){
+function optimizeImage(iconFile, uploadIcon) {
     let image = new Image();
     image.onload = () => {
         let width = image.width;
         let height = image.height;
         let maxWidth = 512;
+        console.log(width);
+        console.log(height);
         if (width < maxWidth) {
-            dispatch({
-                iconFile: iconFile,
-                iconSrc: URL.createObjectURL(iconFile),
-            });
             uploadIcon(iconFile);
         }
         else {
@@ -51,6 +47,7 @@ function optimizeImage(iconFile, dispatch,uploadIcon){
             let ctx = canvas.getContext('2d');
 
             var orientation;
+            console.log("onResize");
 
             EXIF.getData(iconFile, () => {
                 orientation = iconFile.exifdata.Orientation;
@@ -68,7 +65,7 @@ function optimizeImage(iconFile, dispatch,uploadIcon){
                 const dst_height = canvas_height * scale;
                 canvas.width = dst_width;
                 canvas.height = dst_height;
-                ctx.scale(scale, scale)
+                ctx.scale(scale, scale);
 
                 // iPhoneで撮った写真はブラウザ上で回転してしまう。
                 // exifに応じて画像の変換(上下左右反転と回転）
@@ -122,17 +119,14 @@ function optimizeImage(iconFile, dispatch,uploadIcon){
                         break;
                 }
 
-                ctx.drawImage(image, 0, 0, draw_width, draw_height)
+                ctx.drawImage(image, 0, 0, draw_width, draw_height);
 
                 // 変換後の画像をステートに設定
                 let transformedImage = canvas.toDataURL('image/png');
                 canvas.toBlob(blob => {
-                    dispatch({
-                        iconFile: blob,
-                        iconSrc: transformedImage
-                    });
+                    console.log("upload");
                     uploadIcon(blob);
-                });
+                }, 'image/png');
             });
         }
     };
