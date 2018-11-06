@@ -33,11 +33,9 @@ function uploadIcon(iconFile, userKey, dispatch) {
 function optimizeImage(iconFile, uploadIcon) {
     let image = new Image();
     image.onload = () => {
-        let width = image.width;
-        let height = image.height;
+        let width = image.naturalWidth;
+        let height = image.naturalHeight;
         let maxWidth = 512;
-        console.log(width);
-        console.log(height);
         if (width < maxWidth) {
             uploadIcon(iconFile);
         }
@@ -48,7 +46,6 @@ function optimizeImage(iconFile, uploadIcon) {
             let ctx = canvas.getContext('2d');
 
             var orientation;
-            console.log("onResize");
 
             EXIF.getData(iconFile, () => {
                 orientation = iconFile.exifdata.Orientation;
@@ -67,6 +64,9 @@ function optimizeImage(iconFile, uploadIcon) {
                 canvas.width = dst_width;
                 canvas.height = dst_height;
                 ctx.scale(scale, scale);
+                
+                //image.src = resizeImage(image, maxWidth);
+                console.log(image);
 
                 // iPhoneで撮った写真はブラウザ上で回転してしまう。
                 // exifに応じて画像の変換(上下左右反転と回転）
@@ -99,7 +99,6 @@ function optimizeImage(iconFile, uploadIcon) {
                         ctx.rotate((90 * Math.PI) / 180);
                         draw_width = canvas_height;
                         draw_height = canvas_width;
-                        console.log("6!")
                         break;
 
                     case 7:
@@ -121,11 +120,8 @@ function optimizeImage(iconFile, uploadIcon) {
                 }
 
                 ctx.drawImage(image, 0, 0, draw_width, draw_height);
-
-                // 変換後の画像をステートに設定
-                let transformedImage = canvas.toDataURL('image/png');
+                
                 canvas.toBlob(blob => {
-                    console.log("upload");
                     uploadIcon(blob);
                 }, 'image/png');
             });
@@ -136,63 +132,72 @@ function optimizeImage(iconFile, uploadIcon) {
 
 // iPhoneで撮った写真はブラウザ上で回転してしまう。
 // exifに応じて画像の変換(上下左右反転と回転）
-/*
-function alignImageOrient(iconFile,ctx){
-    orientation = iconFile.exifdata.Orientation;
+function alignImageOrient(image,orientation) {
+    let canvas = document.createElement('canvas');
+    let width = image.width;
+    let height = image.height;
+    canvas.width = width;
+    canvas.height = height;
+    let ctx = canvas.getContext('2d');
 
     switch (orientation) {
         case 2:
-            ctx.transform(-1, 0, 0, 1, canvas_width, 0);
+            ctx.transform(-1, 0, 0, 1, width, 0);
             break;
 
         case 3:
-            ctx.transform(-1, 0, 0, -1, canvas_width, canvas_height);
+            ctx.transform(-1, 0, 0, -1, width, height);
             break;
 
         case 4:
-            ctx.transform(1, 0, 0, -1, 0, canvas_height);
+            ctx.transform(1, 0, 0, -1, 0, height);
             break;
 
         case 5:
             ctx.transform(-1, 0, 0, 1, 0, 0);
-            ctx.rotate((90 * Math.PI) / 180);
-            draw_width = canvas_height;
-            draw_height = canvas_width;
             break;
 
         case 6:
-            ctx.transform(1, 0, 0, 1, canvas_width, 0);
-            ctx.rotate((90 * Math.PI) / 180);
-            draw_width = canvas_height;
-            draw_height = canvas_width;
+            ctx.transform(1, 0, 0, 1, width, 0);
             break;
 
         case 7:
-            ctx.transform(-1, 0, 0, 1, canvas_width, canvas_height);
-            ctx.rotate((-90 * Math.PI) / 180);
-            draw_width = canvas_height;
-            draw_height = canvas_width;
+            ctx.transform(-1, 0, 0, 1, width, height);
             break;
 
         case 8:
-            ctx.transform(1, 0, 0, 1, 0, canvas_height);
-            ctx.rotate((-90 * Math.PI) / 180);
-            draw_width = canvas_height;
-            draw_height = canvas_width;
+            ctx.transform(1, 0, 0, 1, 0, height);
             break;
 
         default:
             break;
     }
 
+    let drawWidth, drawHeight;
     if (orientation >= 5) {
         ctx.rotate((-90 * Math.PI) / 180);
-        draw_width = canvas_height;
-        draw_height = canvas_width;
+        drawWidth = height;
+        drawHeight = width;
     }
+    else {
+        drawWidth = width;
+        drawHeight = height;
+    }
+    ctx.drawImage(image, 0, 0, drawWidth, drawHeight);
+    return canvas.toDataURL();
 }
-*/
 
-function resizeImage(){
+function resizeImage(image, maxWidth) {
+    let canvas = document.createElement('canvas');
+    let width = image.width;
+    let height = image.height;
 
+    let scale = maxWidth / width.width;
+    const dstWidth = maxWidth;
+    const dstHeight = height * scale;
+    canvas.width = dstWidth;
+    canvas.height = dstHeight;
+    let ctx = canvas.getContext('2d');
+    ctx.drawImage(image, 0, 0, dstWidth, dstHeight);
+    return canvas.toDataURL('image/png');
 }
