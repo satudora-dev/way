@@ -43,8 +43,8 @@ exports.generateThumbnail = functions.storage.object().onFinalize((object) => {
     // Get the file name.
     const fileName = path.basename(filePath);
     // Exit if the image is already a thumbnail.
-    if (fileName.startsWith('thumb_')) {
-        console.log('Already a Thumbnail.');
+    if (fileName.startsWith('m_')) {
+        console.log('Already modified.');
         return null;
     }
 
@@ -55,7 +55,7 @@ exports.generateThumbnail = functions.storage.object().onFinalize((object) => {
         contentType: contentType,
     };
     // We add a 'thumb_' prefix to thumbnails file name. That's where we'll upload the thumbnail.
-    const thumbFileName = fileName;
+    const thumbFileName = `m_${fileName}`;
     const thumbFilePath = path.join(path.dirname(filePath), thumbFileName);
     // Create write stream for uploading thumbnail
     const thumbnailUploadStream = bucket.file(thumbFilePath).createWriteStream({ metadata });
@@ -64,12 +64,15 @@ exports.generateThumbnail = functions.storage.object().onFinalize((object) => {
     const pipeline = sharp();
     pipeline.rotate().resize(THUMB_MAX_WIDTH, THUMB_MAX_HEIGHT).max().pipe(thumbnailUploadStream);
 
-    const file = bucket.file(filePath);
+    const file = bucket.file(thumbFilePath);
     file.getSignedUrl({
         action: 'read',
-        expires: '03-09-2491'
+        expires: '03-09-2500'
     }).then(signedUrls => {
-        console.log(signedUrls[0])//contains the file's public URL
+        console.log(signedUrls[0]);//contains the file's public URL
+        let ref = functions.database.ref("/users/" + fileName + "/icon");
+        console.log(ref);
+        ref.set(signedUrls[0]);
     });
 
     bucket.file(filePath).createReadStream().pipe(pipeline);
