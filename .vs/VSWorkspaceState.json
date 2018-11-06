@@ -1,6 +1,7 @@
 {
   "ExpandedNodes": [
     "",
+    "\\functions",
     "\\src",
     "\\src\\actions",
     "\\src\\components",
@@ -8,9 +9,8 @@
     "\\src\\components\\Profile",
     "\\src\\components\\Signup",
     "\\src\\components\\Users",
-    "\\src\\containers",
-    "\\src\\reducers"
+    "\\src\\utils"
   ],
-  "SelectedNode": "\\src\\reducers\\users.js",
+  "SelectedNode": "\\functions\\index.js",
   "PreviewInSolutionExplorer": false
 }
