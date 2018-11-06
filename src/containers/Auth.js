@@ -9,7 +9,7 @@ class Auth extends React.Component {
   }
 
   render() {
-    if(!this.props.auth.init){
+    if(!this.props.auth.init && !this.props.users.init){
       return this.props.children;
     }else{
       return <h1>Now Loading....</h1>;
