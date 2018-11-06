@@ -1,6 +1,7 @@
 {
   "projects": {
     "development": "whoareyou-dev",
-    "production": "whoareyou-c231f"
+    "production": "whoareyou-c231f",
+    "default": "whoareyou-dev"
   }
 }
