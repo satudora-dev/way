@@ -20,6 +20,7 @@ class Auth extends React.Component {
 const mapStateToProps = ( {auth, users}, ownProps ) => {
     return {
       auth: auth,
+      users: users
   }
 }
 
