@@ -14,10 +14,10 @@ const Users = ({ users, location, history }) => {
   const tag = params.get("tag")
 
 
-  let refineKey = ""
-  if (position) {refineKey = position}
-  else if (project) {refineKey = project}
-  else if (tag) {refineKey = tag}
+  let searchQuery = ""
+  if (position) {searchQuery = position}
+  else if (project) {searchQuery = project}
+  else if (tag) {searchQuery = tag}
 
 
   const visibleUserKeys = Object.keys(users).filter(
@@ -69,12 +69,12 @@ const Users = ({ users, location, history }) => {
     },
   }
 
-  
+
   return (
     <div className="User">
       <MenuAppBar />
       {(() => {
-        if (refineKey !== "") {
+        if (searchQuery !== "") {
           return (
             <span>
               <br />
@@ -82,7 +82,7 @@ const Users = ({ users, location, history }) => {
                 variant="contained"
                 style={style.btnstyle}
               >
-                {refineKey}
+                {searchQuery}
               </Button>
             </span>
           )
