@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import * as actions from '../actions';
-import {BrowserRouter,Route} from 'react-router-dom';
 import Login from './Login'
 class Auth extends React.Component {
   componentWillMount(){
@@ -10,14 +9,13 @@ class Auth extends React.Component {
   }
 
   render() {
+    // Each Reducer have initial state, {noData: true}
     if(!this.props.auth.noData){
       if(!this.props.users.noData){
         return this.props.children;
       }else{
         return(
-        <BrowserRouter>
-          <Route path="/:currentPath?" component={ Login } />
-        </BrowserRouter>
+          <Login  />
         )
       }
     }else{
