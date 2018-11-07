@@ -23,8 +23,8 @@ const gcs = require('@google-cloud/storage')({
 const path = require('path');
 const sharp = require('sharp');
 
-const THUMB_MAX_WIDTH = 200;
-const THUMB_MAX_HEIGHT = 200;
+const THUMB_MAX_WIDTH = 512;
+const THUMB_MAX_HEIGHT = 512;
 
 admin.initializeApp(functions.config().firebase);
 
@@ -72,14 +72,17 @@ exports.generateThumbnail = functions.storage.object().onFinalize((object) => {
         action: 'read',
         expires: '03-09-2500'
     }).then(signedUrls => {
-        console.log(signedUrls[0]);//contains the file's public URL
         let id = fileName.split('.')[0];
         let ref = admin.database().ref(`/users/${id}/icon`);
         ref.set(signedUrls[0]);
     });
 
-    bucket.file(filePath).createReadStream().pipe(pipeline);
+    const fileOrigin = bucket.file(filePath);
+    fileOrigin.createReadStream().pipe(pipeline);
 
     return new Promise((resolve, reject) =>
-        thumbnailUploadStream.on('finish', resolve).on('error', reject));
+        thumbnailUploadStream.on('finish', () => {
+            fileOrigin.delete();
+            return resolve;
+        }).on('error', reject));
 });
