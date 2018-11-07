@@ -1,4 +1,4 @@
-const positions = (state = {init: true}, action) => {
+const positions = (state = {noData: true}, action) => {
   switch (action.type) {
     case 'RECEIVE_POSITIONS_DATA':
       let positions = {}
