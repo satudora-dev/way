@@ -16,14 +16,17 @@
 'use strict';
 
 const functions = require('firebase-functions');
+const admin = require('firebase-admin');
 const gcs = require('@google-cloud/storage')({
-    keyFilename: 'account.json'
+    keyFilename: './account.json',
 });
 const path = require('path');
 const sharp = require('sharp');
 
 const THUMB_MAX_WIDTH = 200;
 const THUMB_MAX_HEIGHT = 200;
+
+admin.initializeApp(functions.config().firebase);
 
 /**
  * When an image is uploaded in the Storage bucket We generate a thumbnail automatically using
@@ -70,8 +73,8 @@ exports.generateThumbnail = functions.storage.object().onFinalize((object) => {
         expires: '03-09-2500'
     }).then(signedUrls => {
         console.log(signedUrls[0]);//contains the file's public URL
-        let ref = functions.database.ref("/users/" + fileName + "/icon");
-        console.log(ref);
+        let id = fileName.split('.')[0];
+        let ref = admin.database().ref(`/users/${id}/icon`);
         ref.set(signedUrls[0]);
     });
 
