@@ -18,7 +18,7 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const gcs = require('@google-cloud/storage')({
-    keyFilename: './account.json',
+  keyFilename: './account.json',
 });
 const path = require('path');
 const sharp = require('sharp');
@@ -33,56 +33,61 @@ admin.initializeApp(functions.config().firebase);
  * Sharp.
  */
 exports.generateThumbnail = functions.storage.object().onFinalize((object) => {
-    const fileBucket = object.bucket; // The Storage bucket that contains the file.
-    const filePath = object.name; // File path in the bucket.
-    const contentType = object.contentType; // File content type.
+  const fileBucket = object.bucket; // The Storage bucket that contains the file.
+  const filePath = object.name; // File path in the bucket.
+  const contentType = object.contentType; // File content type.
 
-    // Exit if this is triggered on a file that is not an image.
-    if (!contentType.startsWith('image/')) {
-        console.log('This is not an image.');
-        return null;
-    }
+  // Exit if this is triggered on a file that is not an image.
+  if (!contentType.startsWith('image/')) {
+    console.log('This is not an image.');
+    return null;
+  }
 
-    // Get the file name.
-    const fileName = path.basename(filePath);
-    // Exit if the image is already a thumbnail.
-    if (fileName.startsWith('m_')) {
-        console.log('Already modified.');
-        return null;
-    }
+  const fileDir = path.dirname(filePath);
+  if (fileDir !== 'icons') {
+    console.log('Is not in "icons" folder.');
+    return null;
+  }
 
-    // Download file from bucket.
-    const bucket = gcs.bucket(fileBucket);
+  // Get the file name.
+  const fileName = path.basename(filePath);
+  // Exit if the image is already a thumbnail.
+  if (fileName.startsWith('m_')) {
+    console.log('Already modified.');
+    return null;
+  }
 
-    const metadata = {
-        contentType: contentType,
-    };
-    // We add a 'thumb_' prefix to thumbnails file name. That's where we'll upload the thumbnail.
-    const thumbFileName = `m_${fileName}`;
-    const thumbFilePath = path.join(path.dirname(filePath), thumbFileName);
-    // Create write stream for uploading thumbnail
-    const thumbnailUploadStream = bucket.file(thumbFilePath).createWriteStream({ metadata });
+  // Download file from bucket.
+  const bucket = gcs.bucket(fileBucket);
 
-    // Create Sharp pipeline for resizing the image and use pipe to read from bucket read stream
-    const pipeline = sharp();
-    pipeline.rotate().resize(THUMB_MAX_WIDTH, THUMB_MAX_HEIGHT).max().pipe(thumbnailUploadStream);
+  const metadata = {
+    contentType: contentType,
+  };
+  // We add a 'thumb_' prefix to thumbnails file name. That's where we'll upload the thumbnail.
+  const thumbFileName = `m_${fileName}`;
+  const thumbFilePath = path.join(path.dirname(filePath), thumbFileName);
+  // Create write stream for uploading thumbnail
+  const thumbnailUploadStream = bucket.file(thumbFilePath).createWriteStream({ metadata });
 
-    const file = bucket.file(thumbFilePath);
-    file.getSignedUrl({
+  // Create Sharp pipeline for resizing the image and use pipe to read from bucket read stream
+  const pipeline = sharp();
+  pipeline.rotate().resize(THUMB_MAX_WIDTH, THUMB_MAX_HEIGHT).max().pipe(thumbnailUploadStream);
+
+  const fileOrigin = bucket.file(filePath);
+  fileOrigin.createReadStream().pipe(pipeline);
+
+  return new Promise((resolve, reject) =>
+    thumbnailUploadStream.on('finish', () => {
+      let file = bucket.file(thumbFilePath);
+      file.getSignedUrl({
         action: 'read',
         expires: '03-09-2500'
-    }).then(signedUrls => {
+      }).then(signedUrls => {
         let id = fileName.split('.')[0];
         let ref = admin.database().ref(`/users/${id}/icon`);
         ref.set(signedUrls[0]);
-    });
-
-    const fileOrigin = bucket.file(filePath);
-    fileOrigin.createReadStream().pipe(pipeline);
-
-    return new Promise((resolve, reject) =>
-        thumbnailUploadStream.on('finish', () => {
-            fileOrigin.delete();
-            return resolve;
-        }).on('error', reject));
+      });
+      fileOrigin.delete();
+      return resolve;
+    }).on('error', reject));
 });
