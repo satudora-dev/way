@@ -75,18 +75,18 @@ exports.generateThumbnail = functions.storage.object().onFinalize((object) => {
 
   const fileOrigin = bucket.file(filePath);
   fileOrigin.createReadStream().pipe(pipeline);
+  let file = bucket.file(thumbFilePath);
+  file.getSignedUrl({
+    action: 'read',
+    expires: '03-09-2500'
+  }).then(signedUrls => {
+    let id = fileName.split('.')[0];
+    let ref = admin.database().ref(`/users/${id}/icon`);
+    ref.set(signedUrls[0]);
+  });
 
   return new Promise((resolve, reject) =>
     thumbnailUploadStream.on('finish', () => {
-      let file = bucket.file(thumbFilePath);
-      file.getSignedUrl({
-        action: 'read',
-        expires: '03-09-2500'
-      }).then(signedUrls => {
-        let id = fileName.split('.')[0];
-        let ref = admin.database().ref(`/users/${id}/icon`);
-        ref.set(signedUrls[0]);
-      });
       fileOrigin.delete();
       return resolve;
     }).on('error', reject));
