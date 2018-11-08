@@ -16,6 +16,7 @@ before_script:
   - chmod +x build.sh
 script:
   - CI=false
+  - npm test
   - ./build.sh
 
 after_failure:
