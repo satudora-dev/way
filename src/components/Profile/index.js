@@ -105,7 +105,7 @@ class Profile extends Component {
             iconSrc={icon}
             profileUserKey={profileUserKey}
             canEdit={canEdit}
-            updateIcon={this.props.updateIcon} />
+            uploadIcon={this.props.uploadIcon} />
           <EditableLabel
             style={style.namestyle}
             value={[given, family]}
