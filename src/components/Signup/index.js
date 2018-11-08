@@ -6,9 +6,9 @@ import SiteInfo from "../../components/SiteInfo";
 
 
 class Signup extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       givenName: "",
       familyName: "",
       sei: "",
@@ -18,12 +18,12 @@ class Signup extends Component {
       id: "",
     };
 
-    this.onTextChange=this.onTextChange.bind(this);
+    this.onTextChange = this.onTextChange.bind(this);
   }
 
 
-  onTextChange(e){
-    switch(e.target.name){
+  onTextChange(e) {
+    switch (e.target.name) {
       case 'givenName':
         this.setState({
           givenName: e.target.value,
@@ -45,16 +45,16 @@ class Signup extends Component {
         });
         break;
       case 'icon':
-        if(!e.target.files[0])return;
+        if (!e.target.files[0]) return;
         this.optimizeImage(e.target.files[0]);
         break;
     }
   }
 
-  optimizeImage(iconFile){
-    let image=new Image();
+  optimizeImage(iconFile) {
+    let image = new Image();
     let _this = this;
-    image.onload=()=> {
+    image.onload = () => {
       let width = image.width;
       let height = image.height;
       let maxWidth = 512;
@@ -83,11 +83,11 @@ class Signup extends Component {
           canvas_height = Math.floor(canvas_width * image_aspect);
 
           // リサイズ
-          const scale=maxWidth/canvas_width;
+          const scale = maxWidth / canvas_width;
           const dst_width = maxWidth;
-          const dst_height = canvas_height*scale;
-          canvas.width=dst_width;
-          canvas.height=dst_height;
+          const dst_height = canvas_height * scale;
+          canvas.width = dst_width;
+          canvas.height = dst_height;
           ctx.scale(scale, scale)
 
           // iPhoneで撮った写真はブラウザ上で回転してしまう。
@@ -146,14 +146,14 @@ class Signup extends Component {
 
           // 変換後の画像をステートに設定
           let transformedImage = canvas.toDataURL('image/png');
-          _this.setState({iconSrc: transformedImage});
+          _this.setState({ iconSrc: transformedImage });
           canvas.toBlob((blob) => {
-            _this.setState({iconFile: blob});
+            _this.setState({ iconFile: blob });
           });
         });
       }
     };
-    image.src=URL.createObjectURL(iconFile);
+    image.src = URL.createObjectURL(iconFile);
   }
 
 
@@ -168,7 +168,7 @@ class Signup extends Component {
         "padding-top": "20px",
       },
       siteInfoStyle: {
-       "margin-top": "30px",
+        "margin-top": "30px",
       },
       welcomestyle: {
         color: "grey",
@@ -179,7 +179,7 @@ class Signup extends Component {
       },
       iconstyle: {
         width: 200,
-        height:200,
+        height: 200,
         "border-radius": "50%",
         "object-fit": "cover",
       },
@@ -192,16 +192,16 @@ class Signup extends Component {
     return (
       <div className="Login">
         <div style={style.siteInfoStyle}>
-          <SiteInfo/>
+          <SiteInfo />
         </div>
         <h3 style={style.welcomestyle}>Welcome.
         <span style={style.WAYstyle}> W</span>
-        ho
+          ho
         <span style={style.WAYstyle}> A</span>
-        re
+          re
         <span style={style.WAYstyle}> Y</span>
-        ou?<
-        /h3>
+          ou?
+          </h3>
         <form noValidate autoComplete="off">
           <TextField
             name="givenName"
@@ -239,18 +239,18 @@ class Signup extends Component {
             style={style.welcomestyle} />
         </form>
         <div>
-          <img src={this.state.iconSrc} style={style.iconstyle}/>
+          <img src={this.state.iconSrc} style={style.iconstyle} />
         </div>
         <div>
-          <input type="file" accept="image" name="icon" onChange={this.onTextChange}/>
+          <input type="file" accept="image" name="icon" onChange={this.onTextChange} />
         </div>
-        <Button variant="contained"  onClick={() => {
+        <Button variant="contained" onClick={() => {
           this.props.signUpAsUser(this.props.ownKey,
-                                  this.state.givenName,
-                                  this.state.familyName,
-                                  this.state.mei,
-                                  this.state.sei,
-                                  this.state.iconFile);
+            this.state.givenName,
+            this.state.familyName,
+            this.state.mei,
+            this.state.sei,
+            this.state.iconFile);
         }}>
           GO
         </Button>

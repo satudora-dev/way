@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { updateIcon } from '../actions/iconUpdateAction';
 
-const mapStateToProps = ({auth,users}, ownProps) => {
+const mapStateToProps = ({ auth, users }, ownProps) => {
   const ownKey = auth.ownKey;
   const thisUser = ownProps.match.params.id;
-  if(users[thisUser]){
+  if (users[thisUser]) {
     return {
       ownKey: ownKey,
       profileUserKey: thisUser,
@@ -20,8 +20,8 @@ const mapStateToProps = ({auth,users}, ownProps) => {
       tags: users[thisUser].tags,
     }
   }
-  else{
-    return{
+  else {
+    return {
       ownKey: ownKey,
       hasOwnProfile: users[ownKey] !== undefined,
     }
@@ -29,14 +29,14 @@ const mapStateToProps = ({auth,users}, ownProps) => {
 }
 
 const mapDispatchToProps =
-    {
-        editName: actions.editName,
-        updatePosition: actions.updatePosition,
-        updateProjects: actions.updateProjects,
-        addTag: actions.addTag,
-        deleteTag: actions.deleteTag,
-        updateIcon: updateIcon,
-    }
+  {
+    editName: actions.editName,
+    updatePosition: actions.updatePosition,
+    updateProjects: actions.updateProjects,
+    addTag: actions.addTag,
+    deleteTag: actions.deleteTag,
+    updateIcon: updateIcon,
+  }
 
 export default connect(
   mapStateToProps,
