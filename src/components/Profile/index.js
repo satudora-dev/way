@@ -15,9 +15,9 @@ import ImageUploader from '../../components/ImageUploader'
 
 
 class Profile extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       positionModalOpen: false,
       projectModalOpen: false,
       tagModalOpen: false,
@@ -26,15 +26,15 @@ class Profile extends Component {
 
 
 
-  toPositionPage(posName){
+  toPositionPage(posName) {
     this.props.history.push(`../users?position=${posName}`);
   }
 
-  toProjectPage(prjName){
+  toProjectPage(prjName) {
     this.props.history.push(`../users?project=${prjName}`);
   }
 
-  toTagPage(tagName){
+  toTagPage(tagName) {
     this.props.history.push(`../users?tag=${tagName}`);
   }
 
@@ -72,7 +72,7 @@ class Profile extends Component {
         textTransform: "none",
       },
       tagbtnstyle: {
-        paddingRight:"8px",
+        paddingRight: "8px",
         marginRight: "10px",
         marginBottom: "10px",
         backgroundColor: "#04B486",
@@ -96,6 +96,7 @@ class Profile extends Component {
     const tags = this.props.tags || [];
     const canEdit = profileUserKey === this.props.ownKey;
 
+    console.log('icon Updated!');
 
     return (
       <div className="Profile">
@@ -104,13 +105,13 @@ class Profile extends Component {
             iconSrc={icon}
             profileUserKey={profileUserKey}
             canEdit={canEdit}
-            updateIcon={this.props.updateIcon}/>
-            <EditableLabel
-              style={style.namestyle}
-              value={[given,family]}
-              onEditEnd={(names)=>this.props.editName(names,profileUserKey)}
-              canEdit={canEdit}
-            />
+            updateIcon={this.props.updateIcon} />
+          <EditableLabel
+            style={style.namestyle}
+            value={[given, family]}
+            onEditEnd={(names) => this.props.editName(names, profileUserKey)}
+            canEdit={canEdit}
+          />
         </div>
 
         <div className="Position">
@@ -122,17 +123,17 @@ class Profile extends Component {
               color="primary"
               disabled={(!position)}
               style={style.positionstyle}
-              onClick={()=>this.toPositionPage(position)}
+              onClick={() => this.toPositionPage(position)}
             >
               {position}
             </Button>
             {(() => {
-              if(canEdit)
-                return(
-                    <Button mini onClick={() => this.setState({positionModalOpen: true})}
-                            variant="fab" style={style.btnstyle}>
-                      <EditIcon/>
-                    </Button>
+              if (canEdit)
+                return (
+                  <Button mini onClick={() => this.setState({ positionModalOpen: true })}
+                    variant="fab" style={style.btnstyle}>
+                    <EditIcon />
+                  </Button>
                 )
             })()}
           </div>
@@ -140,7 +141,7 @@ class Profile extends Component {
             positionModalOpen={this.state.positionModalOpen}
             currentPosition={position}
             updatePosition={this.props.updatePosition}
-            onPositionModalClose={() => this.setState({positionModalOpen: false})}
+            onPositionModalClose={() => this.setState({ positionModalOpen: false })}
             profileUserKey={profileUserKey}
           />
         </div>
@@ -148,33 +149,33 @@ class Profile extends Component {
           <h3 style={style.categorystyle}>projects</h3>
           <hr />
           <div style={style.tagstyle}>
-            {projects.map((project,i)=>{
+            {projects.map((project, i) => {
               return (
                 <Button
                   key={i}
                   variant="contained"
                   color="primary"
                   style={style.positionstyle}
-                  onClick={()=>this.toProjectPage(project)}
-                  >
-                {project}
+                  onClick={() => this.toProjectPage(project)}
+                >
+                  {project}
                 </Button>
               );
             })}
             {(() => {
-              if(canEdit)
-                return(
-                    <Button mini onClick={() => this.setState({projectModalOpen: true})}
-                            variant="fab" style={style.btnstyle}>
-                      <EditIcon/>
-                    </Button>
+              if (canEdit)
+                return (
+                  <Button mini onClick={() => this.setState({ projectModalOpen: true })}
+                    variant="fab" style={style.btnstyle}>
+                    <EditIcon />
+                  </Button>
                 )
             })()}
             <ProjectModal
               projectModalOpen={this.state.projectModalOpen}
               currentProjects={projects}
               updateProjects={this.props.updateProjects}
-              onProjectModalClose={() => this.setState({projectModalOpen: false})}
+              onProjectModalClose={() => this.setState({ projectModalOpen: false })}
               profileUserKey={profileUserKey}
             />
           </div>
@@ -184,24 +185,24 @@ class Profile extends Component {
           <h3 style={style.categorystyle}>tags</h3>
           <hr />
           <div style={style.tagstyle}>
-            {tags.map((tag,i)=>{
-             return (
-              <Button key={i} variant="contained" style={style.tagbtnstyle}>
-                <span onClick={()=>this.toTagPage(tag)}>{[tag]}&nbsp;&nbsp;</span>
-                <CloseIcon style={{fontSize : "90%", }} onClick={()=>this.props.deleteTag(tag, profileUserKey)}/>
-              </Button>
-             );
-           })}
-            <Button mini onClick={() => this.setState({tagModalOpen: true})}
-                    variant="fab" style={style.btnstyle}>
-            <AddIcon />
+            {tags.map((tag, i) => {
+              return (
+                <Button key={i} variant="contained" style={style.tagbtnstyle}>
+                  <span onClick={() => this.toTagPage(tag)}>{[tag]}&nbsp;&nbsp;</span>
+                  <CloseIcon style={{ fontSize: "90%", }} onClick={() => this.props.deleteTag(tag, profileUserKey)} />
+                </Button>
+              );
+            })}
+            <Button mini onClick={() => this.setState({ tagModalOpen: true })}
+              variant="fab" style={style.btnstyle}>
+              <AddIcon />
             </Button>
-          <TagModal
-            tagModalOpen={this.state.tagModalOpen}
-            addTag={this.props.addTag}
-            onTagModalClose={() => this.setState({tagModalOpen: false})}
-            profileUserKey={profileUserKey} />
-            </div>
+            <TagModal
+              tagModalOpen={this.state.tagModalOpen}
+              addTag={this.props.addTag}
+              onTagModalClose={() => this.setState({ tagModalOpen: false })}
+              profileUserKey={profileUserKey} />
+          </div>
         </div>
       </div>
     );
