@@ -1,4 +1,4 @@
-const accounts = (state = {init: true}, action) => {
+const accounts = (state = {noData: true}, action) => {
   switch (action.type) {
     case 'RECEIVE_ACCOUNTS_DATA':
       if(action.data)

@@ -1,4 +1,4 @@
-const tags = (state = {init: true}, action) => {
+const tags = (state = {noData: true}, action) => {
   switch (action.type) {
     case 'RECEIVE_TAGS_DATA':
       let tags = {}

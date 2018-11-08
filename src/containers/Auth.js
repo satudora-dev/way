@@ -1,18 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import {withRouter} from 'react-router-dom';
 import * as actions from '../actions';
-
+import Login from './Login'
 class Auth extends React.Component {
   componentWillMount(){
     this.props.initFetchIfLoggedIn()
   }
 
   render() {
-    if(!this.props.auth.init){
-      return this.props.children;
+    // Each Reducer have initial state, {noData: true}
+    if(!this.props.auth.noData){
+      if(!this.props.users.noData){
+        return this.props.children;
+      }else{
+        return(
+          <Login  />
+        )
+      }
     }else{
-      return <h1>Now Loading....</h1>;
+      return <h1>Now loading...</h1>
     }
   }
 }
@@ -20,6 +27,7 @@ class Auth extends React.Component {
 const mapStateToProps = ( {auth, users}, ownProps ) => {
     return {
       auth: auth,
+      users: users
   }
 }
 
