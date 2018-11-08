@@ -29,7 +29,7 @@ render() {
       <div style={{position:"relative",width:"256px",margin:"auto"}}>
         <img src={this.props.iconSrc} style={style.imgstyle} alt="Loading..."/>
         <input type="file" style={{display: "none"}} onChange={e => {
-              this.props.updateIcon(e.target.files[0],this.props.profileUserKey);
+              this.props.uploadIcon(e.target.files[0],this.props.profileUserKey);
         }} ref="fileInput"/>
 
         {(() => {
