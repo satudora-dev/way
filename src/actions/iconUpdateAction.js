@@ -19,6 +19,8 @@ export const updateIcon = (icon, userKey) =>
 function uploadIcon(iconFile, userKey, dispatch) {
   let key = 'icons/' + userKey;
   let targetRef = storageRef.child(key);
+  targetRef.put(iconFile);
+  /*
   targetRef.put(iconFile).then(snapshot => {
     targetRef.getDownloadURL().then(url => {
       userRef.child(userKey).update({//on�ŌĂ΂Ȃ�
@@ -31,6 +33,7 @@ function uploadIcon(iconFile, userKey, dispatch) {
       });
     });
   });
+  */
 }
 
 function optimizeImage(iconFile, uploadIcon) {
