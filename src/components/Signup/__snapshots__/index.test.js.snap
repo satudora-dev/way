@@ -1,0 +1,331 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Signup changed by user input 1`] = `
+<div
+  className="Login"
+>
+  <div
+    style={
+      Object {
+        "margin-top": "30px",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "padding-top": "30px",
+          "text-align": "center",
+        }
+      }
+    >
+      <img
+        alt="loading the way image..."
+        src="./way.png"
+        style={
+          Object {
+            "height": 128,
+            "vertical-align": "middle",
+            "width": 256,
+          }
+        }
+      />
+      <h2>
+        AI TOKYO LAB & Co.
+      </h2>
+    </div>
+  </div>
+  <h3
+    style={
+      Object {
+        "color": "grey",
+        "font-weight": "lighter",
+      }
+    }
+  >
+    Welcome.
+    <span
+      style={
+        Object {
+          "color": "black",
+          "font-weight": "bold",
+        }
+      }
+    >
+       W
+    </span>
+    ho
+    <span
+      style={
+        Object {
+          "color": "black",
+          "font-weight": "bold",
+        }
+      }
+    >
+       A
+    </span>
+    re
+    <span
+      style={
+        Object {
+          "color": "black",
+          "font-weight": "bold",
+        }
+      }
+    >
+       Y
+    </span>
+    ou?
+  </h3>
+  <form
+    autoComplete="off"
+    noValidate={true}
+  >
+    <div
+      aria-describedby={undefined}
+      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+      style={
+        Object {
+          "color": "grey",
+          "font-weight": "lighter",
+        }
+      }
+    >
+      <label
+        className="MuiFormLabel-root-10 MuiFormLabel-required-15 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+        data-shrink={false}
+        htmlFor={undefined}
+      >
+        given name
+        <span
+          className="MuiFormLabel-asterisk-16"
+        >
+           *
+        </span>
+      </label>
+      <div
+        className="MuiInput-root-17 MuiInput-formControl-18 MuiInput-underline-21"
+      >
+        <input
+          aria-invalid={false}
+          autoComplete={undefined}
+          autoFocus={undefined}
+          className="MuiInput-input-25"
+          defaultValue={undefined}
+          disabled={false}
+          id={undefined}
+          name="givenName"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={undefined}
+          onKeyUp={undefined}
+          placeholder={undefined}
+          readOnly={undefined}
+          required={true}
+          rows={undefined}
+          type="text"
+          value={undefined}
+        />
+      </div>
+    </div>
+    <div
+      aria-describedby={undefined}
+      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+      style={
+        Object {
+          "color": "grey",
+          "font-weight": "lighter",
+        }
+      }
+    >
+      <label
+        className="MuiFormLabel-root-10 MuiFormLabel-required-15 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+        data-shrink={false}
+        htmlFor={undefined}
+      >
+        family name
+        <span
+          className="MuiFormLabel-asterisk-16"
+        >
+           *
+        </span>
+      </label>
+      <div
+        className="MuiInput-root-17 MuiInput-formControl-18 MuiInput-underline-21"
+      >
+        <input
+          aria-invalid={false}
+          autoComplete={undefined}
+          autoFocus={undefined}
+          className="MuiInput-input-25"
+          defaultValue={undefined}
+          disabled={false}
+          id={undefined}
+          name="familyName"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={undefined}
+          onKeyUp={undefined}
+          placeholder={undefined}
+          readOnly={undefined}
+          required={true}
+          rows={undefined}
+          type="text"
+          value={undefined}
+        />
+      </div>
+    </div>
+  </form>
+  <form
+    autoComplete="off"
+    noValidate={true}
+  >
+    <div
+      aria-describedby={undefined}
+      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+      style={
+        Object {
+          "color": "grey",
+          "font-weight": "lighter",
+        }
+      }
+    >
+      <label
+        className="MuiFormLabel-root-10 MuiFormLabel-required-15 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+        data-shrink={false}
+        htmlFor={undefined}
+      >
+        名
+        <span
+          className="MuiFormLabel-asterisk-16"
+        >
+           *
+        </span>
+      </label>
+      <div
+        className="MuiInput-root-17 MuiInput-formControl-18 MuiInput-underline-21"
+      >
+        <input
+          aria-invalid={false}
+          autoComplete={undefined}
+          autoFocus={undefined}
+          className="MuiInput-input-25"
+          defaultValue={undefined}
+          disabled={false}
+          id={undefined}
+          name="mei"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={undefined}
+          onKeyUp={undefined}
+          placeholder={undefined}
+          readOnly={undefined}
+          required={true}
+          rows={undefined}
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      aria-describedby={undefined}
+      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
+      style={
+        Object {
+          "color": "grey",
+          "font-weight": "lighter",
+        }
+      }
+    >
+      <label
+        className="MuiFormLabel-root-10 MuiFormLabel-required-15 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+        data-shrink={false}
+        htmlFor={undefined}
+      >
+        姓
+        <span
+          className="MuiFormLabel-asterisk-16"
+        >
+           *
+        </span>
+      </label>
+      <div
+        className="MuiInput-root-17 MuiInput-formControl-18 MuiInput-underline-21"
+      >
+        <input
+          aria-invalid={false}
+          autoComplete={undefined}
+          autoFocus={undefined}
+          className="MuiInput-input-25"
+          defaultValue={undefined}
+          disabled={false}
+          id={undefined}
+          name="sei"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={undefined}
+          onKeyUp={undefined}
+          placeholder={undefined}
+          readOnly={undefined}
+          required={true}
+          rows={undefined}
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </form>
+  <div>
+    <img
+      src="/portrait.png"
+      style={
+        Object {
+          "border-radius": "50%",
+          "height": 200,
+          "object-fit": "cover",
+          "width": 200,
+        }
+      }
+    />
+  </div>
+  <div>
+    <input
+      accept="image"
+      name="icon"
+      onChange={[Function]}
+      type="file"
+    />
+  </div>
+  <button
+    className="MuiButtonBase-root-56 MuiButton-root-30 MuiButton-contained-41 MuiButton-raised-44"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex="0"
+    type="button"
+  >
+    <span
+      className="MuiButton-label-31"
+    >
+      GO
+    </span>
+    <span
+      className="MuiTouchRipple-root-59"
+    />
+  </button>
+</div>
+`;
