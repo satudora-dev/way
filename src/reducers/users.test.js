@@ -5,7 +5,7 @@ import usersReducer from './users'
 describe('users reducer', () => {
   it('should return the initial state', () => {
     expect(usersReducer(undefined, {})).toEqual(
-      {init: true}
+      {noData: true}
     )
   })
 
