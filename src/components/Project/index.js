@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import EditableProjectLabel from '../../components/EditableProjectLabel'
+import Button from '@material-ui/core/Button';
 
 
 class Project extends Component {
@@ -7,6 +8,10 @@ class Project extends Component {
     super(props);
     this.state={
     };
+  }
+
+  toProfile(id){
+    this.props.history.push(`/users/${id}`);
   }
 
   render() {
@@ -19,6 +24,7 @@ class Project extends Component {
       },
     }
     const project = this.props.project;
+    const users = this.props.users;
 
     return (
       <div className="Project">
@@ -29,6 +35,19 @@ class Project extends Component {
           canEdit={true}
         />
         <p>{project.description}</p>
+
+        {(()=>{
+          if(project.members) {
+            return (Array.from(project.members).map((projectMember, i) => {
+              return (
+                <Button className="User" key={i} style={style.iconbtnstyle}
+                        onClick={() => this.toProfile(projectMember.userkey)}>
+                  <img src={users[projectMember.userkey].icon} style={style.iconstyle} alt="failed loading..."/>
+                </Button>
+              );
+            }));
+        }
+        })()}
       </div>
     );
   }
