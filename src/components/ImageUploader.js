@@ -12,7 +12,7 @@ class ImageUploader extends Component {
     this.state = {
       iconSrc: props.iconSrc,
       rotation: 'rotate(0deg)',
-      transform: 'scale(1,1)',
+      scale: 'scale(1,1)',
     };
   }
 
@@ -21,36 +21,52 @@ class ImageUploader extends Component {
   }
 
   optimizeImage(e) {
+
     let imageFile = e.target.files[0];
-    this.setState({ iconSrc: createObjectURL(imageFile) });
     EXIF.getData(imageFile, () => {
       let orientation = imageFile.exifdata.Orientation;
       let rotation = 0;
-      switch ((orientation - 1) / 2) {
-        case 0:
-          rotation = 'rotate(0deg)';
+
+      switch (orientation) {
         case 1:
+        case 2:
+          rotation = 'rotate(0deg)';
+          break;
+
+        case 3:
+        case 4:
           rotation = 'rotate(180deg)';
           break;
-        case 2:
+
+        case 6:
+        case 7:
           rotation = 'rotate(90deg)';
           break;
-        case 3:
+
+        case 5:
+        case 8:
           rotation = 'rotate(270deg)';
           break;
+
         default:
           break;
       }
-      let transform = 'scale(1,1)';
+
+      let scale;
       if (orientation === 2 || orientation === 4
         || orientation === 5 || orientation === 7) {
-        transform = 'scale(-1,1)';
+        scale = 'scale(-1,1)';
       }
+      else {
+        scale = 'scale(1,1)';
+      }
+      
       this.setState({
         iconSrc: createObjectURL(imageFile),
         rotation: rotation,
-        transform: transform,
-      })
+        scale: scale,
+      });
+      this.props.uploadIcon(imageFile, this.props.profileUserKey);
     });
   }
 
@@ -63,7 +79,7 @@ class ImageUploader extends Component {
         borderRadius: "50%",
         marginTop: "30px",
         objectFit: "cover",
-        transform: this.state.transform + " " + this.state.rotation,
+        transform: `${this.state.rotation} ${this.state.scale} `,
       },
       btnstyle: {
         position: "absolute",
