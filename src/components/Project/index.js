@@ -24,6 +24,7 @@ class Project extends Component {
       },
     }
     const project = this.props.project;
+    const projectID = this.props.projectID;
     const users = this.props.users;
 
     return (
@@ -31,7 +32,7 @@ class Project extends Component {
         <EditableProjectLabel
           style={style.namestyle}
           value={project.name}
-          onEditEnd={(name)=>this.props.editProjectName(name, project)}
+          onEditEnd={(name)=>this.props.updateProjectName(projectID, {'name': name})}
           canEdit={true}
         />
         <p>{project.description}</p>

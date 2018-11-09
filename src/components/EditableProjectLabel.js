@@ -62,7 +62,7 @@ class EditableProjectLabel extends Component {
           <TextField
             autoFocus={true}
             InputProps={{style: this.props.style}}
-            value={this.props.value}
+            value={this.state.value}
             onChange={(e)=>this.onTextChange(e)}
             onKeyDown={this.handleKeyPress}/>
         </span>

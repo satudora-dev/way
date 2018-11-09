@@ -9,6 +9,7 @@ const mapStateToProps = ({projects, users}, ownProps) => {
     return {
       project: projects[projectID],
       //projectMembers: projects[projectID].members.map((memberID) => users[memberID]),
+      projectID: projectID,
       users: users,
     }
   }else{
@@ -19,7 +20,7 @@ const mapStateToProps = ({projects, users}, ownProps) => {
 }
 
 const mapDispatchToProps = {
-  editProjectName: (name, project) => {},
+  updateProjectName: actions.updateProject,
   //editProjectDescription: actions.editProjectDescription,
 }
 
