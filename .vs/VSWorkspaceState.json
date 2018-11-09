@@ -5,12 +5,10 @@
     "\\src",
     "\\src\\actions",
     "\\src\\components",
-    "\\src\\components\\Login",
+    "\\src\\components\\App",
     "\\src\\components\\Profile",
-    "\\src\\components\\Signup",
-    "\\src\\components\\Users",
-    "\\src\\utils"
+    "\\src\\containers"
   ],
-  "SelectedNode": "\\functions\\index.js",
+  "SelectedNode": "\\src\\containers\\Profile.js",
   "PreviewInSolutionExplorer": false
 }

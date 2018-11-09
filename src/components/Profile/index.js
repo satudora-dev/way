@@ -12,8 +12,6 @@ import ProjectModal from './ProjectModal'
 import EditableLabel from '../../components/EditableLabel'
 import ImageUploader from '../../components/ImageUploader'
 
-
-
 class Profile extends Component {
   constructor(props) {
     super(props);
