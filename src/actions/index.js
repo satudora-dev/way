@@ -95,6 +95,7 @@ const setCurrentUser = ownKey  => {
 export const initFetchIfLoggedIn = () => dispatch => {
   firebaseAuth().onAuthStateChanged(user=>{
     if(user){
+      console.log(user)
       accountRef.off()
       accountRef.on('value',
         (snapshot) => {dispatch(fetchAccountsSuccess(snapshot))},
@@ -121,8 +122,12 @@ export const initFetchIfLoggedIn = () => dispatch => {
         (error) => {dispatch(fetchUsersError(error))}
       )
       accountRef.orderByChild('email').equalTo(user.email).once('value', (snapshot) =>{
-        let ownKey = Object.keys(snapshot.val())[0];
-        dispatch(setCurrentUser(ownKey))
+        if(snapshot.val()){
+          let ownKey = Object.keys(snapshot.val())[0];
+          dispatch(setCurrentUser(ownKey))
+        }else{
+          dispatch(setCurrentUser(null))
+        }
       })
     }else{
       dispatch(setCurrentUser(null))
@@ -134,6 +139,7 @@ export const initFetchIfLoggedIn = () => dispatch => {
 export const loginWithGithub = () => dispatch => {
   const provider=new firebaseAuth.GithubAuthProvider();
   firebaseAuth().signInWithPopup(provider).then(result=>{
+    console.log(result)
     if(result.credential!=null){
       let idRef;
       accountRef.orderByChild('email').equalTo(result.user.email)//メールアドレスが既に登録されているか
