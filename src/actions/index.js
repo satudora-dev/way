@@ -126,7 +126,7 @@ export const initFetchIfLoggedIn = () => dispatch => {
           let ownKey = Object.keys(snapshot.val())[0];
           dispatch(setCurrentUser(ownKey))
         }else{
-          dispatch(setCurrentUser(null))
+          dispatch(setCurrentUser(user.Qb.m))
         }
       })
     }else{
