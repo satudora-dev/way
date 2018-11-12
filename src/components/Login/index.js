@@ -3,7 +3,7 @@ import SiteInfo from '../../components/SiteInfo';
 import styled from 'styled-components'
 
 
-const Github = styled.div `
+const Icon = styled.div `
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -11,34 +11,28 @@ const Github = styled.div `
   margin: 0 auto;
   transition:  1s cubic-bezier(0.2, 0.8, 0.2, 1);
   &:hover {
-    border: none;
-    background-color: #BDBDBD;
+    background-color: #D7D7D7;
     transform: translateY(-5px);
   }
 `
 
-const Button = styled.div `
-  border: none;
-  background-color: white;
-`
 
-const Container = styled.div `
+const Logo = styled.div `
   padding-top: 80px;
   padding-bottom: 100px;
   width: 100%;
   text-align: center;
-  position: relative;
 `
 
 
 function GithubButton(props){
   return(
-        <Button onClick={props.onClick}>
-          <Github>
+        <div>
+          <Icon onClick={props.onClick}>
             <img src="./github.svg" />
-          </Github>
+          </Icon>
           <h3>Login with GitHub</h3>
-        </Button>
+        </div>        
   );
 }
 
@@ -47,9 +41,9 @@ class Login extends Component {
   render() {
     return (
       <div className="Login">
-        <Container>
+        <Logo>
           <SiteInfo/>
-        </Container>
+        </Logo>
         <GithubButton
           onClick={() => {
             this.props.loginWithGithub();
