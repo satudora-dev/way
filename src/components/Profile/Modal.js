@@ -34,7 +34,7 @@ const OriginalModal = ({
           <Button onClick = {() => onModalClose()}>
             {buttonText}
           </Button>
-        <Modal/>
+        </Modal>
       </Grid>
     <div/>
   )
