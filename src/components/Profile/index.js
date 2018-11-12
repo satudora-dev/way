@@ -136,13 +136,13 @@ class Profile extends Component {
                 )
             })()}
           </div>
-          <PositionModal
+          {/* <PositionModal
             positionModalOpen={this.state.positionModalOpen}
             currentPosition={position}
             updatePosition={this.props.updatePosition}
             onPositionModalClose={() => this.setState({positionModalOpen: false})}
             profileUserKey={profileUserKey}
-          />
+          /> */}
         </div>
         <div className="Project">
           <h3 style={style.categorystyle}>projects</h3>
