@@ -85,22 +85,12 @@ class ImageUploader extends Component {
       image.onload = () => {
         EXIF.getData(imageFile, () => {
           let orientation = imageFile.exifdata.Orientation;
-          console.log(imageFile.exifdata.Orientation);
-          console.log(orientation);
+          //console.log(imageFile.exifdata.Orientation);
+          //console.log(orientation);
           let canvas = document.createElement('canvas');
-          let drawWidth = image.width;
-          let drawHeight = image.height;
-
-          if (orientation < 5) {
-            drawWidth = image.width;
-            drawHeight = image.height;
-          }
-          else {
-            drawWidth = image.height;
-            drawHeight = image.width;
-          }
-          canvas.width = image.height;
-          canvas.height = image.width;
+          canvas.width = image.width;
+          canvas.height = image.height;
+          canvas.height = image.height;
           let ctx = canvas.getContext('2d');
           switch (orientation) {
             case 2:
@@ -137,6 +127,17 @@ class ImageUploader extends Component {
 
             default:
               break;
+          }
+
+          let drawWidth;
+          let drawHeight;
+          if (orientation < 5) {
+            drawWidth = image.width;
+            drawHeight = image.height;
+          }
+          else {
+            drawWidth = image.height;
+            drawHeight = image.width;
           }
           ctx.drawImage(image, 0, 0, drawWidth, drawHeight);          
 
