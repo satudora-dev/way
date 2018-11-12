@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
+import CirclarProgress from '@material-ui/core/CircularProgress';
 import EXIF from 'exif-js';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const createObjectURL
   = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
@@ -23,14 +25,54 @@ class ImageUploader extends Component {
   onIconChange(e) {
 
     let imageFile = e.target.files[0];
-    this.props.deleteIconRef(this.props.profileUserKey);
-    this.props.uploadIcon(imageFile, this.props.profileUserKey);
+    //this.props.deleteIconRef(this.props.profileUserKey);
+    this.resizeImage(imageFile, imageFile =>
+      this.props.uploadIcon(imageFile, this.props.profileUserKey));
 
     this.optimizeImageOrientation(imageFile);
   }
 
+  resizeImage(iconFile, callback) {
+
+    let image = new Image();
+    image.onload = () => {
+      let width = image.width;
+      let height = image.height;
+      let maxSize = 512;
+
+      let canvas = document.createElement('canvas');
+      let aspect = image.width / image.height;
+      let scale = 1;
+
+      if (aspect > 1 && image.width > maxSize) {
+        canvas.width = maxSize;
+        canvas.height = Math.floor(maxSize / aspect);
+        scale = maxSize / image.width;
+      }
+      else if (aspect <= 1 && image.height > maxSize) {
+        canvas.height = maxSize;
+        canvas.width = Math.floor(maxSize * aspect);
+        scale = maxSize / image.height;
+      }
+      else {
+        canvas.width = image.width;
+        canvas.height = image.height;
+        scale = 1;
+      }
+
+      let ctx = canvas.getContext('2d');
+      ctx.scale(scale, scale);
+      ctx.drawImage(image, 0, 0, image.width, image.height);
+      canvas.toBlob(blob => {
+        this.setState({ iconSrc: canvas.toDataURL('image/png') });
+        callback(blob);
+      });
+    }
+    image.src = URL.createObjectURL(iconFile);
+  }
+
   optimizeImageOrientation(imageFile) {
-    
+
     EXIF.getData(imageFile, () => {
       let orientation = imageFile.exifdata.Orientation;
       let rotation = 0;
@@ -68,7 +110,7 @@ class ImageUploader extends Component {
       else {
         scale = 'scale(1,1)';
       }
-      
+
       this.setState({
         iconSrc: createObjectURL(imageFile),
         rotation: rotation,
@@ -101,21 +143,34 @@ class ImageUploader extends Component {
     return (
       <div>
         <div style={{ position: "relative", width: "256px", margin: "auto" }}>
-          <img src={this.state.iconSrc} style={style.imgstyle} alt="Loading..." />
-          <input type="file" style={{ display: "none" }}
-            onChange={e => this.onIconChange(e)}
-            ref="fileInput" />
-
           {(() => {
-            if (this.props.canEdit)
+            if (this.props.iconSrc) {
               return (
-                <Button mini onClick={() => this.refs.fileInput.click()} variant="fab" style={style.btnstyle}>
-                  <EditIcon />
-                </Button>
-              )
+                <div>
+                  <img src={this.state.iconSrc}
+                    style={style.imgstyle} alt="Loading..." />
+                </div>
+              );
+            }
+            else {
+              return <CircularProgress />
+            }
           })()}
-        </div>
-        <div className="Login">
+          {(() => {
+            if (this.props.canEdit) {
+              return (
+                <div>
+                  <input type="file" style={{ display: "none" }}
+                    onChange={e => this.onIconChange(e)}
+                    ref='fileInput' />
+                  <Button mini onClick={() => this.refs.fileInput.click()}
+                    variant="fab" style={style.btnstyle}>
+                    <EditIcon />
+                  </Button>
+                </div>
+              );
+            }
+          })()}
         </div>
       </div>
     );
