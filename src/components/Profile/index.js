@@ -22,8 +22,6 @@ class Profile extends Component {
     };
   }
 
-
-
   toPositionPage(posName) {
     this.props.history.push(`../users?position=${posName}`);
   }
@@ -88,13 +86,11 @@ class Profile extends Component {
     const profileUserKey = this.props.profileUserKey;
     const given = this.props.given || "";
     const family = this.props.family || "";
-    const icon = this.props.icon || "/portrait.png";
+    const icon = this.props.icon;
     const position = this.props.position || "";
     const projects = this.props.projects || [];
     const tags = this.props.tags || [];
     const canEdit = profileUserKey === this.props.ownKey;
-
-    console.log('icon Updated!');
 
     return (
       <div className="Profile">
