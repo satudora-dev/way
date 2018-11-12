@@ -1,19 +1,19 @@
-const users = (state = {init: true}, action) => {
+const users = (state = { init: true }, action) => {
   switch (action.type) {
     case 'RECEIVE_USERS_DATA':
       let users = {}
-      if(action.data){
-        Object.keys(action.data).forEach(key =>{
+      if (action.data) {
+        Object.keys(action.data).forEach(key => {
           let userinfo = action.data[key]
           let projects = []
-          if(userinfo.projects){
-            Object.keys(userinfo.projects).forEach(project =>{
+          if (userinfo.projects) {
+            Object.keys(userinfo.projects).forEach(project => {
               projects.push(project);
             })
           }
           let tags = []
-          if(userinfo.tags){
-            Object.keys(userinfo.tags).forEach(tag =>{
+          if (userinfo.tags) {
+            Object.keys(userinfo.tags).forEach(tag => {
               tags.push(tag);
             })
           }
@@ -35,6 +35,7 @@ const users = (state = {init: true}, action) => {
     case 'UPDATE_PROJECTS_ERROR':
     case 'ADD_TAG_ERROR':
     case 'DELETE_TAG_ERROR':
+    case 'DELETE_IMAGE_ERROR':
       // alert(action.message)
       return state
     default:
