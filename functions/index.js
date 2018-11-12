@@ -69,6 +69,21 @@ exports.generateThumbnail = functions.storage.object().onFinalize((object) => {
   // Create write stream for uploading thumbnail
   const thumbnailUploadStream = bucket.file(thumbFilePath).createWriteStream({ metadata });
 
+  const thumbFile = bucket.file(thumbFilePath);
+  if (thumbFile) {
+    thumbFile.delete();
+
+  }
+
+  thumbFile.getSignedUrl({
+    action: 'read',
+    expires: '03-09-2500'
+  }).then(signedUrls => {
+    let id = fileName.split('.')[0];
+    let ref = admin.database().ref(`/users/${id}/icon`);
+    ref.set(signedUrls[0]);
+  });
+
   // Create Sharp pipeline for resizing the image and use pipe to read from bucket read stream
   const pipeline = sharp();
   pipeline.rotate().resize(THUMB_MAX_WIDTH, THUMB_MAX_HEIGHT).max().pipe(thumbnailUploadStream);
@@ -79,16 +94,5 @@ exports.generateThumbnail = functions.storage.object().onFinalize((object) => {
   return new Promise((resolve, reject) =>
     thumbnailUploadStream.on('finish', () => {
       fileOrigin.delete();
-
-      let file = bucket.file(thumbFilePath);
-      file.getSignedUrl({
-        action: 'read',
-        expires: '03-09-2500'
-      }).then(signedUrls => {
-        let id = fileName.split('.')[0];
-        let ref = admin.database().ref(`/users/${id}/icon`);
-        ref.set(signedUrls[0]);
-      });
-      return resolve;
     }).on('error', reject));
 });
