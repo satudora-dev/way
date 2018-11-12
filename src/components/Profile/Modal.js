@@ -12,7 +12,7 @@ import aitl_projects from '../../components/aitl_projects';
 
 const OriginalModal = ({
   children,
-  mode,
+  mode = "single",
   buttonText,
   modalOpen,
   currentChecks,
@@ -20,6 +20,25 @@ const OriginalModal = ({
   onModalClose,
   profileUserKey
 }) => {
+
+  let Choices
+
+  if (mode === "single") {
+    Choices = (
+      <Select>
+        {aitl_positions.map(
+          position => (
+            <MenuItem
+              key = {position}
+              value = {position}
+            >
+              {position}
+            </MenuItem>
+          ))}
+      </Select>
+    )
+  }
+
   return (
     <div>
       <Modal
@@ -28,7 +47,12 @@ const OriginalModal = ({
       >
 
         <div>
-          {children}
+          <div>
+            {children}
+          </div>
+          <div>
+            {Choices}
+          </div>
         </div>
 
       </Modal>

@@ -11,7 +11,7 @@ import TagModal from './TagModal'
 import ProjectModal from './ProjectModal'
 import EditableLabel from '../../components/EditableLabel'
 import ImageUploader from '../../components/ImageUploader'
-
+import OriginalModal from './Modal'
 
 
 class Profile extends Component {
@@ -143,6 +143,16 @@ class Profile extends Component {
             onPositionModalClose={() => this.setState({positionModalOpen: false})}
             profileUserKey={profileUserKey}
           /> */}
+
+          <OriginalModal
+            mode = "single"
+            buttonText = "DONE"
+            modalOpen = {this.state.positionModalOpen}
+            onModalClose = {() => this.setState({positionModalOpen: false})}
+          >
+            Position
+          </OriginalModal>
+
         </div>
         <div className="Project">
           <h3 style={style.categorystyle}>projects</h3>
