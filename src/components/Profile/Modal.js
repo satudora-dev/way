@@ -22,20 +22,16 @@ const OriginalModal = ({
 }) => {
   return (
     <div>
-      <Grid>
-        <Modal
-          open = {modalOpen}
-          onClose = {() => onModalClose()}
-        >
-          <div>
-            {children}
-          </div>
+      <Modal
+        open = {modalOpen}
+        onClose = {() => onModalClose()}
+      >
 
-          <Button onClick = {() => onModalClose()}>
-            {buttonText}
-          </Button>
-        </Modal>
-      </Grid>
+        <div>
+          {children}
+        </div>
+
+      </Modal>
     </div>
   )
 }
