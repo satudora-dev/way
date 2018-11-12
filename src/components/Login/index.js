@@ -27,12 +27,12 @@ const Logo = styled.div `
 
 function GithubButton(props){
   return(
-        <div>
-          <Icon onClick={props.onClick}>
-            <img src="./github.svg" />
-          </Icon>
-          <h3>Login with GitHub</h3>
-        </div>        
+    <div>
+      <Icon onClick={props.onClick}>
+        <img src="./github.svg" />
+      </Icon>
+      <h3>Login with GitHub</h3>
+    </div>        
   );
 }
 
