@@ -5,3 +5,4 @@ export const firebaseApp=firebase.initializeApp(firebaseConfig);
 export const firebaseDB=firebaseApp.database();
 export const firebaseAuth=firebase.auth;
 export const firebaseStorage=firebase.storage();
+export const fireStore=firebase.firestore();
