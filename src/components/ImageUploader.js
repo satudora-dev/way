@@ -26,96 +26,120 @@ class ImageUploader extends Component {
 
     let imageFile = e.target.files[0];
     //this.props.deleteIconRef(this.props.profileUserKey);
-    this.resizeImage(imageFile, imageFile =>
-      this.props.uploadIcon(imageFile, this.props.profileUserKey));
+    this.resizeImage(imageFile).then((imageFile) =>
+      this.optimizeImageOrientation(imageFile).then(imageFile =>
+        this.props.uploadIcon(imageFile, this.props.profileUserKey)));
 
-    this.optimizeImageOrientation(imageFile);
+    //this.optimizeImageOrientation(imageFile);
   }
 
-  resizeImage(iconFile, callback) {
+  resizeImage(iconFile) {
 
-    let image = new Image();
-    image.onload = () => {
-      let width = image.width;
-      let height = image.height;
-      let maxSize = 512;
+    return new Promise(resolve => {
+      let image = new Image();
+      image.onload = () => {
+        let width = image.width;
+        let height = image.height;
+        let maxSize = 112;
 
-      let canvas = document.createElement('canvas');
-      let aspect = image.width / image.height;
-      let scale = 1;
+        let canvas = document.createElement('canvas');
+        let aspect = image.width / image.height;
+        let scale = 1;
 
-      if (aspect > 1 && image.width > maxSize) {
-        canvas.width = maxSize;
-        canvas.height = Math.floor(maxSize / aspect);
-        scale = maxSize / image.width;
-      }
-      else if (aspect <= 1 && image.height > maxSize) {
-        canvas.height = maxSize;
-        canvas.width = Math.floor(maxSize * aspect);
-        scale = maxSize / image.height;
-      }
-      else {
-        canvas.width = image.width;
-        canvas.height = image.height;
-        scale = 1;
-      }
+        if (aspect > 1 && image.width > maxSize) {
+          canvas.width = maxSize;
+          canvas.height = Math.floor(maxSize / aspect);
+          scale = maxSize / image.width;
+        }
+        else if (aspect <= 1 && image.height > maxSize) {
+          canvas.height = maxSize;
+          canvas.width = Math.floor(maxSize * aspect);
+          scale = maxSize / image.height;
+        }
+        else {
+          canvas.width = image.width;
+          canvas.height = image.height;
+          scale = 1;
+        }
 
-      let ctx = canvas.getContext('2d');
-      ctx.scale(scale, scale);
-      ctx.drawImage(image, 0, 0, image.width, image.height);
-      canvas.toBlob(blob => {
-        this.setState({ iconSrc: canvas.toDataURL('image/png') });
-        callback(blob);
-      });
-    }
-    image.src = URL.createObjectURL(iconFile);
+        let ctx = canvas.getContext('2d');
+        ctx.scale(scale, scale);
+        ctx.drawImage(image, 0, 0, image.width, image.height);
+        canvas.toBlob(blob => {
+          resolve(blob);
+        });
+      };
+      image.src = URL.createObjectURL(iconFile);
+    });
   }
 
   optimizeImageOrientation(imageFile) {
 
-    EXIF.getData(imageFile, () => {
-      let orientation = imageFile.exifdata.Orientation;
-      let rotation = 0;
+    return new Promise(resolve => {
+      let image = new Image();
+      image.onload = () => {
+        EXIF.getData(imageFile, () => {
+          let orientation = imageFile.exifdata.Orientation;
 
-      switch (orientation) {
-        case 1:
-        case 2:
-          rotation = 'rotate(0deg)';
-          break;
+          let canvas = document.createElement('canvas');
+          canvas.width = image.width;
+          canvas.height = image.height;
+          let ctx = canvas.getContext('2d');
+          switch (orientation) {
+            case 2:
+              ctx.transform(-1, 0, 0, 1, image.width, 0);
+              break;
 
-        case 3:
-        case 4:
-          rotation = 'rotate(180deg)';
-          break;
+            case 3:
+              ctx.transform(-1, 0, 0, -1, image.width, image.height);
+              break;
 
-        case 6:
-        case 7:
-          rotation = 'rotate(90deg)';
-          break;
+            case 4:
+              ctx.transform(1, 0, 0, -1, 0, image.height);
+              break;
 
-        case 5:
-        case 8:
-          rotation = 'rotate(270deg)';
-          break;
+            case 5:
+              ctx.transform(-1, 0, 0, 1, 0, 0);
+              ctx.rotate((90 * Math.PI) / 180);
+              break;
 
-        default:
-          break;
+            case 6:
+              ctx.transform(1, 0, 0, 1, image.width, 0);
+              ctx.rotate((90 * Math.PI) / 180);
+              break;
+
+            case 7:
+              ctx.transform(-1, 0, 0, 1, image.width, image.height);
+              ctx.rotate((-90 * Math.PI) / 180);
+              break;
+
+            case 8:
+              ctx.transform(1, 0, 0, 1, 0, image.height);
+              ctx.rotate((-90 * Math.PI) / 180);
+              break;
+
+            default:
+              break;
+          }
+          let drawWidth;
+          let drawHeight;
+          if (orientation < 5) {
+            drawWidth = image.width;
+            drawHeight = image.height;
+          }
+          else {
+            drawWidth = image.height;
+            drawHeight = image.width;
+          }
+
+          ctx.drawImage(image, 0, 0, drawWidth, drawHeight);
+          canvas.toBlob(blob => {
+            this.setState({ iconSrc: canvas.toDataURL('image/png') });
+            resolve(blob);
+          });
+        });
       }
-
-      let scale;
-      if (orientation === 2 || orientation === 4
-        || orientation === 5 || orientation === 7) {
-        scale = 'scale(-1,1)';
-      }
-      else {
-        scale = 'scale(1,1)';
-      }
-
-      this.setState({
-        iconSrc: createObjectURL(imageFile),
-        rotation: rotation,
-        scale: scale,
-      });
+      image.src = URL.createObjectURL(imageFile);
     });
   }
 
