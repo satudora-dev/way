@@ -36,7 +36,7 @@ const OriginalModal = ({
           </Button>
         </Modal>
       </Grid>
-    <div/>
+    </div>
   )
 }
 
