@@ -121,7 +121,6 @@ class Signup extends Component {
               ctx.rotate((90 * Math.PI) / 180);
               draw_width = canvas_height;
               draw_height = canvas_width;
-              console.log("6!")
               break;
 
             case 7:
