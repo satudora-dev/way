@@ -25,9 +25,11 @@ class ImageUploader extends Component {
   onIconChange(e) {
 
     let imageFile = e.target.files[0];
+    if (!e) return;
+
     //this.props.deleteIconRef(this.props.profileUserKey);
-    this.resizeImage(imageFile).then((imageFile) =>
-      this.optimizeImageOrientation(imageFile).then(imageFile =>
+    this.optimizeImageOrientation(imageFile).then(imageFile =>
+      this.resizeImage(imageFile).then(imageFile =>
         this.props.uploadIcon(imageFile, this.props.profileUserKey)));
 
     //this.optimizeImageOrientation(imageFile);
@@ -65,7 +67,9 @@ class ImageUploader extends Component {
         let ctx = canvas.getContext('2d');
         ctx.scale(scale, scale);
         ctx.drawImage(image, 0, 0, image.width, image.height);
+
         canvas.toBlob(blob => {
+          this.setState({ iconSrc: canvas.toDataURL('image/png') });
           resolve(blob);
         });
       };
@@ -75,15 +79,28 @@ class ImageUploader extends Component {
 
   optimizeImageOrientation(imageFile) {
 
+
     return new Promise(resolve => {
       let image = new Image();
       image.onload = () => {
         EXIF.getData(imageFile, () => {
           let orientation = imageFile.exifdata.Orientation;
-
+          console.log(imageFile.exifdata.Orientation);
+          console.log(orientation);
           let canvas = document.createElement('canvas');
-          canvas.width = image.width;
-          canvas.height = image.height;
+          let drawWidth = image.width;
+          let drawHeight = image.height;
+
+          if (orientation < 5) {
+            drawWidth = image.width;
+            drawHeight = image.height;
+          }
+          else {
+            drawWidth = image.height;
+            drawHeight = image.width;
+          }
+          canvas.width = image.height;
+          canvas.height = image.width;
           let ctx = canvas.getContext('2d');
           switch (orientation) {
             case 2:
@@ -121,20 +138,9 @@ class ImageUploader extends Component {
             default:
               break;
           }
-          let drawWidth;
-          let drawHeight;
-          if (orientation < 5) {
-            drawWidth = image.width;
-            drawHeight = image.height;
-          }
-          else {
-            drawWidth = image.height;
-            drawHeight = image.width;
-          }
+          ctx.drawImage(image, 0, 0, drawWidth, drawHeight);          
 
-          ctx.drawImage(image, 0, 0, drawWidth, drawHeight);
           canvas.toBlob(blob => {
-            this.setState({ iconSrc: canvas.toDataURL('image/png') });
             resolve(blob);
           });
         });
