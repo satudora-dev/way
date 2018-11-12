@@ -2,7 +2,7 @@ import Profile from '../components/Profile';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions';
-import { uploadIcon } from '../actions/iconUploadAction';
+import { uploadIcon, deleteIconRef } from '../actions/iconAction';
 
 const mapStateToProps = ({ auth, users }, ownProps) => {
   const ownKey = auth.ownKey;
@@ -36,6 +36,7 @@ const mapDispatchToProps = dispatch => {
     addTag: actions.addTag,
     deleteTag: actions.deleteTag,
     uploadIcon: (icon, userKey) => uploadIcon(icon, userKey, dispatch),
+    deleteIconRef: userKey => deleteIconRef(userKey, dispatch),
   });
 }
 

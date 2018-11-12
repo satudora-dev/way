@@ -20,9 +20,17 @@ class ImageUploader extends Component {
     this.setState({ iconSrc: nextProps.iconSrc });
   }
 
-  optimizeImage(e) {
+  onIconChange(e) {
 
     let imageFile = e.target.files[0];
+    this.props.deleteIconRef(this.props.profileUserKey);
+    this.props.uploadIcon(imageFile, this.props.profileUserKey);
+
+    this.optimizeImageOrientation(imageFile);
+  }
+
+  optimizeImageOrientation(imageFile) {
+    
     EXIF.getData(imageFile, () => {
       let orientation = imageFile.exifdata.Orientation;
       let rotation = 0;
@@ -66,7 +74,6 @@ class ImageUploader extends Component {
         rotation: rotation,
         scale: scale,
       });
-      this.props.uploadIcon(imageFile, this.props.profileUserKey);
     });
   }
 
@@ -96,7 +103,7 @@ class ImageUploader extends Component {
         <div style={{ position: "relative", width: "256px", margin: "auto" }}>
           <img src={this.state.iconSrc} style={style.imgstyle} alt="Loading..." />
           <input type="file" style={{ display: "none" }}
-            onChange={e => this.optimizeImage(e)}
+            onChange={e => this.onIconChange(e)}
             ref="fileInput" />
 
           {(() => {
