@@ -10,7 +10,7 @@ import PositionModal from './PositionModal'
 import TagModal from './TagModal'
 import ProjectModal from './ProjectModal'
 import EditableLabel from '../../components/EditableLabel'
-import ImageUploader from '../../components/ImageUploader'
+import IconUploader from '../../components/IconUploader'
 
 class Profile extends Component {
   constructor(props) {
@@ -95,7 +95,7 @@ class Profile extends Component {
     return (
       <div className="Profile">
         <div className="Home" style={style.divstyle}>
-          <ImageUploader
+          <IconUploader
             iconSrc={icon}
             profileUserKey={profileUserKey}
             canEdit={canEdit}

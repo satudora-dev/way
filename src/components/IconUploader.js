@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const createObjectURL
   = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
 
-class ImageUploader extends Component {
+class IconUploader extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,8 +31,6 @@ class ImageUploader extends Component {
     this.optimizeImageOrientation(imageFile).then(imageFile =>
       this.resizeImage(imageFile).then(imageFile =>
       this.props.uploadIcon(imageFile, this.props.profileUserKey)));
-
-    //this.optimizeImageOrientation(imageFile);
   }
 
   resizeImage(iconFile) {
@@ -85,8 +83,7 @@ class ImageUploader extends Component {
       image.onload = () => {
         EXIF.getData(imageFile, () => {
           let orientation = imageFile.exifdata.Orientation;
-          console.log(image.width);
-          console.log(image.height);
+
           let canvas = document.createElement('canvas');
           if (orientation <= 4) {
             canvas.width = image.width;
@@ -96,9 +93,10 @@ class ImageUploader extends Component {
             canvas.width = image.height;
             canvas.height = image.width;
           }
+
           let ctx = canvas.getContext('2d');
 
-          switch (orientation) {
+          switch (orientation) {//‰ñ“]
             case 3:
             case 4:
               ctx.rotate(Math.PI);
@@ -120,14 +118,16 @@ class ImageUploader extends Component {
             default:
               break;
           }
-          if (orientation == 2 || orientation == 4) {
+
+          if (orientation == 2 || orientation == 4) {//”½“]
             ctx.scale(-1, 1);
             ctx.translate(-image.width, 0);
           }
-          if (orientation == 5 || orientation == 7) {
+          if (orientation == 5 || orientation == 7) {//”½“]
             ctx.scale(1, -1);
             ctx.translate(0, -image.height);
           }
+
           ctx.drawImage(image, 0, 0, image.width, image.height);          
 
           canvas.toBlob(blob => {
@@ -197,4 +197,4 @@ class ImageUploader extends Component {
   }
 }
 
-export default ImageUploader;
+export default IconUploader;
