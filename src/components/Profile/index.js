@@ -6,9 +6,6 @@ import EditIcon from '@material-ui/icons/Edit'
 import CloseIcon from '@material-ui/icons/Close'
 
 
-import PositionModal from './PositionModal'
-import TagModal from './TagModal'
-import ProjectModal from './ProjectModal'
 import EditableLabel from '../../components/EditableLabel'
 import ImageUploader from '../../components/ImageUploader'
 import OriginalModal from './OriginalModal'
