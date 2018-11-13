@@ -36,14 +36,21 @@ const OriginalModal = ({
           key = {choice}
           value = {choice}
         >
-          {choice}
+          <Checkbox
+            checked = {currentChecks.indexOf(choice) !== -1}
+          />
+          <ListItemText
+            primary = {choice}
+          />
         </MenuItem>
       ))
   )
 
   if (mode === "single") {
     Choices = (
-      <Select>
+      <Select
+        value = {currentChecks}
+      >
         {choicesArrayMap}
       </Select>
     )

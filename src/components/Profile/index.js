@@ -163,6 +163,7 @@ class Profile extends Component {
             mode = "single"
             buttonText = "DONE"
             choicesArray = {aitl_positions}
+            currentChecks = {position}
             modalOpen = {this.state.positionModalOpen}
             onModalClose = {() => this.setState({positionModalOpen: false})}
           >
