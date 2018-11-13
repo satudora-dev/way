@@ -1,11 +1,11 @@
 import { fireStore, firebaseAuth} from '../firebase';
 
 
-const userRef=fireStore.collection('users');
-const accountRef=fireStore.collection('accounts');
-const positionRef=fireStore.collection('positions');
-const projectRef=fireStore.collection('projects');
-const tagRef=fireStore.collection('tags');
+const usersRef=fireStore.collection('users');
+const accountsRef=fireStore.collection('accounts');
+const positionsRef=fireStore.collection('positions');
+const projectsRef=fireStore.collection('projects');
+const tagsRef=fireStore.collection('tags');
 
 
 const fetchAccountsSuccess = accounts => {
@@ -46,45 +46,46 @@ const fetchUsersSuccess = users => {
 }
 
 
-const setCurrentUser = ownkey  => {
+const setCurrentUser = ownKey  => {
   return {
     type: 'SET_CURRENT_USER',
-    ownkey: ownkey
+    ownKey: ownKey
   }
 }
 
 export const initFetchIfLoggedIn = () => dispatch => {
   firebaseAuth().onAuthStateChanged(user=>{
+    console.log(user.uid)
     if(user){
-      accountRef.onSnapshot((snapshot) => {
+      accountsRef.onSnapshot((snapshot) => {
         let accounts=[];
         snapshot.docs.forEach((doc) => {
           accounts.push(doc.data());
         })
         dispatch(fetchAccountsSuccess(accounts))
       })
-      positionRef.onSnapshot((snapshot) => {
+      positionsRef.onSnapshot((snapshot) => {
         let positions=[];
         snapshot.docs.forEach((doc) => {
           positions.push(doc.data());
         })
         dispatch(fetchPositionsSuccess(positions));
       })
-      projectRef.onSnapshot((snapshot) => {
+      projectsRef.onSnapshot((snapshot) => {
         let projects=[];
         snapshot.docs.forEach((doc) => {
           projects.push(doc.data());
         })
         dispatch(fetchProjectsSuccess(projects));
       })
-      tagRef.onSnapshot((snapshot) => {
+      tagsRef.onSnapshot((snapshot) => {
         let tags=[];
         snapshot.docs.forEach((doc) => {
           tags.push(doc.data());
         })
         dispatch(fetchTagsSuccess(tags));
       })
-      userRef.onSnapshot((snapshot) => {
+      usersRef.onSnapshot((snapshot) => {
         let users=[];
         snapshot.docs.forEach((doc) => {
           users.push(doc.data());
