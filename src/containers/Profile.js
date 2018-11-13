@@ -36,7 +36,6 @@ const mapDispatchToProps = dispatch => {
     addTag: actions.addTag,
     deleteTag: actions.deleteTag,
     uploadIcon: (icon, userKey) => uploadIcon(icon, userKey, dispatch),
-    deleteIconRef: userKey => deleteIconRef(userKey, dispatch),
   });
 }
 
