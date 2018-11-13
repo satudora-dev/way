@@ -23,4 +23,4 @@ yarn-error.log*
 .vs/slnx.sqlite
 
 /functions/account.json
-.vs
+/.vs
