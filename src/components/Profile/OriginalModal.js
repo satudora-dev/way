@@ -2,14 +2,13 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import Grid from '@material-ui/core/Grid';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
+import TextField from '@material-ui/core/TextField';
 import aitl_positions from '../../components/aitl_positions';
 import aitl_projects from '../../components/aitl_projects';
 
@@ -30,45 +29,30 @@ const style = {
   },
 }
 
-const SelectModal = ({
+const OriginalModal = ({
   children,
   mode,
   buttonText,
   modalOpen,
-  choicesArray,
+  inputArray,
   currentChecks,
   updateData,
   onModalClose,
   profileUserKey,
+  addText,
   ...other
 }) => {
 
-  let Choices
-
-  let choicesArrayMap = (
-    choicesArray.map(
-      choice => (
-        <MenuItem
-          key = {choice}
-          value = {choice}
-        >
-          <Checkbox
-            checked = {currentChecks.indexOf(choice) !== -1}
-          />
-          <ListItemText
-            primary = {choice}
-          />
-        </MenuItem>
-      ))
-  )
+  let ModalInput
+  let input
 
   if (mode === "single") {
-    Choices = (
+    ModalInput = (
       <Select
         value = {currentChecks}
         onChange = {(e) => updateData(currentChecks, e.target.value, profileUserKey)}
       >
-        {choicesArray.map(
+        {inputArray.map(
           choice => (
             <MenuItem
               key = {choice}
@@ -80,14 +64,14 @@ const SelectModal = ({
       </Select>
     )
   } else if (mode === "multiple") {
-    Choices = (
+    ModalInput = (
       <Select
         multiple
         value = {currentChecks}
         renderValue={value => value.join(', ')}
         onChange = {(e) => updateData(currentChecks, e.target.value, profileUserKey)}
       >
-        {choicesArray.map(
+        {inputArray.map(
           choice => (
             <MenuItem
               key = {choice}
@@ -102,6 +86,15 @@ const SelectModal = ({
             </MenuItem>
           ))}
       </Select>
+    )
+  } else if (mode === "text") {
+
+    ModalInput =(
+      <TextField
+        label = {mode}
+        value = {input}
+        onChange = {(e) => {input = e.target.value}}
+      />
     )
   }
 
@@ -118,18 +111,26 @@ const SelectModal = ({
               <h3>{children}</h3>
             </div>
             <div>
-              {Choices}
+              {ModalInput}
             </div>
             <div
               style = {{margin:"10px"}}
             >
               <Button
-                style = {
-                  currentChecks === 0 || currentChecks === undefined ?
-                  style.disabledstyle : style.btnstyle
-                }
+                style = {style.btnstyle}
                 variant = "outlined"
-                onClick = {() => onModalClose()}
+                onClick = {() => {
+                  if (mode === "text") {
+                    if (input === "" || input === undefined) {
+                      return
+                    } else {
+                      addText(input, profileUserKey)
+                      onModalClose()
+                    }
+                  } else {
+                    onModalClose()
+                  }
+                }}
               >
                 {buttonText}
               </Button>
@@ -142,4 +143,4 @@ const SelectModal = ({
   )
 }
 
-export default SelectModal
+export default OriginalModal

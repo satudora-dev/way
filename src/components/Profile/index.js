@@ -11,7 +11,7 @@ import TagModal from './TagModal'
 import ProjectModal from './ProjectModal'
 import EditableLabel from '../../components/EditableLabel'
 import ImageUploader from '../../components/ImageUploader'
-import SelectModal from './SelectModal'
+import OriginalModal from './OriginalModal'
 import aitl_positions from '../../components/aitl_positions';
 import aitl_projects from '../../components/aitl_projects';
 
@@ -152,19 +152,19 @@ class Profile extends Component {
             })()}
           </div>
 
-          <SelectModal
+          <OriginalModal
             style = {style.modalStyle}
             mode = "single"
             buttonText = "DONE"
             modalOpen = {this.state.positionModalOpen}
-            choicesArray = {aitl_positions}
+            inputArray = {aitl_positions}
             currentChecks = {position}
             updateData = {this.props.updatePosition}
             onModalClose = {() => this.setState({positionModalOpen: false})}
             profileUserKey={profileUserKey}
           >
             Position
-          </SelectModal>
+          </OriginalModal>
 
         </div>
         <div className="Project">
@@ -194,19 +194,19 @@ class Profile extends Component {
                 )
             })()}
 
-            <SelectModal
+            <OriginalModal
               style = {style.modalStyle}
               mode = "multiple"
               buttonText = "DONE"
               modalOpen = {this.state.projectModalOpen}
-              choicesArray = {aitl_projects}
+              inputArray = {aitl_projects}
               currentChecks = {projects}
               updateData = {this.props.updateProjects}
               onModalClose = {() => this.setState({projectModalOpen: false})}
               profileUserKey={profileUserKey}
             >
               Projects
-            </SelectModal>
+            </OriginalModal>
 
           </div>
         </div>
@@ -227,11 +227,19 @@ class Profile extends Component {
                     variant="fab" style={style.btnstyle}>
             <AddIcon />
             </Button>
-          <TagModal
-            tagModalOpen={this.state.tagModalOpen}
-            addTag={this.props.addTag}
-            onTagModalClose={() => this.setState({tagModalOpen: false})}
-            profileUserKey={profileUserKey} />
+
+            <OriginalModal
+              style = {style.modalStyle}
+              mode = "text"
+              buttonText = "DONE"
+              modalOpen = {this.state.tagModalOpen}
+              onModalClose = {() => this.setState({tagModalOpen: false})}
+              addText = {this.props.addTag}
+              profileUserKey = {profileUserKey}
+            >
+              Add Tags
+            </OriginalModal>
+
             </div>
         </div>
       </div>
