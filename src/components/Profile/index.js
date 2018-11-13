@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 
-import AddIcon from '@material-ui/icons/Add'
-import EditIcon from '@material-ui/icons/Edit'
-import CloseIcon from '@material-ui/icons/Close'
+import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import CloseIcon from '@material-ui/icons/Close';
 
 
-import PositionModal from './PositionModal'
-import TagModal from './TagModal'
-import ProjectModal from './ProjectModal'
-import EditableLabel from '../../components/EditableLabel'
-import IconUploader from '../../components/IconUploader'
+import PositionModal from './PositionModal';
+import TagModal from './TagModal';
+import ProjectModal from './ProjectModal';
+import EditableLabel from '../../components/EditableLabel';
+import IconPreview from '../../components/IconPreview';
 
 class Profile extends Component {
   constructor(props) {
@@ -95,12 +95,11 @@ class Profile extends Component {
     return (
       <div className="Profile">
         <div className="Home" style={style.divstyle}>
-          <IconUploader
+          <IconPreview
             iconSrc={icon}
-            profileUserKey={profileUserKey}
             canEdit={canEdit}
-            deleteIconRef={this.props.deleteIconRef}
-            uploadIcon={this.props.uploadIcon} />
+            onChange={imageFile =>
+              this.props.uploadIcon(imageFile, profileUserKey)} />
           <EditableLabel
             style={style.namestyle}
             value={[given, family]}

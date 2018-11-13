@@ -8,13 +8,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const createObjectURL
   = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
 
-class IconUploader extends Component {
+export default class IconPreview extends Component {
   constructor(props) {
     super(props);
     this.state = {
       iconSrc: props.iconSrc,
-      rotation: 'rotate(0deg)',
-      scale: 'scale(1,1)',
     };
   }
 
@@ -27,10 +25,10 @@ class IconUploader extends Component {
     let imageFile = e.target.files[0];
     if (!imageFile) return;
 
-    this.props.deleteIconRef(this.props.profileUserKey);
+    this.setState({ iconSrc: null });
     this.optimizeImageOrientation(imageFile).then(imageFile =>
       this.resizeImage(imageFile).then(imageFile =>
-      this.props.uploadIcon(imageFile, this.props.profileUserKey)));
+        this.props.onChange(imageFile)));
   }
 
   optimizeImageOrientation(imageFile) {
@@ -40,7 +38,7 @@ class IconUploader extends Component {
       image.onload = () => {
         EXIF.getData(imageFile, () => {
           let orientation = imageFile.exifdata.Orientation;
-          console.log(orientation);
+
           if (!orientation) {
             resolve(imageFile);
             return;
@@ -201,5 +199,3 @@ class IconUploader extends Component {
     );
   }
 }
-
-export default IconUploader;
