@@ -6,9 +6,11 @@
     "\\src\\actions",
     "\\src\\components",
     "\\src\\components\\App",
-    "\\src\\components\\Profile",
-    "\\src\\containers"
+    "\\src\\components\\Signup",
+    "\\src\\firebase",
+    "\\src\\reducers",
+    "\\src\\utils"
   ],
-  "SelectedNode": "\\functions\\account.json",
+  "SelectedNode": "\\src\\components\\Profile\\index.js",
   "PreviewInSolutionExplorer": false
 }

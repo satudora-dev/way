@@ -25,12 +25,12 @@ class ImageUploader extends Component {
   onIconChange(e) {
 
     let imageFile = e.target.files[0];
-    if (!e) return;
+    if (!imageFile) return;
 
     //this.props.deleteIconRef(this.props.profileUserKey);
     this.optimizeImageOrientation(imageFile).then(imageFile =>
       this.resizeImage(imageFile).then(imageFile =>
-        this.props.uploadIcon(imageFile, this.props.profileUserKey)));
+      this.props.uploadIcon(imageFile, this.props.profileUserKey)));
 
     //this.optimizeImageOrientation(imageFile);
   }
@@ -68,8 +68,9 @@ class ImageUploader extends Component {
         ctx.scale(scale, scale);
         ctx.drawImage(image, 0, 0, image.width, image.height);
 
+        console.log('set image');
+        this.setState({ iconSrc: canvas.toDataURL('image/png') });
         canvas.toBlob(blob => {
-          this.setState({ iconSrc: canvas.toDataURL('image/png') });
           resolve(blob);
         });
       };
@@ -79,67 +80,55 @@ class ImageUploader extends Component {
 
   optimizeImageOrientation(imageFile) {
 
-
     return new Promise(resolve => {
       let image = new Image();
       image.onload = () => {
         EXIF.getData(imageFile, () => {
           let orientation = imageFile.exifdata.Orientation;
-          //console.log(imageFile.exifdata.Orientation);
-          //console.log(orientation);
+          console.log(image.width);
+          console.log(image.height);
           let canvas = document.createElement('canvas');
-          canvas.width = image.width;
-          canvas.height = image.height;
-          canvas.height = image.height;
+          if (orientation <= 4) {
+            canvas.width = image.width;
+            canvas.height = image.height;
+          }
+          else {
+            canvas.width = image.height;
+            canvas.height = image.width;
+          }
           let ctx = canvas.getContext('2d');
+
           switch (orientation) {
-            case 2:
-              ctx.transform(-1, 0, 0, 1, image.width, 0);
-              break;
-
             case 3:
-              ctx.transform(-1, 0, 0, -1, image.width, image.height);
-              break;
-
             case 4:
-              ctx.transform(1, 0, 0, -1, 0, image.height);
+              ctx.rotate(Math.PI);
+              ctx.translate(-image.width, -image.height);
               break;
 
             case 5:
-              ctx.transform(-1, 0, 0, 1, 0, 0);
-              ctx.rotate((90 * Math.PI) / 180);
-              break;
-
             case 6:
-              ctx.transform(1, 0, 0, 1, image.width, 0);
-              ctx.rotate((90 * Math.PI) / 180);
+              ctx.rotate(Math.PI / 2);
+              ctx.translate(0, -image.height);
               break;
 
             case 7:
-              ctx.transform(-1, 0, 0, 1, image.width, image.height);
-              ctx.rotate((-90 * Math.PI) / 180);
-              break;
-
             case 8:
-              ctx.transform(1, 0, 0, 1, 0, image.height);
-              ctx.rotate((-90 * Math.PI) / 180);
+              ctx.rotate(Math.PI * 3 / 2);
+              ctx.translate(-image.width, 0);
               break;
 
             default:
               break;
           }
-
-          let drawWidth;
-          let drawHeight;
-          if (orientation < 5) {
-            drawWidth = image.width;
-            drawHeight = image.height;
+          if (orientation == 2 || orientation == 4) {
+            ctx.scale(-1, 1);
+            ctx.translate(-image.width, 0);
           }
-          else {
-            drawWidth = image.height;
-            drawHeight = image.width;
+          if (orientation == 5 || orientation == 7) {
+            ctx.scale(1, -1);
+            ctx.translate(0, -image.height);
           }
-          ctx.drawImage(image, 0, 0, drawWidth, drawHeight);          
+          ctx.drawImage(image, 0, 0, image.width, image.height);          
 
           canvas.toBlob(blob => {
             resolve(blob);
@@ -175,7 +164,7 @@ class ImageUploader extends Component {
       <div>
         <div style={{ position: "relative", width: "256px", margin: "auto" }}>
           {(() => {
-            if (this.props.iconSrc) {
+            if (this.state.iconSrc) {
               return (
                 <div>
                   <img src={this.state.iconSrc}
