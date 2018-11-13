@@ -11,7 +11,7 @@ import TagModal from './TagModal'
 import ProjectModal from './ProjectModal'
 import EditableLabel from '../../components/EditableLabel'
 import ImageUploader from '../../components/ImageUploader'
-import OriginalModal from './Modal'
+import SelectModal from './Modal'
 import aitl_positions from '../../components/aitl_positions';
 import aitl_projects from '../../components/aitl_projects';
 
@@ -151,14 +151,8 @@ class Profile extends Component {
                 )
             })()}
           </div>
-          {/* <PositionModal
-            positionModalOpen={this.state.positionModalOpen}
-            currentPosition={position}
-            updatePosition={this.props.updatePosition}
-            onPositionModalClose={() => this.setState({positionModalOpen: false})}
-            profileUserKey={profileUserKey}
-          /> */}
-          <OriginalModal
+
+          <SelectModal
             style = {style.modalStyle}
             mode = "single"
             buttonText = "DONE"
@@ -170,7 +164,7 @@ class Profile extends Component {
             profileUserKey={profileUserKey}
           >
             Position
-          </OriginalModal>
+          </SelectModal>
 
         </div>
         <div className="Project">
@@ -199,14 +193,8 @@ class Profile extends Component {
                     </Button>
                 )
             })()}
-            {/* <ProjectModal
-              projectModalOpen={this.state.projectModalOpen}
-              currentProjects={projects}
-              updateProjects={this.props.updateProjects}
-              onProjectModalClose={() => this.setState({projectModalOpen: false})}
-              profileUserKey={profileUserKey}
-            /> */}
-            <OriginalModal
+
+            <SelectModal
               style = {style.modalStyle}
               mode = "multiple"
               buttonText = "DONE"
@@ -218,7 +206,8 @@ class Profile extends Component {
               profileUserKey={profileUserKey}
             >
               Projects
-            </OriginalModal>
+            </SelectModal>
+
           </div>
         </div>
 

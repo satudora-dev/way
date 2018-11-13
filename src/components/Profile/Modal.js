@@ -7,14 +7,30 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import NativeSelect from '@material-ui/core/NativeSelect';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
 import aitl_positions from '../../components/aitl_positions';
 import aitl_projects from '../../components/aitl_projects';
 
+const style = {
+  btnstyle: {
+    marginRight: "10px",
+    marginBottom: "10px",
+    backgroundColor: "#04B486",
+    "color": "white",
+    textTransform: "none",
+  },
+  disabledstyle: {
+    marginRight: "10px",
+    marginBottom: "10px",
+    backgroundColor: "gray",
+    "color": "white",
+    textTransform: "none",
+  },
+}
 
-
-const OriginalModal = ({
+const SelectModal = ({
   children,
   mode,
   buttonText,
@@ -104,8 +120,15 @@ const OriginalModal = ({
             <div>
               {Choices}
             </div>
-            <div>
+            <div
+              style = {{margin:"10px"}}
+            >
               <Button
+                style = {
+                  currentChecks === 0 || currentChecks === undefined ?
+                  style.disabledstyle : style.btnstyle
+                }
+                variant = "outlined"
                 onClick = {() => onModalClose()}
               >
                 {buttonText}
@@ -119,4 +142,4 @@ const OriginalModal = ({
   )
 }
 
-export default OriginalModal
+export default SelectModal
