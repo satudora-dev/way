@@ -29,37 +29,31 @@ const OriginalModal = ({
 
   let Choices
 
+  let choicesArrayMap = (
+    choicesArray.map(
+      choice => (
+        <MenuItem
+          key = {choice}
+          value = {choice}
+        >
+          {choice}
+        </MenuItem>
+      ))
+  )
+
   if (mode === "single") {
     Choices = (
       <Select>
-        {choicesArray.map(
-          choice => (
-            <MenuItem
-              key = {choice}
-              value = {choice}
-            >
-              {choice}
-            </MenuItem>
-          ))}
+        {choicesArrayMap}
       </Select>
     )
-  } else if (mode === "multi") {
+  } else if (mode === "multiple") {
     Choices = (
       <Select
         multiple
         value = {currentChecks}
       >
-        {choicesArray.map(
-          choice => (
-            <div>
-              <MenuItem
-                key = {choice}
-                value = {choice}
-              >
-                {choice}
-              </MenuItem>
-            </div>
-          ))}
+        {choicesArrayMap}
       </Select>
     )
   }

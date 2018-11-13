@@ -205,7 +205,7 @@ class Profile extends Component {
             /> */}
             <OriginalModal
               style = {style.modalStyle}
-              mode = "multi"
+              mode = "multiple"
               buttonText = "DONE"
               modalOpen = {this.state.projectModalOpen}
               choicesArray = {aitl_projects}
