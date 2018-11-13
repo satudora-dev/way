@@ -94,7 +94,6 @@ export const initFetchIfLoggedIn = () => dispatch => {
       })
       dispatch(setCurrentUser(user.uid));
     }else{
-      console.log("asako")
       dispatch(setCurrentUser(null));
     }
   })

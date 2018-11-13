@@ -28,7 +28,6 @@ export const signUpAsUser = (uID, given, family, mei, sei, icon) => dispatch => 
   storageRef.child('icons/'+uID).put(icon)
     .on('state_changed', () => {
       storageRef.child('icons/'+uID).getDownloadURL().then((url)=>{
-        console.log(uID)
           usersRef.doc(uID).set({
             given_en: given,
             family_en: family,
