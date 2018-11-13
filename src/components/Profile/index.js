@@ -12,6 +12,9 @@ import ProjectModal from './ProjectModal'
 import EditableLabel from '../../components/EditableLabel'
 import ImageUploader from '../../components/ImageUploader'
 import OriginalModal from './Modal'
+import aitl_positions from '../../components/aitl_positions';
+import aitl_projects from '../../components/aitl_projects';
+
 
 
 class Profile extends Component {
@@ -85,6 +88,18 @@ class Profile extends Component {
         backgroundColor: "#04B486",
         textTransform: "none",
         "color": "white",
+      },
+      modalStyle: {
+        display:"inline-block",
+        marginTop:"250px",
+        height:"200px",
+        //widthはGridでレスポンシブに
+        minWidth: "300px",
+        backgroundColor:"white",
+        textAlign:"center",
+        "outline":"none",
+        borderRadius:"30px",
+        fontFamily:"Avenir",
       }
     }
     const profileUserKey = this.props.profileUserKey;
@@ -143,10 +158,11 @@ class Profile extends Component {
             onPositionModalClose={() => this.setState({positionModalOpen: false})}
             profileUserKey={profileUserKey}
           /> */}
-
           <OriginalModal
+            style = {style.modalStyle}
             mode = "single"
             buttonText = "DONE"
+            choicesArray = {aitl_positions}
             modalOpen = {this.state.positionModalOpen}
             onModalClose = {() => this.setState({positionModalOpen: false})}
           >
@@ -180,13 +196,24 @@ class Profile extends Component {
                     </Button>
                 )
             })()}
-            <ProjectModal
+            {/* <ProjectModal
               projectModalOpen={this.state.projectModalOpen}
               currentProjects={projects}
               updateProjects={this.props.updateProjects}
               onProjectModalClose={() => this.setState({projectModalOpen: false})}
               profileUserKey={profileUserKey}
-            />
+            /> */}
+            <OriginalModal
+              style = {style.modalStyle}
+              mode = "multi"
+              buttonText = "DONE"
+              modalOpen = {this.state.projectModalOpen}
+              choicesArray = {aitl_projects}
+              currentChecks = {projects}
+              onModalClose = {() => this.setState({projectModalOpen: false})}
+            >
+              Projects
+            </OriginalModal>
           </div>
         </div>
 

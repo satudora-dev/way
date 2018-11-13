@@ -7,32 +7,24 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Checkbox from '@material-ui/core/Checkbox';
+import ListItemText from '@material-ui/core/ListItemText';
 import aitl_positions from '../../components/aitl_positions';
 import aitl_projects from '../../components/aitl_projects';
 
 
-const modalStyle = {
-  display:"inline-block",
-  marginTop:"250px",
-  height:"200px",
-  //widthはGridでレスポンシブに
-  minWidth: "300px",
-  backgroundColor:"white",
-  textAlign:"center",
-  "outline":"none",
-  borderRadius:"30px",
-  fontFamily:"Avenir",
-}
 
 const OriginalModal = ({
   children,
-  mode = "single",
+  mode,
   buttonText,
   modalOpen,
+  choicesArray,
   currentChecks,
   updateData,
   onModalClose,
-  profileUserKey
+  profileUserKey,
+  ...other
 }) => {
 
   let Choices
@@ -40,14 +32,33 @@ const OriginalModal = ({
   if (mode === "single") {
     Choices = (
       <Select>
-        {aitl_positions.map(
-          position => (
+        {choicesArray.map(
+          choice => (
             <MenuItem
-              key = {position}
-              value = {position}
+              key = {choice}
+              value = {choice}
             >
-              {position}
+              {choice}
             </MenuItem>
+          ))}
+      </Select>
+    )
+  } else if (mode === "multi") {
+    Choices = (
+      <Select
+        multiple
+        value = {currentChecks}
+      >
+        {choicesArray.map(
+          choice => (
+            <div>
+              <MenuItem
+                key = {choice}
+                value = {choice}
+              >
+                {choice}
+              </MenuItem>
+            </div>
           ))}
       </Select>
     )
@@ -61,12 +72,17 @@ const OriginalModal = ({
           onClose = {() => onModalClose()}
         >
 
-          <div style = {modalStyle}>
+          <div {...other}>
             <div>
-              {children}
+              <h3>{children}</h3>
             </div>
             <div>
               {Choices}
+            </div>
+            <div>
+              <Button>
+                {buttonText}
+              </Button>
             </div>
           </div>
 
