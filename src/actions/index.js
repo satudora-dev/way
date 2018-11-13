@@ -73,7 +73,6 @@ const fetchTagsError = error => {
 
 
 const fetchUsersSuccess = snapshot => {
-  console.log("Updated users");
   return {
     type: 'RECEIVE_USERS_DATA',
     data: snapshot.val()
