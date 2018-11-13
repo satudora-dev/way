@@ -1,6 +1,6 @@
-import { firebaseDB, firebaseStorage } from '../firebase';
+import { fireStore, firebaseStorage } from '../firebase';
 
-const dbRef = firebaseDB.ref();
+const usersRef=fireStore.collection('users');
 const storageRef = firebaseStorage.ref();
 
 export const uploadIcon = (icon, userKey) => dispatch => {
@@ -18,8 +18,7 @@ export const uploadIcon = (icon, userKey) => dispatch => {
     },
     () => {
       storageRef.child(uploadKey).getDownloadURL().then(url => {
-        let userRef = `users/${userKey}`;
-        dbRef.child(userRef).update({
+        usersRef.doc(userKey).update({
           icon: url,
         }).catch(error => {
           if (error) {

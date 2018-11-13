@@ -5,13 +5,13 @@ import { uploadIcon } from '../actions/iconAction';
 import {editName, updatePosition, updateProjects, addTag, deleteTag} from '../actions/profile';
 
 const mapStateToProps = ({ auth, users }, ownProps) => {
-  const ownKey = auth.ownKey;
+  const currentUserID = auth.currentUserID;
   const thisUser = ownProps.match.params.id;
   if (users[thisUser]) {
     return {
-      ownKey: ownKey,
+      currentUserID: currentUserID,
       profileUserKey: thisUser,
-      hasOwnProfile: users[ownKey] !== undefined,
+      hasOwnProfile: users[currentUserID] !== undefined,
       given: users[thisUser].given_en,
       family: users[thisUser].family_en,
       icon: users[thisUser].icon,
@@ -22,8 +22,8 @@ const mapStateToProps = ({ auth, users }, ownProps) => {
   }
   else {
     return {
-      ownKey: ownKey,
-      hasOwnProfile: users[ownKey] !== undefined,
+      currentUserID: currentUserID,
+      hasOwnProfile: users[currentUserID] !== undefined,
     }
   }
 }

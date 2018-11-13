@@ -46,12 +46,13 @@ const fetchUsersSuccess = users => {
 }
 
 
-const setCurrentUser = ownKey  => {
+const setCurrentUser = currentUserID  => {
   return {
     type: 'SET_CURRENT_USER',
-    ownKey: ownKey
+    currentUserID: currentUserID
   }
 }
+
 
 export const initFetchIfLoggedIn = () => dispatch => {
   firebaseAuth().onAuthStateChanged(user=>{
@@ -91,7 +92,10 @@ export const initFetchIfLoggedIn = () => dispatch => {
         })
         dispatch(fetchUsersSuccess(users));
       })
-      dispatch(setCurrentUser(user.uid))
+      dispatch(setCurrentUser(user.uid));
+    }else{
+      console.log("asako")
+      dispatch(setCurrentUser(null));
     }
   })
 }
