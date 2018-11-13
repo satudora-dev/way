@@ -10,6 +10,20 @@ import Select from '@material-ui/core/Select';
 import aitl_positions from '../../components/aitl_positions';
 import aitl_projects from '../../components/aitl_projects';
 
+
+const modalStyle = {
+  display:"inline-block",
+  marginTop:"250px",
+  height:"200px",
+  //widthはGridでレスポンシブに
+  minWidth: "300px",
+  backgroundColor:"white",
+  textAlign:"center",
+  "outline":"none",
+  borderRadius:"30px",
+  fontFamily:"Avenir",
+}
+
 const OriginalModal = ({
   children,
   mode = "single",
@@ -41,21 +55,23 @@ const OriginalModal = ({
 
   return (
     <div>
-      <Modal
-        open = {modalOpen}
-        onClose = {() => onModalClose()}
-      >
+      <Grid>
+        <Modal
+          open = {modalOpen}
+          onClose = {() => onModalClose()}
+        >
 
-        <div>
-          <div>
-            {children}
+          <div style = {modalStyle}>
+            <div>
+              {children}
+            </div>
+            <div>
+              {Choices}
+            </div>
           </div>
-          <div>
-            {Choices}
-          </div>
-        </div>
 
-      </Modal>
+        </Modal>
+      </Grid>
     </div>
   )
 }
