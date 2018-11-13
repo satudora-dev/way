@@ -3,7 +3,7 @@ import { firebaseDB, firebaseStorage } from '../firebase';
 const dbRef = firebaseDB.ref();
 const storageRef = firebaseStorage.ref();
 
-export function uploadIcon(icon, userKey, dispatch) {
+export const uploadIcon = (icon, userKey) => dispatch => {
   if (!icon) return;
 
   let uploadKey = `icons/${userKey}`;
@@ -31,4 +31,4 @@ export function uploadIcon(icon, userKey, dispatch) {
         });
       });
     });
-}
+};
