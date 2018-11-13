@@ -50,8 +50,17 @@ const OriginalModal = ({
     Choices = (
       <Select
         value = {currentChecks}
+        onChange = {(e) => updateData(currentChecks, e.target.value, profileUserKey)}
       >
-        {choicesArrayMap}
+        {choicesArray.map(
+          choice => (
+            <MenuItem
+              key = {choice}
+              value = {choice}
+            >
+              {choice}
+            </MenuItem>
+          ))}
       </Select>
     )
   } else if (mode === "multiple") {
@@ -59,8 +68,23 @@ const OriginalModal = ({
       <Select
         multiple
         value = {currentChecks}
+        renderValue={value => value.join(', ')}
+        onChange = {(e) => updateData(currentChecks, e.target.value, profileUserKey)}
       >
-        {choicesArrayMap}
+        {choicesArray.map(
+          choice => (
+            <MenuItem
+              key = {choice}
+              value = {choice}
+            >
+              <Checkbox
+                checked = {currentChecks.indexOf(choice) !== -1}
+              />
+              <ListItemText
+                primary = {choice}
+              />
+            </MenuItem>
+          ))}
       </Select>
     )
   }
@@ -81,7 +105,9 @@ const OriginalModal = ({
               {Choices}
             </div>
             <div>
-              <Button>
+              <Button
+                onClick = {() => onModalClose()}
+              >
                 {buttonText}
               </Button>
             </div>

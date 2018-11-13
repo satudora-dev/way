@@ -162,10 +162,12 @@ class Profile extends Component {
             style = {style.modalStyle}
             mode = "single"
             buttonText = "DONE"
+            modalOpen = {this.state.positionModalOpen}
             choicesArray = {aitl_positions}
             currentChecks = {position}
-            modalOpen = {this.state.positionModalOpen}
+            updateData = {this.props.updatePosition}
             onModalClose = {() => this.setState({positionModalOpen: false})}
+            profileUserKey={profileUserKey}
           >
             Position
           </OriginalModal>
@@ -211,7 +213,9 @@ class Profile extends Component {
               modalOpen = {this.state.projectModalOpen}
               choicesArray = {aitl_projects}
               currentChecks = {projects}
+              updateData = {this.props.updateProjects}
               onModalClose = {() => this.setState({projectModalOpen: false})}
+              profileUserKey={profileUserKey}
             >
               Projects
             </OriginalModal>
