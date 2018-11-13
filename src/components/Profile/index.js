@@ -96,7 +96,7 @@ class Profile extends Component {
       <div className="Profile">
         <div className="Home" style={style.divstyle}>
           <IconPreview
-            iconSrc={icon}
+            initIconSrc={icon}
             canEdit={canEdit}
             onChange={imageFile =>
               this.props.uploadIcon(imageFile, profileUserKey)} />

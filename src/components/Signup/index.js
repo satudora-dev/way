@@ -137,7 +137,7 @@ class Signup extends Component {
             style={style.welcomestyle} />
         </form>
         <IconPreview
-          iconSrc={this.state.iconSrc}
+          initIconSrc={this.state.iconSrc}
           canEdit={true}
           onChange={imageFile =>
             this.getIconFile(imageFile)} />
