@@ -4,18 +4,18 @@ import { connect } from 'react-redux';
 
 
 const mapStateToProps = ({auth, users}) => {
-  const ownKey = auth.ownKey;
-  if(ownKey){
+  const currentUserID = auth.currentUserID;
+  if(currentUserID){
     return {
-      ownKey: ownKey,
-      hasOwnProfile: users[ownKey] !== undefined,
+      currentUserID: currentUserID,
+      hasOwnProfile: users[currentUserID] !== undefined,
       users: users
     }
   }
   else{
     return{
-      ownKey: null,
-      hasOwnProfile: users[ownKey] !== undefined,
+      currentUserID: null,
+      hasOwnProfile: users[currentUserID] !== undefined,
       users: {}
     }
   }

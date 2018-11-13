@@ -90,7 +90,7 @@ class Profile extends Component {
     const position = this.props.position || "";
     const projects = this.props.projects || [];
     const tags = this.props.tags || [];
-    const canEdit = profileUserKey === this.props.ownKey;
+    const canEdit = profileUserKey === this.props.currentUserID;
 
     return (
       <div className="Profile">

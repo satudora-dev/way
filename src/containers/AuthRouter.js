@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 class AuthRouter extends React.Component {
-  redirect(ownKey,hasOwnProfile, currentPath){
-    if(ownKey){
+  redirect(currentUserID,hasOwnProfile, currentPath){
+    if(currentUserID){
        if(hasOwnProfile){
            if(currentPath !== 'users'){
                this.props.history.push("/users");
@@ -23,23 +23,23 @@ class AuthRouter extends React.Component {
   }
 
   render() {
-    this.redirect(this.props.ownKey, this.props.hasOwnProfile, this.props.currentPath)
+    this.redirect(this.props.currentUserID, this.props.hasOwnProfile, this.props.currentPath)
     return null;
   }
 }
 
 const mapStateToProps = ( {auth, users}, ownProps ) => {
-  const ownKey = auth.ownKey;
+  const currentUserID = auth.currentUserID;
   if(!users.init){
     return {
-      ownKey: ownKey,
-      hasOwnProfile: users[ownKey] !== undefined,
+      currentUserID: currentUserID,
+      hasOwnProfile: users[currentUserID] !== undefined,
       currentPath: ownProps.match.params.currentPath
     }
   }
   else{
     return {
-      ownKey: ownKey,
+      currentUserID: currentUserID,
       hasOwnProfile: true,
       currentPath: ownProps.match.params.currentPath
     }

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import { initFetchIfLoggedIn } from '../actions/fetch';
 import Login from './Login'
 
@@ -11,16 +10,12 @@ class Auth extends React.Component {
 
   render() {
     // Each Reducer have initial state, {noData: true}
-    if(!this.props.auth.noData){
-      if(!this.props.users.noData){
-        return this.props.children;
-      }else{
-        return(
-          <Login  />
-        )
-      }
+    if(this.props.auth.noData){
+      return <h1>Now loading...</h1>;
+    }else if(this.props.auth.currentUserID === null){
+      return <Login />;
     }else{
-      return <h1>Now loading...</h1>
+      return this.props.children;
     }
   }
 }

@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { signUpAsUser } from '../actions/signup';
 
 const mapStateToProps = state => {
-  const ownKey = state.auth.ownKey;
+  const currentUserID = state.auth.currentUserID;
   return {
-    ownKey: ownKey,
-    hasOwnProfile: state.users[ownKey] !== undefined,
+    currentUserID: currentUserID,
+    hasOwnProfile: state.users[currentUserID] !== undefined,
   }
 }
 
