@@ -27,53 +27,10 @@ class IconUploader extends Component {
     let imageFile = e.target.files[0];
     if (!imageFile) return;
 
-    //this.props.deleteIconRef(this.props.profileUserKey);
+    this.props.deleteIconRef(this.props.profileUserKey);
     this.optimizeImageOrientation(imageFile).then(imageFile =>
       this.resizeImage(imageFile).then(imageFile =>
       this.props.uploadIcon(imageFile, this.props.profileUserKey)));
-  }
-
-  resizeImage(iconFile) {
-
-    return new Promise(resolve => {
-      let image = new Image();
-      image.onload = () => {
-        let width = image.width;
-        let height = image.height;
-        let maxSize = 112;
-
-        let canvas = document.createElement('canvas');
-        let aspect = image.width / image.height;
-        let scale = 1;
-
-        if (aspect > 1 && image.width > maxSize) {
-          canvas.width = maxSize;
-          canvas.height = Math.floor(maxSize / aspect);
-          scale = maxSize / image.width;
-        }
-        else if (aspect <= 1 && image.height > maxSize) {
-          canvas.height = maxSize;
-          canvas.width = Math.floor(maxSize * aspect);
-          scale = maxSize / image.height;
-        }
-        else {
-          canvas.width = image.width;
-          canvas.height = image.height;
-          scale = 1;
-        }
-
-        let ctx = canvas.getContext('2d');
-        ctx.scale(scale, scale);
-        ctx.drawImage(image, 0, 0, image.width, image.height);
-
-        console.log('set image');
-        this.setState({ iconSrc: canvas.toDataURL('image/png') });
-        canvas.toBlob(blob => {
-          resolve(blob);
-        });
-      };
-      image.src = URL.createObjectURL(iconFile);
-    });
   }
 
   optimizeImageOrientation(imageFile) {
@@ -83,6 +40,11 @@ class IconUploader extends Component {
       image.onload = () => {
         EXIF.getData(imageFile, () => {
           let orientation = imageFile.exifdata.Orientation;
+          console.log(orientation);
+          if (!orientation) {
+            resolve(imageFile);
+            return;
+          }
 
           let canvas = document.createElement('canvas');
           if (orientation <= 4) {
@@ -139,6 +101,48 @@ class IconUploader extends Component {
     });
   }
 
+  resizeImage(iconFile) {
+
+    return new Promise(resolve => {
+      let image = new Image();
+      image.onload = () => {
+        let width = image.width;
+        let height = image.height;
+        let maxSize = 512;
+
+        let canvas = document.createElement('canvas');
+        let aspect = image.width / image.height;
+        let scale = 1;
+
+        if (aspect > 1 && image.width > maxSize) {
+          canvas.width = maxSize;
+          canvas.height = Math.floor(maxSize / aspect);
+          scale = maxSize / image.width;
+        }
+        else if (aspect <= 1 && image.height > maxSize) {
+          canvas.height = maxSize;
+          canvas.width = Math.floor(maxSize * aspect);
+          scale = maxSize / image.height;
+        }
+        else {
+          canvas.width = image.width;
+          canvas.height = image.height;
+          scale = 1;
+        }
+
+        let ctx = canvas.getContext('2d');
+        ctx.scale(scale, scale);
+        ctx.drawImage(image, 0, 0, image.width, image.height);
+
+        this.setState({ iconSrc: canvas.toDataURL('image/png') });
+        canvas.toBlob(blob => {
+          resolve(blob);
+        });
+      };
+      image.src = URL.createObjectURL(iconFile);
+    });
+  }
+
   render() {
 
     const style = {
@@ -168,12 +172,13 @@ class IconUploader extends Component {
               return (
                 <div>
                   <img src={this.state.iconSrc}
-                    style={style.imgstyle} alt="Loading..." />
+                    style={style.imgstyle} />
                 </div>
               );
             }
             else {
-              return <CircularProgress />
+              return <CircularProgress
+                style={style.imgstyle}/>
             }
           })()}
           {(() => {
