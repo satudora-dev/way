@@ -12,12 +12,12 @@ export default class IconPreview extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      iconSrc: props.initIconSrc,
+      iconSrc: props.iconSrc,
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ iconSrc: nextProps.initIconSrc });
+    this.setState({ iconSrc: nextProps.iconSrc });
   }
 
   onIconChange(e) {
