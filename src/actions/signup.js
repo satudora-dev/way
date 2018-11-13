@@ -28,17 +28,21 @@ export const signUpAsUser = (uID, given, family, mei, sei, icon) => dispatch => 
   storageRef.child('icons/'+uID).put(icon)
     .on('state_changed', () => {
       storageRef.child('icons/'+uID).getDownloadURL().then((url)=>{
-          usersRef.doc(uID).update({
+        console.log(uID)
+          usersRef.doc(uID).set({
             given_en: given,
             family_en: family,
             given_ja: mei,
             family_ja: sei,
             icon: url,
           })
-            .catch(error => dispatch({
-              type: 'SIGNUP_ERROR',
-              message: error.message,
-            }));
+            .catch(error => {
+              dispatch({
+                type: 'SIGNUP_ERROR',
+                message: error.message,
+              });
+            })
       });
   });
+
 }
