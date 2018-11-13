@@ -32,14 +32,3 @@ export function uploadIcon(icon, userKey, dispatch) {
       });
     });
 }
-
-export function deleteIconRef(userKey, dispatch) {
-
-  let key = `users/${userKey}/icon`;
-  dbRef.child(key).set(null, error => {
-    dispatch({
-      type: 'UPDATE_IMAGE_ERROR',
-      message: error,
-    });
-  });
-}
