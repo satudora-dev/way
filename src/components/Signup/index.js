@@ -3,7 +3,10 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import EXIF from 'exif-js';
 import SiteInfo from "../../components/SiteInfo";
+import IconPreview from '../IconPreview';
 
+const createObjectURL
+  = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
 
 class Signup extends Component {
   constructor(props) {
@@ -44,11 +47,14 @@ class Signup extends Component {
           mei: e.target.value,
         });
         break;
-      case 'icon':
-        if (!e.target.files[0]) return;
-        this.optimizeImage(e.target.files[0]);
-        break;
     }
+  }
+
+  getIconFile(imageFile) {
+    this.setState({
+      iconFile: imageFile,
+      iconSrc: createObjectURL(imageFile),
+    });
   }
 
   optimizeImage(iconFile) {
@@ -237,12 +243,11 @@ class Signup extends Component {
             margin="normal"
             style={style.welcomestyle} />
         </form>
-        <div>
-          <img src={this.state.iconSrc} style={style.iconstyle} />
-        </div>
-        <div>
-          <input type="file" accept="image" name="icon" onChange={this.onTextChange} />
-        </div>
+        <IconPreview
+          iconSrc={this.state.iconSrc}
+          canEdit={true}
+          onChange={imageFile =>
+            this.getIconFile(imageFile)} />
         <Button variant="contained" onClick={() => {
           this.props.signUpAsUser(this.props.ownKey,
             this.state.givenName,
