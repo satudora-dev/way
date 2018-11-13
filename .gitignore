@@ -24,3 +24,5 @@ yarn-error.log*
 
 /functions/account.json
 .vs/slnx.sqlite-journal
+src/actions/iconUpdateAction.js~HEAD
+src/actions/iconUpdateAction.js~HEAD_0
