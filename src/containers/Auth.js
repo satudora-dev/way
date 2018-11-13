@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import * as actions from '../actions';
+import { initFetchIfLoggedIn } from '../actions/fetch';
 import Login from './Login'
+
 class Auth extends React.Component {
   componentWillMount(){
     this.props.initFetchIfLoggedIn()
@@ -33,7 +34,7 @@ const mapStateToProps = ( {auth, users}, ownProps ) => {
 
 
 const mapDispatchToProps = {
-  initFetchIfLoggedIn: actions.initFetchIfLoggedIn,
+  initFetchIfLoggedIn: initFetchIfLoggedIn,
 }
 
 export default connect(
