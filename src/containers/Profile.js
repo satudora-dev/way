@@ -2,11 +2,12 @@ import Profile from '../components/Profile';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions';
+import { uploadIcon } from '../actions/iconAction';
 
-const mapStateToProps = ({auth,users}, ownProps) => {
+const mapStateToProps = ({ auth, users }, ownProps) => {
   const ownKey = auth.ownKey;
   const thisUser = ownProps.match.params.id;
-  if(users[thisUser]){
+  if (users[thisUser]) {
     return {
       ownKey: ownKey,
       profileUserKey: thisUser,
@@ -19,8 +20,8 @@ const mapStateToProps = ({auth,users}, ownProps) => {
       tags: users[thisUser].tags,
     }
   }
-  else{
-    return{
+  else {
+    return {
       ownKey: ownKey,
       hasOwnProfile: users[ownKey] !== undefined,
     }
@@ -33,7 +34,7 @@ const mapDispatchToProps = {
   updateProjects: actions.updateProjects,
   addTag: actions.addTag,
   deleteTag: actions.deleteTag,
-  updateIcon: actions.updateIcon,
+  uploadIcon: uploadIcon,
 }
 
 export default connect(
