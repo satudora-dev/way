@@ -11,6 +11,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import aitl_positions from '../../components/aitl_positions';
 import aitl_projects from '../../components/aitl_projects';
+import SingleModalInput from './SingleModalInput';
+import MultipleModalInput from './MultipleModalInput';
+import TextModalInput from './TextModalInput';
 
 const style = {
   btnstyle: {
@@ -29,9 +32,9 @@ const style = {
   },
 }
 
-const OriginalModal = ({
+const ModalCase = ({
   children,
-  mode,
+  modalInput,
   buttonText,
   modalOpen,
   inputArray,
@@ -45,58 +48,6 @@ const OriginalModal = ({
 
   let ModalInput
   let input
-
-  if (mode === "single") {
-    ModalInput = (
-      <Select
-        value = {currentChecks}
-        onChange = {(e) => updateData(currentChecks, e.target.value, profileUserKey)}
-      >
-        {inputArray.map(
-          choice => (
-            <MenuItem
-              key = {choice}
-              value = {choice}
-            >
-              {choice}
-            </MenuItem>
-          ))}
-      </Select>
-    )
-  } else if (mode === "multiple") {
-    ModalInput = (
-      <Select
-        multiple
-        value = {currentChecks}
-        renderValue={value => value.join(', ')}
-        onChange = {(e) => updateData(currentChecks, e.target.value, profileUserKey)}
-      >
-        {inputArray.map(
-          choice => (
-            <MenuItem
-              key = {choice}
-              value = {choice}
-            >
-              <Checkbox
-                checked = {currentChecks.indexOf(choice) !== -1}
-              />
-              <ListItemText
-                primary = {choice}
-              />
-            </MenuItem>
-          ))}
-      </Select>
-    )
-  } else if (mode === "text") {
-
-    ModalInput =(
-      <TextField
-        label = {mode}
-        value = {input}
-        onChange = {(e) => {input = e.target.value}}
-      />
-    )
-  }
 
   return (
     <div>
@@ -143,4 +94,4 @@ const OriginalModal = ({
   )
 }
 
-export default OriginalModal
+export default ModalCase
