@@ -55,46 +55,43 @@ const setCurrentUser = ownKey  => {
 
 export const initFetchIfLoggedIn = () => dispatch => {
   firebaseAuth().onAuthStateChanged(user=>{
-    console.log(user.uid)
     if(user){
       accountsRef.onSnapshot((snapshot) => {
-        let accounts=[];
+        let accounts={};
         snapshot.docs.forEach((doc) => {
-          accounts.push(doc.data());
+          accounts[doc.id]=doc.data();
         })
         dispatch(fetchAccountsSuccess(accounts))
       })
       positionsRef.onSnapshot((snapshot) => {
-        let positions=[];
+        let positions={};
         snapshot.docs.forEach((doc) => {
-          positions.push(doc.data());
+          positions[doc.id]=doc.data();
         })
         dispatch(fetchPositionsSuccess(positions));
       })
       projectsRef.onSnapshot((snapshot) => {
-        let projects=[];
+        let projects={};
         snapshot.docs.forEach((doc) => {
-          projects.push(doc.data());
+          projects[doc.id]=doc.data();
         })
         dispatch(fetchProjectsSuccess(projects));
       })
       tagsRef.onSnapshot((snapshot) => {
-        let tags=[];
+        let tags={};
         snapshot.docs.forEach((doc) => {
-          tags.push(doc.data());
+          tags[doc.id]=doc.data();
         })
         dispatch(fetchTagsSuccess(tags));
       })
       usersRef.onSnapshot((snapshot) => {
-        let users=[];
+        let users={};
         snapshot.docs.forEach((doc) => {
-          users.push(doc.data());
+          users[doc.id]=doc.data();
         })
         dispatch(fetchUsersSuccess(users));
       })
       dispatch(setCurrentUser(user.uid))
-    }else{
-      dispatch(setCurrentUser(null))
     }
   })
 }
