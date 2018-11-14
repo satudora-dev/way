@@ -8,7 +8,7 @@ const TextModalInput = ({ input }) => {
     <TextField
       label = "tag"
       value = {input}
-      onChange = {(e) => {e.target.value}}
+      onChange = {(e) => {ipnut = e.target.value}}
     />
   )
 }
