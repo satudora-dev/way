@@ -1,29 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { initFetchIfLoggedIn } from '../actions/fetch';
-import Login from './Login'
+import Login from './Login';
+import Signup from './Signup';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Auth extends React.Component {
   componentWillMount(){
-    this.props.initFetchIfLoggedIn()
+    this.props.initFetchIfLoggedIn();
   }
 
   render() {
-    // Each Reducer have initial state, {noData: true}
-    if(this.props.auth.noData){
-      return <h1>Now loading...</h1>;
-    }else if(this.props.auth.currentUserID === null){
+    if(!this.props.currentUserID){
+      return <CircularProgress />;
+    }else if(this.props.currentUserID === "NONE"){
       return <Login />;
     }else{
-      return this.props.children;
+      if(this.props.users.noData){
+        return <CircularProgress />;
+      }else if (!this.props.hasOwnProfile){
+        return <Signup />
+      }else{
+        return this.props.children;
+      }
     }
   }
 }
 
 const mapStateToProps = ( {auth, users}, ownProps ) => {
-    return {
-      auth: auth,
-      users: users
+  const currentUserID = auth.currentUserID;
+  return {
+    users: users,
+    currentUserID: currentUserID,
+    hasOwnProfile: users[currentUserID] || false,
   }
 }
 
