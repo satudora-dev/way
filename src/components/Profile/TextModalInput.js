@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
 
-TextModalInput = ({ input }) => {
+const TextModalInput = ({ input }) => {
   return (
     <TextField
       label = "text"

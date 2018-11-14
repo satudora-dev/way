@@ -8,7 +8,7 @@ import CloseIcon from '@material-ui/icons/Close'
 
 import EditableLabel from '../../components/EditableLabel'
 import ImageUploader from '../../components/ImageUploader'
-import OriginalModal from './OriginalModal'
+import CombinedModal from './CombinedModal'
 import aitl_positions from '../../components/aitl_positions';
 import aitl_projects from '../../components/aitl_projects';
 
@@ -149,7 +149,7 @@ class Profile extends Component {
             })()}
           </div>
 
-          <OriginalModal
+          <CombinedModal
             style = {style.modalStyle}
             mode = "single"
             buttonText = "DONE"
@@ -161,7 +161,7 @@ class Profile extends Component {
             profileUserKey={profileUserKey}
           >
             Position
-          </OriginalModal>
+          </CombinedModal>
 
         </div>
         <div className="Project">
@@ -191,7 +191,7 @@ class Profile extends Component {
                 )
             })()}
 
-            <OriginalModal
+            <CombinedModal
               style = {style.modalStyle}
               mode = "multiple"
               buttonText = "DONE"
@@ -203,7 +203,7 @@ class Profile extends Component {
               profileUserKey={profileUserKey}
             >
               Projects
-            </OriginalModal>
+            </CombinedModal>
 
           </div>
         </div>
@@ -225,7 +225,7 @@ class Profile extends Component {
             <AddIcon />
             </Button>
 
-            <OriginalModal
+            <CombinedModal
               style = {style.modalStyle}
               mode = "text"
               buttonText = "DONE"
@@ -235,7 +235,7 @@ class Profile extends Component {
               profileUserKey = {profileUserKey}
             >
               Add Tags
-            </OriginalModal>
+            </CombinedModal>
 
             </div>
         </div>

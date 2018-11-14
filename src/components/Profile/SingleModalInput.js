@@ -1,11 +1,14 @@
 import React from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import aitl_positions from '../../components/aitl_positions';
+import aitl_projects from '../../components/aitl_projects';
 
 
-SingleModalInput = ({
+const SingleModalInput = ({
   currentChecks,
   inputArray,
+  updateData,
   profileUserKey
 }) => {
   return (

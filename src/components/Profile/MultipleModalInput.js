@@ -3,11 +3,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
+import aitl_positions from '../../components/aitl_positions';
+import aitl_projects from '../../components/aitl_projects';
 
 
-MultipleModalInput = ({
+const MultipleModalInput = ({
   currentChecks,
   inputArray,
+  updateData,
   profileUserKey
 }) => {
   return (

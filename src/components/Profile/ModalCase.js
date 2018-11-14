@@ -11,9 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import aitl_positions from '../../components/aitl_positions';
 import aitl_projects from '../../components/aitl_projects';
-import SingleModalInput from './SingleModalInput';
-import MultipleModalInput from './MultipleModalInput';
-import TextModalInput from './TextModalInput';
+
 
 const style = {
   btnstyle: {
@@ -34,6 +32,8 @@ const style = {
 
 const ModalCase = ({
   children,
+  input,
+  mode,
   modalInput,
   buttonText,
   modalOpen,
@@ -45,9 +45,6 @@ const ModalCase = ({
   addText,
   ...other
 }) => {
-
-  let ModalInput
-  let input
 
   return (
     <div>
@@ -62,7 +59,7 @@ const ModalCase = ({
               <h3>{children}</h3>
             </div>
             <div>
-              {ModalInput}
+              {modalInput}
             </div>
             <div
               style = {{margin:"10px"}}
