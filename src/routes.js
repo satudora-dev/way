@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter,Route} from 'react-router-dom';
 
 import Auth from './containers/Auth';
-import ProperRouter from './containers/AuthRouter';
+import ProperRouter from './containers/ProperRouter';
 import App from './containers/App';
 import Login from './containers/Login';
 import Signup from './containers/Signup';
