@@ -42,9 +42,16 @@ const CombinedModal = ({
       />
     )
   } else if (mode === "text") {
+
+    const onTextChange = (e) => {
+      return (
+        e.target.value
+      )
+    }
     ModalInput = (
       <TextModalInput
         input = {input}
+        onTextChange = {onTextChange}
       />
     )
   }
