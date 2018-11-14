@@ -23,22 +23,29 @@ const CombinedModal = ({
   let input
 
   if (mode === "single") {
-    ModalInput = SingleModalInput(
-      currentChecks,
-      inputArray,
-      updateData,
-      profileUserKey
+    ModalInput = (
+      <SingleModalInput
+        currentChecks = {currentChecks}
+        inputArray = {inputArray}
+        updateData = {updateData}
+        profileUserKey = {profileUserKey}
+      />
     )
+
   } else if (mode === "multiple") {
-    ModalInput = MultipleModalInput(
-      currentChecks,
-      inputArray,
-      updateData,
-      profileUserKey
+    ModalInput = (
+      <MultipleModalInput
+        currentChecks = {currentChecks}
+        inputArray = {inputArray}
+        updateData = {updateData}
+        profileUserKey = {profileUserKey}
+      />
     )
   } else if (mode === "text") {
-    ModalInput = TextModalInput(
-      input = ""
+    ModalInput = (
+      <TextModalInput
+        input = {input}
+      />
     )
   }
 

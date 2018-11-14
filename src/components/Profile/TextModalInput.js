@@ -3,11 +3,12 @@ import TextField from '@material-ui/core/TextField';
 
 
 const TextModalInput = ({ input }) => {
+
   return (
     <TextField
-      label = "text"
+      label = "tag"
       value = {input}
-      onChange = {(e) => {input = e.target.value}}
+      onChange = {(e) => {e.target.value}}
     />
   )
 }
