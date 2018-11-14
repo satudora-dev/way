@@ -1,12 +1,8 @@
 import React from 'react';
 
 class Logout extends React.Component {
-
-  componentWillMount(){
-    this.props.signOut()
-  }
   render(){
-    return null;
+    return <button onClick={() => this.props.signOut()}>LOGOUT</button>;
   }
 }
 
