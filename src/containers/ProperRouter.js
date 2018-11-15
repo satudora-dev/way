@@ -7,7 +7,7 @@ class ProperRouter extends React.Component {
 
   render() {
     const currentPath = this.props.match.params.currentPath;
-    if( (currentPath !== 'users' && currentPath !== 'logout') || currentPath === undefined ){
+    if( currentPath === undefined ){
       this.props.history.push("/users");
     }
     return null;
