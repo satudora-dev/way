@@ -10,7 +10,7 @@ class ProperRouter extends React.Component {
     if( (currentPath !== 'users' && currentPath !== 'logout') || currentPath === undefined ){
       this.props.history.push("/users");
     }
-    return <button onClick={() => console.log(currentPath)}>ASAKO</button>;
+    return null;
   }
 }
 
