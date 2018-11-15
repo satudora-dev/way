@@ -3,9 +3,6 @@ import {BrowserRouter,Route} from 'react-router-dom';
 
 import Auth from './containers/Auth';
 import ProperRouter from './containers/ProperRouter';
-import App from './containers/App';
-import Login from './containers/Login';
-import Signup from './containers/Signup';
 import Users from './containers/Users';
 import Profile from './containers/Profile';
 import Logout from './containers/Logout';
@@ -18,8 +15,7 @@ const Routes = ({ store }) => {
       <Auth>
         <BrowserRouter >
           <div>
-            <Route path="/:currentPath" component={ ProperRouter } />
-            <Route exact path="/" component={ App } />
+            <Route path="/:currentPath?" component={ ProperRouter } />
             <Route exact path="/users" component={ Users } />
             <Route path="/users/:id" component={ Profile }/>
             <Route exact path="/logout" component={ Logout } />
