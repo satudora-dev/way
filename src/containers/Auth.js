@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { checkUserAuth } from '../actions/auth';
-import { fetchUsers } from '../actions/fetch';
+import { fetchUsers } from '../actions/users';
 import Login from './Login';
 import Signup from './Signup';
 import CircularProgress from '@material-ui/core/CircularProgress';
