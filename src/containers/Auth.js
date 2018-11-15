@@ -1,22 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { initFetchIfLoggedIn } from '../actions/fetch';
+import { checkUserAuth } from '../actions/auth';
+import { fetchUsers } from '../actions/fetch';
 import Login from './Login';
 import Signup from './Signup';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Auth extends React.Component {
   componentWillMount(){
-    this.props.initFetchIfLoggedIn();
+    this.props.checkUserAuth();
   }
 
   render() {
-    if(!this.props.currentUserID){
+    if(this.props.currentUserID === undefined){
       return <CircularProgress />;
-    }else if(this.props.currentUserID === "NONE"){
+    }else if(this.props.currentUserID === null){
       return <Login />;
     }else{
       if(this.props.users.noData){
+        this.props.fetchUsers()
         return <CircularProgress />;
       }else if (!this.props.hasOwnProfile){
         return <Signup />
@@ -27,7 +29,7 @@ class Auth extends React.Component {
   }
 }
 
-const mapStateToProps = ( {auth, users}, ownProps ) => {
+const mapStateToProps = ( {auth, users}) => {
   const currentUserID = auth.currentUserID;
   return {
     users: users,
@@ -38,7 +40,8 @@ const mapStateToProps = ( {auth, users}, ownProps ) => {
 
 
 const mapDispatchToProps = {
-  initFetchIfLoggedIn: initFetchIfLoggedIn,
+  fetchUsers: fetchUsers,
+  checkUserAuth: checkUserAuth
 }
 
 export default connect(
