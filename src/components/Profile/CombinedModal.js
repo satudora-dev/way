@@ -44,9 +44,7 @@ const CombinedModal = ({
   } else if (mode === "text") {
 
     const onTextChange = (e) => {
-      return (
-        e.target.value
-      )
+      input = e.target.value
     }
     ModalInput = (
       <TextModalInput
@@ -71,6 +69,7 @@ const CombinedModal = ({
       addText = {addText}
       {...other}
     >
+      {console.log(input)}
       {children}
     </ModalCase>
   )
