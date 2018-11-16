@@ -142,7 +142,7 @@ class Signup extends Component {
           onChange={imageFile =>
             this.getIconFile(imageFile)} />
         <Button variant="contained" onClick={() => {
-          this.props.signUpAsUser(this.props.ownKey,
+          this.props.signUpAsUser(this.props.currentUserID,
             this.state.givenName,
             this.state.familyName,
             this.state.mei,

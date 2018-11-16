@@ -1,18 +1,18 @@
 import Signup from '../components/Signup';
 import { connect } from 'react-redux';
 
-import * as actions from '../actions';
+import { signUpAsUser } from '../actions/signup';
 
 const mapStateToProps = state => {
-  const ownKey = state.auth.ownKey;
+  const currentUserID = state.auth.currentUserID;
   return {
-    ownKey: ownKey,
-    hasOwnProfile: state.users[ownKey] !== undefined,
+    currentUserID: currentUserID,
+    hasOwnProfile: state.users[currentUserID] !== undefined,
   }
 }
 
 const mapDispatchToProps = {
-  signUpAsUser: actions.signUpAsUser
+  signUpAsUser: signUpAsUser
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Signup);

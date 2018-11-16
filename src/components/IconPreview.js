@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
-import CirclarProgress from '@material-ui/core/CircularProgress';
 import EXIF from 'exif-js';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -56,7 +55,7 @@ export default class IconPreview extends Component {
 
           let ctx = canvas.getContext('2d');
 
-          switch (orientation) {//‰ñ“]
+          switch (orientation) {//ï¿½ï¿½ï¿½]
             case 3:
             case 4:
               ctx.rotate(Math.PI);
@@ -79,16 +78,16 @@ export default class IconPreview extends Component {
               break;
           }
 
-          if (orientation == 2 || orientation == 4) {//”½“]
+          if (orientation == 2 || orientation == 4) {//ï¿½ï¿½ï¿½]
             ctx.scale(-1, 1);
             ctx.translate(-image.width, 0);
           }
-          if (orientation == 5 || orientation == 7) {//”½“]
+          if (orientation == 5 || orientation == 7) {//ï¿½ï¿½ï¿½]
             ctx.scale(1, -1);
             ctx.translate(0, -image.height);
           }
 
-          ctx.drawImage(image, 0, 0, image.width, image.height);          
+          ctx.drawImage(image, 0, 0, image.width, image.height);
 
           canvas.toBlob(blob => {
             resolve(blob);

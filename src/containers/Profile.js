@@ -1,19 +1,19 @@
 import Profile from '../components/Profile';
 import { connect } from 'react-redux';
-
 import * as actions from '../actions';
 import { uploadIcon } from '../actions/iconAction';
+import {editName, updatePosition, updateProjects, addTag, deleteTag} from '../actions/profile';
 
 const mapStateToProps = ({ auth, users }, ownProps) => {
-  const ownKey = auth.ownKey;
+  const currentUserID = auth.currentUserID;
   const thisUser = ownProps.match.params.id;
   if (users[thisUser]) {
     return {
-      ownKey: ownKey,
+      currentUserID: currentUserID,
       profileUserKey: thisUser,
-      hasOwnProfile: users[ownKey] !== undefined,
-      given: users[thisUser].given,
-      family: users[thisUser].family,
+      hasOwnProfile: users[currentUserID] !== undefined,
+      given: users[thisUser].given_en,
+      family: users[thisUser].family_en,
       icon: users[thisUser].icon,
       position: users[thisUser].position,
       projects: users[thisUser].projects,
@@ -22,18 +22,18 @@ const mapStateToProps = ({ auth, users }, ownProps) => {
   }
   else {
     return {
-      ownKey: ownKey,
-      hasOwnProfile: users[ownKey] !== undefined,
+      currentUserID: currentUserID,
+      hasOwnProfile: users[currentUserID] !== undefined,
     }
   }
 }
 
 const mapDispatchToProps = {
-  editName: actions.editName,
-  updatePosition: actions.updatePosition,
-  updateProjects: actions.updateProjects,
-  addTag: actions.addTag,
-  deleteTag: actions.deleteTag,
+  editName: editName,
+  updatePosition: updatePosition,
+  updateProjects: updateProjects,
+  addTag: addTag,
+  deleteTag: deleteTag,
   uploadIcon: uploadIcon,
 }
 
