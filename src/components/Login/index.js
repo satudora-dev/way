@@ -1,54 +1,49 @@
 import React, { Component } from 'react';
-import "./login.css";
 import SiteInfo from '../../components/SiteInfo';
+import styled from 'styled-components'
 
+
+const Icon = styled.div `
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin: 0 auto;
+  transition:  1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  &:hover {
+    background-color: #D7D7D7;
+    transform: translateY(-5px);
+  }
+`
+
+
+const Logo = styled.div `
+  padding-top: 80px;
+  padding-bottom: 100px;
+  width: 100%;
+  text-align: center;
+`
 
 
 function GithubButton(props){
-  const style = {
-    github:{
-      width: "80px",
-      height: "80px",
-      "border-radius": "50%",
-      padding: 0,
-      transition: "all .3s",
-    },
-    button: {
-      padding: 0,
-      border: "none",
-      cursor: "pointer",
-      "background-color": "white",
-      transition: "all .3s",
-    }
-  }
   return(
     <div>
-        <button onClick={props.onClick} className="github" style={style.button}>
-          <img className="github" style={style.github} src="./github.svg" />
-          <h3>LOGIN</h3>
-        </button>
-
-    </div>
+      <Icon onClick={props.onClick}>
+        <img src="./github.svg" />
+      </Icon>
+      <h3>Login with GitHub</h3>
+    </div>        
   );
 }
 
 class Login extends Component {
 
   render() {
-    const style = {
-      container: {
-        "padding-top": "80px",
-        "padding-bottom": "100px",
-        width: "100%",
-        "text-align": "center",
-        position: "relative",
-      }
-    }
     return (
       <div className="Login">
-        <div style={style.container }>
+        <Logo>
           <SiteInfo/>
-        </div>
+        </Logo>
         <GithubButton
           onClick={() => {
             this.props.loginWithGithub();
