@@ -8,6 +8,7 @@
     "draft-js": "^0.10.5",
     "exif-js": "^2.3.0",
     "firebase": "^5.4.2",
+    "lottie-react-web": "^2.1.4",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-redux": "^5.1.0",
