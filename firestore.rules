@@ -1,10 +1,26 @@
 service cloud.firestore {
   match /databases/{database}/documents {
 		function isAuthenticated() {
-      return request.auth != null;
+      return request.auth.uid != null;
     }
-    match /{document=**} {
-      allow read, write: if isAuthenticated();
+    function isUserAuthenticated(userId) {
+      return request.auth.uid == userId;
+    }
+    match /accounts/{account} {
+      allow create, read, update, delete: if isUserAuthenticated(account);
+    }
+    match /positions/{position} {
+      allow create, read, update, delete: if isAuthenticated();
+    }
+    match /projects/{project} {
+      allow create, read, update, delete: if isAuthenticated();
+    }
+    match /tags/{tag} {
+      allow create, read, update, delete: if isAuthenticated();
+    }
+    match /users/{user} {
+      allow read, update: if isAuthenticated();
+      allow create, delete: if isUserAuthenticated(user);
     }
   }
 }
