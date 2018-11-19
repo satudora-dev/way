@@ -3,11 +3,11 @@ service cloud.firestore {
 		function isAuthenticated() {
       return request.auth.uid != null;
     }
-    function isUserAuthenticated(userId) {
-      return request.auth.uid == userId;
+    function isUserAuthenticated(uid) {
+      return request.auth.uid == uid;
     }
-    match /accounts/{account} {
-      allow create, read, update, delete: if isUserAuthenticated(account);
+    match /accounts/{uid} {
+      allow create, read, update, delete: if isUserAuthenticated(uid);
     }
     match /positions/{position} {
       allow read, update: if isAuthenticated();
@@ -20,9 +20,9 @@ service cloud.firestore {
     match /tags/{tag} {
       allow create, read, update, delete: if isAuthenticated();
     }
-    match /users/{user} {
+    match /users/{uid} {
       allow read, update: if isAuthenticated();
-      allow create, delete: if isUserAuthenticated(user);
+      allow create, delete: if isUserAuthenticated(uid);
     }
   }
 }
