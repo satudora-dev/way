@@ -83,7 +83,6 @@ exports[`Signup changed by user input 1`] = `
     noValidate={true}
   >
     <div
-      aria-describedby={undefined}
       className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
       style={
         Object {
@@ -95,7 +94,6 @@ exports[`Signup changed by user input 1`] = `
       <label
         className="MuiFormLabel-root-10 MuiFormLabel-required-15 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
         data-shrink={false}
-        htmlFor={undefined}
       >
         given name
         <span
@@ -109,29 +107,18 @@ exports[`Signup changed by user input 1`] = `
       >
         <input
           aria-invalid={false}
-          autoComplete={undefined}
-          autoFocus={undefined}
           className="MuiInput-input-25"
-          defaultValue={undefined}
           disabled={false}
-          id={undefined}
           name="givenName"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
-          onKeyDown={undefined}
-          onKeyUp={undefined}
-          placeholder={undefined}
-          readOnly={undefined}
           required={true}
-          rows={undefined}
           type="text"
-          value={undefined}
         />
       </div>
     </div>
     <div
-      aria-describedby={undefined}
       className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
       style={
         Object {
@@ -143,7 +130,6 @@ exports[`Signup changed by user input 1`] = `
       <label
         className="MuiFormLabel-root-10 MuiFormLabel-required-15 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
         data-shrink={false}
-        htmlFor={undefined}
       >
         family name
         <span
@@ -157,24 +143,14 @@ exports[`Signup changed by user input 1`] = `
       >
         <input
           aria-invalid={false}
-          autoComplete={undefined}
-          autoFocus={undefined}
           className="MuiInput-input-25"
-          defaultValue={undefined}
           disabled={false}
-          id={undefined}
           name="familyName"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
-          onKeyDown={undefined}
-          onKeyUp={undefined}
-          placeholder={undefined}
-          readOnly={undefined}
           required={true}
-          rows={undefined}
           type="text"
-          value={undefined}
         />
       </div>
     </div>
@@ -184,7 +160,6 @@ exports[`Signup changed by user input 1`] = `
     noValidate={true}
   >
     <div
-      aria-describedby={undefined}
       className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
       style={
         Object {
@@ -196,7 +171,6 @@ exports[`Signup changed by user input 1`] = `
       <label
         className="MuiFormLabel-root-10 MuiFormLabel-required-15 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
         data-shrink={false}
-        htmlFor={undefined}
       >
         名
         <span
@@ -210,29 +184,19 @@ exports[`Signup changed by user input 1`] = `
       >
         <input
           aria-invalid={false}
-          autoComplete={undefined}
-          autoFocus={undefined}
           className="MuiInput-input-25"
-          defaultValue={undefined}
           disabled={false}
-          id={undefined}
           name="mei"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
-          onKeyDown={undefined}
-          onKeyUp={undefined}
-          placeholder={undefined}
-          readOnly={undefined}
           required={true}
-          rows={undefined}
           type="text"
           value=""
         />
       </div>
     </div>
     <div
-      aria-describedby={undefined}
       className="MuiFormControl-root-1 MuiFormControl-marginNormal-2"
       style={
         Object {
@@ -244,7 +208,6 @@ exports[`Signup changed by user input 1`] = `
       <label
         className="MuiFormLabel-root-10 MuiFormLabel-required-15 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
         data-shrink={false}
-        htmlFor={undefined}
       >
         姓
         <span
@@ -258,22 +221,13 @@ exports[`Signup changed by user input 1`] = `
       >
         <input
           aria-invalid={false}
-          autoComplete={undefined}
-          autoFocus={undefined}
           className="MuiInput-input-25"
-          defaultValue={undefined}
           disabled={false}
-          id={undefined}
           name="sei"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
-          onKeyDown={undefined}
-          onKeyUp={undefined}
-          placeholder={undefined}
-          readOnly={undefined}
           required={true}
-          rows={undefined}
           type="text"
           value=""
         />
@@ -281,25 +235,91 @@ exports[`Signup changed by user input 1`] = `
     </div>
   </form>
   <div>
-    <img
-      src="/portrait.png"
+    <div
       style={
         Object {
-          "border-radius": "50%",
-          "height": 200,
-          "object-fit": "cover",
-          "width": 200,
+          "margin": "auto",
+          "position": "relative",
+          "width": "256px",
         }
       }
-    />
-  </div>
-  <div>
-    <input
-      accept="image"
-      name="icon"
-      onChange={[Function]}
-      type="file"
-    />
+    >
+      <div>
+        <img
+          src="/portrait.png"
+          style={
+            Object {
+              "borderRadius": "50%",
+              "height": "256px",
+              "marginTop": "30px",
+              "objectFit": "cover",
+              "transform": "undefined undefined ",
+              "width": "256px",
+            }
+          }
+        />
+      </div>
+      <div>
+        <input
+          onChange={[Function]}
+          style={
+            Object {
+              "display": "none",
+            }
+          }
+          type="file"
+        />
+        <button
+          className="MuiButtonBase-root-56 MuiButton-root-30 MuiButton-fab-47 MuiButton-mini-52 MuiButton-contained-41 MuiButton-raised-44"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#04B486",
+              "color": "white",
+              "margin": 0,
+              "position": "absolute",
+              "right": "32px",
+              "top": "240px",
+            }
+          }
+          tabIndex="0"
+          type="button"
+        >
+          <span
+            className="MuiButton-label-31"
+          >
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root-59"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root-66"
+          />
+        </button>
+      </div>
+    </div>
   </div>
   <button
     className="MuiButtonBase-root-56 MuiButton-root-30 MuiButton-contained-41 MuiButton-raised-44"
@@ -324,7 +344,7 @@ exports[`Signup changed by user input 1`] = `
       GO
     </span>
     <span
-      className="MuiTouchRipple-root-59"
+      className="MuiTouchRipple-root-66"
     />
   </button>
 </div>
