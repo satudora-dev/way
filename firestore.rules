@@ -12,15 +12,15 @@ service cloud.firestore {
     match /accounts/{accountId} {
       allow create, read, update, delete: if isAccountAuthenticated(accountId);
     }
-    match /positions/{position} {
+    match /positions/{positionId} {
       allow read, update: if isAuthenticated();
       allow create, delete: if false;
     }
-    match /projects/{project} {
+    match /projects/{projectId} {
       allow read, update: if isAuthenticated();
       allow create, delete: if false;
     }
-    match /tags/{tag} {
+    match /tags/{tagId} {
       allow create, read, update, delete: if isAuthenticated();
     }
     match /users/{userId} {
