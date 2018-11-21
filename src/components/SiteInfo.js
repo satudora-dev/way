@@ -5,10 +5,14 @@ import styled from 'styled-components';
 
 
 const SiteGroup = styled.div `
-  padding-top: 30px;
+  padding-top: 20px;
   text-align: center;
 `
-
+const ProductLogo = styled.div `
+  width: 400px;
+  height: 110px;
+  margin: 0 auto;
+`
 
 
 class SiteInfo extends Component {
@@ -16,11 +20,11 @@ class SiteInfo extends Component {
 
     return (
       <SiteGroup>
-            <Lottie 
-              options={{ animationData : logo }}
-              width={500}
-              height={500}
-            />
+            <ProductLogo>
+              <Lottie 
+                options={{ animationData : logo }}
+              />
+            </ProductLogo>
         <h2>AI TOKYO LAB & Co.</h2>
       </SiteGroup>
     );
