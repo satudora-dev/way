@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button'
 import MenuAppBar from '../../components/MenuAppBar'
 
 
-const Users = ({ users, location, history }) => {
+const Users = ({ users = [], location = {}, history }) => {
 
 
   const params = new URLSearchParams(location.search)
