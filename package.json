@@ -14,7 +14,6 @@
     "react-redux": "^5.1.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.0",
-    "react-test-renderer": "^16.6.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "styled-components": "^4.0.3"
@@ -27,7 +26,8 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "cross-env": "^5.2.0"
+    "cross-env": "^5.2.0",
+    "react-test-renderer": "^16.6.1",
   },
   "browserslist": [
     ">0.2%",
