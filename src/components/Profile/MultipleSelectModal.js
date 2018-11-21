@@ -26,7 +26,7 @@ const style = {
   },
 }
 
-const SingleSelectModal = ({
+const MultipleSelectModal = ({
   children,
   buttonText,
   modalOpen,
@@ -51,7 +51,9 @@ const SingleSelectModal = ({
             </div>
             <div>
               <Select
+                multiple
                 value = {currentChecks}
+                renderValue={value => value.join(', ')}
                 onChange = {(e) => updateData(currentChecks, e.target.value, profileUserKey)}
               >
                 {inputArray.map(
@@ -60,7 +62,12 @@ const SingleSelectModal = ({
                       key = {choice}
                       value = {choice}
                     >
-                      {choice}
+                      <Checkbox
+                        checked = {currentChecks.indexOf(choice) !== -1}
+                      />
+                      <ListItemText
+                        primary = {choice}
+                      />
                     </MenuItem>
                   ))}
               </Select>
@@ -87,4 +94,4 @@ const SingleSelectModal = ({
   )
 }
 
-export default SingleSelectModal
+export default MultipleSelectModal

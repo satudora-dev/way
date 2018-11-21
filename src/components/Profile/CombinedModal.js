@@ -1,6 +1,4 @@
 import React from 'react';
-import SingleModalInput from './SingleModalInput';
-import MultipleModalInput from './MultipleModalInput';
 import TextModalInput from './TextModalInput';
 import ModalCase from './ModalCase';
 
@@ -22,37 +20,16 @@ const CombinedModal = ({
   let ModalInput
   let input
 
-  if (mode === "single") {
-    ModalInput = (
-      <SingleModalInput
-        currentChecks = {currentChecks}
-        inputArray = {inputArray}
-        updateData = {updateData}
-        profileUserKey = {profileUserKey}
-      />
-    )
 
-  } else if (mode === "multiple") {
-    ModalInput = (
-      <MultipleModalInput
-        currentChecks = {currentChecks}
-        inputArray = {inputArray}
-        updateData = {updateData}
-        profileUserKey = {profileUserKey}
-      />
-    )
-  } else if (mode === "text") {
-
-    const onTextChange = (e) => {
-      input = e.target.value
-    }
-    ModalInput = (
-      <TextModalInput
-        input = {input}
-        onTextChange = {onTextChange}
-      />
-    )
+  const onTextChange = (e) => {
+    input = e.target.value
   }
+  ModalInput = (
+    <TextModalInput
+      input = {input}
+      onTextChange = {onTextChange}
+    />
+  )
 
   return (
     <ModalCase
