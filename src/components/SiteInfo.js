@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Lottie from 'lottie-react-web';
+import logo from './logo_animation.json';
+
 
 class SiteInfo extends Component {
   render() {
@@ -16,6 +19,7 @@ class SiteInfo extends Component {
 
     return (
       <div style={style.siteInfo}>
+        <Lottie options={{ animationData : logo }}/>
         <img src="./way.png" style={style.wayLogo}
              alt="loading the way image..." />
         <h2>AI TOKYO LAB & Co.</h2>
