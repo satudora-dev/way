@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Users snapshot 1`] = `
+<div
+  className="User"
+>
+  <div>
+    <header
+      className="MuiPaper-root-9 MuiPaper-elevation4-15 MuiAppBar-root-1 MuiAppBar-positionStatic-5 MuiAppBar-colorDefault-6"
+      style={
+        Object {
+          "height": "56px",
+        }
+      }
+    >
+      <div
+        className="MuiToolbar-root-36 MuiToolbar-regular-38 MuiToolbar-gutters-37"
+      >
+        <div
+          style={
+            Object {
+              "display": "table",
+              "width": "100%",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "display": "table-cell",
+                "text-align": "center",
+                "vertical-align": "middle",
+              }
+            }
+          >
+            <img
+              alt="loading the way image..."
+              src="/way.png"
+              style={
+                Object {
+                  "height": "30px",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+  <div
+    style={
+      Object {
+        "padding": "10px 10px 10px",
+        "textAlign": "left",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    />
+  </div>
+</div>
+`;

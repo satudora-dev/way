@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login snapshot 1`] = `
+<div
+  className="Login"
+>
+  <div
+    className="sc-bwzfXH jlZvJh"
+  >
+    <div
+      style={
+        Object {
+          "padding-top": "30px",
+          "text-align": "center",
+        }
+      }
+    >
+      <img
+        alt="loading the way image..."
+        src="./way.png"
+        style={
+          Object {
+            "height": 128,
+            "vertical-align": "middle",
+            "width": 256,
+          }
+        }
+      />
+      <h2>
+        AI TOKYO LAB & Co.
+      </h2>
+    </div>
+  </div>
+  <div>
+    <div
+      className="sc-bdVaJa kMdoF"
+      onClick={[Function]}
+    >
+      <img
+        src="./github.svg"
+      />
+    </div>
+    <h3>
+      Login with GitHub
+    </h3>
+  </div>
+</div>
+`;
