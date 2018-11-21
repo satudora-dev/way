@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "cross-env": "^5.2.0",
-    "react-test-renderer": "^16.6.1",
+    "react-test-renderer": "^16.6.1"
   },
   "browserslist": [
     ">0.2%",
