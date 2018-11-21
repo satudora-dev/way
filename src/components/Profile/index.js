@@ -9,6 +9,7 @@ import CloseIcon from '@material-ui/icons/Close'
 import EditableLabel from '../../components/EditableLabel'
 import ImageUploader from '../../components/ImageUploader'
 import CombinedModal from './CombinedModal'
+import SingleSelectModal from './SingleSelectModal'
 import aitl_positions from '../../components/aitl_positions';
 import aitl_projects from '../../components/aitl_projects';
 
@@ -149,9 +150,8 @@ class Profile extends Component {
             })()}
           </div>
 
-          <CombinedModal
+          <SingleSelectModal
             style = {style.modalStyle}
-            mode = "single"
             buttonText = "DONE"
             modalOpen = {this.state.positionModalOpen}
             inputArray = {aitl_positions}
@@ -161,7 +161,7 @@ class Profile extends Component {
             profileUserKey={profileUserKey}
           >
             Position
-          </CombinedModal>
+          </SingleSelectModal>
 
         </div>
         <div className="Project">
