@@ -8,7 +8,6 @@ import CloseIcon from '@material-ui/icons/Close'
 
 import EditableLabel from '../../components/EditableLabel'
 import ImageUploader from '../../components/ImageUploader'
-import CombinedModal from './CombinedModal'
 import SingleSelectModal from './SingleSelectModal'
 import MultipleSelectModal from './MultipleSelectModal'
 import TextModal from './TextModal'
