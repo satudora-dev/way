@@ -11,6 +11,7 @@ import ImageUploader from '../../components/ImageUploader'
 import CombinedModal from './CombinedModal'
 import SingleSelectModal from './SingleSelectModal'
 import MultipleSelectModal from './MultipleSelectModal'
+import TextModal from './TextModal'
 import aitl_positions from '../../components/aitl_positions';
 import aitl_projects from '../../components/aitl_projects';
 
@@ -225,9 +226,8 @@ class Profile extends Component {
             <AddIcon />
             </Button>
 
-            <CombinedModal
+            <TextModal
               style = {style.modalStyle}
-              mode = "text"
               buttonText = "DONE"
               modalOpen = {this.state.tagModalOpen}
               onModalClose = {() => this.setState({tagModalOpen: false})}
@@ -235,7 +235,7 @@ class Profile extends Component {
               profileUserKey = {profileUserKey}
             >
               Add Tags
-            </CombinedModal>
+            </TextModal>
 
             </div>
         </div>

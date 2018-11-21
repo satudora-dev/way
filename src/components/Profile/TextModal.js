@@ -3,14 +3,10 @@ import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
-import aitl_positions from '../../components/aitl_positions';
-import aitl_projects from '../../components/aitl_projects';
 
 
 const style = {
@@ -30,11 +26,8 @@ const style = {
   },
 }
 
-const ModalCase = ({
+const TextModal = ({
   children,
-  input,
-  mode,
-  modalInput,
   buttonText,
   modalOpen,
   inputArray,
@@ -45,6 +38,7 @@ const ModalCase = ({
   addText,
   ...other
 }) => {
+  let input
 
   return (
     <div>
@@ -59,7 +53,11 @@ const ModalCase = ({
               <h3>{children}</h3>
             </div>
             <div>
-              {modalInput}
+              <TextField
+                label = "tag"
+                value = {input}
+                onChange = {(e) => {input = e.target.value}}
+              />
             </div>
             <div
               style = {{margin:"10px"}}
@@ -68,14 +66,10 @@ const ModalCase = ({
                 style = {style.btnstyle}
                 variant = "outlined"
                 onClick = {() => {
-                  if (mode === "text") {
-                    if (input === "" || input === undefined) {
-                      return
-                    } else {
-                      addText(input, profileUserKey)
-                      onModalClose()
-                    }
+                  if (input === "" || input === undefined) {
+                    return
                   } else {
+                    addText(input, profileUserKey)
                     onModalClose()
                   }
                 }}
@@ -91,4 +85,4 @@ const ModalCase = ({
   )
 }
 
-export default ModalCase
+export default TextModal
