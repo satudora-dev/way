@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\functions",
+    "\\src",
+    "\\src\\actions",
+    "\\src\\components",
+    "\\src\\components\\App",
+    "\\src\\components\\Signup",
+    "\\src\\firebase",
+    "\\src\\reducers",
+    "\\src\\utils"
+  ],
+  "SelectedNode": "\\src\\components\\Profile\\index.js",
+  "PreviewInSolutionExplorer": false
+}
