@@ -25,10 +25,10 @@ export const addTag = (tagname, userKey) => dispatch => {
     }));
   tagsRef.where("name", "==", tagname).get().then( (querySnapshot) => {
     if (querySnapshot.size === 0){
-      tagsRef.add({name:tagname, member: firebase.firestore.FieldValue.arrayUnion(userKey)})
+      tagsRef.add({name:tagname, members: firebase.firestore.FieldValue.arrayUnion(userKey)})
     }else{
       querySnapshot.forEach((tagDoc) => {
-        tagsRef.doc(tagDoc.id).update({name:tagname, member: firebase.firestore.FieldValue.arrayUnion(userKey)})
+        tagsRef.doc(tagDoc.id).update({name:tagname, members: firebase.firestore.FieldValue.arrayUnion(userKey)})
       })
     }
   }).catch(error => dispatch({
@@ -46,10 +46,10 @@ export const deleteTag = (tagname, userKey) => dispatch => {
     }));
   tagsRef.where("name", "==", tagname).get().then( (querySnapshot) => {
     querySnapshot.forEach((tagDoc) => {
-      if(tagDoc.data().member.length === 1) {
+      if(tagDoc.data().members.length === 1) {
         tagsRef.doc(tagDoc.id).delete();
       }
-      tagsRef.doc(tagDoc.id).update({name: tagname, member: firebase.firestore.FieldValue.arrayRemove(userKey)});
+      tagsRef.doc(tagDoc.id).update({name: tagname, members: firebase.firestore.FieldValue.arrayRemove(userKey)});
     })
   }).catch(error => dispatch({
       type: 'DELETE_TAG_ERROR',
@@ -68,7 +68,7 @@ export const updatePosition = (currentPosition,newPosition, userKey) => dispatch
   if(currentPosition){
     positionsRef.where("name", "==", currentPosition).get().then( (querySnapshot) => {
       querySnapshot.forEach((positionDoc) => {
-        positionsRef.doc(positionDoc.id).update({name:currentPosition, member: firebase.firestore.FieldValue.arrayRemove(userKey)});
+        positionsRef.doc(positionDoc.id).update({name:currentPosition, members: firebase.firestore.FieldValue.arrayRemove(userKey)});
       })
     }).catch(error => dispatch({
       type: 'UPDATE_POSITION_ERROR',
@@ -77,7 +77,7 @@ export const updatePosition = (currentPosition,newPosition, userKey) => dispatch
   }
   positionsRef.where("name", "==", newPosition).get().then( (querySnapshot) => {
     querySnapshot.forEach((positionDoc) => {
-      positionsRef.doc(positionDoc.id).update({name:newPosition, member: firebase.firestore.FieldValue.arrayUnion(userKey)});
+      positionsRef.doc(positionDoc.id).update({name:newPosition, members: firebase.firestore.FieldValue.arrayUnion(userKey)});
     })
   }).catch(error => dispatch({
     type: 'UPDATE_POSITION_ERROR',
@@ -98,7 +98,7 @@ export const updateProjects = (currentProjects, newProjects, userKey) => dispatc
     for(let project of currentProjects){
       projectsRef.where("name", "==", project).get().then((querySnapshot) => {
         querySnapshot.forEach((projectDoc) => {
-          projectsRef.doc(projectDoc.id).update({member: firebase.firestore.FieldValue.arrayRemove(userKey)})
+          projectsRef.doc(projectDoc.id).update({members: firebase.firestore.FieldValue.arrayRemove(userKey)})
         })
       })
       .catch(error => dispatch({
@@ -111,7 +111,7 @@ export const updateProjects = (currentProjects, newProjects, userKey) => dispatc
   for(let project of newProjects){
     projectsRef.where("name", "==", project).get().then((querySnapshot) => {
       querySnapshot.forEach((projectDoc) => {
-        projectsRef.doc(projectDoc.id).update({member: firebase.firestore.FieldValue.arrayUnion(userKey)})
+        projectsRef.doc(projectDoc.id).update({members: firebase.firestore.FieldValue.arrayUnion(userKey)})
       })
     })
     .catch(error => dispatch({
