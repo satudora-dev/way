@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SiteInfo from '../../components/SiteInfo';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 
 const Icon = styled.div `
