@@ -1,11 +1,15 @@
 import React from 'react';
 import Login from '../../Login';
-import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 
-test('Login snapshot', () => {
-  const component = renderer.create(
-    <Login />
-  );
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-});
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
+
+
+test("Login has 1 SiteInfo, 1 GithubButton" , () => {
+  const wrapper = shallow(<Login />);
+  expect(wrapper.find('SiteInfo').length).toBe(1);
+  expect(wrapper.find('GithubButton').length).toBe(1);
+})
