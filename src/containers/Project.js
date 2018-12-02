@@ -11,15 +11,15 @@ class ProjectContainer extends React.Component {
   }
 
   componentDidMount() {
-    const { fetchProjectsIfNeeded, updateProjectName } = this.props;
+    const { fetchProjectsIfNeeded } = this.props;
     fetchProjectsIfNeeded();
   }
 
   render() {
-    const {project, projectID, users} = this.props;
+    const {project, projectID, users, updateProjectName} = this.props;
     if(project && projectID && users) {
       return (
-        <Project project={project} projectID={projectID} users={users} updateProjectName={updateProject}/>
+        <Project project={project} projectID={projectID} users={users} updateProjectName={updateProjectName}/>
       )
     }else{
       return (
