@@ -33,6 +33,7 @@ class Projects extends Component {
 
     return (
       <div className="Projects">
+        <h2>プロジェクト一覧</h2>
         <Grid container spacing={24} style={style.cardWrapper}>
           {(()=>{
             if(projects) {
