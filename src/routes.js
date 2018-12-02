@@ -19,7 +19,7 @@ const Routes = ({ store }) => {
             <Route path="/:currentPath?" component={ ProperRouter } />
             <Route exact path="/users" component={ Users } />
             <Route path="/users/:id" component={ Profile }/>
-            <Route path="/project/:id" component={ Project }/>
+            <Route path="/projects/:id" component={ Project }/>
             <Route exact path="/logout" component={ Logout } />
           </div>
         </BrowserRouter>
