@@ -16,10 +16,10 @@ class ProjectContainer extends React.Component {
   }
 
   render() {
-    const {project, projectID, users, updateProjectName} = this.props;
+    const {project, projectID, users, updateProjectName, history} = this.props;
     if(project && projectID && users) {
       return (
-        <Project project={project} projectID={projectID} users={users} updateProjectName={updateProjectName}/>
+        <Project project={project} projectID={projectID} users={users} updateProjectName={updateProjectName} history={history}/>
       )
     }else{
       return (
