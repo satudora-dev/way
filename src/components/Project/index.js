@@ -42,8 +42,8 @@ class Project extends Component {
             return (Array.from(project.members).map((projectMember, i) => {
               return (
                 <Button className="User" key={i} style={style.iconbtnstyle}
-                        onClick={() => this.toProfile(projectMember.userkey)}>
-                  <img src={users[projectMember.userkey].icon} style={style.iconstyle} alt="failed loading..."/>
+                        onClick={() => this.toProfile(projectMember)}>
+                  <img src={users[projectMember].icon} style={style.iconstyle} alt="failed loading..."/>
                 </Button>
               );
             }));
