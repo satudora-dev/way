@@ -1,5 +1,6 @@
 import { fireStore} from '../firebase';
 import firebase from 'firebase';
+import { error } from 'util';
 
 const usersRef=fireStore.collection('users');
 const accountsRef=fireStore.collection('accounts');
@@ -12,6 +13,26 @@ export const editName = (names, userKey) => dispatch => {
   usersRef.doc(userKey).update({given_en:names[0],family_en:names[1]})
     .catch(error => dispatch({
       type: 'EDIT_NAME_ERROR',
+      message: error.message,
+    }));
+}
+
+export const initializeNowGroup = (userKey, initialNowGroup) => dispatch => {
+  if (!(userKey && initialNowGroup)) return;
+
+  usersRef.doc(userKey).update({ nowGroup: initialNowGroup })
+    .catch(error => dispatch({
+      type: 'INITIALIZE_NOW_ERROR',
+      message: error.message,
+    }));  
+}
+
+export const updateNowGroup = (userKey, nextNowGroup) => dispatch => {
+  if (!(userKey && nextNowGroup)) return;
+
+  usersRef.doc(userKey).update({ nowGroup: nextNowGroup })
+    .catch(error => dispatch({
+      type: 'UPDATE_NOW_ERROR',
       message: error.message,
     }));
 }
