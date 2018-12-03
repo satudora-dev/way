@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 
-
+import NowGroupSwitcher from './NowGroupSwitcher';
 import PositionModal from './PositionModal';
 import TagModal from './TagModal';
 import ProjectModal from './ProjectModal';
@@ -33,7 +33,6 @@ class Profile extends Component {
   toTagPage(tagName) {
     this.props.history.push(`../users?tag=${tagName}`);
   }
-
 
   render() {
     const style = {
@@ -87,6 +86,7 @@ class Profile extends Component {
     const given = this.props.given || "";
     const family = this.props.family || "";
     const icon = this.props.icon;
+    const nowGroup = this.props.nowGroup;
     const position = this.props.position || "";
     const projects = this.props.projects || [];
     const tags = this.props.tags || [];
@@ -107,6 +107,18 @@ class Profile extends Component {
             canEdit={canEdit}
           />
         </div>
+
+        <NowGroupSwitcher
+          nowGroup={nowGroup}
+          initializeNowGroup={
+            initialNowGroup => this.props.initializeNowGroup(profileUserKey, initialNowGroup)
+          }
+          updateNowGroup={
+            nextNowGroup => this.props.updateNowGroup(profileUserKey, nextNowGroup)
+          }
+          history={this.props.history}
+          canEdit={canEdit}
+        />
 
         <div className="Position">
           <h3 style={style.categorystyle}>position</h3>
@@ -202,7 +214,5 @@ class Profile extends Component {
     );
   }
 }
-
-
 
 export default Profile;
