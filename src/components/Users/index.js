@@ -2,30 +2,32 @@ import React from 'react'
 import Button from '@material-ui/core/Button'
 import MenuAppBar from '../../components/MenuAppBar'
 
+import NowGroupFilter from './NowGroupFilter';
 
 const Users = ({ users, location, history }) => {
-
 
   const params = new URLSearchParams(location.search)
   const position = params.get("position")
   const project = params.get("project")
   const tag = params.get("tag")
+  const now = params.get("now")
 
 
   let searchQuery = ""
-  if (position) {searchQuery = position}
-  else if (project) {searchQuery = project}
-  else if (tag) {searchQuery = tag}
+  if (position) { searchQuery = position }
+  else if (project) { searchQuery = project }
+  else if (tag) { searchQuery = tag }
+  else if (now) { searchQuery = now }
 
 
-  const visibleUserKeys = Object.keys(users).filter(
-    key => {
-      let user = users[key]
-      if (position) {return (user.position === position)}
-      else if (project) {return (user.projects && user.projects.includes(project))}
-      else if (tag) {return (user.tags && user.tags.includes(tag))}
-      else {return (true)}
-    }
+  const visibleUserKeys = Object.keys(users).filter(key => {
+    let user = users[key]
+    if (position) { return (user.position === position) }
+    else if (project) { return (user.projects && user.projects.includes(project)) }
+    else if (tag) { return (user.tags && user.tags.includes(tag)) }
+    else if (now) { return (user.nowGroup && user.nowGroup[now]) }
+    else { return (true) }
+  }
   ).sort(
     (key1, key2) => {
       key1 = key1.toString()
@@ -71,6 +73,7 @@ const Users = ({ users, location, history }) => {
   return (
     <div className="User">
       <MenuAppBar />
+      <NowGroupFilter history={history} />
       {(() => {
         if (searchQuery !== "") {
           return (
