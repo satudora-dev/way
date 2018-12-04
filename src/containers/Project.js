@@ -6,10 +6,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 class ProjectContainer extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     const { fetchProjectsIfNeeded } = this.props;
     fetchProjectsIfNeeded();
