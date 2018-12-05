@@ -18,7 +18,8 @@ before_script:
   - firebase deploy --only firestore --token $FIREBASE_TOKEN
   - chmod +x build.sh
 script:
-  - npm test CI=true
+  - CI=true
+  - npm test
   - CI=false
   - ./build.sh
 
