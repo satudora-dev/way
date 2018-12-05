@@ -13,9 +13,12 @@ install:
   - cd ../
 
 before_script:
+  - npm install -g firebase-tools
+  - firebase use test --token $FIREBASE_TOKEN
+  - firebase deploy --only firestore --token $FIREBASE_TOKEN
   - chmod +x build.sh
 script:
-  - npm test
+  - npm test CI=true
   - CI=false
   - ./build.sh
 
@@ -31,7 +34,7 @@ notifications:
     on_failure: always
 
 before_deploy:
-  - npm install -g firebase-tools
+  - firebase use
   - chmod +x firebase_deploy.sh
 
 deploy:
