@@ -26,8 +26,7 @@ jest.mock('../../firebase', () => {
 
 
 
-import * as profileActions from'../profile';
-
+import * as signupActions from'../signup';
 const dispatch = jest.fn()
 
 describe('profile actions test', () => {
@@ -38,19 +37,17 @@ describe('profile actions test', () => {
   afterAll( async () => {
     await firebase.auth().currentUser.delete()
   })
-
   test('editName test', async () => {
-    await profileActions.editName(['asano', 'kouhei'], "ORE")(dispatch);
-  })
-
-
-  it('addTag, deleteTag test', () => {
-    profileActions.addTag('TEST_TAG', 'Test')(dispatch);
-    profileActions.deleteTag('TEST_TAG', 'Test')(dispatch);
-  })
-
-  it('updatePosition, updateProjects test', () => {
-    profileActions.updatePosition('社員','アルバイト','Test')(dispatch);
-    profileActions.updateProjects(['app'],['app', 'camera'], 'Test')(dispatch)
+    const byteSize = Math.pow(10, 6);
+    const s = ('0').repeat(byteSize);
+    const myBlob = Blob.valueOf(s);
+    await signupActions.signUpAsUser(
+      'O9Rbi56LGVcNQD4xWUOL2TLgxPr1',
+      'asano',
+      'kouuuhei',
+      'あさの',
+      'こうへい',
+      new myBlob
+    )(dispatch)
   })
 })

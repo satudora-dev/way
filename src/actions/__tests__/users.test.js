@@ -26,11 +26,11 @@ jest.mock('../../firebase', () => {
 
 
 
-import * as profileActions from'../profile';
+import * as usersActions from'../users';
 
 const dispatch = jest.fn()
 
-describe('profile actions test', () => {
+describe('users fetch test', () => {
   jest.setTimeout(10000)
   beforeAll( async () => {
     await firebase.auth().signInAnonymously();
@@ -38,19 +38,8 @@ describe('profile actions test', () => {
   afterAll( async () => {
     await firebase.auth().currentUser.delete()
   })
-
-  test('editName test', async () => {
-    await profileActions.editName(['asano', 'kouhei'], "ORE")(dispatch);
+  test('fetch test', async () => {
+    await usersActions.fetchUsers()(dispatch);
   })
 
-
-  it('addTag, deleteTag test', () => {
-    profileActions.addTag('TEST_TAG', 'Test')(dispatch);
-    profileActions.deleteTag('TEST_TAG', 'Test')(dispatch);
-  })
-
-  it('updatePosition, updateProjects test', () => {
-    profileActions.updatePosition('社員','アルバイト','Test')(dispatch);
-    profileActions.updateProjects(['app'],['app', 'camera'], 'Test')(dispatch)
-  })
 })
