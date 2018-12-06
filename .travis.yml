@@ -18,8 +18,7 @@ before_script:
   - firebase deploy --only firestore --token $FIREBASE_TOKEN
   - chmod +x build.sh
 script:
-  - CI=true
-  - npm test
+  - CI=true npm test --detectOpenHandles
   - CI=false
   - ./build.sh
 
