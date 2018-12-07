@@ -26,7 +26,7 @@ class Project extends Component {
       description: {
         color: "#D8D8D8",
         fontFamily: "Avenir",
-        fontSize: "40px",
+        fontSize: "20px",
         margin: "10px auto",
         width: "80%",
         height: "200px",

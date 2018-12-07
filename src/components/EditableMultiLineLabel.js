@@ -64,6 +64,9 @@ class EditableMultiLineLabel extends Component {
         "margin-left": "auto",
         "margin-right": "0",
         "width": "40px",
+      },
+      textField: {
+        "width": "100%"
       }
     }
 
@@ -73,6 +76,7 @@ class EditableMultiLineLabel extends Component {
           onFocus={()=>this.onFocus()}
           onBlur={()=>this.onBlur()}>
           <TextField
+            style={style.textField}
             multiline={this.props.multiline}
             rows={this.props.rows || "1"}
             autoFocus={true}
@@ -91,7 +95,8 @@ class EditableMultiLineLabel extends Component {
               return <div style={style.editIconWrapper}><EditIcon onClick={this.onClick}/></div>;
             }
           })()}
-          <p onClick={()=>this.clickEvent()}>
+          <p onClick={()=>this.clickEvent()}
+            style={{"text-align": "start"}}>
             {this.props.value.split('\n').map(function(line) {
               return <p>{line}</p>;
             })}
