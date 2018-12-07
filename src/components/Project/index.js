@@ -31,11 +31,19 @@ class Project extends Component {
         width: "80%",
         height: "200px",
       },
-      members: {
-        color: "#D8D8D8",
-        fontFamily: "Avenir",
-        fontSize: "40px",
-        margin: "10px"
+      icon: {
+        width: "128px",
+        height: "128px",
+        objectFit: "cover",
+        borderRadius: "50%",
+        padding: "0px",
+        boxShadow: "0 4px 10px gray",
+        cursor: "finger",
+      },
+      iconbtn: {
+        borderRadius: "50%",
+        padding: 0,
+        margin: "5px"
       },
     }
     const project = this.props.project;
@@ -64,15 +72,14 @@ class Project extends Component {
             canEdit={true}
           />
         </section>
-        <section id="project-members"
-                 style={style.members}>
+        <section id="project-members">
           {(()=>{
             if(project.members) {
               return (Array.from(project.members).map((projectMember, i) => {
                 return (
-                  <Button className="User" key={i} style={style.iconbtnstyle}
+                  <Button className="User" key={i} style={style.iconbtn}
                           onClick={() => this.toProfile(projectMember)}>
-                    <img src={users[projectMember].icon} style={style.iconstyle} alt="failed loading..."/>
+                    <img src={users[projectMember].icon} style={style.icon} alt="failed loading..."/>
                   </Button>
                 );
               }));
