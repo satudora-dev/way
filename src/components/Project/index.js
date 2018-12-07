@@ -45,13 +45,16 @@ class Project extends Component {
         padding: 0,
         margin: "5px"
       },
+      projectPageWrapper: {
+        "margin-top": "60px"
+      }
     }
     const project = this.props.project;
     const projectID = this.props.projectID;
     const users = this.props.users;
 
     return (
-      <div className="Project">
+      <div className="Project" style={style.projectPageWrapper}>
         <section id="project-name">
           <EditableProjectLabel
             style={style.name}
