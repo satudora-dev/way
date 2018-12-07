@@ -73,6 +73,8 @@ class Project extends Component {
           />
         </section>
         <section id="project-members">
+          <h2>プロジェクトメンバー</h2>
+          <hr/>
           {(()=>{
             if(project.members) {
               return (Array.from(project.members).map((projectMember, i) => {
