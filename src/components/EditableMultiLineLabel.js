@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 
-class EditableProjectLabel extends Component {
+class EditableMultiLineLabel extends Component {
   constructor(props){
     super(props);
     this.state={
@@ -59,12 +59,22 @@ class EditableProjectLabel extends Component {
   }
 
   render() {
+    const style = {
+      editIconWrapper: {
+        "margin-left": "auto",
+        "margin-right": "0",
+        "width": "40px",
+      }
+    }
+
     if(this.state.onEdit){
       return(
         <span
           onFocus={()=>this.onFocus()}
           onBlur={()=>this.onBlur()}>
           <TextField
+            multiline={this.props.multiline}
+            rows={this.props.rows || "1"}
             autoFocus={true}
             InputProps={{style: this.props.style}}
             value={this.state.value}
@@ -75,17 +85,21 @@ class EditableProjectLabel extends Component {
     }
     else{
       return(
-        <span style={this.props.style}>
-          <span onClick={()=>this.clickEvent()}>{this.props.value}</span>
+        <div style={this.props.style}>
           {(()=>{
             if(this.props.canEdit){
-              return <EditIcon onClick={this.onClick}/>;
+              return <div style={style.editIconWrapper}><EditIcon onClick={this.onClick}/></div>;
             }
           })()}
-        </span>
+          <p onClick={()=>this.clickEvent()}>
+            {this.props.value.split('\n').map(function(line) {
+              return <p>{line}</p>;
+            })}
+          </p>
+        </div>
       )
     }
   }
 }
 
-export default EditableProjectLabel;
+export default EditableMultiLineLabel;
