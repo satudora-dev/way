@@ -41,4 +41,6 @@ export const fetchProjectsIfNeeded = () => (dispatch, getState) => {
   }
 }
 
-
+export const updateDescription = (projectID, newDescription) => {
+  return updateProject(projectID, {'description': newDescription})
+}

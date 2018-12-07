@@ -35,7 +35,14 @@ class Project extends Component {
           onEditEnd={(name)=>this.props.updateProjectName(projectID, {'name': name})}
           canEdit={true}
         />
-        <p>{project.description}</p>
+        <EditableProjectLabel
+          multiline={true}
+          rows={"8"}
+          style={style.description}
+          value={project.description}
+          onEditEnd={(newDescription)=>this.props.updateProjectDescription(projectID, newDescription)}
+          canEdit={true}
+        />
 
         {(()=>{
           if(project.members) {
