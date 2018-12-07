@@ -2,11 +2,18 @@ import { fireStore } from '../firebase';
 const projectRef = fireStore.collection('projects');
 
 export const updateProject = (projectID, updatingParams) => dispatch => {
-  projectRef.doc(projectID).update(updatingParams)
-    .catch(error => dispatch({
-      type: 'UPDATE_PROJECTS_ERROR',
-      message: error.message,
-    }));
+  if(!Object.keys(updatingParams).includes(undefined) && !Object.values(updatingParams).includes(undefined)) {
+    projectRef.doc(projectID).update(updatingParams)
+      .catch(error => dispatch({
+        type: 'UPDATE_PROJECTS_ERROR',
+        message: error.message,
+      }));
+  }else{
+    dispatch({
+        type: 'UPDATE_PROJECTS_ERROR',
+        message: "parameter object has undefined key or value",
+    });
+  }
 }
 
 const fetchProjectsSuccess = projects => {
