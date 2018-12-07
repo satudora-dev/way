@@ -18,13 +18,13 @@ class Project extends Component {
   render() {
     const style = {
       name: {
-        color: "#D8D8D8",
+        color: "black",
         fontFamily: "Avenir",
         fontSize: "40px",
         margin: "10px"
       },
       description: {
-        color: "#D8D8D8",
+        color: "black",
         fontFamily: "Avenir",
         fontSize: "20px",
         margin: "10px auto",
