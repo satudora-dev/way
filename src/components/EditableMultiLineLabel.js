@@ -97,9 +97,13 @@ class EditableMultiLineLabel extends Component {
           })()}
           <p onClick={()=>this.clickEvent()}
             style={{"text-align": "start"}}>
-            {this.props.value.split('\n').map(function(line) {
-              return <p>{line}</p>;
-            })}
+              {(()=>{
+                if(this.props.value){
+                  return this.props.value.split('\n').map(function(line) {
+                    return <p>{line}</p>;
+                  });
+                }
+              })()}
           </p>
         </div>
       )
