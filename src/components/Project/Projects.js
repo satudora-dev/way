@@ -31,7 +31,7 @@ const Projects = ({ projects, history }) => {
           if(projects) {
             return (Object.keys(projects).map((key, i) => {
               return (
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={6} md={4}>
                   <Card>
                     <CardContent>
                       { projects[key].name }
