@@ -18,6 +18,7 @@ const Projects = ({ projects, history }) => {
       margin: "0 auto",
     },
     cardButton: {
+      padding: "20px 0 20px 0",
       width: "100%",
       height: "100%"
     }
@@ -32,18 +33,12 @@ const Projects = ({ projects, history }) => {
             return (Object.keys(projects).map((key, i) => {
               return (
                 <Grid item xs={12} sm={6} md={4}>
-                  <Card>
-                    <CardContent>
-                      { projects[key].name }
-                    </CardContent>
-                    <CardActions>
-                      <Button key={i}
-                              onClick={() => toProject(key)}
-                              style={style.cardButton}>
-                        詳細
-                      </Button>
-                    </CardActions>
-                  </Card>
+                  <Button key={i}
+                          onClick={() => toProject(key)}
+                          style={style.cardButton}
+                          variant="outlined">
+                    { projects[key].name }
+                  </Button>
                 </Grid>
               );
             }));
