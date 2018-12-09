@@ -51,6 +51,8 @@ class Project extends Component {
     const project = this.props.project;
     const projectID = this.props.projectID;
     const users = this.props.users;
+    const currentUserID = this.props.currentUserID;
+    const canEdit = project.members && Object.values(project.members).includes(currentUserID)
 
     return (
       <div className="Project" style={style.projectPageWrapper}>
@@ -59,7 +61,7 @@ class Project extends Component {
             style={style.name}
             value={project.name}
             onEditEnd={(name)=>this.props.updateProjectName(projectID, {'name': name})}
-            canEdit={true}
+            canEdit={canEdit}
           />
         </section>
         <section id="project-description"
@@ -70,7 +72,7 @@ class Project extends Component {
             rows={"8"}
             value={project.description}
             onEditEnd={(newDescription)=>this.props.updateProjectDescription(projectID, newDescription)}
-            canEdit={true}
+            canEdit={canEdit}
           />
         </section>
         <section id="project-members">

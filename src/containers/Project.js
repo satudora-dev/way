@@ -12,7 +12,7 @@ class ProjectContainer extends React.Component {
   }
 
   render() {
-    const {project, projectID, users, updateProjectName, history, updateProjectDescription} = this.props;
+    const {project, projectID, users, updateProjectName, history, updateProjectDescription, currentUserID} = this.props;
     if(project && projectID && users) {
       return (
         <Project
@@ -22,6 +22,7 @@ class ProjectContainer extends React.Component {
           updateProjectName={updateProjectName}
           history={history}
           updateProjectDescription={updateProjectDescription}
+          currentUserID={currentUserID}
         />
       )
     }else{
@@ -32,14 +33,16 @@ class ProjectContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({projects, users}, ownProps) => {
+const mapStateToProps = ({projects, users, auth}, ownProps) => {
   const projectID = ownProps.match.params.id;
-  if(!projects.noData) {
+  const currentUserID = auth.currentUserID;
+  if(!projects.noData && currentUserID) {
     return {
       project: projects[projectID],
       //projectMembers: projects[projectID].members.map((memberID) => users[memberID]),
       projectID: projectID,
       users: users,
+      currentUserID: currentUserID,
     }
   }else{
     return {
