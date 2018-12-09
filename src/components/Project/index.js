@@ -27,9 +27,8 @@ class Project extends Component {
         color: "black",
         fontFamily: "Avenir",
         fontSize: "20px",
-        margin: "10px auto",
-        width: "80%",
-        height: "200px",
+        margin: "10px auto 200px auto",
+        width: "70%",
       },
       icon: {
         width: "128px",
@@ -64,12 +63,11 @@ class Project extends Component {
           />
         </section>
         <section id="project-description"
-                 style={style.description}
         >
           <EditableMultiLineLabel
+            style={style.description}
             multiline={true}
             rows={"8"}
-            style={style.description}
             value={project.description}
             onEditEnd={(newDescription)=>this.props.updateProjectDescription(projectID, newDescription)}
             canEdit={true}

@@ -67,6 +67,13 @@ class EditableMultiLineLabel extends Component {
       },
       textField: {
         "width": "100%"
+      },
+      notEdittingTextWrapper:{
+        "text-align": "start",
+        "color": "gray"
+      },
+      notEdittingText:{
+        margin: "0 auto",
       }
     }
 
@@ -96,11 +103,11 @@ class EditableMultiLineLabel extends Component {
             }
           })()}
           <p onClick={()=>this.clickEvent()}
-            style={{"text-align": "start"}}>
+            style={style.notEdittingTextWrapper}>
               {(()=>{
                 if(this.props.value){
                   return this.props.value.split('\n').map(function(line) {
-                    return <p>{line}</p>;
+                    return <p style={style.notEdittingText}>{line}</p>;
                   });
                 }
               })()}
