@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
 
-const Projects = ({ projects, history }) => {
+const ProjectList = ({ projects, history }) => {
 
   const toProject = id => {
     history.push(`/projects/${id}`);
@@ -50,4 +50,4 @@ const Projects = ({ projects, history }) => {
 }
 
 
-export default Projects;
+export default ProjectList;

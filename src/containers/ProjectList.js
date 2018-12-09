@@ -1,11 +1,11 @@
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Projects from '../components/Project/Projects';
+import ProjectList from '../components/Project/ProjectList';
 import { connect } from 'react-redux';
 import {fetchProjectsIfNeeded} from '../actions/projects';
 
 
-class ProjectsContainer extends React.Component {
+class ProjectListContainer extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -19,7 +19,7 @@ class ProjectsContainer extends React.Component {
     const {projects, history} = this.props;
     if(projects) {
       return (
-        <Projects projects={projects} history={history}/>
+        <ProjectList projects={projects} history={history}/>
       )
     }else{
       return (
@@ -48,5 +48,5 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ProjectsContainer);
+)(ProjectListContainer);
 

@@ -1,4 +1,4 @@
-import Project from '../components/Project';
+import Project from '../components/Project/Project';
 import { connect } from 'react-redux';
 import {updateProject, fetchProjectsIfNeeded, updateDescription} from '../actions/projects';
 import React from 'react';

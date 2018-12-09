@@ -6,7 +6,7 @@ import ProperRouter from './containers/ProperRouter';
 import Users from './containers/Users';
 import Profile from './containers/Profile';
 import Project from './containers/Project';
-import Projects from './containers/Projects';
+import ProjectList from './containers/ProjectList';
 import Logout from './containers/Logout';
 
 import { Provider } from 'react-redux';
@@ -19,7 +19,7 @@ const Routes = ({ store }) => {
           <div>
             <Route path="/:currentPath?" component={ ProperRouter } />
             <Route exact path="/users" component={ Users } />
-            <Route exact path="/projects" component={ Projects }/>
+            <Route exact path="/projects" component={ ProjectList }/>
             <Route path="/users/:id" component={ Profile }/>
             <Route path="/projects/:id" component={ Project }/>
             <Route exact path="/logout" component={ Logout } />
