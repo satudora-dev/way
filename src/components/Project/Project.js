@@ -5,11 +5,6 @@ import Button from '@material-ui/core/Button';
 
 
 class Project extends Component {
-  constructor(props){
-    super(props);
-    this.state={
-    };
-  }
 
   toProfile(id){
     this.props.history.push(`/users/${id}`);
@@ -80,14 +75,14 @@ class Project extends Component {
           <hr/>
           {(()=>{
             if(project.members) {
-              return (Array.from(project.members).map((projectMember, i) => {
+              return project.members.map((projectMember, i) => {
                 return (
                   <Button className="User" key={i} style={style.iconbtn}
                           onClick={() => this.toProfile(projectMember)}>
                     <img src={users[projectMember].icon} style={style.icon} alt="failed loading..."/>
                   </Button>
                 );
-              }));
+              });
             }
           })()}
         </section>
