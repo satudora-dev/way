@@ -1,6 +1,6 @@
 import { fireStore } from '../firebase';
 
-import nowGroupList from '../nowGroupList';
+import nowGroupList from '../components/nowGroupList';
 
 export const addNowToUsers=()=>{
   let nowGroupMap = {};
