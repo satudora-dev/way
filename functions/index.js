@@ -42,7 +42,7 @@ exports.newUserEmailNotification = functions.firestore.document('users/{UID}').o
 
 function sendNewComerEmail(email, newUserFullName, newUserIcon) {
   const mailOptions = {
-    from: `${APP_NAME} <kk.asano.luxy@gmail.com>`,
+    from: `${APP_NAME} <whowareayouy@gmail.com>`,
     to: email,
   };
 
