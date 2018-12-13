@@ -1,7 +1,11 @@
-import {fireStore} from '../firebase';
+import { fireStore } from '../firebase';
+
+import nowGroupList from '../nowGroupList';
 
 export const addNowToUsers=()=>{
-	let nowGroupMap={office:false,eat:false};
+  let nowGroupMap = {};
+  for (let i in nowGroupList) nowGroupMap[nowGroupList[i]] = false;
+
 	let usersRef=fireStore.collection('users');
 	usersRef.get().then(snapshot=>{
 		snapshot.forEach(doc => {
