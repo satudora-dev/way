@@ -110,9 +110,6 @@ class Profile extends Component {
 
         <NowGroupSwitcher
           nowGroup={nowGroup}
-          initializeNowGroup={
-            initialNowGroup => this.props.initializeNowGroup(profileUserKey, initialNowGroup)
-          }
           updateNowGroup={
             nextNowGroup => this.props.updateNowGroup(profileUserKey, nextNowGroup)
           }

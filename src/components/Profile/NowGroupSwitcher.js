@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
-import nowGroupList from '../nowGroupList';
 
 const style = {
   categoryStyle: {
@@ -35,14 +34,6 @@ const style = {
 export default class NowGroupSwitcher extends Component {
   constructor(props) {
     super(props);
-
-    if (!props.nowGroup) {
-      let initialNowGroup = {};
-      for (let name of nowGroupList) {
-        initialNowGroup[name] = false;
-      }
-      props.initializeNowGroup(initialNowGroup);
-    }
   }
 
   onChange(nowName) {
@@ -66,16 +57,16 @@ export default class NowGroupSwitcher extends Component {
             return (
               <div style={style.tagStyle}>
                 <FormGroup row>
-                  {nowGroupList.map((item, i) => {
+                  {Object.keys(nowGroup).map((item, i) => {
                     return (
                       <div key={i}>
                         {(() => {
                           if (this.props.canEdit) {
-                            return(
-                            <Checkbox
-                              checked={nowGroup[item]}
-                              onChange={() => this.onChange(item)}
-                            />);
+                            return (
+                              <Checkbox
+                                checked={nowGroup[item]}
+                                onChange={() => this.onChange(item)}
+                              />);
                           }
                         })()}
                         <Button
@@ -93,7 +84,8 @@ export default class NowGroupSwitcher extends Component {
                           {item}
                         </Button>
                       </div>);
-                  })}
+                  })
+                  }
                 </FormGroup>
               </div>
             );
