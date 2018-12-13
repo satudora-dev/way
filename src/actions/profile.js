@@ -6,7 +6,8 @@ const usersRef=fireStore.collection('users');
 const accountsRef=fireStore.collection('accounts');
 const positionsRef=fireStore.collection('positions');
 const projectsRef=fireStore.collection('projects');
-const tagsRef=fireStore.collection('tags');
+const tagsRef = fireStore.collection('tags');
+const nowGroupRef = fireStore.collection('nowGroup');
 
 export const editName = (names, userKey) => dispatch => {
   if(!names[0] || !names[1] || !userKey ) return;
@@ -15,16 +16,6 @@ export const editName = (names, userKey) => dispatch => {
       type: 'EDIT_NAME_ERROR',
       message: error.message,
     }));
-}
-
-export const initializeNowGroup = (userKey, initialNowGroup) => dispatch => {
-  if (!(userKey && initialNowGroup)) return;
-
-  usersRef.doc(userKey).update({ nowGroup: initialNowGroup })
-    .catch(error => dispatch({
-      type: 'INITIALIZE_NOW_ERROR',
-      message: error.message,
-    }));  
 }
 
 export const updateNowGroup = (userKey, nextNowGroup) => dispatch => {
