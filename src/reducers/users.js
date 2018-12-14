@@ -6,6 +6,8 @@ const users = (state = {noData: true}, action) => {
       }
     case 'UPDATE_IMAGE_ERROR':
     case 'EDIT_NAME_ERROR':
+    case 'INITIALIZE_NOW_ERROR':
+    case 'UPDATE_NOW_ERROR':
     case 'UPDATE_POSITION_ERROR':
     case 'UPDATE_PROJECTS_ERROR':
     case 'ADD_TAG_ERROR':
