@@ -22,7 +22,7 @@ const style = {
   },
 }
 
-export default class NowGroupSwitcher extends Component {
+export default class NowGroupFilter extends Component {
   constructor(props) {
     super(props);
   }
