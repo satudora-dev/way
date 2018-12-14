@@ -4,7 +4,7 @@ import MenuAppBar from '../../components/MenuAppBar'
 
 import NowGroupFilter from './NowGroupFilter';
 
-const Users = ({ users = [], location = {}, history }) => {
+const Users = ({ users, location, history }) => {
 
   const params = new URLSearchParams(location.search)
   const position = params.get("position")
