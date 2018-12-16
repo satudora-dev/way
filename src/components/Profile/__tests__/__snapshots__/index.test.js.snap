@@ -158,22 +158,6 @@ exports[`Profile snapshot 1`] = `
     </span>
   </div>
   <div
-    className="NowSwitch"
-  >
-    <h3
-      style={
-        Object {
-          "fontFamily": "Avenir",
-          "margin": "10px 30px",
-          "textAlign": "left",
-        }
-      }
-    >
-      NOW
-    </h3>
-    <hr />
-  </div>
-  <div
     className="Position"
   >
     <h3
