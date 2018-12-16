@@ -1,5 +1,4 @@
-import { firebaseDB, firebaseStorage, firebaseAuth  } from '../firebase';
-import { storage } from 'firebase';
+import { firebaseAuth  } from '../firebase';
 
 
 
