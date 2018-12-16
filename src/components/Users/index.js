@@ -4,7 +4,7 @@ import MenuAppBar from '../../components/MenuAppBar'
 
 import NowGroupFilter from './NowGroupFilter';
 
-const Users = ({ users, location, history }) => {
+const Users = ({ users = [], location = {}, history }) => {
 
   const params = new URLSearchParams(location.search)
   const position = params.get("position")
@@ -32,9 +32,9 @@ const Users = ({ users, location, history }) => {
     (key1, key2) => {
       key1 = key1.toString()
       key2 = key2.toString()
-      if (key1 > key2) {return -1}
-      else if (key1 < key2) {return 1}
-      else {return 0}
+      if (key1 > key2) { return -1 }
+      else if (key1 < key2) { return 1 }
+      else { return 0 }
     }
   )
 
@@ -92,8 +92,8 @@ const Users = ({ users, location, history }) => {
 
       <div style={style.divstyle}>
 
-        <div style={{textAlign: "center"}}>
-          {visibleUserKeys.map((key,index) => {
+        <div style={{ textAlign: "center" }}>
+          {visibleUserKeys.map((key, index) => {
             return (
               <Button
                 className="User"
