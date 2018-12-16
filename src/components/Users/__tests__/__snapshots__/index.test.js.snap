@@ -6,7 +6,7 @@ exports[`Users snapshot 1`] = `
 >
   <div>
     <header
-      className="MuiPaper-root-9 MuiPaper-elevation4-15 MuiAppBar-root-1 MuiAppBar-positionStatic-5 MuiAppBar-colorDefault-6"
+      className="MuiPaper-root-10 MuiPaper-elevation4-16 MuiAppBar-root-1 MuiAppBar-positionStatic-5 MuiAppBar-colorDefault-7"
       style={
         Object {
           "height": "56px",
@@ -14,7 +14,7 @@ exports[`Users snapshot 1`] = `
       }
     >
       <div
-        className="MuiToolbar-root-36 MuiToolbar-regular-38 MuiToolbar-gutters-37"
+        className="MuiToolbar-root-37 MuiToolbar-regular-39 MuiToolbar-gutters-38"
       >
         <div
           style={
@@ -46,6 +46,133 @@ exports[`Users snapshot 1`] = `
         </div>
       </div>
     </header>
+  </div>
+  <div
+    className="NowSwitch"
+    style={
+      Object {
+        "fontFamily": "Avenir",
+        "margin": "10px 30px",
+        "marginBottom": "40px",
+        "textAlign": "left",
+      }
+    }
+  >
+    <div
+      className="MuiFormGroup-root-41 MuiFormGroup-row-42"
+    >
+      <div>
+        <button
+          className="MuiButtonBase-root-69 MuiButton-root-43 MuiButton-contained-54 MuiButton-raised-57"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#04B486",
+              "color": "white",
+              "marginBottom": "10px",
+              "marginRight": "10px",
+              "textTransform": "none",
+            }
+          }
+          tabIndex="0"
+          type="button"
+        >
+          <span
+            className="MuiButton-label-44"
+          >
+            all
+          </span>
+          <span
+            className="MuiTouchRipple-root-72"
+          />
+        </button>
+      </div>
+      <div>
+        <button
+          className="MuiButtonBase-root-69 MuiButton-root-43 MuiButton-contained-54 MuiButton-raised-57"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#04B486",
+              "color": "white",
+              "marginBottom": "10px",
+              "marginRight": "10px",
+              "textTransform": "none",
+            }
+          }
+          tabIndex="0"
+          type="button"
+        >
+          <span
+            className="MuiButton-label-44"
+          >
+            office
+          </span>
+          <span
+            className="MuiTouchRipple-root-72"
+          />
+        </button>
+      </div>
+      <div>
+        <button
+          className="MuiButtonBase-root-69 MuiButton-root-43 MuiButton-contained-54 MuiButton-raised-57"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#04B486",
+              "color": "white",
+              "marginBottom": "10px",
+              "marginRight": "10px",
+              "textTransform": "none",
+            }
+          }
+          tabIndex="0"
+          type="button"
+        >
+          <span
+            className="MuiButton-label-44"
+          >
+            lunch
+          </span>
+          <span
+            className="MuiTouchRipple-root-72"
+          />
+        </button>
+      </div>
+    </div>
   </div>
   <div
     style={
