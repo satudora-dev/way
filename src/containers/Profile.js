@@ -2,7 +2,7 @@ import Profile from '../components/Profile';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { uploadIcon } from '../actions/iconAction';
-import {  editName, updatePosition, updateProjects, addTag, deleteTag, updateNowGroup} from '../actions/profile';
+import {editName, updatePosition, updateProjects, addTag, deleteTag} from '../actions/profile';
 
 const mapStateToProps = ({ auth, users }, ownProps) => {
   const currentUserID = auth.currentUserID;
@@ -18,7 +18,6 @@ const mapStateToProps = ({ auth, users }, ownProps) => {
       position: users[thisUser].position,
       projects: users[thisUser].projects,
       tags: users[thisUser].tags,
-      nowGroup: users[thisUser].nowGroup,
     }
   }
   else {
@@ -31,7 +30,6 @@ const mapStateToProps = ({ auth, users }, ownProps) => {
 
 const mapDispatchToProps = {
   editName: editName,
-  updateNowGroup: updateNowGroup,
   updatePosition: updatePosition,
   updateProjects: updateProjects,
   addTag: addTag,
