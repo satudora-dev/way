@@ -6,7 +6,7 @@ exports[`Users snapshot 1`] = `
 >
   <div>
     <header
-      className="MuiPaper-root-9 MuiPaper-elevation4-15 MuiAppBar-root-1 MuiAppBar-positionStatic-5 MuiAppBar-colorDefault-6"
+      className="MuiPaper-root-10 MuiPaper-elevation4-16 MuiAppBar-root-1 MuiAppBar-positionStatic-5 MuiAppBar-colorDefault-7"
       style={
         Object {
           "height": "56px",
@@ -14,7 +14,7 @@ exports[`Users snapshot 1`] = `
       }
     >
       <div
-        className="MuiToolbar-root-36 MuiToolbar-regular-38 MuiToolbar-gutters-37"
+        className="MuiToolbar-root-37 MuiToolbar-regular-39 MuiToolbar-gutters-38"
       >
         <div
           style={
