@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 
 class MenuAppBar extends React.Component{
   state = {
@@ -15,11 +13,6 @@ class MenuAppBar extends React.Component{
 
 
   render(){
-    const selects = [
-      "projects",
-      "offices",
-    ];
-
     const style = {
       table: {
         "display": "table",
