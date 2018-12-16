@@ -65,7 +65,7 @@ exports[`Profile snapshot 1`] = `
             type="file"
           />
           <button
-            className="MuiButtonBase-root-36 MuiButton-root-10 MuiButton-fab-27 MuiButton-mini-32 MuiButton-contained-21 MuiButton-raised-24"
+            className="MuiButtonBase-root-37 MuiButton-root-11 MuiButton-fab-28 MuiButton-mini-33 MuiButton-contained-22 MuiButton-raised-25"
             disabled={false}
             onBlur={[Function]}
             onClick={[Function]}
@@ -92,12 +92,13 @@ exports[`Profile snapshot 1`] = `
             type="button"
           >
             <span
-              className="MuiButton-label-11"
+              className="MuiButton-label-12"
             >
               <svg
                 aria-hidden="true"
-                className="MuiSvgIcon-root-39"
+                className="MuiSvgIcon-root-40"
                 focusable="false"
+                role="presentation"
                 viewBox="0 0 24 24"
               >
                 <path
@@ -110,7 +111,7 @@ exports[`Profile snapshot 1`] = `
               </svg>
             </span>
             <span
-              className="MuiTouchRipple-root-46"
+              className="MuiTouchRipple-root-148"
             />
           </button>
         </div>
@@ -140,9 +141,10 @@ exports[`Profile snapshot 1`] = `
       </span>
       <svg
         aria-hidden="true"
-        className="MuiSvgIcon-root-39"
+        className="MuiSvgIcon-root-40"
         focusable="false"
         onClick={[Function]}
+        role="presentation"
         viewBox="0 0 24 24"
       >
         <path
@@ -154,6 +156,22 @@ exports[`Profile snapshot 1`] = `
         />
       </svg>
     </span>
+  </div>
+  <div
+    className="NowSwitch"
+  >
+    <h3
+      style={
+        Object {
+          "fontFamily": "Avenir",
+          "margin": "10px 30px",
+          "textAlign": "left",
+        }
+      }
+    >
+      NOW
+    </h3>
+    <hr />
   </div>
   <div
     className="Position"
@@ -181,7 +199,7 @@ exports[`Profile snapshot 1`] = `
       }
     >
       <button
-        className="MuiButtonBase-root-36 MuiButtonBase-disabled-37 MuiButton-root-10 MuiButton-contained-21 MuiButton-containedPrimary-22 MuiButton-raised-24 MuiButton-raisedPrimary-25 MuiButton-disabled-30"
+        className="MuiButtonBase-root-37 MuiButtonBase-disabled-38 MuiButton-root-11 MuiButton-contained-22 MuiButton-containedPrimary-23 MuiButton-raised-25 MuiButton-raisedPrimary-26 MuiButton-disabled-31"
         disabled={true}
         onBlur={[Function]}
         onClick={[Function]}
@@ -207,13 +225,13 @@ exports[`Profile snapshot 1`] = `
         type="button"
       >
         <span
-          className="MuiButton-label-11"
+          className="MuiButton-label-12"
         >
           
         </span>
       </button>
       <button
-        className="MuiButtonBase-root-36 MuiButton-root-10 MuiButton-fab-27 MuiButton-mini-32 MuiButton-contained-21 MuiButton-raised-24"
+        className="MuiButtonBase-root-37 MuiButton-root-11 MuiButton-fab-28 MuiButton-mini-33 MuiButton-contained-22 MuiButton-raised-25"
         disabled={false}
         onBlur={[Function]}
         onClick={[Function]}
@@ -239,12 +257,13 @@ exports[`Profile snapshot 1`] = `
         type="button"
       >
         <span
-          className="MuiButton-label-11"
+          className="MuiButton-label-12"
         >
           <svg
             aria-hidden="true"
-            className="MuiSvgIcon-root-39"
+            className="MuiSvgIcon-root-40"
             focusable="false"
+            role="presentation"
             viewBox="0 0 24 24"
           >
             <path
@@ -257,7 +276,7 @@ exports[`Profile snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="MuiTouchRipple-root-46"
+          className="MuiTouchRipple-root-148"
         />
       </button>
     </div>
@@ -293,7 +312,7 @@ exports[`Profile snapshot 1`] = `
       }
     >
       <button
-        className="MuiButtonBase-root-36 MuiButton-root-10 MuiButton-fab-27 MuiButton-mini-32 MuiButton-contained-21 MuiButton-raised-24"
+        className="MuiButtonBase-root-37 MuiButton-root-11 MuiButton-fab-28 MuiButton-mini-33 MuiButton-contained-22 MuiButton-raised-25"
         disabled={false}
         onBlur={[Function]}
         onClick={[Function]}
@@ -319,12 +338,13 @@ exports[`Profile snapshot 1`] = `
         type="button"
       >
         <span
-          className="MuiButton-label-11"
+          className="MuiButton-label-12"
         >
           <svg
             aria-hidden="true"
-            className="MuiSvgIcon-root-39"
+            className="MuiSvgIcon-root-40"
             focusable="false"
+            role="presentation"
             viewBox="0 0 24 24"
           >
             <path
@@ -337,7 +357,7 @@ exports[`Profile snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="MuiTouchRipple-root-46"
+          className="MuiTouchRipple-root-148"
         />
       </button>
       <div>
@@ -373,7 +393,7 @@ exports[`Profile snapshot 1`] = `
       }
     >
       <button
-        className="MuiButtonBase-root-36 MuiButton-root-10 MuiButton-fab-27 MuiButton-mini-32 MuiButton-contained-21 MuiButton-raised-24"
+        className="MuiButtonBase-root-37 MuiButton-root-11 MuiButton-fab-28 MuiButton-mini-33 MuiButton-contained-22 MuiButton-raised-25"
         disabled={false}
         onBlur={[Function]}
         onClick={[Function]}
@@ -399,12 +419,13 @@ exports[`Profile snapshot 1`] = `
         type="button"
       >
         <span
-          className="MuiButton-label-11"
+          className="MuiButton-label-12"
         >
           <svg
             aria-hidden="true"
-            className="MuiSvgIcon-root-39"
+            className="MuiSvgIcon-root-40"
             focusable="false"
+            role="presentation"
             viewBox="0 0 24 24"
           >
             <path
@@ -417,7 +438,7 @@ exports[`Profile snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="MuiTouchRipple-root-46"
+          className="MuiTouchRipple-root-148"
         />
       </button>
       <div>
