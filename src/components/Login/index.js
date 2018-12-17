@@ -29,10 +29,10 @@ function GithubButton(props){
   return(
     <div>
       <Icon onClick={props.onClick}>
-        <img src="./github.svg" />
+        <img src="./github.svg" alt="failed loading a github icon."/>
       </Icon>
       <h3>Login with GitHub</h3>
-    </div>        
+    </div>
   );
 }
 
