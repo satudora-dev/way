@@ -14,11 +14,8 @@ install:
 
 before_script:
   - npm install -g firebase-tools
-  - firebase use development --token $FIREBASE_TOKEN
-  - firebase deploy --only firestore --token $FIREBASE_TOKEN
   - chmod +x build.sh
 script:
-  - CI=true npm test --detectOpenHandles
   - CI=false
   - ./build.sh
 
