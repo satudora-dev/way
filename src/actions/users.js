@@ -1,4 +1,4 @@
-import { fireStore, firebaseAuth} from '../firebase';
+import { fireStore } from '../firebase';
 
 
 const usersRef=fireStore.collection('users');
