@@ -3,6 +3,24 @@ import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import EXIF from 'exif-js';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import styled from 'styled-components';
+
+const ImageStyle = styled.div `
+  height: 256px;
+  width: 256px;
+  borderRadius: 50%;
+  marginTop: 30px;
+  objectFit: cover;
+  transform: this.state.rotation this.state.scale;
+`
+const ButtonStyle = styled.div `
+  position: absolute;
+  backgroundColor: #04B486;
+  color: white;
+  top: 240px;
+  right: 32px;
+  margin: 0;
+`
 
 const createObjectURL
   = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
@@ -141,41 +159,23 @@ export default class IconPreview extends Component {
   }
 
   render() {
-
-    const style = {
-      imgstyle: {
-        height: "256px",
-        width: "256px",
-        borderRadius: "50%",
-        marginTop: "30px",
-        objectFit: "cover",
-        transform: `${this.state.rotation} ${this.state.scale} `,
-      },
-      btnstyle: {
-        position: "absolute",
-        backgroundColor: "#04B486",
-        "color": "white",
-        top: "240px",
-        right: "32px",
-        margin: 0,
-      },
-    }
-
     return (
       <div>
         <div style={{ position: "relative", width: "256px", margin: "auto" }}>
           {(() => {
             if (this.state.iconSrc) {
               return (
-                <div>
-                  <img src={this.state.iconSrc}
-                    style={style.imgstyle} />
-                </div>
+                <ImageStyle>
+                  <img src={this.state.iconSrc}/>
+                </ImageStyle>
               );
             }
             else {
-              return <CircularProgress
-                style={style.imgstyle}/>
+              return (
+                <ImageStyle>
+                  <CircularProgress/>
+                </ImageStyle>
+              );
             }
           })()}
           {(() => {
@@ -185,10 +185,12 @@ export default class IconPreview extends Component {
                   <input type="file" style={{ display: "none" }}
                     onChange={e => this.onIconChange(e)}
                     ref='fileInput' />
-                  <Button mini onClick={() => this.refs.fileInput.click()}
-                    variant="fab" style={style.btnstyle}>
-                    <EditIcon />
-                  </Button>
+                  <ButtonStyle>
+                    <Button mini onClick={() => this.refs.fileInput.click()}
+                      variant="fab">
+                      <EditIcon />
+                    </Button>
+                  </ButtonStyle>
                 </div>
               );
             }
