@@ -167,7 +167,7 @@ export default class IconPreview extends Component {
               return (
                 <div>
                   <img src={this.state.iconSrc}
-                    style={style.imgstyle} />
+                    style={style.imgstyle} alt="failed loading." />
                 </div>
               );
             }
