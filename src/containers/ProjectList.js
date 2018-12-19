@@ -6,9 +6,6 @@ import {fetchProjectsIfNeeded} from '../actions/projects';
 
 
 class ProjectListContainer extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   componentDidMount() {
     const { fetchProjectsIfNeeded } = this.props;
@@ -49,4 +46,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ProjectListContainer);
-
