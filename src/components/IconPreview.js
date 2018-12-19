@@ -4,8 +4,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import EXIF from 'exif-js';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const createObjectURL
-  = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
 
 export default class IconPreview extends Component {
   constructor(props) {
@@ -78,11 +76,11 @@ export default class IconPreview extends Component {
               break;
           }
 
-          if (orientation == 2 || orientation == 4) {//���]
+          if (orientation === 2 || orientation === 4) {//���]
             ctx.scale(-1, 1);
             ctx.translate(-image.width, 0);
           }
-          if (orientation == 5 || orientation == 7) {//���]
+          if (orientation === 5 || orientation === 7) {//���]
             ctx.scale(1, -1);
             ctx.translate(0, -image.height);
           }
@@ -103,8 +101,6 @@ export default class IconPreview extends Component {
     return new Promise(resolve => {
       let image = new Image();
       image.onload = () => {
-        let width = image.width;
-        let height = image.height;
         let maxSize = 512;
 
         let canvas = document.createElement('canvas');
@@ -169,7 +165,7 @@ export default class IconPreview extends Component {
               return (
                 <div>
                   <img src={this.state.iconSrc}
-                    style={style.imgstyle} />
+                    style={style.imgstyle} alt="failed loading." />
                 </div>
               );
             }

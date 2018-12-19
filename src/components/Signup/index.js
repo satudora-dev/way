@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import EXIF from 'exif-js';
 import SiteInfo from "../../components/SiteInfo";
 import IconPreview from '../IconPreview';
 
@@ -47,6 +46,8 @@ class Signup extends Component {
           mei: e.target.value,
         });
         break;
+      default:
+        alert("Sorry, something is wrong.")
     }
   }
 

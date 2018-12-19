@@ -37,7 +37,9 @@ class EditableProjectLabel extends Component {
   handleKeyPress(e){
     const ENTER = 13;
     if(this.props.multiline) {
-      if (e.keyCode === ENTER && e.shiftKey) this.state.value += '\n';
+      if (e.keyCode === ENTER && e.shiftKey) {
+        this.setState({value: this.state.value + "\n"})
+      };
       if (!e.shiftKey && e.keyCode === ENTER) this.EndEdit();
     }else{
       if (e.keyCode === ENTER) this.EndEdit();
