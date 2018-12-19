@@ -35,7 +35,7 @@ class MenuAppBar extends React.Component{
             <div style={style.table}>
               <div style={style.imgWrap}>
                 <img src="/way.png" style={style.logoImg}
-                     alt="loading the way image..." />
+                     alt="failed loading." />
               </div>
             </div>
           </Toolbar>
