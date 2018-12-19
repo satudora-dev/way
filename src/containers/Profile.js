@@ -1,6 +1,5 @@
 import Profile from '../components/Profile';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
 import { uploadIcon } from '../actions/iconAction';
 import {  editName, updatePosition, updateProjects, addTag, deleteTag, updateNowGroup} from '../actions/profile';
 
