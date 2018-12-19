@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-
 import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
-
 import nowGroupList from '../nowGroupList';
+
 
 const style = {
   tagStyle: {
