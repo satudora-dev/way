@@ -21,9 +21,6 @@ const style = {
 }
 
 export default class NowGroupFilter extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   filterNow(nowName) {
     if (nowName === 'all') {
