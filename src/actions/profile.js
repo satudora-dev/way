@@ -1,13 +1,9 @@
 import { fireStore} from '../firebase';
 import firebase from 'firebase';
-
-
 const usersRef=fireStore.collection('users');
-const accountsRef=fireStore.collection('accounts');
 const positionsRef=fireStore.collection('positions');
 const projectsRef=fireStore.collection('projects');
 const tagsRef = fireStore.collection('tags');
-const nowGroupRef = fireStore.collection('nowGroup');
 
 export const editName = (names, userKey) => dispatch => {
   if(!names[0] || !names[1] || !userKey ) return;
