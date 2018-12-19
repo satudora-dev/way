@@ -32,9 +32,6 @@ const style = {
 }
 
 export default class NowGroupSwitcher extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   onChange(nowName) {
     let nextNowGroup = this.props.nowGroup;
