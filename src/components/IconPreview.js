@@ -78,11 +78,11 @@ export default class IconPreview extends Component {
               break;
           }
 
-          if (orientation == 2 || orientation == 4) {//���]
+          if (orientation === 2 || orientation === 4) {//���]
             ctx.scale(-1, 1);
             ctx.translate(-image.width, 0);
           }
-          if (orientation == 5 || orientation == 7) {//���]
+          if (orientation === 5 || orientation === 7) {//���]
             ctx.scale(1, -1);
             ctx.translate(0, -image.height);
           }
@@ -103,8 +103,6 @@ export default class IconPreview extends Component {
     return new Promise(resolve => {
       let image = new Image();
       image.onload = () => {
-        let width = image.width;
-        let height = image.height;
         let maxSize = 512;
 
         let canvas = document.createElement('canvas');
