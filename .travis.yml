@@ -16,7 +16,6 @@ before_script:
   - npm install -g firebase-tools
   - chmod +x build.sh
 script:
-  - CI=false
   - ./build.sh
 
 after_failure:
