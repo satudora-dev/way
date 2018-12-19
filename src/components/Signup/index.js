@@ -46,6 +46,8 @@ class Signup extends Component {
           mei: e.target.value,
         });
         break;
+      default:
+        alert("Sorry, something is wrong.")
     }
   }
 
