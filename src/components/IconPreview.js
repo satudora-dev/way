@@ -4,8 +4,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import EXIF from 'exif-js';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const createObjectURL
-  = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
 
 export default class IconPreview extends Component {
   constructor(props) {
