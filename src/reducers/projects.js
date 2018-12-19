@@ -4,7 +4,9 @@ const projects = (state = {noData: true}, action) => {
       if(action.data){
         return action.data
       }
+      break
     case 'RECEIVE_PROJECTS_ERROR':
+      break
     case 'UPDATE_PROJECTS_ERROR':
       // alert(action.message)
       return state
