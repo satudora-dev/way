@@ -29,9 +29,6 @@ exports.newUserEmailNotification = functions.firestore.document('users/{UID}').o
 
   return firestore.collection('accounts').get().then(snapshot => {
     snapshot.forEach(doc => {
-      console.log(doc.data())
-      console.log(doc.data().email)
-      console.log(doc.id)
       if(doc.id !== newUserID){
         return sendNewComerEmail(doc.data().email, newUserFullName, newUserIcon);
       }
