@@ -51,7 +51,7 @@ function sendNewComerEmail(email, newUserFullName, newUserIcon, newUserID) {
       ${newUserFullName} joined us!
     </h2>
     <p> Let's add tag to ${newUserFullName}!</p>
-    <a href="https://way.satudora.co/${newUserID}">
+    <a href="https://way.satudora.co/users/${newUserID}">
       <img src="${newUserIcon}" />
     </a>`;
   return mailTransport.sendMail(mailOptions).then(() => {
