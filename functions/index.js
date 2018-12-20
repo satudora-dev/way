@@ -23,21 +23,20 @@ const APP_NAME = 'WhoAreYou';
 
 exports.newUserEmailNotification = functions.firestore.document('users/{UID}').onCreate((snap, context) => {
   const newUserData = snap.data();
-  const newUserIcon = newUserData.icon;
   const newUserID = context.params.UID;
   const newUserFullName = newUserData.given_en;
 
   return firestore.collection('accounts').get().then(snapshot => {
     snapshot.forEach(doc => {
       if(doc.id !== newUserID){
-        return sendNewComerEmail(doc.data().email, newUserFullName, newUserIcon, newUserID);
+        return sendNewComerEmail(doc.data().email, newUserFullName, newUserID);
       }
     });
   })
 })
 
 
-function sendNewComerEmail(email, newUserFullName, newUserIcon, newUserID) {
+function sendNewComerEmail(email, newUserFullName, newUserID) {
   const senderEmail = "whowareayouy@gmail.com"
   const mailOptions = {
     from: `${APP_NAME} <${senderEmail}>`,
@@ -52,11 +51,11 @@ function sendNewComerEmail(email, newUserFullName, newUserIcon, newUserID) {
     </h2>
     <p> Let's add tag to ${newUserFullName}!</p>
     <a href="https://way.satudora.co/users/${newUserID}">
-      <img src="${newUserIcon}" />
+      <img src="https://firebasestorage.googleapis.com/v0/b/whoareyou-c231f.appspot.com/o/way.png?alt=media&token=7e598f08-0e20-4661-b0f8-83f825a29693" />
     </a>`;
   return mailTransport.sendMail(mailOptions).then(() => {
     return console.log('New comer email sent to:', email);
   }).catch(error => {
-    console.log(error);
+    console.log(error.message);
   });
 }
