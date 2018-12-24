@@ -27,7 +27,7 @@ class Profile extends Component {
   }
 
   toProjectPage(prjName) {
-    this.props.history.push(`../users?project=${prjName}`);
+    this.props.history.push(`../projects/${prjName}`);
   }
 
   toTagPage(tagName) {
