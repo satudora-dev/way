@@ -91,6 +91,7 @@ class Profile extends Component {
     const projects = this.props.projects || [];
     const tags = this.props.tags || [];
     const canEdit = profileUserKey === this.props.currentUserID;
+    const allProjects = this.props.allProjects;
 
     return (
       <div className="Profile">
@@ -180,6 +181,7 @@ class Profile extends Component {
               updateProjects={this.props.updateProjects}
               onProjectModalClose={() => this.setState({ projectModalOpen: false })}
               profileUserKey={profileUserKey}
+              allProjects={allProjects}
             />
           </div>
         </div>
