@@ -81,7 +81,7 @@ const ProjectModal = ({projectModalOpen, currentProjects, updateProjects, onProj
                     value={currentProjects}
                     onChange={(e) => updateProjects(currentProjects,e.target.value, profileUserKey)}
                     input={<Input id="select-multiple-checkbox" />}
-                    renderValue={selected => selected.join(', ')}
+                    renderValue={selected => selected.map(key => allProjects[key].name).join(', ')}
                     MenuProps={MenuProps}
                   >
                     {Object.keys(allProjects).map((key) => (
