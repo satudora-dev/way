@@ -162,7 +162,7 @@ class Profile extends Component {
                   style={style.positionstyle}
                   onClick={() => this.toProjectPage(project)}
                 >
-                  {project}
+                  {allProjects[project].name}
                 </Button>
               );
             })}
