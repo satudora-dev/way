@@ -78,16 +78,16 @@ class RepoPage extends React.Component {
                 <Grid item xs={6}>
                   <p style={{
                     fontSize: '12px',
-                    background: '#94E8FC'
-                  }}>enhancement</p>
-                  <p style={{
-                    fontSize: '12px',
                     background: '#FCCC94'
                   }}>improve</p>
                   <p style={{
                     fontSize: '12px',
                     background: '#F94B46'
                   }}>bug</p>
+                  <p style={{
+                    fontSize: '12px',
+                    background: '#94E8FC'
+                  }}>enhancement</p>
                 </Grid>
               </Grid>
           </Grid>
