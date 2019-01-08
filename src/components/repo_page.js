@@ -1,5 +1,6 @@
 import React from 'react'
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts'
+import Grid from '@material-ui/core/Grid'
 
 
 const data = [
@@ -12,7 +13,8 @@ const data = [
   {name: 'Sunday', Active: 340, Merged: 190, Closed: 230},
 ]
 
-const styleBeta = {
+const marginTop = {
+  marginTop: '100px'
 }
 
 class RepoPage extends React.Component {
@@ -20,17 +22,23 @@ class RepoPage extends React.Component {
   render () {
     return (
       <div>
-        Satoshi Yoshio
-        <BarChart style={styleBeta} width={700} height={250} data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          {/* <XAxis dataKey="name" /> */}
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="Active" fill="#94FC9F" stackId="a"/>
-          <Bar dataKey="Merged" fill="#EBFC94" stackId="a"/>
-          <Bar dataKey="Closed" fill="#FCCE94" stackId="a"/>
-        </BarChart>
+        <Grid container>
+          <Grid item xs={2}>
+            <p style={marginTop}>Satoshi Yoshio</p>
+          </Grid>
+          <Grid item xs={7}>
+            <BarChart width={700} height={250} data={data}>
+              <CartesianGrid strokeDasharray="3 3" />
+              {/* <XAxis dataKey="name" /> */}
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="Active" fill="#94FC9F" stackId="a"/>
+              <Bar dataKey="Merged" fill="#EBFC94" stackId="a"/>
+              <Bar dataKey="Closed" fill="#FCCE94" stackId="a"/>
+            </BarChart>
+          </Grid>
+        </Grid>
       </div>
     )
   }
