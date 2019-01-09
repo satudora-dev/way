@@ -1,7 +1,6 @@
 import React from 'react'
 import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts'
 import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
 
 
 const data = [
