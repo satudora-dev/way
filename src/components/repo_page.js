@@ -1,5 +1,5 @@
 import React from 'react'
-import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts'
+import { ResponsiveContainer, AreaChart, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Area, Bar } from 'recharts'
 import Grid from '@material-ui/core/Grid'
 
 
@@ -117,16 +117,15 @@ class RepoPage extends React.Component {
             </Grid>
             <Grid item xs={4}>
               <ResponsiveContainer height={300}>
-                <BarChart data={data2}>
+                <AreaChart data={data2}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Legend />
-                  <Bar dataKey="Active" fill="#94FC9F" stackId="a"/>
-                  <Bar dataKey="Merged" fill="#EBFC94" stackId="a"/>
-                  <Bar dataKey="Closed" fill="#FCCE94" stackId="a"/>
-                </BarChart>
+                  <Area type="monotone" dataKey="Active" fill="#94FC9F" stackId="a"/>
+                  <Area type="monotone" dataKey="Merged" fill="#EBFC94" stackId="a"/>
+                  <Area type="monotone" dataKey="Closed" fill="#FCCE94" stackId="a"/>
+                </AreaChart>
               </ResponsiveContainer>
             </Grid>
             <Grid item xs={3}>
