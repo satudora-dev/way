@@ -20,79 +20,159 @@ class RepoPage extends React.Component {
   render () {
     return (
       <div>
-        <Grid container>
-          <Grid item xs={2}>
-            <p style={{
-              marginTop: '100px',
-              fontWeight: 'bold'
-            }}>
-              Satoshi Yoshio
-            </p>
-          </Grid>
-          <Grid item xs={4}>
-            <ResponsiveContainer height={300}>
-              <BarChart data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                {/* <XAxis dataKey="name" /> */}
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="Active" fill="#94FC9F" stackId="a"/>
-                <Bar dataKey="Merged" fill="#EBFC94" stackId="a"/>
-                <Bar dataKey="Closed" fill="#FCCE94" stackId="a"/>
-              </BarChart>
-            </ResponsiveContainer>
-          </Grid>
-          <Grid item xs={3}>
-            <p>CLOSED</p>
-              <Grid container>
-                <Grid item xs={6}>
-                  <p style={{fontSize: '12px'}}><a href=''>Issue #87</a></p>
-                  <p style={{fontSize: '12px'}}><a href=''>Issue #79</a></p>
-                  <p style={{fontSize: '12px'}}><a href=''>Issue #76</a></p>
+        <div>
+          <Grid container>
+            <Grid item xs={2}>
+              <p style={{
+                marginTop: '100px',
+                fontWeight: 'bold'
+              }}>
+                Satoshi Yoshio
+              </p>
+            </Grid>
+            <Grid item xs={4}>
+              <ResponsiveContainer height={300}>
+                <BarChart data={data}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  {/* <XAxis dataKey="name" /> */}
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="Active" fill="#94FC9F" stackId="a"/>
+                  <Bar dataKey="Merged" fill="#EBFC94" stackId="a"/>
+                  <Bar dataKey="Closed" fill="#FCCE94" stackId="a"/>
+                </BarChart>
+              </ResponsiveContainer>
+            </Grid>
+            <Grid item xs={3}>
+              <p>CLOSED</p>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <p style={{fontSize: '12px'}}><a href=''>Issue #87</a></p>
+                    <p style={{fontSize: '12px'}}><a href=''>Issue #79</a></p>
+                    <p style={{fontSize: '12px'}}><a href=''>Issue #76</a></p>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <p style={{
+                      fontSize: '12px',
+                      background: '#94E8FC'
+                    }}>enhancement</p>
+                    <p style={{
+                      fontSize: '12px',
+                      background: '#FCCC94'
+                    }}>improve</p>
+                    <p style={{
+                      fontSize: '12px',
+                      background: '#F94B46'
+                    }}>bug</p>
+                  </Grid>
                 </Grid>
-                <Grid item xs={6}>
-                  <p style={{
-                    fontSize: '12px',
-                    background: '#94E8FC'
-                  }}>enhancement</p>
-                  <p style={{
-                    fontSize: '12px',
-                    background: '#FCCC94'
-                  }}>improve</p>
-                  <p style={{
-                    fontSize: '12px',
-                    background: '#F94B46'
-                  }}>bug</p>
+            </Grid>
+            <Grid item xs={3}>
+              <p>OPEN</p>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <p style={{fontSize: '12px'}}><a href=''>Issue #87</a></p>
+                    <p style={{fontSize: '12px'}}><a href=''>Issue #79</a></p>
+                    <p style={{fontSize: '12px'}}><a href=''>Issue #76</a></p>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <p style={{
+                      fontSize: '12px',
+                      background: '#FCCC94'
+                    }}>improve</p>
+                    <p style={{
+                      fontSize: '12px',
+                      background: '#F94B46'
+                    }}>bug</p>
+                    <p style={{
+                      fontSize: '12px',
+                      background: '#94E8FC'
+                    }}>enhancement</p>
+                  </Grid>
                 </Grid>
-              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={3}>
-            <p>OPEN</p>
-              <Grid container>
-                <Grid item xs={6}>
-                  <p style={{fontSize: '12px'}}><a href=''>Issue #87</a></p>
-                  <p style={{fontSize: '12px'}}><a href=''>Issue #79</a></p>
-                  <p style={{fontSize: '12px'}}><a href=''>Issue #76</a></p>
+        </div>
+
+
+
+        <div>
+          <Grid container>
+            <Grid item xs={2}>
+              <p style={{
+                marginTop: '100px',
+                fontWeight: 'bold'
+              }}>
+                Tomohiko Hasegawa
+              </p>
+            </Grid>
+            <Grid item xs={4}>
+              <ResponsiveContainer height={300}>
+                <BarChart data={data}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  {/* <XAxis dataKey="name" /> */}
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="Active" fill="#94FC9F" stackId="a"/>
+                  <Bar dataKey="Merged" fill="#EBFC94" stackId="a"/>
+                  <Bar dataKey="Closed" fill="#FCCE94" stackId="a"/>
+                </BarChart>
+              </ResponsiveContainer>
+            </Grid>
+            <Grid item xs={3}>
+              <p>CLOSED</p>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <p style={{fontSize: '12px'}}><a href=''>Issue #87</a></p>
+                    <p style={{fontSize: '12px'}}><a href=''>Issue #79</a></p>
+                    <p style={{fontSize: '12px'}}><a href=''>Issue #76</a></p>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <p style={{
+                      fontSize: '12px',
+                      background: '#94E8FC'
+                    }}>enhancement</p>
+                    <p style={{
+                      fontSize: '12px',
+                      background: '#FCCC94'
+                    }}>improve</p>
+                    <p style={{
+                      fontSize: '12px',
+                      background: '#F94B46'
+                    }}>bug</p>
+                  </Grid>
                 </Grid>
-                <Grid item xs={6}>
-                  <p style={{
-                    fontSize: '12px',
-                    background: '#FCCC94'
-                  }}>improve</p>
-                  <p style={{
-                    fontSize: '12px',
-                    background: '#F94B46'
-                  }}>bug</p>
-                  <p style={{
-                    fontSize: '12px',
-                    background: '#94E8FC'
-                  }}>enhancement</p>
+            </Grid>
+            <Grid item xs={3}>
+              <p>OPEN</p>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <p style={{fontSize: '12px'}}><a href=''>Issue #87</a></p>
+                    <p style={{fontSize: '12px'}}><a href=''>Issue #79</a></p>
+                    <p style={{fontSize: '12px'}}><a href=''>Issue #76</a></p>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <p style={{
+                      fontSize: '12px',
+                      background: '#FCCC94'
+                    }}>improve</p>
+                    <p style={{
+                      fontSize: '12px',
+                      background: '#F94B46'
+                    }}>bug</p>
+                    <p style={{
+                      fontSize: '12px',
+                      background: '#94E8FC'
+                    }}>enhancement</p>
+                  </Grid>
                 </Grid>
-              </Grid>
+            </Grid>
           </Grid>
-        </Grid>
+        </div>
       </div>
+
     )
   }
 }
