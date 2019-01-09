@@ -56,9 +56,33 @@ class RepoPage extends React.Component {
               <p>CLOSED</p>
                 <Grid container>
                   <Grid item xs={6}>
-                    <p style={{fontSize: '12px'}}><a href='https://github.com/satudora-digital/way/issues/87' target='_blank'>Issue #87</a></p>
-                    <p style={{fontSize: '12px'}}><a href='https://github.com/satudora-digital/way/issues/79' target='_blank'>Issue #79</a></p>
-                    <p style={{fontSize: '12px'}}><a href='https://github.com/satudora-digital/way/issues/76' target='_blank'>Issue #76</a></p>
+                    <p style={{fontSize: '12px'}}>
+                      <a
+                        href='https://github.com/satudora-digital/way/issues/87'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        >
+                        Issue #87
+                      </a>
+                    </p>
+                    <p style={{fontSize: '12px'}}>
+                      <a
+                        href='https://github.com/satudora-digital/way/issues/79'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        >
+                        Issue #79
+                      </a>
+                    </p>
+                    <p style={{fontSize: '12px'}}>
+                      <a
+                        href='https://github.com/satudora-digital/way/issues/76'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        >
+                        Issue #76
+                      </a>
+                    </p>
                   </Grid>
                   <Grid item xs={6}>
                     <p style={{
@@ -80,9 +104,33 @@ class RepoPage extends React.Component {
               <p>OPEN</p>
                 <Grid container>
                   <Grid item xs={6}>
-                    <p style={{fontSize: '12px'}}><a href='https://github.com/satudora-digital/way/issues/87' target='_blank'>Issue #87</a></p>
-                    <p style={{fontSize: '12px'}}><a href='https://github.com/satudora-digital/way/issues/79' target='_blank'>Issue #79</a></p>
-                    <p style={{fontSize: '12px'}}><a href='https://github.com/satudora-digital/way/issues/76' target='_blank'>Issue #76</a></p>
+                    <p style={{fontSize: '12px'}}>
+                      <a
+                        href='https://github.com/satudora-digital/way/issues/87'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        >
+                        Issue #87
+                      </a>
+                    </p>
+                    <p style={{fontSize: '12px'}}>
+                      <a
+                        href='https://github.com/satudora-digital/way/issues/79'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        >
+                        Issue #79
+                      </a>
+                    </p>
+                    <p style={{fontSize: '12px'}}>
+                      <a
+                        href='https://github.com/satudora-digital/way/issues/76'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        >
+                        Issue #76
+                      </a>
+                    </p>
                   </Grid>
                   <Grid item xs={6}>
                     <p style={{
@@ -133,9 +181,33 @@ class RepoPage extends React.Component {
               <p>CLOSED</p>
                 <Grid container>
                   <Grid item xs={6}>
-                    <p style={{fontSize: '12px'}}><a href='https://github.com/satudora-digital/way/issues/87' target='_blank'>Issue #87</a></p>
-                    <p style={{fontSize: '12px'}}><a href='https://github.com/satudora-digital/way/issues/79' target='_blank'>Issue #79</a></p>
-                    <p style={{fontSize: '12px'}}><a href='https://github.com/satudora-digital/way/issues/76' target='_blank'>Issue #76</a></p>
+                    <p style={{fontSize: '12px'}}>
+                      <a
+                        href='https://github.com/satudora-digital/way/issues/87'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        >
+                        Issue #87
+                      </a>
+                    </p>
+                    <p style={{fontSize: '12px'}}>
+                      <a
+                        href='https://github.com/satudora-digital/way/issues/79'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        >
+                        Issue #79
+                      </a>
+                    </p>
+                    <p style={{fontSize: '12px'}}>
+                      <a
+                        href='https://github.com/satudora-digital/way/issues/76'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        >
+                        Issue #76
+                      </a>
+                    </p>
                   </Grid>
                   <Grid item xs={6}>
                     <p style={{
@@ -157,9 +229,33 @@ class RepoPage extends React.Component {
               <p>OPEN</p>
                 <Grid container>
                   <Grid item xs={6}>
-                    <p style={{fontSize: '12px'}}><a href='https://github.com/satudora-digital/way/issues/87' target='_blank'>Issue #87</a></p>
-                    <p style={{fontSize: '12px'}}><a href='https://github.com/satudora-digital/way/issues/79' target='_blank'>Issue #79</a></p>
-                    <p style={{fontSize: '12px'}}><a href='https://github.com/satudora-digital/way/issues/76' target='_blank'>Issue #76</a></p>
+                    <p style={{fontSize: '12px'}}>
+                      <a
+                        href='https://github.com/satudora-digital/way/issues/87'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        >
+                        Issue #87
+                      </a>
+                    </p>
+                    <p style={{fontSize: '12px'}}>
+                      <a
+                        href='https://github.com/satudora-digital/way/issues/79'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        >
+                        Issue #79
+                      </a>
+                    </p>
+                    <p style={{fontSize: '12px'}}>
+                      <a
+                        href='https://github.com/satudora-digital/way/issues/76'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        >
+                        Issue #76
+                      </a>
+                    </p>
                   </Grid>
                   <Grid item xs={6}>
                     <p style={{
