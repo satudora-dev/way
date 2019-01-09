@@ -122,9 +122,10 @@ class RepoPage extends React.Component {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Area type="monotone" dataKey="Active" fill="#94FC9F" stackId="a"/>
-                  <Area type="monotone" dataKey="Merged" fill="#EBFC94" stackId="a"/>
-                  <Area type="monotone" dataKey="Closed" fill="#FCCE94" stackId="a"/>
+                  <Legend />
+                  <Area type="monotone" dataKey="Active" fill="#94FC9F" stroke="#94FC9F" stackId="a"/>
+                  <Area type="monotone" dataKey="Merged" fill="#EBFC94" stroke="#EBFC94" stackId="a"/>
+                  <Area type="monotone" dataKey="Closed" fill="#FCCE94" stroke="#FCCE94" stackId="a"/>
                 </AreaChart>
               </ResponsiveContainer>
             </Grid>
