@@ -3,7 +3,7 @@ import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Le
 import Grid from '@material-ui/core/Grid'
 
 
-const data = [
+const data1 = [
   {name: 'Monday', Active: 400, Merged: 180, Closed: 130},
   {name: 'Tuesday', Active: 300, Merged: 90, Closed: 320},
   {name: 'Wednesday', Active: 200, Merged: 10, Closed: 130},
@@ -11,6 +11,15 @@ const data = [
   {name: 'Friday', Active: 180, Merged: 180, Closed: 130},
   {name: 'Saturday', Active: 230, Merged: 890, Closed: 30},
   {name: 'Sunday', Active: 340, Merged: 190, Closed: 230},
+]
+const data2 = [
+  {name: 'Monday', Active: 270, Merged: 190, Closed: 340},
+  {name: 'Tuesday', Active: 300, Merged: 90, Closed: 320},
+  {name: 'Wednesday', Active: 400, Merged: 180, Closed: 130},
+  {name: 'Thursday', Active: 230, Merged: 890, Closed: 30},
+  {name: 'Friday', Active: 180, Merged: 180, Closed: 130},
+  {name: 'Saturday', Active: 200, Merged: 10, Closed: 130},
+  {name: 'Sunday', Active: 230, Merged: 89, Closed: 30},
 ]
 
 
@@ -31,7 +40,7 @@ class RepoPage extends React.Component {
             </Grid>
             <Grid item xs={4}>
               <ResponsiveContainer height={300}>
-                <BarChart data={data}>
+                <BarChart data={data1}>
                   <CartesianGrid strokeDasharray="3 3" />
                   {/* <XAxis dataKey="name" /> */}
                   <YAxis />
@@ -108,7 +117,7 @@ class RepoPage extends React.Component {
             </Grid>
             <Grid item xs={4}>
               <ResponsiveContainer height={300}>
-                <BarChart data={data}>
+                <BarChart data={data2}>
                   <CartesianGrid strokeDasharray="3 3" />
                   {/* <XAxis dataKey="name" /> */}
                   <YAxis />
