@@ -59,3 +59,6 @@ function sendNewComerEmail(email, newUserFullName, newUserID) {
     console.log(error.message);
   });
 }
+
+
+exports.fetchRepositoryUserProfiles = require('./fetchRepositoryUserProfiles');
