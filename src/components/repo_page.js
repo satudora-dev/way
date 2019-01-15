@@ -26,7 +26,163 @@ const data2 = [
 const iconUrl = 'https://github.com/yasunari89.png'
 const name = "Yasunari Ota"
 
-const date = {
+const Mon = {
+  closedIssueCnt: Math.floor(Math.random() * 31),
+  closedIssueUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  commitCnt: Math.floor(Math.random() * 31),
+  commitUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  openIssueCnt: Math.floor(Math.random() * 31),
+  openIssueUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  prCnt: Math.floor(Math.random() * 31),
+  prUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ]
+}
+const Tue = {
+  closedIssueCnt: Math.floor(Math.random() * 31),
+  closedIssueUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  commitCnt: Math.floor(Math.random() * 31),
+  commitUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  openIssueCnt: Math.floor(Math.random() * 31),
+  openIssueUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  prCnt: Math.floor(Math.random() * 31),
+  prUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ]
+}
+const Wed = {
+  closedIssueCnt: Math.floor(Math.random() * 31),
+  closedIssueUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  commitCnt: Math.floor(Math.random() * 31),
+  commitUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  openIssueCnt: Math.floor(Math.random() * 31),
+  openIssueUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  prCnt: Math.floor(Math.random() * 31),
+  prUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ]
+}
+const Thu = {
+  closedIssueCnt: Math.floor(Math.random() * 31),
+  closedIssueUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  commitCnt: Math.floor(Math.random() * 31),
+  commitUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  openIssueCnt: Math.floor(Math.random() * 31),
+  openIssueUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  prCnt: Math.floor(Math.random() * 31),
+  prUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ]
+}
+const Fri = {
+  closedIssueCnt: Math.floor(Math.random() * 31),
+  closedIssueUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  commitCnt: Math.floor(Math.random() * 31),
+  commitUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  openIssueCnt: Math.floor(Math.random() * 31),
+  openIssueUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  prCnt: Math.floor(Math.random() * 31),
+  prUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ]
+}
+const Sat = {
+  closedIssueCnt: Math.floor(Math.random() * 31),
+  closedIssueUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  commitCnt: Math.floor(Math.random() * 31),
+  commitUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  openIssueCnt: Math.floor(Math.random() * 31),
+  openIssueUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  prCnt: Math.floor(Math.random() * 31),
+  prUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ]
+}
+const Sun = {
   closedIssueCnt: Math.floor(Math.random() * 31),
   closedIssueUrls: [
     'https://github.com/satudora-digital/way/issues/87',
@@ -55,6 +211,18 @@ const date = {
 
 const month = new Date().getMonth() + 1
 const day = new Date().getDate()
+
+
+const data = [
+  {name: 'Thu', Commits: Thu.commitCnt, PullRequests: Thu.prCnt, Closed: Thu.closedIssueCnt, Open: Thu.openIssueCnt},
+  {name: 'Fri', Commits: Fri.commitCnt, PullRequests: Fri.prCnt, Closed: Fri.closedIssueCnt, Open: Fri.openIssueCnt},
+  {name: 'Sat', Commits: Sat.commitCnt, PullRequests: Sat.prCnt, Closed: Sat.closedIssueCnt, Open: Sat.openIssueCnt},
+  {name: 'Sun', Commits: Sun.commitCnt, PullRequests: Sun.prCnt, Closed: Sun.closedIssueCnt, Open: Sun.openIssueCnt},
+  {name: 'Mon', Commits: Mon.commitCnt, PullRequests: Mon.prCnt, Closed: Mon.closedIssueCnt, Open: Mon.openIssueCnt},
+  {name: 'Tue', Commits: Tue.commitCnt, PullRequests: Tue.prCnt, Closed: Tue.closedIssueCnt, Open: Tue.openIssueCnt},
+  {name: 'Wed', Commits: Wed.commitCnt, PullRequests: Wed.prCnt, Closed: Wed.closedIssueCnt, Open: Wed.openIssueCnt},
+]
+
 
 class RepoPage extends React.Component {
 
@@ -186,7 +354,7 @@ class RepoPage extends React.Component {
 
 
 
-        <div>
+{/*        <div>
           <Grid container>
             <Grid item xs={2}>
               <p style={{
@@ -308,7 +476,7 @@ class RepoPage extends React.Component {
             </Grid>
           </Grid>
         </div>
-      </div>
+*/}      </div>
 
     )
   }
