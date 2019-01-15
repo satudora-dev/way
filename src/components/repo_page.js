@@ -236,8 +236,14 @@ class RepoPage extends React.Component {
         <div>
           <Grid container>
             <Grid item xs={2}>
+              <img src={iconUrl} alt="failed loading"
+                style={{
+                  width: '100px',
+                  height: '100px',
+                  borderRadius: '50%',
+                  marginTop: '70px'
+                }} />
               <p style={{
-                marginTop: '100px',
                 fontWeight: 'bold'
               }}>
                 {name}
@@ -293,15 +299,21 @@ class RepoPage extends React.Component {
                   <Grid item xs={6}>
                     <p style={{
                       fontSize: '12px',
-                      background: '#94E8FC'
+                      background: '#6FDE81',
+                      borderRadius: '5px',
+                      marginRight: '10px'
                     }}>enhancement</p>
                     <p style={{
                       fontSize: '12px',
-                      background: '#FCCC94'
+                      background: '#FFBD6F',
+                      borderRadius: '5px',
+                      marginRight: '10px'
                     }}>improve</p>
                     <p style={{
                       fontSize: '12px',
-                      background: '#F94B46'
+                      background: '#FF6F6F',
+                      borderRadius: '5px',
+                      marginRight: '10px'
                     }}>bug</p>
                   </Grid>
                 </Grid>
@@ -341,15 +353,21 @@ class RepoPage extends React.Component {
                   <Grid item xs={6}>
                     <p style={{
                       fontSize: '12px',
-                      background: '#FCCC94'
+                      background: '#FFBD6F',
+                      borderRadius: '5px',
+                      marginRight: '10px'
                     }}>improve</p>
                     <p style={{
                       fontSize: '12px',
-                      background: '#F94B46'
+                      background: '#FF6F6F',
+                      borderRadius: '5px',
+                      marginRight: '10px'
                     }}>bug</p>
                     <p style={{
                       fontSize: '12px',
-                      background: '#94E8FC'
+                      background: '#6FDE81',
+                      borderRadius: '5px',
+                      marginRight: '10px'
                     }}>enhancement</p>
                   </Grid>
                 </Grid>
@@ -359,129 +377,7 @@ class RepoPage extends React.Component {
 
 
 
-{/*        <div>
-          <Grid container>
-            <Grid item xs={2}>
-              <p style={{
-                marginTop: '100px',
-                fontWeight: 'bold'
-              }}>
-                Tomohiko Hasegawa
-              </p>
-            </Grid>
-            <Grid item xs={4}>
-              <ResponsiveContainer height={300}>
-                <AreaChart data={data2}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Area type="monotone" dataKey="Active" fill="#94FC9F" stroke="#94FC9F" stackId="a"/>
-                  <Area type="monotone" dataKey="Merged" fill="#EBFC94" stroke="#EBFC94" stackId="a"/>
-                  <Area type="monotone" dataKey="Closed" fill="#FCCE94" stroke="#FCCE94" stackId="a"/>
-                </AreaChart>
-              </ResponsiveContainer>
-            </Grid>
-            <Grid item xs={3}>
-              <p>CLOSED</p>
-                <Grid container>
-                  <Grid item xs={6}>
-                    <p style={{fontSize: '12px'}}>
-                      <a
-                        href='https://github.com/satudora-digital/way/issues/87'
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        >
-                        Issue #87
-                      </a>
-                    </p>
-                    <p style={{fontSize: '12px'}}>
-                      <a
-                        href='https://github.com/satudora-digital/way/issues/79'
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        >
-                        Issue #79
-                      </a>
-                    </p>
-                    <p style={{fontSize: '12px'}}>
-                      <a
-                        href='https://github.com/satudora-digital/way/issues/76'
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        >
-                        Issue #76
-                      </a>
-                    </p>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <p style={{
-                      fontSize: '12px',
-                      background: '#94E8FC'
-                    }}>enhancement</p>
-                    <p style={{
-                      fontSize: '12px',
-                      background: '#FCCC94'
-                    }}>improve</p>
-                    <p style={{
-                      fontSize: '12px',
-                      background: '#F94B46'
-                    }}>bug</p>
-                  </Grid>
-                </Grid>
-            </Grid>
-            <Grid item xs={3}>
-              <p>OPEN</p>
-                <Grid container>
-                  <Grid item xs={6}>
-                    <p style={{fontSize: '12px'}}>
-                      <a
-                        href='https://github.com/satudora-digital/way/issues/87'
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        >
-                        Issue #87
-                      </a>
-                    </p>
-                    <p style={{fontSize: '12px'}}>
-                      <a
-                        href='https://github.com/satudora-digital/way/issues/79'
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        >
-                        Issue #79
-                      </a>
-                    </p>
-                    <p style={{fontSize: '12px'}}>
-                      <a
-                        href='https://github.com/satudora-digital/way/issues/76'
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        >
-                        Issue #76
-                      </a>
-                    </p>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <p style={{
-                      fontSize: '12px',
-                      background: '#FCCC94'
-                    }}>improve</p>
-                    <p style={{
-                      fontSize: '12px',
-                      background: '#F94B46'
-                    }}>bug</p>
-                    <p style={{
-                      fontSize: '12px',
-                      background: '#94E8FC'
-                    }}>enhancement</p>
-                  </Grid>
-                </Grid>
-            </Grid>
-          </Grid>
-        </div>
-*/}      </div>
+      </div>
 
     )
   }
