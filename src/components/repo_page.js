@@ -268,7 +268,7 @@ class RepoPage extends React.Component {
                         target='_blank'
                         rel='noopener noreferrer'
                         >
-                        Issue #87
+                        #87
                       </a>
                     </p>
                     <p style={{fontSize: '12px'}}>
@@ -277,7 +277,7 @@ class RepoPage extends React.Component {
                         target='_blank'
                         rel='noopener noreferrer'
                         >
-                        Issue #79
+                        #79
                       </a>
                     </p>
                     <p style={{fontSize: '12px'}}>
@@ -286,7 +286,7 @@ class RepoPage extends React.Component {
                         target='_blank'
                         rel='noopener noreferrer'
                         >
-                        Issue #76
+                        #76
                       </a>
                     </p>
                   </Grid>
@@ -316,7 +316,7 @@ class RepoPage extends React.Component {
                         target='_blank'
                         rel='noopener noreferrer'
                         >
-                        Issue #87
+                        #87
                       </a>
                     </p>
                     <p style={{fontSize: '12px'}}>
@@ -325,7 +325,7 @@ class RepoPage extends React.Component {
                         target='_blank'
                         rel='noopener noreferrer'
                         >
-                        Issue #79
+                        #79
                       </a>
                     </p>
                     <p style={{fontSize: '12px'}}>
@@ -334,7 +334,7 @@ class RepoPage extends React.Component {
                         target='_blank'
                         rel='noopener noreferrer'
                         >
-                        Issue #76
+                        #76
                       </a>
                     </p>
                   </Grid>
