@@ -223,6 +223,10 @@ const data = [
   {name: 'Wed', Commits: Wed.commitCnt, PullRequests: Wed.prCnt, Closed: Wed.closedIssueCnt, Open: Wed.openIssueCnt},
 ]
 
+const commitUrls = Thu.commitUrls.concat(Fri.commitUrls, Sat.commitUrls, Sun.commitUrls, Mon.commitUrls, Tue.commitUrls, Wed.commitUrls)
+const prUrls = Thu.prUrls.concat(Fri.prUrls, Sat.prUrls, Sun.prUrls, Mon.prUrls, Tue.prUrls, Wed.prUrls)
+const closedIssueUrls = Thu.closedIssueUrls.concat(Fri.closedIssueUrls, Sat.closedIssueUrls, Sun.closedIssueUrls, Mon.closedIssueUrls, Tue.closedIssueUrls, Wed.closedIssueUrls)
+const openIssueUrls = Thu.openIssueUrls.concat(Fri.openIssueUrls, Sat.openIssueUrls, Sun.openIssueUrls, Mon.openIssueUrls, Tue.openIssueUrls, Wed.openIssueUrls)
 
 class RepoPage extends React.Component {
 
@@ -255,7 +259,7 @@ class RepoPage extends React.Component {
               </ResponsiveContainer>
             </Grid>
             <Grid item xs={3}>
-              <p>CLOSED</p>
+              <p>Close</p>
                 <Grid container>
                   <Grid item xs={6}>
                     <p style={{fontSize: '12px'}}>
@@ -303,7 +307,7 @@ class RepoPage extends React.Component {
                 </Grid>
             </Grid>
             <Grid item xs={3}>
-              <p>OPEN</p>
+              <p>Open</p>
                 <Grid container>
                   <Grid item xs={6}>
                     <p style={{fontSize: '12px'}}>
