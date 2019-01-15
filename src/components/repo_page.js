@@ -23,6 +23,37 @@ const data2 = [
 ]
 
 
+const iconUrl = 'https://github.com/yasunari89.png'
+const name = "Yasunari Ota"
+
+const date = {
+  closedIssueCnt: Math.floor(Math.random() * 31),
+  closedIssueUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  commitCnt: Math.floor(Math.random() * 31),
+  commitUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  openIssueCnt: Math.floor(Math.random() * 31),
+  openIssueUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ],
+  prCnt: Math.floor(Math.random() * 31),
+  prUrls: [
+    'https://github.com/satudora-digital/way/issues/87',
+    'https://github.com/satudora-digital/way/issues/79',
+    'https://github.com/satudora-digital/way/issues/76'
+  ]
+}
+
+
 class RepoPage extends React.Component {
 
   render () {
