@@ -244,14 +244,16 @@ class RepoPage extends React.Component {
                   marginTop: '70px'
                 }} />
               <p style={{
-                fontWeight: 'bold'
+                fontFamily: 'Roboto',
+                fontWeight: '300',
+                fontSize: '20px'
               }}>
                 {name}
               </p>
             </Grid>
             <Grid item xs={4}>
               <ResponsiveContainer height={300}>
-                <BarChart data={data}>
+                <BarChart style={{fontSize: '13px', fontFamily: 'Roboto'}} data={data}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis />
@@ -268,7 +270,10 @@ class RepoPage extends React.Component {
               <p>Close</p>
                 <Grid container>
                   <Grid item xs={6}>
-                    <p style={{fontSize: '12px'}}>
+                    <p style={{
+                        fontSize: '13px',
+                        fontFamily: 'Roboto'
+                      }}>
                       <a
                         href='https://github.com/satudora-digital/way/issues/87'
                         target='_blank'
@@ -277,7 +282,10 @@ class RepoPage extends React.Component {
                         #87
                       </a>
                     </p>
-                    <p style={{fontSize: '12px'}}>
+                    <p style={{
+                        fontSize: '13px',
+                        fontFamily: 'Roboto'
+                      }}>
                       <a
                         href='https://github.com/satudora-digital/way/issues/79'
                         target='_blank'
@@ -286,7 +294,10 @@ class RepoPage extends React.Component {
                         #79
                       </a>
                     </p>
-                    <p style={{fontSize: '12px'}}>
+                    <p style={{
+                        fontSize: '13px',
+                        fontFamily: 'Roboto'
+                      }}>
                       <a
                         href='https://github.com/satudora-digital/way/issues/76'
                         target='_blank'
@@ -298,22 +309,25 @@ class RepoPage extends React.Component {
                   </Grid>
                   <Grid item xs={6}>
                     <p style={{
-                      fontSize: '12px',
+                      fontSize: '13px',
                       background: '#6FDE81',
                       borderRadius: '5px',
-                      marginRight: '10px'
+                      marginRight: '10px',
+                      fontFamily: 'Roboto'
                     }}>enhancement</p>
                     <p style={{
-                      fontSize: '12px',
+                      fontSize: '13px',
                       background: '#FFBD6F',
                       borderRadius: '5px',
-                      marginRight: '10px'
+                      marginRight: '10px',
+                      fontFamily: 'Roboto'
                     }}>improve</p>
                     <p style={{
-                      fontSize: '12px',
+                      fontSize: '13px',
                       background: '#FF6F6F',
                       borderRadius: '5px',
-                      marginRight: '10px'
+                      marginRight: '10px',
+                      fontFamily: 'Roboto'
                     }}>bug</p>
                   </Grid>
                 </Grid>
@@ -322,7 +336,10 @@ class RepoPage extends React.Component {
               <p>Open</p>
                 <Grid container>
                   <Grid item xs={6}>
-                    <p style={{fontSize: '12px'}}>
+                    <p style={{
+                        fontSize: '13px',
+                        fontFamily: 'Roboto'
+                      }}>
                       <a
                         href='https://github.com/satudora-digital/way/issues/87'
                         target='_blank'
@@ -331,7 +348,10 @@ class RepoPage extends React.Component {
                         #87
                       </a>
                     </p>
-                    <p style={{fontSize: '12px'}}>
+                    <p style={{
+                        fontSize: '13px',
+                        fontFamily: 'Roboto'
+                      }}>
                       <a
                         href='https://github.com/satudora-digital/way/issues/79'
                         target='_blank'
@@ -340,7 +360,10 @@ class RepoPage extends React.Component {
                         #79
                       </a>
                     </p>
-                    <p style={{fontSize: '12px'}}>
+                    <p style={{
+                        fontSize: '13px',
+                        fontFamily: 'Roboto'
+                      }}>
                       <a
                         href='https://github.com/satudora-digital/way/issues/76'
                         target='_blank'
@@ -352,22 +375,25 @@ class RepoPage extends React.Component {
                   </Grid>
                   <Grid item xs={6}>
                     <p style={{
-                      fontSize: '12px',
+                      fontSize: '13px',
                       background: '#FFBD6F',
                       borderRadius: '5px',
-                      marginRight: '10px'
+                      marginRight: '10px',
+                      fontFamily: 'Roboto'
                     }}>improve</p>
                     <p style={{
-                      fontSize: '12px',
+                      fontSize: '13px',
                       background: '#FF6F6F',
                       borderRadius: '5px',
-                      marginRight: '10px'
+                      marginRight: '10px',
+                      fontFamily: 'Roboto'
                     }}>bug</p>
                     <p style={{
-                      fontSize: '12px',
+                      fontSize: '13px',
                       background: '#6FDE81',
                       borderRadius: '5px',
-                      marginRight: '10px'
+                      marginRight: '10px',
+                      fontFamily: 'Roboto'
                     }}>enhancement</p>
                   </Grid>
                 </Grid>
