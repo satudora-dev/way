@@ -236,20 +236,21 @@ class RepoPage extends React.Component {
                 marginTop: '100px',
                 fontWeight: 'bold'
               }}>
-                Satoshi Yoshio
+                {name}
               </p>
             </Grid>
             <Grid item xs={4}>
               <ResponsiveContainer height={300}>
-                <BarChart data={data1}>
+                <BarChart data={data}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="Active" fill="#94FC9F" stackId="a"/>
-                  <Bar dataKey="Merged" fill="#EBFC94" stackId="a"/>
-                  <Bar dataKey="Closed" fill="#FCCE94" stackId="a"/>
+                  <Bar name="Commits" dataKey="Commits" fill="#7BD2F7" stackId="a"/>
+                  <Bar name="Pull Requests" dataKey="PullRequests" fill="#7FF175" stackId="a"/>
+                  <Bar name="Closed Issues" dataKey="Closed" fill="#F6E976" stackId="a"/>
+                  <Bar name="Open Issues" dataKey="Open" fill="#FDB879" stackId="a"/>
                 </BarChart>
               </ResponsiveContainer>
             </Grid>
