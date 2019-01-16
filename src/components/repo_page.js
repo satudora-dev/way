@@ -209,9 +209,6 @@ const Sun = {
   ]
 }
 
-const month = new Date().getMonth() + 1
-const day = new Date().getDate()
-
 
 const data = [
   {name: 'Thu', Commits: Thu.commitCnt, PullRequests: Thu.prCnt, Closed: Thu.closedIssueCnt, Open: Thu.openIssueCnt},
@@ -236,7 +233,12 @@ class RepoPage extends React.Component {
         <div>
           <Grid container>
             <Grid item xs={2}>
-              <p style={{fontFamily: 'Roboto', fontSize: '28px', marginBottom: '13px'}}>Member</p>
+              <p style={{
+                  fontFamily: 'Roboto',
+                  fontSize: '28px',
+                  marginBottom: '13px',
+                  marginLeft: '40px'
+                }}>Member</p>
               <hr width='100%'/>
               <img src={iconUrl} alt="failed loading"
                 style={{
@@ -257,7 +259,12 @@ class RepoPage extends React.Component {
 
             </Grid>
             <Grid item xs={4}>
-              <p style={{fontFamily: 'Roboto', fontSize: '28px', marginBottom: '13px'}}>Activity</p>
+              <p style={{
+                  fontFamily: 'Roboto',
+                  fontSize: '28px',
+                  marginBottom: '13px',
+                  marginLeft: '40px'
+                }}>Activity</p>
               <hr width='100%'/>
               <ResponsiveContainer height={300}>
                 <BarChart style={{fontSize: '14px', fontFamily: 'Roboto'}} data={data}>
@@ -277,7 +284,12 @@ class RepoPage extends React.Component {
 
 
             <Grid item xs={3}>
-              <p style={{fontFamily: 'Roboto', fontSize: '28px', marginBottom: '13px'}}>Close</p>
+              <p style={{
+                  fontFamily: 'Roboto',
+                  fontSize: '28px',
+                  marginBottom: '13px',
+                  marginLeft: '40px'
+                }}>Close</p>
               <hr width='100%'/>
                 <Grid container>
                   <Grid item xs={6}>
@@ -370,7 +382,12 @@ class RepoPage extends React.Component {
 
 
             <Grid item xs={3}>
-              <p style={{fontFamily: 'Roboto', fontSize: '28px', marginBottom: '13px'}}>Open</p>
+              <p style={{
+                  fontFamily: 'Roboto',
+                  fontSize: '28px',
+                  marginBottom: '13px',
+                  marginLeft: '40px'
+                }}>Open</p>
               <hr width='100%'/>
                 <Grid container>
                   <Grid item xs={6}>
