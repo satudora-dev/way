@@ -240,8 +240,8 @@ class RepoPage extends React.Component {
               <hr width='100%'/>
               <img src={iconUrl} alt="failed loading"
                 style={{
-                  width: '100px',
-                  height: '100px',
+                  width: '102px',
+                  height: '102px',
                   borderRadius: '50%',
                   marginTop: '70px'
                 }} />
