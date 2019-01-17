@@ -201,10 +201,6 @@ const data = [
   {name: 'Wed', Commits: Wed.commitCnt, PullRequests: Wed.prCnt, Closed: Wed.closedIssueCnt, Open: Wed.openIssueCnt},
 ]
 
-const commitUrls = Thu.commitUrls.concat(Fri.commitUrls, Sat.commitUrls, Sun.commitUrls, Mon.commitUrls, Tue.commitUrls, Wed.commitUrls)
-const prUrls = Thu.prUrls.concat(Fri.prUrls, Sat.prUrls, Sun.prUrls, Mon.prUrls, Tue.prUrls, Wed.prUrls)
-const closedIssueUrls = Thu.closedIssueUrls.concat(Fri.closedIssueUrls, Sat.closedIssueUrls, Sun.closedIssueUrls, Mon.closedIssueUrls, Tue.closedIssueUrls, Wed.closedIssueUrls)
-const openIssueUrls = Thu.openIssueUrls.concat(Fri.openIssueUrls, Sat.openIssueUrls, Sun.openIssueUrls, Mon.openIssueUrls, Tue.openIssueUrls, Wed.openIssueUrls)
 
 
 const new_data = {
@@ -260,6 +256,15 @@ const new_data = {
       'https://github.com/satudora-digital/way/issues/76'
     ]
   }
+}
+
+
+function getDates (new_data) {
+  var datesList = []
+  for (var date in new_data) {
+    datesList.push(date)
+  }
+  return datesList
 }
 
 
