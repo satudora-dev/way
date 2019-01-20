@@ -24,7 +24,7 @@ const Routes = ({ store }) => {
             <Route path="/users/:id" component={ Profile }/>
             <Route path="/projects/:id" component={ Project }/>
             <Route exact path="/logout" component={ Logout } />
-            <Route exact path="/repo" component={ RepoPage } />
+            <Route exact path="/report" component={ RepoPage } />
           </div>
         </BrowserRouter>
       </Auth>
