@@ -8,9 +8,7 @@ install:
   - npm cache clean --force
   - rm -rf node_modules
   - npm install --save
-  - cd functions/
-  - npm install --save
-  - cd ../
+  - rm -rf functions
 
 before_script:
   - npm install -g firebase-tools
