@@ -1,6 +1,6 @@
 service cloud.firestore {
   match /databases/{database}/documents {
-		function isAuthenticated() {
+        function isAuthenticated() {
       return request.auth.uid != null;
     }
     function isUserAuthenticated(userId) {
@@ -26,6 +26,9 @@ service cloud.firestore {
     match /users/{userId} {
       allow read, update: if isAuthenticated();
       allow create, delete: if isUserAuthenticated(userId);
+    }
+    match /githubReports/{userId} {
+      allow create, read, update, delete: if isAuthenticated();
     }
   }
 }
