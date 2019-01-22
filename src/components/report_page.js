@@ -11,21 +11,18 @@ const h1 = {
   fontSize: '36px',
   lineHeight: '0px'
 }
-
 const h2 = {
   fontFamily: 'Roboto',
   fontStyle: 'Light',
   fontSize: '22px',
   lineHeight: '0px'
 }
-
 const h3 = {
   fontFamily: 'Roboto',
   fontStyle: 'Regular',
   fontSize: '18px',
   lineHeight: '0px'
 }
-
 const graph_small = {
   fontFamily: 'Roboto',
   fontStyle: 'Bold',
@@ -33,6 +30,13 @@ const graph_small = {
   lineHeight: '0px'
 }
 
+const primary = '#A7A7A7'
+const secondary = '#3970FF'
+const sky = '#7BD2F7'
+const leaf = '#7FF175'
+const lemon = '#F6E976'
+const sunset = '#FDB879'
+const tomato = '#FF7F7F'
 
 const iconUrl = 'https://github.com/yasunari89.png'
 const name = "Yasunari Ota"
