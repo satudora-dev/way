@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid'
 import { fireStore } from '../firebase/index'
 
 
-// font hight, font widthで指定するとh1.heightなどで指定するからいいと思う
+// font height, font widthで指定するとh1.heightなどで指定するからいいと思う
 const h1 = {
   fontFamily: 'Roboto',
   fontStyle: 'Light',
@@ -301,9 +301,15 @@ function getDates (new_data) {
   return datesList
 }
 
-var docRef = fireStore.collection('users').doc('7YxOEvnlKlWm9vrcQO2KITanIgm2')
-var icon = docRef.get()
-console.log(icon)
+const docRef = fireStore.collection('githubReports').doc('userId')
+console.log(docRef)
+docRef.get().then(function (doc) {
+  if (doc.exists) {
+    console.log(doc.data())
+  } else {
+    console.log("none data")
+  }
+})
 
 class ReportPage extends React.Component {
 
@@ -317,10 +323,10 @@ class ReportPage extends React.Component {
               <hr width='100%'/>
               <img src={iconUrl} alt="failed loading"
                 style={{
-                  width: '102px',
-                  height: '102px',
+                  width: '80px',
+                  height: '80px',
                   borderRadius: '50%',
-                  marginTop: '70px'
+                  marginTop: '126px'
                 }} />
               <p style={h3}>{name}</p>
 
@@ -329,19 +335,21 @@ class ReportPage extends React.Component {
             <Grid item xs={4}>
               <p style={h2}>Activity</p>
               <hr width='100%'/>
-              <ResponsiveContainer height={300}>
-                <BarChart style={graph_small} data={data}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar name="Commits" dataKey="Commits" fill={sunset} stackId="a"/>
-                  <Bar name="Pull Requests" dataKey="PullRequests" fill={lemon} stackId="a"/>
-                  <Bar name="Closed Issues" dataKey="Closed" fill={leaf} stackId="a"/>
-                  <Bar name="Open Issues" dataKey="Open" fill={sky} stackId="a"/>
-                </BarChart>
+              <div style={{paddingTop: '40px'}}>
+                <ResponsiveContainer height={230}>
+                  <BarChart style={graph_small} data={data}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar name="Commits" dataKey="Commits" fill={sunset} stackId="a"/>
+                    <Bar name="Pull Requests" dataKey="PullRequests" fill={lemon} stackId="a"/>
+                    <Bar name="Closed Issues" dataKey="Closed" fill={leaf} stackId="a"/>
+                    <Bar name="Open Issues" dataKey="Open" fill={sky} stackId="a"/>
+                  </BarChart>
               </ResponsiveContainer>
+              </div>
             </Grid>
 
 
@@ -354,7 +362,7 @@ class ReportPage extends React.Component {
                     <p style={
                         Object.assign({
                           paddingTop: '16px',
-                          paddingBottom: '16px'
+                          paddingBottom: '16px',
                         }, h3)
                       }>
                       <a
@@ -368,7 +376,7 @@ class ReportPage extends React.Component {
                     <p style={
                         Object.assign({
                           paddingTop: '16px',
-                          paddingBottom: '16px'
+                          paddingBottom: '16px',
                         }, h3)
                       }>
                       <a
@@ -382,7 +390,7 @@ class ReportPage extends React.Component {
                     <p style={
                         Object.assign({
                           paddingTop: '16px',
-                          paddingBottom: '16px'
+                          paddingBottom: '16px',
                         }, h3)
                       }>
                       <a
@@ -528,6 +536,7 @@ class ReportPage extends React.Component {
             </Grid>
           </Grid>
         </div>
+        <hr style={{marginTop: '73px'}} />
 
 
 
