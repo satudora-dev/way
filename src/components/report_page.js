@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid'
 import { fireStore } from '../firebase/index'
 
 
-
+// font hight, font widthで指定するとh1.heightなどで指定するからいいと思う
 const h1 = {
   fontFamily: 'Roboto',
   fontStyle: 'Light',
@@ -313,11 +313,7 @@ class ReportPage extends React.Component {
         <div>
           <Grid container>
             <Grid item xs={2}>
-              <p style={{
-                  fontFamily: 'Roboto',
-                  fontSize: '28px',
-                  marginBottom: '13px'
-                }}>Member</p>
+              <p style={h2}>Member</p>
               <hr width='100%'/>
               <img src={iconUrl} alt="failed loading"
                 style={{
@@ -326,35 +322,24 @@ class ReportPage extends React.Component {
                   borderRadius: '50%',
                   marginTop: '70px'
                 }} />
-              <p style={{
-                fontFamily: 'Roboto',
-                fontWeight: '300',
-                fontSize: '24px'
-              }}>
-                {name}
-              </p>
-
+              <p style={h3}>{name}</p>
 
 
             </Grid>
             <Grid item xs={4}>
-              <p style={{
-                  fontFamily: 'Roboto',
-                  fontSize: '28px',
-                  marginBottom: '13px'
-                }}>Activity</p>
+              <p style={h2}>Activity</p>
               <hr width='100%'/>
               <ResponsiveContainer height={300}>
-                <BarChart style={{fontSize: '14px', fontFamily: 'Roboto'}} data={data}>
+                <BarChart style={graph_small} data={data}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar name="Commits" dataKey="Commits" fill="#7BD2F7" stackId="a"/>
-                  <Bar name="Pull Requests" dataKey="PullRequests" fill="#7FF175" stackId="a"/>
-                  <Bar name="Closed Issues" dataKey="Closed" fill="#F6E976" stackId="a"/>
-                  <Bar name="Open Issues" dataKey="Open" fill="#FDB879" stackId="a"/>
+                  <Bar name="Commits" dataKey="Commits" fill={sunset} stackId="a"/>
+                  <Bar name="Pull Requests" dataKey="PullRequests" fill={lemon} stackId="a"/>
+                  <Bar name="Closed Issues" dataKey="Closed" fill={leaf} stackId="a"/>
+                  <Bar name="Open Issues" dataKey="Open" fill={sky} stackId="a"/>
                 </BarChart>
               </ResponsiveContainer>
             </Grid>
@@ -362,19 +347,11 @@ class ReportPage extends React.Component {
 
 
             <Grid item xs={3}>
-              <p style={{
-                  fontFamily: 'Roboto',
-                  fontSize: '28px',
-                  marginBottom: '13px'
-                }}>Close</p>
+              <p style={h2}>Close</p>
               <hr width='100%'/>
                 <Grid container>
                   <Grid item xs={6}>
-                    <p style={{
-                        fontSize: '24px',
-                        fontFamily: 'Roboto',
-                        margin: '23px'
-                      }}>
+                    <p style={h3}>
                       <a
                         href='https://github.com/satudora-digital/way/issues/87'
                         target='_blank'
@@ -383,11 +360,7 @@ class ReportPage extends React.Component {
                         #87
                       </a>
                     </p>
-                    <p style={{
-                        fontSize: '24px',
-                        fontFamily: 'Roboto',
-                        margin: '23px'
-                      }}>
+                    <p style={h3}>
                       <a
                         href='https://github.com/satudora-digital/way/issues/79'
                         target='_blank'
@@ -396,11 +369,7 @@ class ReportPage extends React.Component {
                         #79
                       </a>
                     </p>
-                    <p style={{
-                        fontSize: '24px',
-                        fontFamily: 'Roboto',
-                        margin: '23px'
-                      }}>
+                    <p style={h3}>
                       <a
                         href='https://github.com/satudora-digital/way/issues/76'
                         target='_blank'
@@ -414,43 +383,22 @@ class ReportPage extends React.Component {
 
                   <Grid item xs={6}>
                     <div style={{
-                      background: '#6FDE81',
+                      background: tomato,
                       borderRadius: '5px',
-                      marginRight: '10px',
-                      width: '126px',
-                      height: '32px',
                       }}>
-                      <p style={{
-                        fontSize: '18px',
-                        fontFamily: 'Roboto',
-                        paddingTop: '5px'
-                      }}>enhancement</p>
+                      <p style={h3}>enhancement</p>
                     </div>
                     <div style={{
-                      background: '#FFBD6F',
+                      background: sunset,
                       borderRadius: '5px',
-                      marginRight: '10px',
-                      width: '126px',
-                      height: '32px',
                       }}>
-                      <p style={{
-                        fontSize: '18px',
-                        fontFamily: 'Roboto',
-                        paddingTop: '5px'
-                      }}>improve</p>
+                      <p style={h3}>improve</p>
                     </div>
                     <div style={{
-                      background: '#FF6F6F',
+                      background: tomato,
                       borderRadius: '5px',
-                      marginRight: '10px',
-                      width: '126px',
-                      height: '32px',
                       }}>
-                      <p style={{
-                        fontSize: '18px',
-                        fontFamily: 'Roboto',
-                        paddingTop: '5px'
-                      }}>bug</p>
+                      <p style={h3}>bug</p>
                     </div>
                   </Grid>
                 </Grid>
@@ -459,19 +407,11 @@ class ReportPage extends React.Component {
 
 
             <Grid item xs={3}>
-              <p style={{
-                  fontFamily: 'Roboto',
-                  fontSize: '28px',
-                  marginBottom: '13px'
-                }}>Open</p>
+              <p style={h2}>Open</p>
               <hr width='100%'/>
                 <Grid container>
                   <Grid item xs={6}>
-                    <p style={{
-                        fontSize: '24px',
-                        fontFamily: 'Roboto',
-                        margin: '23px'
-                      }}>
+                    <p style={h3}>
                       <a
                         href='https://github.com/satudora-digital/way/issues/87'
                         target='_blank'
@@ -480,11 +420,7 @@ class ReportPage extends React.Component {
                         #87
                       </a>
                     </p>
-                    <p style={{
-                        fontSize: '24px',
-                        fontFamily: 'Roboto',
-                        margin: '23px'
-                      }}>
+                    <p style={h3}>
                       <a
                         href='https://github.com/satudora-digital/way/issues/79'
                         target='_blank'
@@ -493,11 +429,7 @@ class ReportPage extends React.Component {
                         #79
                       </a>
                     </p>
-                    <p style={{
-                        fontSize: '24px',
-                        fontFamily: 'Roboto',
-                        margin: '23px'
-                      }}>
+                    <p style={h3}>
                       <a
                         href='https://github.com/satudora-digital/way/issues/76'
                         target='_blank'
@@ -511,43 +443,31 @@ class ReportPage extends React.Component {
 
                   <Grid item xs={6}>
                     <div style={{
-                      background: '#6FDE81',
+                      background: leaf,
                       borderRadius: '5px',
                       marginRight: '10px',
                       width: '126px',
                       height: '32px',
                       }}>
-                      <p style={{
-                        fontSize: '18px',
-                        fontFamily: 'Roboto',
-                        paddingTop: '5px'
-                      }}>enhancement</p>
+                      <p style={h3}>enhancement</p>
                     </div>
                     <div style={{
-                      background: '#FFBD6F',
+                      background: sunset,
                       borderRadius: '5px',
                       marginRight: '10px',
                       width: '126px',
                       height: '32px',
                       }}>
-                      <p style={{
-                        fontSize: '18px',
-                        fontFamily: 'Roboto',
-                        paddingTop: '5px'
-                      }}>improve</p>
+                      <p style={h3}>improve</p>
                     </div>
                     <div style={{
-                      background: '#FF6F6F',
+                      background: tomato,
                       borderRadius: '5px',
                       marginRight: '10px',
                       width: '126px',
                       height: '32px',
                       }}>
-                      <p style={{
-                        fontSize: '18px',
-                        fontFamily: 'Roboto',
-                        paddingTop: '5px'
-                      }}>bug</p>
+                      <p style={h3}>bug</p>
                     </div>
                   </Grid>
                 </Grid>
