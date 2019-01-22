@@ -351,7 +351,12 @@ class ReportPage extends React.Component {
               <hr width='100%'/>
                 <Grid container>
                   <Grid item xs={6}>
-                    <p style={h3}>
+                    <p style={
+                        Object.assign({
+                          paddingTop: '16px',
+                          paddingBottom: '16px'
+                        }, h3)
+                      }>
                       <a
                         href='https://github.com/satudora-digital/way/issues/87'
                         target='_blank'
@@ -360,7 +365,12 @@ class ReportPage extends React.Component {
                         #87
                       </a>
                     </p>
-                    <p style={h3}>
+                    <p style={
+                        Object.assign({
+                          paddingTop: '16px',
+                          paddingBottom: '16px'
+                        }, h3)
+                      }>
                       <a
                         href='https://github.com/satudora-digital/way/issues/79'
                         target='_blank'
@@ -369,7 +379,12 @@ class ReportPage extends React.Component {
                         #79
                       </a>
                     </p>
-                    <p style={h3}>
+                    <p style={
+                        Object.assign({
+                          paddingTop: '16px',
+                          paddingBottom: '16px'
+                        }, h3)
+                      }>
                       <a
                         href='https://github.com/satudora-digital/way/issues/76'
                         target='_blank'
@@ -383,22 +398,40 @@ class ReportPage extends React.Component {
 
                   <Grid item xs={6}>
                     <div style={{
-                      background: tomato,
-                      borderRadius: '5px',
+                        background: tomato,
+                        width: '126px',
+                        height: '32px',
+                        borderRadius: '5px'
                       }}>
-                      <p style={h3}>enhancement</p>
+                      <p style={
+                          Object.assign({
+                            paddingTop: '16px'
+                          }, h3)
+                        }>enhancement</p>
                     </div>
                     <div style={{
                       background: sunset,
-                      borderRadius: '5px',
+                      width: '126px',
+                      height: '32px',
+                      borderRadius: '5px'
                       }}>
-                      <p style={h3}>improve</p>
+                      <p style={
+                          Object.assign({
+                            paddingTop: '16px'
+                          }, h3)
+                        }>improve</p>
                     </div>
                     <div style={{
                       background: tomato,
-                      borderRadius: '5px',
+                      width: '126px',
+                      height: '32px',
+                      borderRadius: '5px'
                       }}>
-                      <p style={h3}>bug</p>
+                      <p style={
+                          Object.assign({
+                            paddingTop: '16px'
+                          }, h3)
+                        }>bug</p>
                     </div>
                   </Grid>
                 </Grid>
@@ -411,7 +444,12 @@ class ReportPage extends React.Component {
               <hr width='100%'/>
                 <Grid container>
                   <Grid item xs={6}>
-                    <p style={h3}>
+                    <p style={
+                        Object.assign({
+                          paddingTop: '16px',
+                          paddingBottom: '16px'
+                        }, h3)
+                      }>
                       <a
                         href='https://github.com/satudora-digital/way/issues/87'
                         target='_blank'
@@ -420,7 +458,12 @@ class ReportPage extends React.Component {
                         #87
                       </a>
                     </p>
-                    <p style={h3}>
+                    <p style={
+                        Object.assign({
+                          paddingTop: '16px',
+                          paddingBottom: '16px'
+                        }, h3)
+                      }>
                       <a
                         href='https://github.com/satudora-digital/way/issues/79'
                         target='_blank'
@@ -429,7 +472,12 @@ class ReportPage extends React.Component {
                         #79
                       </a>
                     </p>
-                    <p style={h3}>
+                    <p style={
+                        Object.assign({
+                          paddingTop: '16px',
+                          paddingBottom: '16px'
+                        }, h3)
+                      }>
                       <a
                         href='https://github.com/satudora-digital/way/issues/76'
                         target='_blank'
@@ -443,31 +491,37 @@ class ReportPage extends React.Component {
 
                   <Grid item xs={6}>
                     <div style={{
-                      background: leaf,
-                      borderRadius: '5px',
-                      marginRight: '10px',
-                      width: '126px',
-                      height: '32px',
+                        background: leaf,
+                        width: '126px',
+                        height: '32px',
+                        borderRadius: '5px'
                       }}>
-                      <p style={h3}>enhancement</p>
+                      <p style={
+                          Object.assign({
+                            paddingTop: '16px'
+                          }, h3)}>enhancement</p>
                     </div>
                     <div style={{
-                      background: sunset,
-                      borderRadius: '5px',
-                      marginRight: '10px',
-                      width: '126px',
-                      height: '32px',
+                        background: sunset,
+                        width: '126px',
+                        height: '32px',
+                        borderRadius: '5px'
                       }}>
-                      <p style={h3}>improve</p>
+                      <p style={
+                          Object.assign({
+                            paddingTop: '16px'
+                          }, h3)}>improve</p>
                     </div>
                     <div style={{
-                      background: tomato,
-                      borderRadius: '5px',
-                      marginRight: '10px',
-                      width: '126px',
-                      height: '32px',
+                        background: tomato,
+                        width: '126px',
+                        height: '32px',
+                        borderRadius: '5px'
                       }}>
-                      <p style={h3}>bug</p>
+                      <p style={
+                          Object.assign({
+                            paddingTop: '16px'
+                          }, h3)}>bug</p>
                     </div>
                   </Grid>
                 </Grid>
