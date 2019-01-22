@@ -8,7 +8,7 @@ import Profile from './containers/Profile';
 import Project from './containers/Project';
 import ProjectList from './containers/ProjectList';
 import Logout from './containers/Logout';
-import  GithubReports from './components/githubReports';
+import  GithubReports from './containers/githubReports';
 
 import { Provider } from 'react-redux';
 

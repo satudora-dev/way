@@ -304,7 +304,8 @@ class GithubReports extends React.Component {
 
   render () {
     var iconUrl = null
-    if (this.props.githubReports) {
+    if (!this.props.githubReports.noData) {
+      console.log(this.props.githubReports)
       iconUrl = this.props.githubReports.awakia.iconUrl
     }
     return (
