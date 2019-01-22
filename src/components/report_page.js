@@ -38,8 +38,7 @@ const lemon = '#F6E976'
 const sunset = '#FDB879'
 const tomato = '#FF7F7F'
 
-const iconUrl = 'https://github.com/yasunari89.png'
-const name = "Yasunari Ota"
+var name = "Yasunari Ota"
 
 const Mon = {
   closedIssueCnt: Math.floor(Math.random() * 31),
@@ -293,19 +292,12 @@ const new_data = {
 }
 
 
-function getDates (new_data) {
-  var datesList = []
-  for (var date in new_data) {
-    datesList.push(date)
-  }
-  return datesList
-}
 
 const docRef = fireStore.collection('githubReports').doc('userId')
-console.log(docRef)
 docRef.get().then(function (doc) {
   if (doc.exists) {
-    console.log(doc.data())
+    console.log(doc.data().iconUrl)
+    const iconUrl = doc.data().iconUrl
   } else {
     console.log("none data")
   }
