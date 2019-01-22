@@ -303,239 +303,233 @@ class GithubReports extends React.Component {
   }
 
   render () {
-    var iconUrl = null
-    if (!this.props.githubReports.noData) {
-      console.log(this.props.githubReports)
-      iconUrl = this.props.githubReports.awakia.iconUrl
-    }
+    console.log(this.props.githubReports)
     return (
       <div>
+      {Object.keys(this.props.githubReports).map((user, index) => {
+        return(
         <div>
-          <Grid container>
-            <Grid item xs={2}>
-              <p style={h2}>Member</p>
-              <hr width='100%'/>
-              <img src={iconUrl} alt="failed loading"
-                style={{
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  marginTop: '126px'
-                }} />
-              <p style={h3}>{name}</p>
+          <div>
+            <Grid container>
+              <Grid item xs={2}>
+                {(() => {if (index == 0) {return (<div><p style={h2}>Member</p><hr width='100%'/></div>)}})()}
+                <img src={this.props.githubReports[user].iconUrl} alt="failed loading"
+                  style={{
+                    width: '80px',
+                    height: '80px',
+                    borderRadius: '50%',
+                    marginTop: '126px'
+                  }} />
+                <p style={h3}>{this.props.githubReports[user].name}</p>
 
 
-            </Grid>
-            <Grid item xs={4}>
-              <p style={h2}>Activity</p>
-              <hr width='100%'/>
-              <div style={{paddingTop: '40px'}}>
-                <ResponsiveContainer height={230}>
-                  <BarChart style={graph_small} data={data}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Bar name="Commits" dataKey="Commits" fill={sunset} stackId="a"/>
-                    <Bar name="Pull Requests" dataKey="PullRequests" fill={lemon} stackId="a"/>
-                    <Bar name="Closed Issues" dataKey="Closed" fill={leaf} stackId="a"/>
-                    <Bar name="Open Issues" dataKey="Open" fill={sky} stackId="a"/>
-                  </BarChart>
-              </ResponsiveContainer>
-              </div>
-            </Grid>
+              </Grid>
+              <Grid item xs={4}>
+                {(() => {if (index == 0) {return (<div><p style={h2}>Activity</p><hr width='100%'/></div>)}})()}
+                <div style={{paddingTop: '40px'}}>
+                  <ResponsiveContainer height={230}>
+                    <BarChart style={graph_small} data={data}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Bar name="Commits" dataKey="Commits" fill={sunset} stackId="a"/>
+                      <Bar name="Pull Requests" dataKey="PullRequests" fill={lemon} stackId="a"/>
+                      <Bar name="Closed Issues" dataKey="Closed" fill={leaf} stackId="a"/>
+                      <Bar name="Open Issues" dataKey="Open" fill={sky} stackId="a"/>
+                    </BarChart>
+                </ResponsiveContainer>
+                </div>
+              </Grid>
 
 
 
-            <Grid item xs={3}>
-              <p style={h2}>Close</p>
-              <hr width='100%'/>
-                <Grid container>
-                  <Grid item xs={6}>
-                    <p style={
-                        Object.assign({
-                          paddingTop: '16px',
-                          paddingBottom: '16px',
-                        }, h3)
-                      }>
-                      <a
-                        href='https://github.com/satudora-digital/way/issues/87'
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        >
-                        #87
-                      </a>
-                    </p>
-                    <p style={
-                        Object.assign({
-                          paddingTop: '16px',
-                          paddingBottom: '16px',
-                        }, h3)
-                      }>
-                      <a
-                        href='https://github.com/satudora-digital/way/issues/79'
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        >
-                        #79
-                      </a>
-                    </p>
-                    <p style={
-                        Object.assign({
-                          paddingTop: '16px',
-                          paddingBottom: '16px',
-                        }, h3)
-                      }>
-                      <a
-                        href='https://github.com/satudora-digital/way/issues/76'
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        >
-                        #76
-                      </a>
-                    </p>
-                  </Grid>
-
-
-                  <Grid item xs={6}>
-                    <div style={{
-                        background: tomato,
-                        width: '126px',
-                        height: '32px',
-                        borderRadius: '5px'
-                      }}>
+              <Grid item xs={3}>
+                {(() => {if (index == 0) {return (<div><p style={h2}>Close</p><hr width='100%'/></div>)}})()}
+                  <Grid container>
+                    <Grid item xs={6}>
                       <p style={
                           Object.assign({
-                            paddingTop: '16px'
+                            paddingTop: '16px',
+                            paddingBottom: '16px',
                           }, h3)
-                        }>enhancement</p>
-                    </div>
-                    <div style={{
-                      background: sunset,
-                      width: '126px',
-                      height: '32px',
-                      borderRadius: '5px'
-                      }}>
+                        }>
+                        <a
+                          href='https://github.com/satudora-digital/way/issues/87'
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          >
+                          #87
+                        </a>
+                      </p>
                       <p style={
                           Object.assign({
-                            paddingTop: '16px'
+                            paddingTop: '16px',
+                            paddingBottom: '16px',
                           }, h3)
-                        }>improve</p>
-                    </div>
-                    <div style={{
-                      background: tomato,
-                      width: '126px',
-                      height: '32px',
-                      borderRadius: '5px'
-                      }}>
+                        }>
+                        <a
+                          href='https://github.com/satudora-digital/way/issues/79'
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          >
+                          #79
+                        </a>
+                      </p>
                       <p style={
                           Object.assign({
-                            paddingTop: '16px'
+                            paddingTop: '16px',
+                            paddingBottom: '16px',
                           }, h3)
-                        }>bug</p>
-                    </div>
-                  </Grid>
-                </Grid>
-            </Grid>
+                        }>
+                        <a
+                          href='https://github.com/satudora-digital/way/issues/76'
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          >
+                          #76
+                        </a>
+                      </p>
+                    </Grid>
 
 
-
-            <Grid item xs={3}>
-              <p style={h2}>Open</p>
-              <hr width='100%'/>
-                <Grid container>
-                  <Grid item xs={6}>
-                    <p style={
-                        Object.assign({
-                          paddingTop: '16px',
-                          paddingBottom: '16px'
-                        }, h3)
-                      }>
-                      <a
-                        href='https://github.com/satudora-digital/way/issues/87'
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        >
-                        #87
-                      </a>
-                    </p>
-                    <p style={
-                        Object.assign({
-                          paddingTop: '16px',
-                          paddingBottom: '16px'
-                        }, h3)
-                      }>
-                      <a
-                        href='https://github.com/satudora-digital/way/issues/79'
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        >
-                        #79
-                      </a>
-                    </p>
-                    <p style={
-                        Object.assign({
-                          paddingTop: '16px',
-                          paddingBottom: '16px'
-                        }, h3)
-                      }>
-                      <a
-                        href='https://github.com/satudora-digital/way/issues/76'
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        >
-                        #76
-                      </a>
-                    </p>
-                  </Grid>
-
-
-                  <Grid item xs={6}>
-                    <div style={{
-                        background: leaf,
-                        width: '126px',
-                        height: '32px',
-                        borderRadius: '5px'
-                      }}>
-                      <p style={
-                          Object.assign({
-                            paddingTop: '16px'
-                          }, h3)}>enhancement</p>
-                    </div>
-                    <div style={{
+                    <Grid item xs={6}>
+                      <div style={{
+                          background: tomato,
+                          width: '126px',
+                          height: '32px',
+                          borderRadius: '5px'
+                        }}>
+                        <p style={
+                            Object.assign({
+                              paddingTop: '16px'
+                            }, h3)
+                          }>enhancement</p>
+                      </div>
+                      <div style={{
                         background: sunset,
                         width: '126px',
                         height: '32px',
                         borderRadius: '5px'
-                      }}>
-                      <p style={
-                          Object.assign({
-                            paddingTop: '16px'
-                          }, h3)}>improve</p>
-                    </div>
-                    <div style={{
+                        }}>
+                        <p style={
+                            Object.assign({
+                              paddingTop: '16px'
+                            }, h3)
+                          }>improve</p>
+                      </div>
+                      <div style={{
                         background: tomato,
                         width: '126px',
                         height: '32px',
                         borderRadius: '5px'
-                      }}>
+                        }}>
+                        <p style={
+                            Object.assign({
+                              paddingTop: '16px'
+                            }, h3)
+                          }>bug</p>
+                      </div>
+                    </Grid>
+                  </Grid>
+              </Grid>
+
+
+
+              <Grid item xs={3}>
+                {(() => {if (index == 0) {return (<div><p style={h2}>Open</p><hr width='100%'/></div>)}})()}
+                  <Grid container>
+                    <Grid item xs={6}>
                       <p style={
                           Object.assign({
-                            paddingTop: '16px'
-                          }, h3)}>bug</p>
-                    </div>
+                            paddingTop: '16px',
+                            paddingBottom: '16px'
+                          }, h3)
+                        }>
+                        <a
+                          href='https://github.com/satudora-digital/way/issues/87'
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          >
+                          #87
+                        </a>
+                      </p>
+                      <p style={
+                          Object.assign({
+                            paddingTop: '16px',
+                            paddingBottom: '16px'
+                          }, h3)
+                        }>
+                        <a
+                          href='https://github.com/satudora-digital/way/issues/79'
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          >
+                          #79
+                        </a>
+                      </p>
+                      <p style={
+                          Object.assign({
+                            paddingTop: '16px',
+                            paddingBottom: '16px'
+                          }, h3)
+                        }>
+                        <a
+                          href='https://github.com/satudora-digital/way/issues/76'
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          >
+                          #76
+                        </a>
+                      </p>
+                    </Grid>
+
+
+                    <Grid item xs={6}>
+                      <div style={{
+                          background: leaf,
+                          width: '126px',
+                          height: '32px',
+                          borderRadius: '5px'
+                        }}>
+                        <p style={
+                            Object.assign({
+                              paddingTop: '16px'
+                            }, h3)}>enhancement</p>
+                      </div>
+                      <div style={{
+                          background: sunset,
+                          width: '126px',
+                          height: '32px',
+                          borderRadius: '5px'
+                        }}>
+                        <p style={
+                            Object.assign({
+                              paddingTop: '16px'
+                            }, h3)}>improve</p>
+                      </div>
+                      <div style={{
+                          background: tomato,
+                          width: '126px',
+                          height: '32px',
+                          borderRadius: '5px'
+                        }}>
+                        <p style={
+                            Object.assign({
+                              paddingTop: '16px'
+                            }, h3)}>bug</p>
+                      </div>
+                    </Grid>
                   </Grid>
-                </Grid>
+              </Grid>
             </Grid>
-          </Grid>
+          </div>
+          <hr style={{marginTop: '73px'}} />
         </div>
-        <hr style={{marginTop: '73px'}} />
-
-
-
+      )})
+      }
       </div>
-
     )
   }
 }
