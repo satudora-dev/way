@@ -293,19 +293,20 @@ const new_data = {
 
 
 
-const docRef = fireStore.collection('githubReports').doc('userId')
-docRef.get().then(function (doc) {
-  if (doc.exists) {
-    console.log(doc.data().iconUrl)
-    const iconUrl = doc.data().iconUrl
-  } else {
-    console.log("none data")
+class GithubReports extends React.Component {
+  constructor (props) {
+    super (props)
   }
-})
 
-class ReportPage extends React.Component {
+  componentWillMount () {
+    this.props.fetchGithubReports()
+  }
 
   render () {
+    var iconUrl = null
+    if (this.props.githubReports) {
+      iconUrl = this.props.githubReports.awakia.iconUrl
+    }
     return (
       <div>
         <div>
@@ -538,4 +539,4 @@ class ReportPage extends React.Component {
   }
 }
 
-export default ReportPage
+export default GithubReports

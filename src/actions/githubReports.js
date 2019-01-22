@@ -16,6 +16,7 @@ const fetchGithubReportsSuccess = reports => {
 
 export const fetchGithubReports = () => dispatch => {
   githubReportsRef.onSnapshot((snapshot) => {
+    alert("action func")
     let reports={};
     snapshot.docs.forEach((doc) => {
       reports[doc.id]=doc.data();
