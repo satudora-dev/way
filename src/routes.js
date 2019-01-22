@@ -8,7 +8,7 @@ import Profile from './containers/Profile';
 import Project from './containers/Project';
 import ProjectList from './containers/ProjectList';
 import Logout from './containers/Logout';
-import RepoPage from './components/repo_page';
+import ReportPage from './components/report_page';
 
 import { Provider } from 'react-redux';
 
@@ -24,7 +24,7 @@ const Routes = ({ store }) => {
             <Route path="/users/:id" component={ Profile }/>
             <Route path="/projects/:id" component={ Project }/>
             <Route exact path="/logout" component={ Logout } />
-            <Route exact path="/report" component={ RepoPage } />
+            <Route exact path="/report" component={ ReportPage } />
           </div>
         </BrowserRouter>
       </Auth>

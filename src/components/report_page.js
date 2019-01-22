@@ -1,7 +1,37 @@
 import React from 'react'
 import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts'
 import Grid from '@material-ui/core/Grid'
-import fireStore from '../firebase/index'
+import { fireStore } from '../firebase/index'
+
+
+
+const h1 = {
+  fontFamily: 'Roboto',
+  fontStyle: 'Light',
+  fontSize: '36px',
+  lineHeight: '0px'
+}
+
+const h2 = {
+  fontFamily: 'Roboto',
+  fontStyle: 'Light',
+  fontSize: '22px',
+  lineHeight: '0px'
+}
+
+const h3 = {
+  fontFamily: 'Roboto',
+  fontStyle: 'Regular',
+  fontSize: '18px',
+  lineHeight: '0px'
+}
+
+const graph_small = {
+  fontFamily: 'Roboto',
+  fontStyle: 'Bold',
+  fontSize: '10px',
+  lineHeight: '0px'
+}
 
 
 const iconUrl = 'https://github.com/yasunari89.png'
@@ -267,8 +297,11 @@ function getDates (new_data) {
   return datesList
 }
 
+var docRef = fireStore.collection('users').doc('7YxOEvnlKlWm9vrcQO2KITanIgm2')
+var icon = docRef.get()
+console.log(icon)
 
-class RepoPage extends React.Component {
+class ReportPage extends React.Component {
 
   render () {
     return (
@@ -526,4 +559,4 @@ class RepoPage extends React.Component {
   }
 }
 
-export default RepoPage
+export default ReportPage
