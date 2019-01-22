@@ -1,86 +1,75 @@
+module.exports.storeData = storeApiData;
 
-module.exports = storeApiData;
+async function storeApiData(fireStore, apiData) {
+    let nowDate = new Date();
+    let today = `${nowDate.getFullYear()}`;
+    if (nowDate.getMonth() + 1 < 10) {
+        today += '0';
+    }
+    today += `${nowDate.getMonth() + 1}${nowDate.getDate()}`;
 
-async function storeApiData(fireStore, date, apiData) {
-  //Divide apiData
-  let data = splitApiData(apiData);
-  
-  let baseRef = fireStore.collection('githubReports');
-  for (user in data) {
-    let userDbRef = baseRef.doc(user.id);
-    await storeUserData(dbRef, data.userData);// called for first time?
+    let baseRef = fireStore.collection('githubReports');
+    for (user in apiData) {
+        let data = formatUserData(apiData[user]);
+        let userDbRef = baseRef.doc(user);
+        await userDbRef.set(data.profile, { merge: true });
 
-    let statDbRef = userDbRef.collection('stats').doc(date);
-    await storeCommitData(statDbRef, data.commitData);
-    await storePRData(statDbRef, data.prData);
-    await storeClosedIssueData(fireStore,statDbRef, data.closedIssueData);
-    await storeOpenIssueData(fireStore,statDbRef, data.openIssueData);
-  }
-  return 'complete!';
+        let statDbRef = userDbRef.collection('stats').doc(today);
+        await statDbRef.set(data.commitData, { merge: true });
+        await statDbRef.set(data.pullRequestData, { merge: true });
+        await storeClosedIssueData(fireStore, statDbRef, data.closedIssueData);
+        await storeOpenIssueData(fireStore, statDbRef, data.openIssueData);
+    }
+    return 'complete!';
 }
 
-//return data = { user1: {...}, user2: {...}, ... }
-function splitApiData(apiData) {
-  let data;
-
-  return data;
+function formatUserData(userData) {
+    let data = {};
+    data.profile = { 'name': userData.name, 'iconUrl': userData.iconUrl };
+    data.commitData = { 'commitCount': userData.commitCount };
+    data.pullRequestData = {
+        'mergedPullRequestCount': userData.mergedPullRequestCount,
+        'createdPullRequestCount': userData.createdPullRequestCount,
+    };
+    data.closedIssueData = {
+        'count': userData.closedIssueCount,
+        'issues': userData.closedIssues,
+    };
+    data.openIssueData = {
+        'count': userData.openIssueCount,
+        'issues': userData.openIssues,
+    };
+    return data;
 }
 
-function storeUserData(dbRef, userData) {
-  let data;
-  //Format userData to data
+function storeClosedIssueData(fireStore, dbRef, issueData) {
+    if (!issueData.count) return null;
 
-  return dbRef.set(data);
+    let batch = fireStore.batch();
+    batch.set(dbRef,{ 'closedIssueCount': issueData.count }, { merge: true });
+    let collectionRef = dbRef.collection('closedIssues');
+    for (issue in issueData.issues) {
+        batch.set(collectionRef.doc(issue), {
+            'labels': issueData.issues[issue].labels,
+            'url': issueData.issues[issue].url,
+        }, { merge: true });
+    }
+
+    return batch.commit();
 }
 
-function storeCommitData(dbRef, commitData) {
-  let data;
-  //Format commitData to data
-  
-  return dbRef.update({
-    'commitCnt': data.commitCnt,
-    'commitUrls': data.commitUrls,
-  });
-}
+function storeOpenIssueData(fireStore, dbRef, issueData) {
+    if (!issueData.count) return;
 
-function storePRData(dbRef, prData) {
-  let data;
-  //Format commitData to data
+    let batch = fireStore.batch();
+    batch.set(dbRef, { 'openIssueCount': issueData.count }, { merge: true });
+    let collectionRef = dbRef.collection('openIssues');
+    for (issue in issueData.issues) {
+        batch.set(collectionRef.doc(issue), {
+            'labels': issueData.issues[issue].labels,
+            'url': issueData.issues[issue].url,
+        }, { merge: true });
+    }
 
-  return dbRef.update({
-    'prCnt': data.prCnt,
-    'prUrls': data.prUrls,
-  });
-}
-
-function storeClosedIssueData(fireStore,dbRef, issueData) {
-  let data;
-  //Format issueData to data
-
-  let batch = fireStore.batch();
-  let collectionRef = dbRef.collection('closedIssues');
-  for (issue in data) {
-    batch.update(collectionRef.doc(issue.id), {
-      'labels': issue.labels,
-      'url': issue.url,
-    });
-  }
-
-  return batch.commit();
-}
-
-function storeOpenIssueData(fireStore,dbRef, issueData) {
-  let data;
-  //Format issueData to data
-
-  let batch = fireStore.batch();
-  let collectionRef = dbRef.collection('openIssues');
-  for (issue in data) {
-    batch.update(collectionRef.doc(issue.id), {
-      'labels': issue.labels,
-      'url': issue.url,
-    });
-  }
-
-  return batch.commit();
+    return batch.commit();
 }
