@@ -1,0 +1,297 @@
+{
+  "awakia": {
+    "createdPullRequestCount": 0,
+    "mergedPullRequestCount": 0,
+    "name": "Naoyoshi Aikawa",
+    "iconUrl": "https://avatars3.githubusercontent.com/u/272083?v=4",
+    "commitCount": 0
+  },
+  "gakuh": {
+    "openIssues": {
+      "160": {
+        "url": "https://github.com/satudora-digital/way/issues/160",
+        "labels": [
+          "document",
+          "new-way"
+        ]
+      },
+      "161": {
+        "url": "https://github.com/satudora-digital/way/issues/161",
+        "labels": [
+          "document",
+          "new-way"
+        ]
+      }
+    },
+    "openIssueCount": 2,
+    "createdPullRequestCount": 0,
+    "mergedPullRequestCount": 0,
+    "name": "Gaku Hagiwara",
+    "iconUrl": "https://avatars2.githubusercontent.com/u/1020048?v=4",
+    "commitCount": 0
+  },
+  "sono8stream": {
+    "openIssues": {
+      "145": {
+        "url": "https://github.com/satudora-digital/way/issues/145",
+        "labels": [
+          "bug"
+        ]
+      },
+      "162": {
+        "url": "https://github.com/satudora-digital/way/issues/162",
+        "labels": [
+          "document",
+          "enhancement",
+          "new-way"
+        ]
+      },
+      "164": {
+        "url": "https://github.com/satudora-digital/way/issues/164",
+        "labels": [
+          "document",
+          "enhancement",
+          "new-way"
+        ]
+      }
+    },
+    "openIssueCount": 3,
+    "closedIssues": {
+      "58": {
+        "url": "https://github.com/satudora-digital/way/issues/58",
+        "labels": []
+      },
+      "60": {
+        "url": "https://github.com/satudora-digital/way/issues/60",
+        "labels": []
+      },
+      "83": {
+        "url": "https://github.com/satudora-digital/way/issues/83",
+        "labels": []
+      },
+      "87": {
+        "url": "https://github.com/satudora-digital/way/issues/87",
+        "labels": []
+      },
+      "127": {
+        "url": "https://github.com/satudora-digital/way/issues/127",
+        "labels": [
+          "1 week",
+          "enhancement"
+        ]
+      }
+    },
+    "closedIssueCount": 5,
+    "createdPullRequestCount": 1,
+    "mergedPullRequestCount": 0,
+    "name": "Tomohiko Hasegawa",
+    "iconUrl": "https://avatars2.githubusercontent.com/u/16527271?v=4",
+    "commitCount": 0
+  },
+  "TetsuFe": {
+    "openIssues": {
+      "12": {
+        "url": "https://github.com/satudora-digital/way/issues/12",
+        "labels": []
+      },
+      "147": {
+        "url": "https://github.com/satudora-digital/way/issues/147",
+        "labels": [
+          "1 week",
+          "improve"
+        ]
+      },
+      "156": {
+        "url": "https://github.com/satudora-digital/way/issues/156",
+        "labels": [
+          "enhancement",
+          "improve"
+        ]
+      },
+      "162": {
+        "url": "https://github.com/satudora-digital/way/issues/162",
+        "labels": [
+          "document",
+          "enhancement",
+          "new-way"
+        ]
+      },
+      "164": {
+        "url": "https://github.com/satudora-digital/way/issues/164",
+        "labels": [
+          "document",
+          "enhancement",
+          "new-way"
+        ]
+      }
+    },
+    "openIssueCount": 5,
+    "closedIssues": {
+      "59": {
+        "url": "https://github.com/satudora-digital/way/issues/59",
+        "labels": [
+          "enhancement"
+        ]
+      },
+      "82": {
+        "url": "https://github.com/satudora-digital/way/issues/82",
+        "labels": []
+      }
+    },
+    "closedIssueCount": 2,
+    "createdPullRequestCount": 0,
+    "mergedPullRequestCount": 0,
+    "name": "Satoshi Yoshio",
+    "iconUrl": "https://avatars0.githubusercontent.com/u/24940519?v=4",
+    "commitCount": 0
+  },
+  "yasunari89": {
+    "openIssues": {
+      "130": {
+        "url": "https://github.com/satudora-digital/way/issues/130",
+        "labels": [
+          "2 week",
+          "improve"
+        ]
+      },
+      "165": {
+        "url": "https://github.com/satudora-digital/way/issues/165",
+        "labels": [
+          "enhancement",
+          "new-way"
+        ]
+      }
+    },
+    "openIssueCount": 2,
+    "closedIssues": {
+      "62": {
+        "url": "https://github.com/satudora-digital/way/issues/62",
+        "labels": []
+      },
+      "66": {
+        "url": "https://github.com/satudora-digital/way/issues/66",
+        "labels": []
+      },
+      "78": {
+        "url": "https://github.com/satudora-digital/way/issues/78",
+        "labels": [
+          "enhancement"
+        ]
+      },
+      "79": {
+        "url": "https://github.com/satudora-digital/way/issues/79",
+        "labels": []
+      },
+      "84": {
+        "url": "https://github.com/satudora-digital/way/issues/84",
+        "labels": []
+      },
+      "91": {
+        "url": "https://github.com/satudora-digital/way/issues/91",
+        "labels": []
+      }
+    },
+    "closedIssueCount": 6,
+    "createdPullRequestCount": 1,
+    "mergedPullRequestCount": 0,
+    "name": "Yasunari Ota",
+    "iconUrl": "https://avatars1.githubusercontent.com/u/32453142?v=4",
+    "commitCount": 16
+  },
+  "KoheiAsano": {
+    "openIssues": {
+      "50": {
+        "url": "https://github.com/satudora-digital/way/issues/50",
+        "labels": [
+          "enhancement"
+        ]
+      },
+      "124": {
+        "url": "https://github.com/satudora-digital/way/issues/124",
+        "labels": [
+          "1 week",
+          "enhancement"
+        ]
+      }
+    },
+    "openIssueCount": 2,
+    "closedIssues": {
+      "56": {
+        "url": "https://github.com/satudora-digital/way/issues/56",
+        "labels": []
+      },
+      "57": {
+        "url": "https://github.com/satudora-digital/way/issues/57",
+        "labels": []
+      },
+      "63": {
+        "url": "https://github.com/satudora-digital/way/issues/63",
+        "labels": []
+      },
+      "87": {
+        "url": "https://github.com/satudora-digital/way/issues/87",
+        "labels": []
+      },
+      "139": {
+        "url": "https://github.com/satudora-digital/way/issues/139",
+        "labels": [
+          "enhancement",
+          "improve"
+        ]
+      }
+    },
+    "closedIssueCount": 5,
+    "createdPullRequestCount": 1,
+    "mergedPullRequestCount": 0,
+    "name": "Kohei Asano",
+    "iconUrl": "https://avatars3.githubusercontent.com/u/32860920?v=4",
+    "commitCount": 1
+  },
+  "kitamuyu": {
+    "openIssues": {
+      "85": {
+        "url": "https://github.com/satudora-digital/way/issues/85",
+        "labels": [
+          "enhancement"
+        ]
+      },
+      "130": {
+        "url": "https://github.com/satudora-digital/way/issues/130",
+        "labels": [
+          "2 week",
+          "improve"
+        ]
+      },
+      "163": {
+        "url": "https://github.com/satudora-digital/way/issues/163",
+        "labels": [
+          "enhancement",
+          "new-way"
+        ]
+      }
+    },
+    "openIssueCount": 3,
+    "closedIssues": {
+      "66": {
+        "url": "https://github.com/satudora-digital/way/issues/66",
+        "labels": []
+      },
+      "84": {
+        "url": "https://github.com/satudora-digital/way/issues/84",
+        "labels": []
+      },
+      "157": {
+        "url": "https://github.com/satudora-digital/way/issues/157",
+        "labels": [
+          "meeting"
+        ]
+      }
+    },
+    "closedIssueCount": 3,
+    "createdPullRequestCount": 0,
+    "mergedPullRequestCount": 0,
+    "name": "Yu Kitamura",
+    "iconUrl": "https://avatars2.githubusercontent.com/u/33745987?v=4",
+    "commitCount": 0
+  }
+}
