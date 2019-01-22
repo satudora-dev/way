@@ -3,6 +3,7 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
+const fs = require('fs');
 
 admin.initializeApp(functions.config().firebase);
 const firestore = admin.firestore();
@@ -59,3 +60,8 @@ function sendNewComerEmail(email, newUserFullName, newUserID) {
     console.log(error.message);
   });
 }
+
+exports.storeGithubReport = functions.https.onRequest((req, res) => {
+    let data = JSON.parse(fs.readFileSync('./apiData.json', 'utf8'));
+    return require('./api_data2firestore').storeData(firestore, data);
+});
