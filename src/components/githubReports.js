@@ -5,6 +5,7 @@ import { fireStore } from '../firebase/index'
 
 
 // font height, font widthで指定するとh1.heightなどで指定するからいいと思う
+// line hieghtはつけない方がいい: 文字が重なる
 const h1 = {
   fontFamily: 'Roboto',
   fontStyle: 'Light',
@@ -38,61 +39,8 @@ const lemon = '#F6E976'
 const sunset = '#FDB879'
 const tomato = '#FF7F7F'
 
-var name = "Yasunari Ota"
 
 const Mon = {
-  closedIssueCnt: Math.floor(Math.random() * 31),
-  closedIssueUrls: [
-    'https://github.com/satudora-digital/way/issues/87',
-    'https://github.com/satudora-digital/way/issues/79',
-    'https://github.com/satudora-digital/way/issues/76'
-  ],
-  commitCnt: Math.floor(Math.random() * 31),
-  commitUrls: [
-    'https://github.com/satudora-digital/way/issues/87',
-    'https://github.com/satudora-digital/way/issues/79',
-    'https://github.com/satudora-digital/way/issues/76'
-  ],
-  openIssueCnt: Math.floor(Math.random() * 31),
-  openIssueUrls: [
-    'https://github.com/satudora-digital/way/issues/87',
-    'https://github.com/satudora-digital/way/issues/79',
-    'https://github.com/satudora-digital/way/issues/76'
-  ],
-  prCnt: Math.floor(Math.random() * 31),
-  prUrls: [
-    'https://github.com/satudora-digital/way/issues/87',
-    'https://github.com/satudora-digital/way/issues/79',
-    'https://github.com/satudora-digital/way/issues/76'
-  ]
-}
-const Tue = {
-  closedIssueCnt: Math.floor(Math.random() * 31),
-  closedIssueUrls: [
-    'https://github.com/satudora-digital/way/issues/87',
-    'https://github.com/satudora-digital/way/issues/79',
-    'https://github.com/satudora-digital/way/issues/76'
-  ],
-  commitCnt: Math.floor(Math.random() * 31),
-  commitUrls: [
-    'https://github.com/satudora-digital/way/issues/87',
-    'https://github.com/satudora-digital/way/issues/79',
-    'https://github.com/satudora-digital/way/issues/76'
-  ],
-  openIssueCnt: Math.floor(Math.random() * 31),
-  openIssueUrls: [
-    'https://github.com/satudora-digital/way/issues/87',
-    'https://github.com/satudora-digital/way/issues/79',
-    'https://github.com/satudora-digital/way/issues/76'
-  ],
-  prCnt: Math.floor(Math.random() * 31),
-  prUrls: [
-    'https://github.com/satudora-digital/way/issues/87',
-    'https://github.com/satudora-digital/way/issues/79',
-    'https://github.com/satudora-digital/way/issues/76'
-  ]
-}
-const Wed = {
   closedIssueCnt: Math.floor(Math.random() * 31),
   closedIssueUrls: [
     'https://github.com/satudora-digital/way/issues/87',
@@ -225,71 +173,15 @@ const Sun = {
 
 
 const data = [
-  {name: 'Thu', Commits: Thu.commitCnt, PullRequests: Thu.prCnt, Closed: Thu.closedIssueCnt, Open: Thu.openIssueCnt},
-  {name: 'Fri', Commits: Fri.commitCnt, PullRequests: Fri.prCnt, Closed: Fri.closedIssueCnt, Open: Fri.openIssueCnt},
-  {name: 'Sat', Commits: Sat.commitCnt, PullRequests: Sat.prCnt, Closed: Sat.closedIssueCnt, Open: Sat.openIssueCnt},
-  {name: 'Sun', Commits: Sun.commitCnt, PullRequests: Sun.prCnt, Closed: Sun.closedIssueCnt, Open: Sun.openIssueCnt},
-  {name: 'Mon', Commits: Mon.commitCnt, PullRequests: Mon.prCnt, Closed: Mon.closedIssueCnt, Open: Mon.openIssueCnt},
-  {name: 'Tue', Commits: Tue.commitCnt, PullRequests: Tue.prCnt, Closed: Tue.closedIssueCnt, Open: Tue.openIssueCnt},
-  {name: 'Wed', Commits: Wed.commitCnt, PullRequests: Wed.prCnt, Closed: Wed.closedIssueCnt, Open: Wed.openIssueCnt},
+  {name: '1/2-1/9', Commits: Thu.commitCnt, PullRequests: Thu.prCnt, Closed: Thu.closedIssueCnt, Open: Thu.openIssueCnt},
+  {name: '1/9-1/16', Commits: Fri.commitCnt, PullRequests: Fri.prCnt, Closed: Fri.closedIssueCnt, Open: Fri.openIssueCnt},
+  {name: '1/16-1/23', Commits: Sat.commitCnt, PullRequests: Sat.prCnt, Closed: Sat.closedIssueCnt, Open: Sat.openIssueCnt},
+  {name: '1/23-1/30', Commits: Sun.commitCnt, PullRequests: Sun.prCnt, Closed: Sun.closedIssueCnt, Open: Sun.openIssueCnt},
+  {name: '1/30-2/6', Commits: Mon.commitCnt, PullRequests: Mon.prCnt, Closed: Mon.closedIssueCnt, Open: Mon.openIssueCnt},
 ]
 
 
 
-const new_data = {
-  20190109: {
-    closedIssueCnt: Math.floor(Math.random() * 31),
-    closedIssueUrls: [
-      'https://github.com/satudora-digital/way/issues/87',
-      'https://github.com/satudora-digital/way/issues/79',
-      'https://github.com/satudora-digital/way/issues/76'
-    ],
-    commitCnt: Math.floor(Math.random() * 31),
-    commitUrls: [
-      'https://github.com/satudora-digital/way/issues/87',
-      'https://github.com/satudora-digital/way/issues/79',
-      'https://github.com/satudora-digital/way/issues/76'
-    ],
-    openIssueCnt: Math.floor(Math.random() * 31),
-    openIssueUrls: [
-      'https://github.com/satudora-digital/way/issues/87',
-      'https://github.com/satudora-digital/way/issues/79',
-      'https://github.com/satudora-digital/way/issues/76'
-    ],
-    prCnt: Math.floor(Math.random() * 31),
-    prUrls: [
-      'https://github.com/satudora-digital/way/issues/87',
-      'https://github.com/satudora-digital/way/issues/79',
-      'https://github.com/satudora-digital/way/issues/76'
-    ]
-  },
-  20190116: {
-    closedIssueCnt: Math.floor(Math.random() * 31),
-    closedIssueUrls: [
-      'https://github.com/satudora-digital/way/issues/87',
-      'https://github.com/satudora-digital/way/issues/79',
-      'https://github.com/satudora-digital/way/issues/76'
-    ],
-    commitCnt: Math.floor(Math.random() * 31),
-    commitUrls: [
-      'https://github.com/satudora-digital/way/issues/87',
-      'https://github.com/satudora-digital/way/issues/79',
-      'https://github.com/satudora-digital/way/issues/76'
-    ],
-    openIssueCnt: Math.floor(Math.random() * 31),
-    openIssueUrls: [
-      'https://github.com/satudora-digital/way/issues/87',
-      'https://github.com/satudora-digital/way/issues/79',
-      'https://github.com/satudora-digital/way/issues/76'
-    ],
-    prCnt: Math.floor(Math.random() * 31),
-    prUrls: [
-      'https://github.com/satudora-digital/way/issues/87',
-      'https://github.com/satudora-digital/way/issues/79',
-      'https://github.com/satudora-digital/way/issues/76'
-    ]
-  }
-}
 
 
 
@@ -306,13 +198,15 @@ class GithubReports extends React.Component {
     console.log(this.props.githubReports)
     return (
       <div>
+      <p style={Object.assign({textAlign: 'left', marginLeft: '151px'}, h1)}>2019/02/06 Dev Meeting Weekly Report</p>
+      <p style={Object.assign({textAlign: 'left', marginLeft: '151px', marginBottom: '56px'}, h2)}>period 2019/01/31 - 2019/02/06</p>
       {Object.keys(this.props.githubReports).map((user, index) => {
         return(
         <div>
           <div>
             <Grid container>
               <Grid item xs={2}>
-                {(() => {if (index == 0) {return (<div><p style={h2}>Member</p><hr width='100%'/></div>)}})()}
+                {(() => {if (index === 0) {return (<div><p style={h2}>Member</p><hr width='100%'/></div>)}})()}
                 <img src={this.props.githubReports[user].iconUrl} alt="failed loading"
                   style={{
                     width: '80px',
@@ -320,14 +214,14 @@ class GithubReports extends React.Component {
                     borderRadius: '50%',
                     marginTop: '126px'
                   }} />
-                <p style={h3}>{this.props.githubReports[user].name}</p>
+                <p style={Object.assign({marginBottom: '144px'}, h3)}>{this.props.githubReports[user].name}</p>
 
 
               </Grid>
               <Grid item xs={4}>
-                {(() => {if (index == 0) {return (<div><p style={h2}>Activity</p><hr width='100%'/></div>)}})()}
+                {(() => {if (index === 0) {return (<div><p style={h2}>Activity</p><hr width='100%'/></div>)}})()}
                 <div style={{paddingTop: '40px'}}>
-                  <ResponsiveContainer height={230}>
+                  <ResponsiveContainer height={270}>
                     <BarChart style={graph_small} data={data}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="name" />
@@ -346,11 +240,12 @@ class GithubReports extends React.Component {
 
 
               <Grid item xs={3}>
-                {(() => {if (index == 0) {return (<div><p style={h2}>Close</p><hr width='100%'/></div>)}})()}
+                {(() => {if (index === 0) {return (<div><p style={h2}>Close</p><hr width='100%'/></div>)}})()}
                   <Grid container>
                     <Grid item xs={6}>
                       <p style={
                           Object.assign({
+                            marginTop: '40px',
                             paddingTop: '16px',
                             paddingBottom: '16px',
                           }, h3)
@@ -403,6 +298,7 @@ class GithubReports extends React.Component {
                         }}>
                         <p style={
                             Object.assign({
+                              marginTop: '40px',
                               paddingTop: '16px'
                             }, h3)
                           }>enhancement</p>
@@ -438,11 +334,12 @@ class GithubReports extends React.Component {
 
 
               <Grid item xs={3}>
-                {(() => {if (index == 0) {return (<div><p style={h2}>Open</p><hr width='100%'/></div>)}})()}
+                {(() => {if (index === 0) {return (<div><p style={h2}>Open</p><hr width='100%'/></div>)}})()}
                   <Grid container>
                     <Grid item xs={6}>
                       <p style={
                           Object.assign({
+                            marginTop: '40px',
                             paddingTop: '16px',
                             paddingBottom: '16px'
                           }, h3)
@@ -491,10 +388,11 @@ class GithubReports extends React.Component {
                           background: leaf,
                           width: '126px',
                           height: '32px',
-                          borderRadius: '5px'
+                          borderRadius: '5px',
                         }}>
                         <p style={
                             Object.assign({
+                              marginTop: '40px',
                               paddingTop: '16px'
                             }, h3)}>enhancement</p>
                       </div>
@@ -502,7 +400,7 @@ class GithubReports extends React.Component {
                           background: sunset,
                           width: '126px',
                           height: '32px',
-                          borderRadius: '5px'
+                          borderRadius: '5px',
                         }}>
                         <p style={
                             Object.assign({
@@ -513,7 +411,7 @@ class GithubReports extends React.Component {
                           background: tomato,
                           width: '126px',
                           height: '32px',
-                          borderRadius: '5px'
+                          borderRadius: '5px',
                         }}>
                         <p style={
                             Object.assign({
