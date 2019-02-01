@@ -19,30 +19,6 @@ module.exports = functions.https.onRequest((req, res) => {
 })
 
 
-const collaboratorsTestData = {
-  awakia:
-    { name: 'Naoyoshi Aikawa',
-      iconUrl: 'https://avatars3.githubusercontent.com/u/272083?v=4' },
-  gakuh:
-    { name: 'Gaku Hagiwara',
-      iconUrl: 'https://avatars2.githubusercontent.com/u/1020048?v=4' },
-  sono8stream:
-    { name: 'Tomohiko Hasegawa',
-      iconUrl: 'https://avatars2.githubusercontent.com/u/16527271?v=4' },
-  TetsuFe:
-    { name: 'Satoshi Yoshio',
-      iconUrl: 'https://avatars0.githubusercontent.com/u/24940519?v=4' },
-  yasunari89:
-    { name: 'Yasunari Ota',
-      iconUrl: 'https://avatars1.githubusercontent.com/u/32453142?v=4' },
-  KoheiAsano:
-    { name: 'Kohei Asano',
-      iconUrl: 'https://avatars3.githubusercontent.com/u/32860920?v=4' },
-  kitamuyu:
-    { name: 'Yu Kitamura',
-      iconUrl: 'https://avatars2.githubusercontent.com/u/33745987?v=4' } }
-
-
 const commitsTestData =
   { KoheiAsano: 1,
     'Tomohiko Hasegawa': 1,
@@ -70,9 +46,14 @@ const issuesTestData =
 
 
 async function fetchGithubReportData(githubAccessToken){
-  const issues = await issueApi.fetchIssues(githubAccessToken)
-  const pullRequests = await pullRequestAPI.fetchAndBuildRepoUserPullRequestCountDict(githubAccessToken, Object.keys(collaboratorsTestData))
-  return buildWeeklyReport(collaboratorsTestData, commitsTestData, issues, pullRequests)
+  try{
+    const collaborators = await collaboratorApi.fetchCollaboratorsForReport(githubAccessToken);
+    const issues = await issueApi.fetchIssues(githubAccessToken);
+    const pullRequests = await pullRequestAPI.fetchAndBuildRepoUserPullRequestCountDict(githubAccessToken, Object.keys(collaborators));
+    return buildWeeklyReport(collaborators, commitsTestData, issues, pullRequests)
+  }catch(error){
+    console.log(error.message)
+  }
 }
 
 
