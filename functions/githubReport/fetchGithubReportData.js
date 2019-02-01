@@ -1,8 +1,7 @@
 'use strict';
 
-const fetch = require("node-fetch");
 const functions = require('firebase-functions');
-const commitApi = require('./commitApi.js')
+//const commitApi = require('./commitApi.js')
 const issueApi = require('./issueApi.js')
 const collaboratorApi = require('./collaboratorApi.js')
 const pullRequestAPI = require('./pullRequestApi.js')
@@ -34,7 +33,7 @@ const commitsTestData =
     yasunari89: 16,
     'DESKTOP-HF3GHF6\\sono8': 1 }
 
-
+/*
 const issuesTestData =
 { yasunari89:
    { openIssue: { issues: ["Array"], count: 2 },
@@ -52,6 +51,7 @@ const issuesTestData =
   KoheiAsano:
    { openIssue: { issues: ["Array"], count: 2 },
      closedIssue: { issues: ["Array"], count: 5 } } }
+*/
 
 
 async function fetchGithubReportData(githubAccessToken, user, repository){
@@ -77,6 +77,7 @@ function buildWeeklyReport(collaborators, commits, issues, pullRequests){
 }
 
 
+/* for local test
 async function main() {
   const githubAccessToken = process.env['GITHUB_ACCESS_TOKEN'];
   const accountName = 'satudora-digital';
@@ -86,4 +87,5 @@ async function main() {
 }
 
 
-//main();
+main();
+*/
