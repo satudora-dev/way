@@ -22,15 +22,16 @@ async function fetchRepositoryIfNeededAndShowLog(){
 
 
 async function showGitLog(path){
-  const git = await require('simple-git')
-  git(path).raw(
+  const git = require('simple-git')
+  await git(path).raw(
     [
       'log',
       '--no-merges',
       '--date=short',
       '--pretty=%h %cd %an %d %s'
     ], (err, result) => {
-      console.log(result)
+      console.log(err);
+      console.log(result);
     });
   /* 以下の書き方にするとundefinedになる
   const log = await require('simple-git')('./repoName').log();
@@ -39,9 +40,9 @@ async function showGitLog(path){
 }
 
 
-module.exports = functions.https.onRequest((req, res) => {
+module.exports = functions.https.onRequest( async (req, res) => {
   if (req.method === 'GET') {
-    fetchRepositoryIfNeededAndShowLog();
+    await fetchRepositoryIfNeededAndShowLog();
     res.status(200).end('success: called github api )')
   }else{
     res.status(200).end('fail: require GET request to call github api')
@@ -50,4 +51,10 @@ module.exports = functions.https.onRequest((req, res) => {
 
 
 /* test */
-//fetchRepositoryIfNeededAndShowLog();
+const testFunc = async () => {
+  await fetchRepositoryIfNeededAndShowLog();
+  return;
+};
+
+
+//testFunc();
