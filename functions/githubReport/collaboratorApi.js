@@ -36,8 +36,8 @@ function fetchUserFromCollaborator(collaboratorJson, accessToken){
 }
 
 
-function fetchCollaboratorsForReport(accessToken){
-  const result = fetchCollaborators(accessToken, 'satudora-digital', 'way').then(function(collaborators){
+function fetchCollaboratorsForReport(accessToken, user, repository){
+  const result = fetchCollaborators(accessToken, user, repository).then(function(collaborators){
     let promises = []
     for(const collaborator of collaborators){
       promises.push(fetchUserFromCollaborator(collaborator, accessToken))

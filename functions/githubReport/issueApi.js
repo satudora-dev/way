@@ -56,9 +56,6 @@ function fetchUserFromCollaborator(collaboratorJson){
   return fetchGetJsonResponse(collaboratorJson.url)
 }
 
-const accessToken = 'xxx'
-
-
 /*
  * return
  * {
@@ -67,8 +64,8 @@ const accessToken = 'xxx'
  *  'assignees': []
  * }
  */
-function fetchRepoAllOpenIssues(){
-  const repoOpenIssues = fetchRepoAllIssues(accessToken, 'satudora-digital', 'way', 'open').then(function(repoIssues){
+function fetchRepoAllOpenIssues(accessToken, user, repository){
+  const repoOpenIssues = fetchRepoAllIssues(accessToken, user, repository, 'open').then(function(repoIssues){
     let openIssueCount = 0
     let openIssueList = []
     for(const i in repoIssues){
@@ -99,8 +96,8 @@ function fetchRepoAllOpenIssues(){
  *  'assignees': []
  * }
  */
-function fetchRepoAllClosedIssues(){
-  const repoClosedIssues = fetchRepoAllIssues(accessToken, 'satudora-digital', 'way', 'closed').then(function(repoIssues){
+function fetchRepoAllClosedIssues(accessToken, user, repository){
+  const repoClosedIssues = fetchRepoAllIssues(accessToken, user, repository, 'closed').then(function(repoIssues){
     let closedIssueCount = 0
     let closedIssueList = []
     for(const i in repoIssues){
@@ -188,9 +185,9 @@ function mergeOpenAndCloseIssues(repoClosedIssues, repoOpenIssues){
 }
 
 
-function fetchIssues(){
-  const result = fetchRepoAllClosedIssues().then(function(repoClosedIssues){
-    const openResult = fetchRepoAllOpenIssues().then(function(repoOpenIssues){
+function fetchIssues(accessToken, user, repository){
+  const result = fetchRepoAllClosedIssues(accessToken, user, repository).then(function(repoClosedIssues){
+    const openResult = fetchRepoAllOpenIssues(accessToken, user, repository).then(function(repoOpenIssues){
       return mergeOpenAndCloseIssues(repoClosedIssues, repoOpenIssues)
     })
     return openResult

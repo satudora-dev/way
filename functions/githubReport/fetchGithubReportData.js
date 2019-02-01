@@ -45,11 +45,11 @@ const issuesTestData =
      closedIssue: { issues: ["Array"], count: 5 } } }
 
 
-async function fetchGithubReportData(githubAccessToken){
+async function fetchGithubReportData(githubAccessToken, user, repository){
   try{
-    const collaborators = await collaboratorApi.fetchCollaboratorsForReport(githubAccessToken);
-    const issues = await issueApi.fetchIssues(githubAccessToken);
-    const pullRequests = await pullRequestAPI.fetchAndBuildRepoUserPullRequestCountDict(githubAccessToken, Object.keys(collaborators));
+    const collaborators = await collaboratorApi.fetchCollaboratorsForReport(githubAccessToken, user, repository);
+    const issues = await issueApi.fetchIssues(githubAccessToken, user, repository);
+    const pullRequests = await pullRequestAPI.fetchAndBuildRepoUserPullRequestCountDict(githubAccessToken, user, repository, Object.keys(collaborators));
     return buildWeeklyReport(collaborators, commitsTestData, issues, pullRequests)
   }catch(error){
     console.log(error.message)
@@ -70,7 +70,9 @@ function buildWeeklyReport(collaborators, commits, issues, pullRequests){
 
 async function main() {
   const githubAccessToken = process.env['GITHUB_ACCESS_TOKEN'];
-  const reportData = await fetchGithubReportData(githubAccessToken);
+  const accountName = 'satudora-digital';
+  const repositoryName = 'way';
+  const reportData = await fetchGithubReportData(githubAccessToken, accountName, repositoryName);
   console.log(reportData);
 }
 
