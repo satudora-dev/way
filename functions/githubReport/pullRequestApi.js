@@ -59,10 +59,7 @@ function extractWeeklyMergedPullRequests(pullRequests){
 }
 
 
-const accessToken = 'xxx'
-
-
-function fetchAndBuildRepoUserPullRequestCountDict(collaboratorLoginNames){
+function fetchAndBuildRepoUserPullRequestCountDict(accessToken, collaboratorLoginNames){
   const repoOpenIssues = fetchRepoAllPullRequests(accessToken, 'satudora-digital', 'way', 'all').then(function(pullRequests){
     const createdPullRequests = extractWeeklyCreatedPullRequests(pullRequests)
     const mergedPullRequests = extractWeeklyMergedPullRequests(pullRequests)
