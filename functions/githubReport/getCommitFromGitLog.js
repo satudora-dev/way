@@ -41,7 +41,7 @@ async function showGitLog(path){
 
 module.exports = functions.https.onRequest((req, res) => {
   if (req.method === 'GET') {
-    showGitLog()
+    fetchRepositoryIfNeededAndShowLog();
     res.status(200).end('success: called github api )')
   }else{
     res.status(200).end('fail: require GET request to call github api')
