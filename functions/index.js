@@ -61,4 +61,5 @@ function sendNewComerEmail(email, newUserFullName, newUserID) {
 }
 
 
-exports.fetchRepositoryUserProfiles = require('./fetchRepositoryUserProfiles');
+//exports.fetchRepositoryUserProfiles = require('./fetchRepositoryUserProfiles');
+exports.fetchGithubReportData = require('./githubReport/fetchGithubReportData');

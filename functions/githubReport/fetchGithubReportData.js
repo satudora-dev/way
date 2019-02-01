@@ -6,12 +6,21 @@ const commitApi = require('./commitApi.js')
 const issueApi = require('./issueApi.js')
 const collaboratorApi = require('./collaboratorApi.js')
 const pullRequestAPI = require('./pullRequestApi.js')
-//const githubAccessToken = functions.config().github.access_token;
+const githubAccessToken = functions.config().github.access_token;
 
 
-module.exports = functions.https.onRequest((req, res) => {
+/*
+  - request parameters
+    - user
+    - repository
+ */
+module.exports = functions.https.onRequest(async (req, res) => {
   if (req.method === 'GET') {
-    console.log(fetchGithubReportData())
+    const user = req.query.user;
+    const repository = req.query.repository;
+    console.log(user, repository)
+    const reportData = await fetchGithubReportData(githubAccessToken, user, repository);
+    console.log(reportData);
     res.status(200).end('success: called github api )')
   }else{
     res.status(200).end('fail: require GET request to call github api')
@@ -77,4 +86,4 @@ async function main() {
 }
 
 
-main();
+//main();
