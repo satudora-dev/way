@@ -13,15 +13,16 @@ const githubAccessToken = functions.config().github.access_token;
     - user
     - repository
  */
-module.exports = functions.https.onRequest(async (req, res) => {
+module.exports = firestore => functions.https.onRequest(async (req, res) => {
   if (req.method === 'GET') {
     const user = req.query.user;
     const repository = req.query.repository;
     console.log(user, repository)
     const reportData = await fetchGithubReportData(githubAccessToken, user, repository);
     console.log(reportData);
-    res.status(200).end('success: called github api )')
-  }else{
+    await require('../storeReport/api_data2firestore').storeData(firestore, reportData);
+    res.status(200).end('success: called github api')
+  } else {
     res.status(200).end('fail: require GET request to call github api')
   }
 })
