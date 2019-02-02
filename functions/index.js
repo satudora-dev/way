@@ -62,4 +62,4 @@ function sendNewComerEmail(email, newUserFullName, newUserID) {
 
 
 //exports.fetchRepositoryUserProfiles = require('./fetchRepositoryUserProfiles');
-exports.fetchGithubReportData = require('./githubReport/fetchGithubReportData');
+exports.fetchGithubReportData = require('./githubReport/fetchGithubReportData')(firestore);
