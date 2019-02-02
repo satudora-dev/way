@@ -59,3 +59,7 @@ function sendNewComerEmail(email, newUserFullName, newUserID) {
     console.log(error.message);
   });
 }
+
+
+//exports.fetchRepositoryUserProfiles = require('./fetchRepositoryUserProfiles');
+exports.fetchGithubReportData = require('./githubReport/fetchGithubReportData')(firestore);
