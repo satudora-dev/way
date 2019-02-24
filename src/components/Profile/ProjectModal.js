@@ -9,7 +9,6 @@ import FormControl from '@material-ui/core/FormControl';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
-import aitl_projects from '../../components/aitl_projects';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -59,7 +58,7 @@ const style = {
   },
 }
 
-const ProjectModal = ({projectModalOpen, currentProjects, updateProjects, onProjectModalClose, profileUserKey}) => {
+const ProjectModal = ({projectModalOpen, currentProjects, updateProjects, onProjectModalClose, profileUserKey, allProjects}) => {
   return(
     <div>
       <Grid>
@@ -82,14 +81,14 @@ const ProjectModal = ({projectModalOpen, currentProjects, updateProjects, onProj
                     value={currentProjects}
                     onChange={(e) => updateProjects(currentProjects,e.target.value, profileUserKey)}
                     input={<Input id="select-multiple-checkbox" />}
-                    renderValue={selected => selected.join(', ')}
+                    renderValue={selected => selected.map(key => allProjects[key].name).join(', ')}
                     MenuProps={MenuProps}
                   >
-                    {aitl_projects.map(project => (
-                      <MenuItem key={project} onChange={(e) => console.log(project)} value={project}>
+                    {Object.keys(allProjects).map((key) => (
+                      <MenuItem key={key} onChange={(e) => {console.log(e)}} value={key}>
                         <Checkbox
-                          checked={currentProjects.indexOf(project) > -1} />
-                        <ListItemText primary={project} />
+                          checked={currentProjects.indexOf(key) > -1}/>
+                        <ListItemText primary={allProjects[key].name}/>
                       </MenuItem>
                     ))}
                   </Select>

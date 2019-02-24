@@ -104,10 +104,8 @@ export const updateProjects = (currentProjects, newProjects, userKey) => dispatc
 
   if(currentProjects.length > 0){
     for(let project of currentProjects){
-      projectsRef.where("name", "==", project).get().then((querySnapshot) => {
-        querySnapshot.forEach((projectDoc) => {
-          projectsRef.doc(projectDoc.id).update({members: firebase.firestore.FieldValue.arrayRemove(userKey)})
-        })
+      projectsRef.doc(project).get().then((querySnapshot) => {
+        projectsRef.doc(querySnapshot.id).update({members: firebase.firestore.FieldValue.arrayRemove(userKey)})
       })
       .catch(error => dispatch({
         type: 'UPDATE_PROJECTS_ERROR',
@@ -117,10 +115,8 @@ export const updateProjects = (currentProjects, newProjects, userKey) => dispatc
   }
 
   for(let project of newProjects){
-    projectsRef.where("name", "==", project).get().then((querySnapshot) => {
-      querySnapshot.forEach((projectDoc) => {
-        projectsRef.doc(projectDoc.id).update({members: firebase.firestore.FieldValue.arrayUnion(userKey)})
-      })
+    projectsRef.doc(project).get().then((querySnapshot) => {
+      projectsRef.doc(querySnapshot.id).update({members: firebase.firestore.FieldValue.arrayUnion(userKey)})
     })
     .catch(error => dispatch({
       type: 'UPDATE_PROJECTS_ERROR',

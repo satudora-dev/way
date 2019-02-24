@@ -27,7 +27,7 @@ class Profile extends Component {
   }
 
   toProjectPage(prjName) {
-    this.props.history.push(`../users?project=${prjName}`);
+    this.props.history.push(`../projects/${prjName}`);
   }
 
   toTagPage(tagName) {
@@ -91,6 +91,7 @@ class Profile extends Component {
     const projects = this.props.projects || [];
     const tags = this.props.tags || [];
     const canEdit = profileUserKey === this.props.currentUserID;
+    const allProjects = this.props.allProjects;
 
     return (
       <div className="Profile">
@@ -161,7 +162,7 @@ class Profile extends Component {
                   style={style.positionstyle}
                   onClick={() => this.toProjectPage(project)}
                 >
-                  {project}
+                  {allProjects[project].name}
                 </Button>
               );
             })}
@@ -180,6 +181,7 @@ class Profile extends Component {
               updateProjects={this.props.updateProjects}
               onProjectModalClose={() => this.setState({ projectModalOpen: false })}
               profileUserKey={profileUserKey}
+              allProjects={allProjects}
             />
           </div>
         </div>

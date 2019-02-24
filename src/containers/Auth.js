@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { checkUserAuth } from '../actions/auth';
 import { fetchUsers } from '../actions/users';
+import { fetchProjectsIfNeeded } from '../actions/projects';
 import Login from './Login';
 import Signup from './Signup';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -9,6 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 class Auth extends React.Component {
   componentWillMount(){
     this.props.checkUserAuth();
+    this.props.fetchProjectsIfNeeded();
   }
 
   render() {
@@ -41,7 +43,8 @@ const mapStateToProps = ( {auth, users}) => {
 
 const mapDispatchToProps = {
   fetchUsers: fetchUsers,
-  checkUserAuth: checkUserAuth
+  checkUserAuth: checkUserAuth,
+  fetchProjectsIfNeeded: fetchProjectsIfNeeded,
 }
 
 export default connect(

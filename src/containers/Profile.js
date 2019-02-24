@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { uploadIcon } from '../actions/iconAction';
 import {  editName, updatePosition, updateProjects, addTag, deleteTag, updateNowGroup} from '../actions/profile';
 
-const mapStateToProps = ({ auth, users }, ownProps) => {
+const mapStateToProps = ({ auth, users, projects }, ownProps) => {
   const currentUserID = auth.currentUserID;
   const thisUser = ownProps.match.params.id;
   if (users[thisUser]) {
@@ -18,6 +18,7 @@ const mapStateToProps = ({ auth, users }, ownProps) => {
       projects: users[thisUser].projects,
       tags: users[thisUser].tags,
       nowGroup: users[thisUser].nowGroup,
+      allProjects: projects,
     }
   }
   else {
